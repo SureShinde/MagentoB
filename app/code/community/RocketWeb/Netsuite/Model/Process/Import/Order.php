@@ -32,10 +32,12 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         }
         */
 
-        if (is_null($salesOrder->basic->customFieldList->customField[0]->searchValue->internalId) || $salesOrder->basic->customFieldList->customField[0]->searchValue->internalId == '')
+        $rointernalid = Mage::helper('rocketweb_netsuite')->getROInternalId($salesOrder);
+
+        if ($rointernalid == false)
             $netsuiteOrderId = $salesOrder->basic->internalId[0]->searchValue->internalId;
         else
-            $netsuiteOrderId = $salesOrder->basic->customFieldList->customField[0]->searchValue->internalId;
+            $netsuiteOrderId = $rointernalid;
 
         $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id',$netsuiteOrderId);
         $magentoOrders->load();
@@ -72,10 +74,12 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
     }
 
     public function isAlreadyImported(SearchRow $record) {
-        if (is_null($record->basic->customFieldList->customField[0]->searchValue->internalId) || $record->basic->customFieldList->customField[0]->searchValue->internalId == '')
+        $rointernalid = Mage::helper('rocketweb_netsuite')->getROInternalId($record);
+
+        if ($rointernalid == false)
             $netsuiteOrderId = $record->basic->internalId[0]->searchValue->internalId;
         else
-            $netsuiteOrderId = $record->basic->customFieldList->customField[0]->searchValue->internalId;
+            $netsuiteOrderId = $rointernalid;
 
         $orderCollection = Mage::getModel('sales/order')->getCollection();
         $orderCollection->addFieldToFilter('netsuite_internal_id',$netsuiteOrderId);

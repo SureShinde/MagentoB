@@ -26,13 +26,13 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
         if (is_null($itemFulfillment->basic->createdFrom)) {
             return false;
         }
-        
-        //$netsuiteOrderId = $itemFulfillment->basic->createdFrom[0]->searchValue->internalId;
-        // if RO not exists, use SO internal ID, otherwise, use RO internal ID
-        if (is_null($itemFulfillment->basic->customFieldList->customField[0]->searchValue->internalId) || $itemFulfillment->basic->customFieldList->customField[0]->searchValue->internalId == '')
+
+        $rointernalid = Mage::helper('rocketweb_netsuite')->getROInternalId($itemFulfillment);
+
+        if ($rointernalid == false)
             $netsuiteOrderId = $itemFulfillment->basic->createdFrom[0]->searchValue->internalId;
         else
-            $netsuiteOrderId = $itemFulfillment->basic->customFieldList->customField[0]->searchValue->internalId;
+            $netsuiteOrderId = $rointernalid;
 
         $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
         $magentoOrders->load();
@@ -65,8 +65,15 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
     }
 
     public function isAlreadyImported(SearchRow $record) {
+        $rointernalid = Mage::helper('rocketweb_netsuite')->getROInternalId($record);
+
+        if ($rointernalid == false)
+            $netsuiteInternalId = $record->basic->internalId[0]->searchValue->internalId;
+        else
+            $netsuiteInternalId = $rointernalid;
+
         $shipmentCollection = Mage::getModel('sales/order_shipment')->getCollection();
-        $shipmentCollection->addFieldToFilter('netsuite_internal_id', $record->basic->internalId[0]->searchValue->internalId);
+        $shipmentCollection->addFieldToFilter('netsuite_internal_id', $netsuiteInternalId);
         $netsuiteUpdateDatetime = Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($record->basic->lastModifiedDate[0]->searchValue);
         $shipmentCollection->addFieldToFilter('last_import_date', array ('gteq' => $netsuiteUpdateDatetime));
         $shipmentCollection->load();

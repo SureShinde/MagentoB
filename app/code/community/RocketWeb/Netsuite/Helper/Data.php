@@ -59,10 +59,26 @@ class RocketWeb_Netsuite_Helper_Data extends Mage_Core_Helper_Data {
         if ($recordtype == RecordType::itemFulfillment)
             return false;
 
-        if (is_null($record->basic->customFieldList->customField[0]->searchValue->internalId) || $record->basic->customFieldList->customField[0]->searchValue->internalId == '')
+        if ($this->getROInternalId($record) == false)
             return false;
 
         return true;
+    }
+
+    public function getROInternalId($record)
+    {
+        $rointernalid = false;
+        if (!is_null($record->customFieldList->customField))
+        {
+            foreach ($netsuiteOrder->customFieldList->customField as $customField) {
+                if ($customField->internalId == 'custbody_sourcero') {
+                    $rointernalid = $customField->searchValue->internalId;
+                    break;
+                }
+            }
+        }
+
+        return $rointernalid;
     }
 
     public function checkCODPaymentMethod($record, $recordtype)
