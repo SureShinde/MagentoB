@@ -16,6 +16,11 @@ class Bilna_Customer_Model_Api2_Wishlistcollection_Category extends Bilna_Custom
             '`wishlist`.`wishlist_id` = `main_table`.`wishlist_id`',
             ['wishlist.*']
         );
+        $collection->getSelect()->joinLeft(
+            ['profile' => Mage::getSingleton('core/resource')->getTableName('socialcommerce/profile')],
+            '`profile`.`customer_id` = `wishlist`.`customer_id`',
+            ['profile.username']
+        );
         $this->_applyCollectionModifiers($collection);
         $collection->load();
 
