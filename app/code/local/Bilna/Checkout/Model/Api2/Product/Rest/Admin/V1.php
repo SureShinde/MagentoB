@@ -30,6 +30,21 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
             
             foreach ($productsData as $productItem) {
                 $productByItem = $this->_getProduct($productItem['product_id'], $storeId, 'id');
+
+                if ($productItem['product_type'] == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
+                    if ($productItem['product_child_id']) {
+                        $productConfigChild = $this->_getProduct($productItem['product_child_id']);
+
+                        if ($productConfigChild->getStatus() == Mage_Catalog_Model_Product_Status::STATUS_DISABLED) {
+                            Mage::throwException('This product is currently not available');
+                        }
+                    }
+                }
+
+                if ($productByItem->getStatus() != Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
+                    Mage::throwException($productByItem->getName() . ' disabled');
+                }
+
                 $productRequest = $this->_getProductRequest($productItem);
                 $result = $quote->addProduct($productByItem, $productRequest);
 
