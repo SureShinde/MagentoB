@@ -231,6 +231,7 @@ extends Mage_Core_Controller_Front_Action
         $customerId = $customer->getId();
 
         $visibility = ($this->getRequest()->getParam('visibility', 0) === 'on' ? 1 : 0);
+        $editorFlag = ($this->getRequest()->getParam('editor_flag', 0) === 'on' ? 1 : 0);
 
         $wishlistName = (isset($this->postData['name'])) ?
             $this->postData['name'] : null;
@@ -240,6 +241,14 @@ extends Mage_Core_Controller_Front_Action
 
         $desc = (isset($this->postData['desc'])) ?
         $this->postData['desc'] : null;
+
+        if ((isset($this->postData['col_categories'])) && (count($this->postData['col_categories']) > 0)) {
+            $collectionCategories = array();
+            foreach ($this->postData['col_categories'] as $colCategories) {
+                $collectionCategories[] = $colCategories;
+            }
+            $collectionCategory = implode(",", $collectionCategories);
+        }
         
 
 
@@ -248,7 +257,7 @@ extends Mage_Core_Controller_Front_Action
             # Check the limit is disabled
 			/*Mage::helper('socialcommerce')->checkCollectionLimit($customerId);*/
 
-            $this->createNewCollection($customerId, $wishlistName, $visibility, $desc);
+            $this->createNewCollection($customerId, $wishlistName, $visibility, $desc, $collectionCategory, $editorFlag);
 
             # Success notification
             $message = 'Your new collection "'.$wishlistName.'" has been successfully saved.';
@@ -269,7 +278,7 @@ extends Mage_Core_Controller_Front_Action
 
     }
 
-    protected function createNewCollection($customerId, $wishlistName, $visibility, $desc)
+    protected function createNewCollection($customerId, $wishlistName, $visibility, $desc, $collectionCategory, $editorFlag)
     {
         $wishlist = Mage::getModel('wishlist/wishlist');
 
@@ -282,6 +291,8 @@ extends Mage_Core_Controller_Front_Action
             ->generateSharingCode()
             //->setCloudCover($cover)
             ->setCover($cover)
+            ->setCategories($collectionCategory)
+            ->setEditorFlag($editorFlag)
             ->save();
 
         if ($preset_image = $_POST['preset_image']) {
@@ -320,11 +331,13 @@ extends Mage_Core_Controller_Front_Action
                 $titleUpdate = null;
 
                 $visibility = (isset($this->postData['visibility'])) ? true : false;
+                $editorFlag = (isset($this->postData['editor_flag'])) ? true : false;
 
                 # TODO need to check if submitted collection is belong to logged user.
 
                 $wishlist = Mage::getModel('wishlist/wishlist')->load($collectionId);
                 $wishlist->setVisibility($visibility);
+                $wishlist->setEditorFlag($editorFlag);
 
                 #Get wishlist name
                 $wlname = $wishlist->getName();
@@ -345,6 +358,21 @@ extends Mage_Core_Controller_Front_Action
                     $titleUpdate = $wishlist->setName($title);
                 }
 
+                if ((isset($this->postData['col_categories'])) && (count($this->postData['col_categories']) > 0)) {
+                    $collectionCategories = array();
+
+                    foreach ($this->postData['col_categories'] as $colCategories) {
+                        $collectionCategories[] = $colCategories;
+                    }
+
+                    $collectionCategory = implode(",", $collectionCategories);
+                    $wlCategories = $wishlist->getCategories();
+
+                    if ($wlCategories != $collectionCategory) {
+                        $categoriesUpdate = $wishlist->setCategories($collectionCategory);
+                    }
+                }
+
                 #for deleting collection
                 if($del){
                 $vst = '0';
@@ -353,7 +381,7 @@ extends Mage_Core_Controller_Front_Action
                 
                 $descupdate = $wishlist->setDesc($desc);
 
-                if ($cover || $descupdate || $titleUpdate) {
+                if ($cover || $descupdate || $titleUpdate || $categoriesUpdate) {
                   
                     $wishlist->save();
 

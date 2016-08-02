@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Moxy_SocialCommerce>
-            <version>0.1.10</version>
+            <version>0.1.11</version>
         </Moxy_SocialCommerce>
     </modules>
 
@@ -92,6 +92,9 @@
                 <collectioncategory>
                     <table>moxy_socialcommerce_collection_category</table>
                 </collectioncategory>
+                <customercollection>
+                    <table>moxy_socialcommerce_map_coll_category</table>
+                </customercollection>
             </entities>
         </socialcommerce_mysql4>
     </models>
@@ -148,6 +151,11 @@
                     <sort_order>10</sort_order>
                     <action>admin_socialcommerce/adminhtml_collectioncategory</action>
                 </collectioncategory>
+                <customercollection>
+                    <title>Manage Customer Collection</title>
+                    <sort_order>20</sort_order>
+                    <action>admin_socialcommerce/adminhtml_customercollection</action>
+                </customercollection>
             </children>
         </socialcommerce>
     </menu>
@@ -173,6 +181,10 @@
                                 <title>Manage Collectioncategory</title>
                                 <sort_order>10</sort_order>
                             </collectioncategory>
+                            <customercollection translate="title">
+                                <title>Manage Customercollection</title>
+                                <sort_order>20</sort_order>
+                            </customercollection>
                         </children>
                     </socialcommerce>
                 </children>

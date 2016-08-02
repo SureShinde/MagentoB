@@ -1,5 +1,5 @@
 <?php
-class Moxy_SocialCommerce_Block_Adminhtml_Collectioncategory_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
+class Moxy_SocialCommerce_Block_Adminhtml_Customercollection_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     protected function _prepareForm()
     {
@@ -14,3 +14,4 @@ class Moxy_SocialCommerce_Block_Adminhtml_Collectioncategory_Edit_Form extends M
         return parent::_prepareForm();
     }
 }
+
