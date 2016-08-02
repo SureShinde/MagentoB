@@ -11,6 +11,7 @@ class Moxy_SocialCommerce_Block_Adminhtml_Customercollection_Edit_Tab_Form exten
         $fieldset->addField("name", "text", array(
             "label" => Mage::helper("socialcommerce")->__("Collection name"),
             "name" => "name",
+            "readonly" => true
         ));
 
         $fieldset->addField("collection_category_id", "multiselect", array(

@@ -14,7 +14,12 @@ class Moxy_SocialCommerce_Block_Adminhtml_Customercollection_Grid extends Mage_A
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel("wishlist/wishlist")->getCollection()->addFieldToFilter("name", array("notnull" => true));
+        $collection = Mage::getModel("wishlist/wishlist")
+            ->getCollection()
+            ->addFieldToFilter("name", array("notnull" => true))
+            ->join(array("profile" => "socialcommerce/profile"), "main_table.customer_id = profile.customer_id", array("username"));
+            //->getSelect();
+        //echo "<pre>";print_r($collection->getData());die;
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -32,6 +37,16 @@ class Moxy_SocialCommerce_Block_Adminhtml_Customercollection_Grid extends Mage_A
         $this->addColumn("name", array(
             "header" => Mage::helper("socialcommerce")->__("name"),
             "index" => "name",
+        ));
+
+        $this->addColumn("username", array(
+            "header" => Mage::helper("socialcommerce")->__("username"),
+            "index" => "username",
+        ));
+
+        $this->addColumn("created_at", array(
+            "header" => Mage::helper("socialcommerce")->__("created at"),
+            "index" => "created_at",
         ));
 
         return parent::_prepareColumns();
