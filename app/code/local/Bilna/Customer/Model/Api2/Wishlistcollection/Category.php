@@ -21,6 +21,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection_Category extends Bilna_Custom
             '`profile`.`customer_id` = `wishlist`.`customer_id`',
             ['profile.username']
         );
+        $collection->addFieldToFilter('wishlist.visibility', 1);
         $this->_applyCollectionModifiers($collection);
         $collection->load();
 
@@ -35,12 +36,12 @@ class Bilna_Customer_Model_Api2_Wishlistcollection_Category extends Bilna_Custom
             $result[0]['total_record'] = $totalRecord;
             
             foreach ($collection as $key => $row) {
-                $id = $row->getId();
+                $wishlistId = $row->getWishlistId();
                 $name = $row->getName();
                 $customerId = $row->getCustomerId();
 
                 $result[$key] = $row->getData();
-                $result[$key]['slug'] = $this->_getCollectionSlug($id, $name);
+                $result[$key]['slug'] = $this->_getCollectionSlug($wishlistId, $name);
                 $result[$key]['avatar'] = $this->_getCollectionAvatar($customerId);
                 $result[$key]['gender'] = $this->_getCollectionGender($customerId);
             }
@@ -49,8 +50,8 @@ class Bilna_Customer_Model_Api2_Wishlistcollection_Category extends Bilna_Custom
         return $result;
     }
 
-    protected function _getCollectionSlug($id, $name) {
-        return $id . '-' . Mage::getModel('catalog/product_url')->formatUrlKey($name);
+    protected function _getCollectionSlug($wishlistId, $name) {
+        return $wishlistId . '-' . Mage::getModel('catalog/product_url')->formatUrlKey($name);
     }
 
     protected function _getCollectionAvatar($customerId) {
