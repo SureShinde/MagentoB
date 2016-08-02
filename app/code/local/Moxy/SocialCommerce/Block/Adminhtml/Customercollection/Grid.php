@@ -18,8 +18,6 @@ class Moxy_SocialCommerce_Block_Adminhtml_Customercollection_Grid extends Mage_A
             ->getCollection()
             ->addFieldToFilter("name", array("notnull" => true))
             ->join(array("profile" => "socialcommerce/profile"), "main_table.customer_id = profile.customer_id", array("username"));
-            //->getSelect();
-        //echo "<pre>";print_r($collection->getData());die;
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
