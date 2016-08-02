@@ -86,12 +86,14 @@ class Moxy_SocialCommerce_Adminhtml_CustomercollectionController extends Mage_Ad
 
                 $cust_coll_model = Mage::getModel("socialcommerce/customercollection");
                 $existing_cust_coll_datas = $cust_coll_model->getCollection()->addFieldToFilter("wishlist_id", array("eq" => $wishlist_id))->getData();
+//echo count($existing_cust_coll_datas);die;
                 if (count($existing_cust_coll_datas) > 0) { // If this collection has been mapped before
                     $new_coll_cat_id = array();
                     $unchanged_coll_cat_id = array();
                     foreach ($existing_cust_coll_datas as $cust_coll_data) {
                         // Remove all previous categories that aren't used anymore
                         if (!in_array($cust_coll_data["collection_category_id"], $post_data["categories"])) {
+
                             $cust_coll_model->setId($cust_coll_data["map_id"])->delete();
                         } else {
                             $unchanged_coll_cat_id[] = $cust_coll_data["collection_category_id"];
@@ -106,7 +108,8 @@ class Moxy_SocialCommerce_Adminhtml_CustomercollectionController extends Mage_Ad
                             "wishlist_id" => $wishlist_id,
                             "collection_category_id" => $coll_cat_id
                         );
-                        $customer_collection_model->addData($data)->save();
+                        $customer_collection_model->setData($data)->save();
+                        unset($data);
                     }
                 } else { // If there is no mapping for this collection before
                     foreach ($post_data["categories"] as $coll_cat) {
