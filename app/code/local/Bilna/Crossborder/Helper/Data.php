@@ -230,33 +230,39 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
         $success = true;
         $message = '';
 
-        if ($product->getData('cross_border') == 1 && $this->isCrossBorderEnabled()) {
-            $invalidCount = 0;
-            $messages = array();
-            $crossBorderConfig = $this->getConfiguration();
-            $maxWeightAllowed = $crossBorderConfig['max_weight_allowed'];
-            $maxSubtotalAllowed = $crossBorderConfig['max_subtotal_allowed'];
-            $weight = (float) $product->getData('weight');
-            $price = $this->getProductPrice($product);
+        if ($product->getData('cross_border') == 1) {
+            if ($this->isCrossBorderEnabled()) {
+                $invalidCount = 0;
+                $messages = array();
+                $crossBorderConfig = $this->getConfiguration();
+                $maxWeightAllowed = $crossBorderConfig['max_weight_allowed'];
+                $maxSubtotalAllowed = $crossBorderConfig['max_subtotal_allowed'];
+                $weight = (float) $product->getData('weight');
+                $price = $this->getProductPrice($product);
 
-            // Get All Cross Border Items and calculate the totals
-            $totalCrossBorder = $this->getTotalCrossBorder($quote);
-            $totalWeight = $totalCrossBorder['total_weight'];
-            $subtotal = $totalCrossBorder['subtotal'];
+                // Get All Cross Border Items and calculate the totals
+                $totalCrossBorder = $this->getTotalCrossBorder($quote);
+                $totalWeight = $totalCrossBorder['total_weight'];
+                $subtotal = $totalCrossBorder['subtotal'];
 
-            // Check Weight Limitation
-            if ((($weight * $qty) + $totalWeight) > $maxWeightAllowed) {
-                $messages[] = Mage::helper('checkout')->__('Total berat kiriman luar negeri melebihi ' . $maxWeightAllowed . ' kg');
-                $invalidCount++;
-            }
+                // Check Weight Limitation
+                if ((($weight * $qty) + $totalWeight) > $maxWeightAllowed) {
+                    $messages[] = Mage::helper('checkout')->__('Total berat kiriman luar negeri melebihi ' . $maxWeightAllowed . ' kg');
+                    $invalidCount++;
+                }
 
-            // Check Subtotal Limitation
-            if ((($price * $qty) + $subtotal) > $maxSubtotalAllowed) {
-                $messages[] = Mage::helper('checkout')->__('Total harga pesanan kiriman luar negeri melebihi Rp ') . $maxSubtotalAllowed;
-                $invalidCount++;
-            }
+                // Check Subtotal Limitation
+                if ((($price * $qty) + $subtotal) > $maxSubtotalAllowed) {
+                    $messages[] = Mage::helper('checkout')->__('Total harga pesanan kiriman luar negeri melebihi Rp ') . $maxSubtotalAllowed;
+                    $invalidCount++;
+                }
 
-            if ($invalidCount > 0) { // If there is any invalid criteria, throw the Exception
+                if ($invalidCount > 0) { // If there is any invalid criteria, throw the Exception
+                    $success = false;
+                }
+            } else {
+                $messages[] =
+                    Mage::helper('checkout')->__('Layanan pengiriman luar negeri sedang tidak tersedia. Hapus kiriman luar negeri untuk melanjutkan pesanan');
                 $success = false;
             }
         }
