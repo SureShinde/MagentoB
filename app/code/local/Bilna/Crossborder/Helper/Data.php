@@ -259,19 +259,6 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
             if ($invalidCount > 0) { // If there is any invalid criteria, throw the Exception
                 $success = false;
             }
-        } else { // If Cross Border is disabled
-            $cartItems = $quote->getAllItems();
-            if (!empty($cartItems)) {
-                foreach ($cartItems as $item) {
-                    // If there is any cross border item on shopping cart
-                    if ($item->cross_border == 1) {
-                        $messages[] =
-                            Mage::helper('checkout')->__('Layanan pengiriman luar negeri sedang tidak tersedia. Hapus kiriman luar negeri untuk melanjutkan pesanan');
-                        $success = false;
-                        break;
-                    }
-                }
-            }
         }
 
         return array('success' => $success, 'messages' => $messages);
