@@ -237,7 +237,7 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
             $maxWeightAllowed = $crossBorderConfig['max_weight_allowed'];
             $maxSubtotalAllowed = $crossBorderConfig['max_subtotal_allowed'];
             $weight = (float) $product->getData('weight');
-            $price = (float) $product->getData('price');
+            $price = $this->getProductPrice($product);
 
             // Get All Cross Border Items and calculate the totals
             $totalCrossBorder = $this->getTotalCrossBorder($quote);
@@ -301,5 +301,32 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
             'total_weight' => $totalWeight,
             'subtotal' => $subtotal
         );
+    }
+
+    /**
+     * Get Product Price or Special Price if condition is met
+     * @param $product
+     * @return float
+     */
+    private function getProductPrice($product) {
+        $dateTime = Mage::getModel('core/date')->timestamp(time());
+        $currentTime = date("Y-m-d H:i:s", $dateTime);
+
+        $price = (float) $product->getData('price');
+        $specialPrice = (float) $product->getData('special_price');
+        $specialFromDate = $product->getData('special_from_date');
+        $specialToDate = $product->getData('special_to_date');
+        $productPrice = $price;
+
+        if (!is_null($specialFromDate) && (strtotime($specialFromDate) <= strtotime($currentTime))) {
+            if (!is_null($specialToDate)) {
+                if (strtotime($currentTime) <= strtotime($specialToDate)) {
+                    $productPrice = $specialPrice;
+                }
+            } else {
+                $productPrice = $specialPrice;
+            }
+        }
+        return $productPrice;
     }
 }
