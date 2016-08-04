@@ -262,7 +262,7 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
                 }
             } else {
                 $messages[] =
-                    Mage::helper('checkout')->__('Layanan pengiriman luar negeri sedang tidak tersedia. Hapus kiriman luar negeri untuk melanjutkan pesanan');
+                    Mage::helper('checkout')->__('Layanan pengiriman luar negeri sedang tidak tersedia.');
                 $success = false;
             }
         }
