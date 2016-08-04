@@ -19,8 +19,8 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
     {
     	$quoteId = $data['entity_id'];
     	$storeId = isset($data['store_id']) ? $data['store_id'] : 1;
-    	/*$productId = $data['product_id'];
-    	$qty = isset($data['qty']) ? $data['qty'] : 1;*/
+    	/*$productId = $data['product_id'];*/
+    	$qty = isset($data['qty']) ? $data['qty'] : 1;
         $productsData = array($data['products']);
 
     	try {
@@ -35,14 +35,13 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
             foreach ($productsData as $productItem)
             {
                 $productByItem = $this->_getProduct($productItem['product_id'], $storeId, "id");
-
                 $productRequest = $this->_getProductRequest($productItem);
                 try {
+                    $this->_validateAddToCartCrossBorder($quote, $productByItem, $qty);
                     $result = $quote->addProduct($productByItem, $productRequest);
                     if (is_string($result)) {
                         Mage::throwException($result);
                     }
-                    $this->_validateCrossBorder($quote);
                 } catch (Mage_Core_Exception $e) {
                     $errors[] = $e->getMessage();
                 }
