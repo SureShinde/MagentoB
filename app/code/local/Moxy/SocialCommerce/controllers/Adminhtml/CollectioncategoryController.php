@@ -126,9 +126,39 @@ class Moxy_SocialCommerce_Adminhtml_CollectioncategoryController extends Mage_Ad
         $this->_redirect("*/*/");
     }
 
-    public function massRemoveAction()
+    public function massAddAction()
     {
         try {
+            $wishlist_ids = $this->getRequest()->getPost('wishlist_ids', array());
+            $category_id = $this->getRequest()->getParams()['category_id'];
+            $mapped_wishlist = Mage::getModel('socialcommerce/customercollection')
+                ->getCollection()
+                ->addFieldToFilter('wishlist_id', array("in" => array($wishlist_ids)))
+                ->addFieldToFilter('collection_category_id', array("eq" => $category_id))
+                ->getColumnValues('wishlist_id');
+            if (count($mapped_wishlist) > 0) {
+                $new_item = array_diff($wishlist_ids, $mapped_wishlist);
+            }
+
+            $customer_collection_model = Mage::getModel("socialcommerce/customercollection");
+            foreach ($new_item as $wishlist) {
+                $data = array(
+                    "wishlist_id" => $wishlist,
+                    "collection_category_id" => $category_id
+                );
+                $customer_collection_model->setData($data)->save();
+                unset($data);
+            }
+            Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Item(s) successfully added"));
+        } catch (Exception $e) {
+            Mage::getSingleton("adminhtml/session")->addError($e->getMessage());
+        }
+        $this->_redirect('*/*/');
+    }
+
+    public function massRemoveAction()
+    {
+        try{
             $ids = $this->getRequest()->getPost('category_ids', array());
             foreach ($ids as $id) {
                 $model = Mage::getModel("socialcommerce/collectioncategory");
@@ -139,6 +169,12 @@ class Moxy_SocialCommerce_Adminhtml_CollectioncategoryController extends Mage_Ad
             Mage::getSingleton("adminhtml/session")->addError($e->getMessage());
         }
         $this->_redirect('*/*/');
+    }
+
+    public function gridAction()
+    {
+        $this->loadLayout();
+        $this->getResponse()->setBody($this->getLayout()->createBlock('socialcommerce/adminhtml_collectioncategory_edit_tab_collections')->toHtml());
     }
 
     /**

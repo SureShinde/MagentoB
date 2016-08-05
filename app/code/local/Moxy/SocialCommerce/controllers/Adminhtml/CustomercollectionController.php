@@ -117,6 +117,7 @@ class Moxy_SocialCommerce_Adminhtml_CustomercollectionController extends Mage_Ad
                             "collection_category_id" => $coll_cat
                         );
                         $cust_coll_model->addData($data)->save();
+                        unset($data);
                     }
                 }
 
