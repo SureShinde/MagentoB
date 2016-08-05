@@ -322,7 +322,8 @@ class Bilna_Checkout_Model_Api2_Resource extends Mage_Api2_Model_Resource
 
     /**
      * Validate Cross Border Items on Quote
-     * @param $quote
+     * @param Mage_Sales_Model_Quote $quote
+     * @return boolean $isValid
      */
     protected function _validateCrossBorder($quote)
     {
@@ -333,7 +334,26 @@ class Bilna_Checkout_Model_Api2_Resource extends Mage_Api2_Model_Resource
             foreach($validationResult['messages'] as $errorMessage) {
                 $this->_error($errorMessage, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
-            $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
+            $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR, Mage_Api2_Model_Server::HTTP_NOT_ACCEPTABLE);
+        }
+        return $isValid;
+    }
+
+    /**
+     * Validate Add to Cart Cross Border Items
+     * @param Mage_Sales_Model_Quote $quote
+     * @return boolean $isValid
+     */
+    protected function _validateAddToCartCrossBorder($quote, $product, $qty)
+    {
+        $this->_getCrossBorderHelper();
+        $validationResult = $this->_crossBorderHelper->validateAddToQuote($quote, $product, $qty);
+        $isValid = $validationResult['success'];
+        if (!$isValid) {
+            foreach($validationResult['messages'] as $errorMessage) {
+                $this->_error($errorMessage, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+            }
+            $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR, Mage_Api2_Model_Server::HTTP_NOT_ACCEPTABLE);
         }
         return $isValid;
     }
