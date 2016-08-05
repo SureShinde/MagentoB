@@ -17,21 +17,21 @@ class Bilna_Rest_Model_Api2_Formbuilder_Rest_Admin_V1 extends Bilna_Rest_Model_A
             foreach ($_inputs as $_input) {
                 if (($_error = $this->_validRequired($_input, $_formData)) !== true) {
                     $this->_error($_error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
-                    $_errors = true;
+                    // $_errors = true;
                     continue;
                 }
                 
                 if (($_error = $this->_validUnique($_formId, $_input, $_formData[$_input['name']])) !== true) {
                     $this->_error($_error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
-                    $_errors = true;
+                    // $_errors = true;
                     continue;
                 }
             }
         }
         
-        if ($_errors) {
-            $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
-        }
+        // if ($_errors) {
+        //     $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
+        // }
         
         if (!$this->_saveData($_formId, $_form, $_formData)) {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
