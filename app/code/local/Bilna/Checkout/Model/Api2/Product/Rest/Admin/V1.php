@@ -9,87 +9,47 @@
  */
 class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Model_Api2_Product_Rest
 {
-	/**
+    /**
      * Add new product/catalog for shopping cart
      *
      * @param array $data
      * @return int
      */
-    protected function _create(array $data)
-    {
+    protected function _create(array $data) {
     	$quoteId = $data['entity_id'];
-    	$storeId = isset($data['store_id']) ? $data['store_id'] : 1;
-    	/*$productId = $data['product_id'];
-    	$qty = isset($data['qty']) ? $data['qty'] : 1;*/
-        $productsData = array($data['products']);
+    	$storeId = isset ($data['store_id']) ? $data['store_id'] : 1;
+        $productsData = array ($data['products']);
+
+        if (empty ($productsData)) {
+            $this->_critical('Invalid Product Data');
+        }
 
     	try {
-	    	$quote = $this->_getQuote($quoteId, $storeId);
-
-            if(empty($productsData))
-            {
-                Mage::throwException("Invalid Product Data");
-            }
-
-            $errors = array();
-            foreach ($productsData as $productItem)
-            {
-                $productByItem = $this->_getProduct($productItem['product_id'], $storeId, "id");
-
+            $errors = [];
+            $quote = $this->_getQuote($quoteId, $storeId);
+            
+            foreach ($productsData as $productItem) {
+                $productByItem = $this->_getProduct($productItem['product_id'], $storeId, 'id');
                 $productRequest = $this->_getProductRequest($productItem);
-                try {
-                    $result = $quote->addProduct($productByItem, $productRequest);
-                    if (is_string($result)) {
-                        Mage::throwException($result);
-                    }
-                    $this->_validateCrossBorder($quote);
-                } catch (Mage_Core_Exception $e) {
-                    $errors[] = $e->getMessage();
-                }
-            }
+                $result = $quote->addProduct($productByItem, $productRequest);
 
-            if (!empty($errors)){
-                Mage::throwException(implode(PHP_EOL, $errors));
+                if (is_string($result)) {
+                    Mage::throwException($result);
+                }
+
+                $this->_validateCrossBorder($quote);
             }
+            
             $quote->getShippingAddress()->setCollectShippingRates(true);
             $quote->getShippingAddress()->collectShippingRates();
             $quote->collectTotals()->save();
 
-            /*$productModel = Mage::getModel('catalog/product');
-            $product = $productModel->load($productId);*/
-
-
-//	    	$product = $this->_getProduct($productId, $storeId, "id");
-
-	    	/*$productRequest = $this->_getProductRequest(array(
-	    		'product_id' => $productId,
-	    		'qty'		 => $qty
-	    	));
-
-	    	$result = $quote->addProduct($productByItem, $productRequest);*/
-
-//            $quoteItem = Mage::getModel('sales/quote_item')->setProduct($product);
-//            $quoteItem->setStoreId($storeId);
-//            $quoteItem->setQuote($quote);
-//            $quoteItem->setQty($qty);
-
-            /*if (is_string($result)) {
-                throw Mage::throwException($result);
-            }*/
-
-//            $quote->addItem($quoteItem);
-//            $quote->getShippingAddress()->setCollectShippingRates(true);
-//            $quote->getShippingAddress()->collectShippingRates();
-//            $quote->collectTotals(); // calls $address->collectTotals();
-//            $quote->save();            
-
-            //$quote->collectTotals()->save();
-
-	    } catch (Mage_Core_Exception $e) {
-            $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+            return $this->_getLocation($quote);
         }
-
-        return $this->_getLocation($quote);
+        catch (Mage_Core_Exception $e) {
+            $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+            $this->_critical(self::RESOURCE_INTERNAL_ERROR);
+        }
     }
 
     /**
