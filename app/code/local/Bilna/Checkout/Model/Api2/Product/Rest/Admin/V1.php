@@ -30,6 +30,30 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
             
             foreach ($productsData as $productItem) {
                 $productByItem = $this->_getProduct($productItem['product_id'], $storeId, 'id');
+
+                if ($productItem['product_type'] == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
+                    $productChildDisabled = false;
+
+                    if ($productItem['product_child_id']) {
+                        $productConfigChild = $this->_getProduct($productItem['product_child_id']);
+
+                        if ($productConfigChild->getStatus() == Mage_Catalog_Model_Product_Status::STATUS_DISABLED) {
+                            $productChildDisabled = true;
+                        }
+                    }
+                    else {
+                        $productChildDisabled = true;
+                    }
+
+                    if ($productChildDisabled) {
+                        Mage::throwException('This product is currently not available');
+                    }
+                }
+
+                if ($productByItem->getStatus() != Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
+                    Mage::throwException('This product is currently not available');
+                }
+
                 $productRequest = $this->_getProductRequest($productItem);
                 $result = $quote->addProduct($productByItem, $productRequest);
 
@@ -47,7 +71,8 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
             return $this->_getLocation($quote);
         }
         catch (Mage_Core_Exception $e) {
-            $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+            $errMsg = str_replace(Mage::helper('cataloginventory')->__('Product will be available in 1-2 weeks.'), '', $e->getMessage());
+            $this->_error($errMsg, Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
