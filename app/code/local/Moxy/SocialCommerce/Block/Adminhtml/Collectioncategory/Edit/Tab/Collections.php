@@ -85,7 +85,8 @@ class Moxy_SocialCommerce_Block_Adminhtml_Collectioncategory_Edit_Tab_Collection
                     "main_table.wishlist_id = customercollection.wishlist_id",
                     array("collection_category_id" => "customercollection.collection_category_id")
                 )
-                ->where("main_table.name IS NOT NULL AND (customercollection.collection_category_id != ".$this->formId." OR customercollection.collection_category_id IS NULL) AND main_table.wishlist_id NOT IN (".implode(',', $customercollection_wishlistid).")");
+                ->where("main_table.name IS NOT NULL AND (customercollection.collection_category_id != ".$this->formId." OR customercollection.collection_category_id IS NULL) AND main_table.wishlist_id NOT IN (".implode(',', $customercollection_wishlistid).")")
+                ->group("main_table.wishlist_id");
             $this->setCollection($collection);
         }
         return $this;
