@@ -51,7 +51,7 @@ class Moxy_SocialCommerce_Block_Adminhtml_Collectioncategory_Edit_Tab_Collection
             "index" => "wishlist_id",
         ));
 
-        $this->addColumn("name", array(
+        $this->addColumn("wishlist_name", array(
             "header" => Mage::helper("socialcommerce")->__("name"),
             "index" => "name",
         ));
