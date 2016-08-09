@@ -29,12 +29,10 @@ class Bilna_Rest_Model_Api2_Formbuilder_Rest_Admin_V1 extends Bilna_Rest_Model_A
             }
         }
         
-        if ($_errors) {
-            $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
-        }
-        
-        if (!$this->_saveData($_formId, $_form, $_formData)) {
-            $this->_critical(self::RESOURCE_INTERNAL_ERROR);
+        if (!$_errors) {
+            if (!$this->_saveData($_formId, $_form, $_formData)) {
+                $this->_critical(self::RESOURCE_INTERNAL_ERROR);
+            }
         }
         
         $this->_getLocation($_form);
