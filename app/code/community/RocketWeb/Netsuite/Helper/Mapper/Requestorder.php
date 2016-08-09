@@ -231,20 +231,28 @@ class RocketWeb_Netsuite_Helper_Mapper_Requestorder extends RocketWeb_Netsuite_H
         $server_output = json_decode($server_output, true);
         $request_order_import_log_file = 'request_order_import.log';
 
-        if ($server_output['status'] == 'success')
+        if ($server_status !== false)
         {
-            // log the internal ids into log file
-            Mage::log(date("Y-m-d H:i:s"), null, $request_order_import_log_file);
-            foreach($server_output['result'] as $record)
-                Mage::log($record['internalid'], null, $request_order_import_log_file);
-            return $server_output['result'];
+            if ($server_output['status'] == 'success')
+            {
+                // log the internal ids into log file
+                foreach($server_output['result'] as $record)
+                    Mage::log($record['internalid'], null, $request_order_import_log_file);
+                return $server_output['result'];
+            }
+            else
+            if ($server_output['status'] == 'error')
+            {
+                Mage::log($server_output['msg'], null, $request_order_import_log_file);
+                return $server_output;
+            }
         }
         else
-        if ($server_output['status'] == 'error')
         {
-            Mage::log(date("Y-m-d H:i:s"), null, $request_order_import_log_file);
-            Mage::log($server_output['msg'], null, $request_order_import_log_file);
-            return $server_output['msg'];
+            $return['status'] = 'error';
+            $return['msg'] = 'Cannot process search Request Order because of calling CURL error';
+            Mage::log($return['msg'], null, $request_order_import_log_file);
+            return $return;
         }
     }
     

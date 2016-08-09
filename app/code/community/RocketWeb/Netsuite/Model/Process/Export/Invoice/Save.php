@@ -48,10 +48,15 @@ class RocketWeb_Netsuite_Model_Process_Export_Invoice_Save extends RocketWeb_Net
 
         $is_oneworld = Mage::helper('rocketweb_netsuite')->checkOneWorld($magentoOrder->getCreatedAt());
 
-        if ($is_oneworld)
-            $this->processOneWorld($message, $queueData, $magentoOrder, $magentoInvoice);
-        else
-            $this->processOld($message, $queueData, $magentoOrder, $magentoInvoice);
+        try {
+            if ($is_oneworld)
+                $this->processOneWorld($message, $queueData, $magentoOrder, $magentoInvoice);
+            else
+                $this->processOld($message, $queueData, $magentoOrder, $magentoInvoice);
+        }
+        catch (Exception $ex) {
+            throw new Exception($ex->getMessage());
+        }
     }
 
     protected function processOneWorld(RocketWeb_Netsuite_Model_Queue_Message $message, $queueData = array (), $magentoOrder, $magentoInvoice) {
@@ -89,20 +94,20 @@ class RocketWeb_Netsuite_Model_Process_Export_Invoice_Save extends RocketWeb_Net
         }
 
         if (!$scriptId)
-            return;
+            throw new Exception("Please input Restlet ID for creating Proforma Invoice");
 
         $orderInternalId = $magentoInvoice->getOrder()->getNetsuiteInternalId();
 
         // do not continue if there is no internal ID
         if (!$orderInternalId)
-            throw new Exception("There is no order related to the magento invoice with entity ID : " . $invoice_id);
+            throw new Exception("There is no order related to the magento invoice with entity ID : " . $magentoInvoice->getId());
 
         $invoiceDate = $magentoInvoice->getCreatedAt();
         $invoiceDate = Mage::getModel('core/date')->date('j/n/Y', strtotime($invoiceDate));
 
         // variables to be posted to proforma
         $vars = array(
-            'magento_invoice_id' => $invoice_id,
+            'magento_invoice_id' => $magentoInvoice->getIncrementId(),
             'netsuite_order_internalid' => $orderInternalId,
             'magento_invoice_date' => $invoiceDate
         );
@@ -131,19 +136,27 @@ class RocketWeb_Netsuite_Model_Process_Export_Invoice_Save extends RocketWeb_Net
 
         $proforma_create_new_log_file = 'proforma_create_new.log';
 
-        if ($server_output['status'] == 'success')
+        if ($server_status !== false)
         {
-            // if successful, save the internal ID into magento's invoice
-            $magentoInvoice->setNetsuiteInternalId($server_output['internalid']);
-            $magentoInvoice->getResource()->save($magentoInvoice);
+            if ($server_output['status'] == 'success')
+            {
+                // if successful, save the internal ID into magento's invoice
+                $magentoInvoice->setNetsuiteInternalId($server_output['internalid']);
+                $magentoInvoice->getResource()->save($magentoInvoice);
 
-            Mage::log(('Invoice #' . $magentoInvoice->getIncrementId() . ' create Proforma with ID ' . $server_output['internalid']), null, $proforma_create_new_log_file);
+                Mage::log(('Invoice #' . $magentoInvoice->getIncrementId() . ' create Proforma with ID ' . $server_output['internalid']), null, $proforma_create_new_log_file);
+            }
+            else
+            if ($server_output['status'] == 'error')
+            {
+                Mage::log(('Invoice #' . $magentoInvoice->getIncrementId() . ' failed with status ' . $server_output['msg']), null, $proforma_create_new_log_file);
+                throw new Exception("Failed to create proforma invoice. Status : " . $server_output['msg']);
+            }
         }
         else
-        if ($server_output['status'] == 'error')
         {
-            Mage::log(('Invoice #' . $magentoInvoice->getIncrementId() . ' failed with status ' . $server_output['msg']), null, $proforma_create_new_log_file);
-            throw new Exception("Failed to create proforma invoice. Status : " . $server_output['msg']);
+            Mage::log(('Invoice #' . $magentoInvoice->getIncrementId() . ' failed because calling curl failed'), null, $proforma_create_new_log_file);
+            throw new Exception("Failed to create proforma invoice. Status : Invoice #" . $magentoInvoice->getIncrementId() . " failed because calling curl failed");
         }
     }
 

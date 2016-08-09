@@ -33,7 +33,10 @@ class RocketWeb_Netsuite_Model_Process_Export_Customer_Save extends RocketWeb_Ne
 		
 		$netsuiteService = Mage::helper('rocketweb_netsuite')->getNetsuiteService();
 		$customerExists = Mage::helper('rocketweb_netsuite/mapper_customer')->findNetsuiteCustomer('email', Mage::helper('rocketweb_netsuite/mapper_customer')->getExternalId($magentoCustomer));
-		$netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getNetsuiteFormat($magentoCustomer);
+		if(!$customerExists)
+			$netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getNetsuiteFormat($magentoCustomer);
+		else
+			$netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getNetsuiteFormat($magentoCustomer, 'update');
 
         Mage::dispatchEvent('netsuite_customer_send_before',array('netsuite_customer'=>$netsuiteCustomer));
 		

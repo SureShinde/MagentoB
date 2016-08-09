@@ -232,11 +232,11 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                     0: separate
                     1: together
                     */
-                    $productOptions = unserialize($bundProduct[$item->getData('parent_item_id')]['productOptions']);
-                    if($productOptions['shipment_type']==0)
+                    $productOptionsBundle = unserialize($bundProduct[$item->getData('parent_item_id')]['productOptions']);
+                    if($productOptionsBundle['shipment_type']==0)
                     {
                         $set_parent_name = 'Bundle Product Together - ' . $productBundleName;
-                    }elseif($productOptions['shipment_type']==1){
+                    }elseif($productOptionsBundle['shipment_type']==1){
                         $set_parent_name = 'Bundle Product Separate - ' . $productBundleName;
                     }
                 }elseif($item->getData('parent_item_id') != ''){
@@ -268,6 +268,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                     //$bilna_credit = $pointsTransaction->getData('base_points_to_money');
                     //$subTotal = $magentoOrder->getSubtotal();
                     //$bilnaCreditItem = $item->getData('price') * ($bilna_credit / $subTotal);
+                    echo "PRICE : " . $item->getData('price') . ", BILNA CREDIT : " . $bilna_credit . ", SUBTOTAL : " . $subTotal . "\n";
                     $bilnaCreditItem = ($item->getData('price') + $discountPerItem) * ($bilna_credit / ($subTotal + $orderDiscountAmount) );
                 }
 
@@ -298,6 +299,12 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             if(!empty($confProduct) && $confProduct[$item->getData('parent_item_id')] > 0 ){
                 $priceBeforeDiscount = $confProduct[$item->getData('parent_item_id')];
                 $set_price_before_discount = $priceBeforeDiscount;
+                $final_unit_price = ($set_price_before_discount - abs($totalDiscount));
+            }
+            else
+            {
+                $set_price_before_discount = $set_price_before_discount / $item->getData('qty_ordered');
+                $final_unit_price = ($set_price_before_discount - abs($totalDiscount));
             }
 
             $items[] = array(
@@ -306,15 +313,16 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                 'custcol_bln_customtran_item' => ( $product->getNetsuiteInternalId() ? $product->getNetsuiteInternalId() : $this->getProductDefaultInternalId() ),
                 'custcol_bln_customtran_skubilna' => $product->getSku(),
                 'custcol_magentoitemid' => $item->getId(),
-                'amount' => ($set_price - (abs($totalDiscount) * $item->getData('qty_ordered'))),
+                //'amount' => ($set_price - (abs($totalDiscount) * $item->getData('qty_ordered'))),
+                'amount' => round($final_unit_price * $item->getQtyOrdered(), 2),
                 'custcol_discountitem' =>  abs($totalDiscountOnly), // discount of 1 item only without bilna credit
                 'custcol_so_lineid' => $item->getProductId() . "_" . $line_no,
-                'custcol_pricebeforediscount' => ($set_price_before_discount / $item->getData('qty_ordered')), // original price of 1 item only
+                'custcol_pricebeforediscount' => $set_price_before_discount,
                 'custcol_bilnacredit' => abs($set_bilna_credit), // bilna credit of 1 item
                 'custcol_parentid' => $set_parent_item_id,
                 'custcol_parentname' => $set_parent_name,
                 'custcol_bln_customtran_taxcode' => $itemTaxCode,
-                'custcol_bln_customtran_unitprice' => (($set_price_before_discount / $item->getData('qty_ordered')) - abs($totalDiscount)) // price of 1 item - total discount inc. bilna credit
+                'custcol_bln_customtran_unitprice' => $final_unit_price
             );
 
             $line_no++;
@@ -1253,10 +1261,15 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
 
         $server_output = json_decode($server_output, true);
 
-        if ($server_output['status'] == 'success')
-            return true;
+        if ($server_status !== false)
+        {
+            if ($server_output['status'] == 'success')
+                return $server_output['result'];
+            else
+            if ($server_output['status'] == 'error')
+                return false;
+        }
         else
-        if ($server_output['status'] == 'error')
             return false;
     }
 
