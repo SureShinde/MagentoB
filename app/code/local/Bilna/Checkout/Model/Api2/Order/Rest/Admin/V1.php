@@ -28,7 +28,8 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         $tokenId = isset ($data['token_id']) ? $data['token_id'] : '';
         $payment = isset ($data['payment']) ? $data['payment'] : '';
         $trxFrom = isset ($data['trx_from']) ? $data['trx_from'] : self::DEFAULT_TRX_FROM;
-        
+        $remoteIp = isset ($data['remote_ip']) ? $data['remote_ip'] : NULL;
+
         $allowInstallment = isset ($data['allow_installment']) ? $data['allow_installment'] : '';
         $installmentMethod = isset ($data['installment_method']) ? $data['installment_method'] : '';
         $installmentTenor = isset ($data['installment']) ? $data['installment'] : '';
@@ -138,6 +139,11 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             
             if (!empty ($trxFrom)) {
                 $order->setTrxFrom($trxFrom);
+                $saveOrder = true;
+            }
+
+            if (!empty ($remoteIp)) {
+                $order->setRemoteIp($remoteIp);
                 $saveOrder = true;
             }
             
