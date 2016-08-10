@@ -62,6 +62,7 @@ class Moxy_SocialCommerce_Block_Adminhtml_Collectioncategory_Edit_Tab_Collection
     protected function _filterIncategoryConditionCallback($collection, $column)
     {
         $value = $column->getFilter()->getValue();
+
         if ($value == '0') { // this is yes
 
             $collection = Mage::getModel('wishlist/wishlist')->getCollection();
@@ -84,9 +85,15 @@ class Moxy_SocialCommerce_Block_Adminhtml_Collectioncategory_Edit_Tab_Collection
                     array("customercollection" => "moxy_socialcommerce_map_coll_category"),
                     "main_table.wishlist_id = customercollection.wishlist_id",
                     array("collection_category_id" => "customercollection.collection_category_id")
-                )
-                ->where("main_table.name IS NOT NULL AND (customercollection.collection_category_id != ".$this->formId." OR customercollection.collection_category_id IS NULL) AND main_table.wishlist_id NOT IN (".implode(',', $customercollection_wishlistid).")")
-                ->group("main_table.wishlist_id");
+                );
+
+            if (count($customercollection_wishlistid) > 0) {
+                $collection->getSelect()->where("main_table.name IS NOT NULL AND (customercollection.collection_category_id != ".$this->formId." OR customercollection.collection_category_id IS NULL) AND main_table.wishlist_id NOT IN (".implode(',', $customercollection_wishlistid).")")
+                    ->group("main_table.wishlist_id");
+            } else {
+                $collection->getSelect()->where("main_table.name IS NOT NULL AND (customercollection.collection_category_id != ".$this->formId." OR customercollection.collection_category_id IS NULL)")
+                    ->group("main_table.wishlist_id");
+            }
             $this->setCollection($collection);
         }
         return $this;
@@ -113,9 +120,4 @@ class Moxy_SocialCommerce_Block_Adminhtml_Collectioncategory_Edit_Tab_Collection
 	{
 		return $this->getUrl('*/*/grid', array ('_current' => true));
 	}
-
-  	public function getRowUrl($row)
-  	{
-		return $this->getUrl('*/*/editInput', array('id' => $this->formId));
-  	}	 
 }

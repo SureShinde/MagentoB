@@ -50,16 +50,6 @@ class Moxy_SocialCommerce_Adminhtml_CollectioncategoryController extends Mage_Ad
         $this->_title($this->__("Collectioncategory"));
         $this->_title($this->__("New Item"));
 
-        $id   = $this->getRequest()->getParam("id");
-        $model  = Mage::getModel("socialcommerce/collectioncategory")->load($id);
-
-        $data = Mage::getSingleton("adminhtml/session")->getFormData(true);
-        if (!empty($data)) {
-            $model->setData($data);
-        }
-
-        Mage::register("collectioncategory_data", $model);
-
         $this->loadLayout();
         $this->_setActiveMenu("socialcommerce/collectioncategory");
 
