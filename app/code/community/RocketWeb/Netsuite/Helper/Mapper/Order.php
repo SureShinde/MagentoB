@@ -268,7 +268,6 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                     //$bilna_credit = $pointsTransaction->getData('base_points_to_money');
                     //$subTotal = $magentoOrder->getSubtotal();
                     //$bilnaCreditItem = $item->getData('price') * ($bilna_credit / $subTotal);
-                    echo "PRICE : " . $item->getData('price') . ", BILNA CREDIT : " . $bilna_credit . ", SUBTOTAL : " . $subTotal . "\n";
                     $bilnaCreditItem = ($item->getData('price') + $discountPerItem) * ($bilna_credit / ($subTotal + $orderDiscountAmount) );
                 }
 
