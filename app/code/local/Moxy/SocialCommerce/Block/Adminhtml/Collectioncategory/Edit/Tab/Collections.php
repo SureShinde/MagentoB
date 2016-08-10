@@ -85,7 +85,7 @@ class Moxy_SocialCommerce_Block_Adminhtml_Collectioncategory_Edit_Tab_Collection
                     array("customercollection" => "moxy_socialcommerce_map_coll_category"),
                     "main_table.wishlist_id = customercollection.wishlist_id",
                     array("collection_category_id" => "customercollection.collection_category_id")
-                );
+            );
 
             if (count($customercollection_wishlistid) > 0) {
                 $collection->getSelect()->where("main_table.name IS NOT NULL AND (customercollection.collection_category_id != ".$this->formId." OR customercollection.collection_category_id IS NULL) AND main_table.wishlist_id NOT IN (".implode(',', $customercollection_wishlistid).")")
