@@ -48,15 +48,10 @@ class RocketWeb_Netsuite_Model_Process_Export_Invoice_Save extends RocketWeb_Net
 
         $is_oneworld = Mage::helper('rocketweb_netsuite')->checkOneWorld($magentoOrder->getCreatedAt());
 
-        try {
-            if ($is_oneworld)
-                $this->processOneWorld($message, $queueData, $magentoOrder, $magentoInvoice);
-            else
-                $this->processOld($message, $queueData, $magentoOrder, $magentoInvoice);
-        }
-        catch (Exception $ex) {
-            throw new Exception($ex->getMessage());
-        }
+        if ($is_oneworld)
+            $this->processOneWorld($message, $queueData, $magentoOrder, $magentoInvoice);
+        else
+            $this->processOld($message, $queueData, $magentoOrder, $magentoInvoice);
     }
 
     protected function processOneWorld(RocketWeb_Netsuite_Model_Queue_Message $message, $queueData = array (), $magentoOrder, $magentoInvoice) {
@@ -132,12 +127,11 @@ class RocketWeb_Netsuite_Model_Process_Export_Invoice_Save extends RocketWeb_Net
 
         curl_close($ch);
 
-        $server_output = json_decode($server_output, true);
-
         $proforma_create_new_log_file = 'proforma_create_new.log';
 
-        if ($server_status !== false)
+        if ($server_output !== false)
         {
+            $server_output = json_decode($server_output, true);
             if ($server_output['status'] == 'success')
             {
                 // if successful, save the internal ID into magento's invoice

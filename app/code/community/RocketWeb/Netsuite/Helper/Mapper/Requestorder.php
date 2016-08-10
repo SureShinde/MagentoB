@@ -228,11 +228,11 @@ class RocketWeb_Netsuite_Helper_Mapper_Requestorder extends RocketWeb_Netsuite_H
 
         curl_close($ch);
 
-        $server_output = json_decode($server_output, true);
         $request_order_import_log_file = 'request_order_import.log';
 
-        if ($server_status !== false)
+        if ($server_output !== false)
         {
+            $server_output = json_decode($server_output, true);
             if ($server_output['status'] == 'success')
             {
                 // log the internal ids into log file

@@ -35,15 +35,10 @@ class RocketWeb_Netsuite_Model_Process_Export_Order_Place extends RocketWeb_Nets
 
         $is_oneworld = Mage::helper('rocketweb_netsuite')->checkOneWorld($magentoOrder->getCreatedAt());
 
-        try {
-            if ($is_oneworld)
-                $this->processOneWorld($message, $queueData, $magentoOrder);
-            else
-                $this->processOld($message, $queueData, $magentoOrder);
-        }
-        catch (Exception $ex) {
-            throw new Exception($ex->getMessage());
-        }
+        if ($is_oneworld)
+            $this->processOneWorld($message, $queueData, $magentoOrder);
+        else
+            $this->processOld($message, $queueData, $magentoOrder);
     }
 
     protected function processOneWorld(RocketWeb_Netsuite_Model_Queue_Message $message, $queueData = array (), $magentoOrder) {
@@ -131,12 +126,11 @@ class RocketWeb_Netsuite_Model_Process_Export_Order_Place extends RocketWeb_Nets
 
         curl_close($ch);
 
-        $server_output = json_decode($server_output, true);
-
         $request_order_create_new_log_file = 'request_order_create_new.log';
 
-        if ($server_status !== false)
+        if ($server_output !== false)
         {
+            $server_output = json_decode($server_output, true);
             if ($server_output['status'] == 'success')
             {
                 $netsuite_internal_id = $server_output['internalid'];

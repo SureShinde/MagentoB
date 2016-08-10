@@ -1258,10 +1258,9 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
 
         curl_close($ch);
 
-        $server_output = json_decode($server_output, true);
-
-        if ($server_status !== false)
+        if ($server_output !== false)
         {
+            $server_output = json_decode($server_output, true);
             if ($server_output['status'] == 'success')
                 return $server_output['result'];
             else
