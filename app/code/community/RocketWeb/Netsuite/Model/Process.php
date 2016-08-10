@@ -143,6 +143,8 @@ class RocketWeb_Netsuite_Model_Process {
             if (!$importableEntityModel->isActive()) {
                 continue;
             }
+
+            $update_lastmodified_entity = true;
             
             while ($records = $importableEntityModel->queryNetsuite($updatedFrom)) {
                 if (is_array($records)) {
@@ -168,6 +170,13 @@ class RocketWeb_Netsuite_Model_Process {
 
                     // if current processed record type is request order
                     if ($importableEntityModel->getRecordType() == 'requestorder') {
+                        // if returned status is error, do not change the last modified date of current entity
+                        if ($records['status'] == 'error')
+                        {
+                            $update_lastmodified_entity = false;
+                            break;
+                        }
+
                         foreach($records as $record)
                         {
                             if ($importableEntityModel->isMagentoImportable($record['internalid']) && !$importableEntityModel->isAlreadyImported($record['internalid'], $record['lastmodifieddate'])) {
@@ -301,7 +310,8 @@ class RocketWeb_Netsuite_Model_Process {
             }
 
             // set last update access date for specific import entity
-            Mage::helper('rocketweb_netsuite/queue')->setLastUpdateAccessDateSpecificEntity($time, 'netsuite_import_'.$path);
+            if ($update_lastmodified_entity)
+                Mage::helper('rocketweb_netsuite/queue')->setLastUpdateAccessDateSpecificEntity($time, 'netsuite_import_'.$path);
         }
 
         Mage::helper('rocketweb_netsuite/queue')->setLastUpdateAccessDate($time, RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE);
