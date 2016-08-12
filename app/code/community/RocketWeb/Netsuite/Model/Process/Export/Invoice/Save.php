@@ -135,7 +135,7 @@ class RocketWeb_Netsuite_Model_Process_Export_Invoice_Save extends RocketWeb_Net
             if ($server_output['status'] == 'success')
             {
                 // if successful, save the internal ID into magento's invoice
-                $magentoInvoice->setNetsuiteInternalId($server_output['internalid']);
+                $magentoInvoice->setNetsuiteInternalId($orderInternalId);
                 $magentoInvoice->getResource()->save($magentoInvoice);
 
                 Mage::log(('Invoice #' . $magentoInvoice->getIncrementId() . ' create Proforma with ID ' . $server_output['internalid']), null, $proforma_create_new_log_file);

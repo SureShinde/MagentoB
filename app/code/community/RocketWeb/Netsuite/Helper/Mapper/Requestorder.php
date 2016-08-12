@@ -45,7 +45,16 @@ class RocketWeb_Netsuite_Helper_Mapper_Requestorder extends RocketWeb_Netsuite_H
 
                 $magentoOrder->cancel();
                 $magentoOrder->setStatus('canceled');
+                $magentoOrderHistory = $magentoOrder->addStatusHistoryComment('');
+                $magentoOrderHistory->setIsCustomerNotified(true);
                 $magentoOrder->save();
+
+                // refunding points
+                $orders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $roInternalId);
+                $order  = $orders->getFirstItem();
+
+                Mage::helper('rocketweb_netsuite/mapper_order')->cancelAndRefundPoint($order);
+
                 return;
             }
         }

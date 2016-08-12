@@ -125,16 +125,23 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             $product = Mage::getModel('catalog/product')->load($item->getProductId());
             
             if (!((float) $item->getRowTotal()) && $item->getParentItemId()) {
-                $parentItem = Mage::getModel('sales/order_item')->load($item->getParentItemId());
-                $price = $parentItem->getRowTotal();
-                $taxPercent = $parentItem->getTaxPercent();
+                if (isset($bundProduct[$item->getData('item_id')]))
+                {
+                    $price = $item->getRowTotal();
+                    $taxPercent = $item->getTaxPercent();
+                }
+                else
+                if (isset($confProduct[$item->getData('item_id')]))
+                {
+                    $parentItem = Mage::getModel('sales/order_item')->load($item->getParentItemId());
+                    $price = $parentItem->getRowTotal();
+                    $taxPercent = $parentItem->getTaxPercent();
+                }
             }
             else {
                 $price = $item->getRowTotal();
                 $taxPercent = $item->getTaxPercent();
             }
-
-            $set_price = $price;
 
             if ($item->getProductType() == 'bundle') {
                 if ($item->getProduct()->getPrice() == 0) {
@@ -151,6 +158,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             if ($item->getProductType() == 'simple' && $item->getParentItemId() && isset ($fixedPriceBundles[$item->getParentItemId()])) {
                 $price = 0;
             }
+
+            $set_price = $price;
             
             //$netsuiteOrderItem->amount = $price;
             
@@ -967,51 +976,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                     $orders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
                     $order  = $orders->getFirstItem();
 
-                    $transaction = Mage::getModel('points/transaction')->loadByOrder($order);
-                    $order->setMoneyForPoints($transaction->getData('points_to_money'));
-                    $order->setBaseMoneyForPoints($transaction->getData('base_points_to_money'));
-                    $order->setPointsBalanceChange(abs($transaction->getData('balance_change')));
-
-                    if ($order->getCustomerId()) {
-
-                        //if (($order->getBaseSubtotalCanceled() - $order->getOrigData('base_subtotal_canceled'))) {
-                        if ($order->getBaseSubtotalCanceled()) {
-
-                            /* refund all points spent on order */
-                            $customer = Mage::getModel('customer/customer')->load($order->getCustomerId());
-                            if ($customer->getId()) {
-
-                                $helper = Mage::helper('points');
-                                if ($order->getPointsBalanceChange()) {
-
-                                    $applyAfter = Mage::helper('points/config')
-                                                    ->getPointsCollectionOrder($order->getStoreId()) == AW_Points_Helper_Config::AFTER_TAX;
-
-                                    if ($applyAfter) {
-                                        $baseSubtotal = $order->getBaseSubtotalInclTax() - abs($order->getBaseDiscountAmount());
-                                        $subtotalToCancel =
-                                                $order->getBaseSubtotalCanceled() +
-                                                $order->getBaseTaxCanceled() -
-                                                $order->getBaseDiscountCanceled();
-
-                                    } else {
-                                        $subtotalToCancel =
-                                                $order->getBaseSubtotalCanceled() -
-                                                $order->getBaseDiscountCanceled();
-                                        $baseSubtotal = $order->getBaseSubtotal() - abs($order->getBaseDiscountAmount());
-                                    }
-
-                                    $pointsToCancel = floor($order->getPointsBalanceChange() * $subtotalToCancel / $baseSubtotal);
-                                    if (Mage::helper('points/config')->isRefundPoints($order->getStoreId())) {
-                                        $comment = $helper->__('Cancelation of order #%s', $order->getIncrementId());
-                                        $data = array('memo' => new Varien_Object(), 'order' => $order, 'customer' => $customer);
-                                        $this->_refundSpentPoints($data, new Varien_Object(
-                                                        array('comment' => $comment, 'points_to_return' => $pointsToCancel)));
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    $this->cancelAndRefundPoint($order);
                 }catch(Exception $ex){
                     Mage::helper('rocketweb_netsuite')->log($ex->getMessage());
                 }
@@ -1019,6 +984,56 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
         }
 
         return $magentoOrder;
+    }
+
+    // function to cancel and refund point based on Order ( this is also called from Request Order which is cancelled )
+    public function cancelAndRefundPoint($order)
+    {
+        $transaction = Mage::getModel('points/transaction')->loadByOrder($order);
+        $order->setMoneyForPoints($transaction->getData('points_to_money'));
+        $order->setBaseMoneyForPoints($transaction->getData('base_points_to_money'));
+        $order->setPointsBalanceChange(abs($transaction->getData('balance_change')));
+
+        if ($order->getCustomerId()) {
+
+            //if (($order->getBaseSubtotalCanceled() - $order->getOrigData('base_subtotal_canceled'))) {
+            if ($order->getBaseSubtotalCanceled()) {
+
+                /* refund all points spent on order */
+                $customer = Mage::getModel('customer/customer')->load($order->getCustomerId());
+                if ($customer->getId()) {
+
+                    $helper = Mage::helper('points');
+                    if ($order->getPointsBalanceChange()) {
+
+                        $applyAfter = Mage::helper('points/config')
+                                        ->getPointsCollectionOrder($order->getStoreId()) == AW_Points_Helper_Config::AFTER_TAX;
+
+                        if ($applyAfter) {
+                            $baseSubtotal = $order->getBaseSubtotalInclTax() - abs($order->getBaseDiscountAmount());
+                            $subtotalToCancel =
+                                    $order->getBaseSubtotalCanceled() +
+                                    $order->getBaseTaxCanceled() -
+                                    $order->getBaseDiscountCanceled();
+
+                        } else {
+                            $subtotalToCancel =
+                                    $order->getBaseSubtotalCanceled() -
+                                    $order->getBaseDiscountCanceled();
+                            $baseSubtotal = $order->getBaseSubtotal() - abs($order->getBaseDiscountAmount());
+                        }
+
+                        $pointsToCancel = floor($order->getPointsBalanceChange() * $subtotalToCancel / $baseSubtotal);
+                        if (Mage::helper('points/config')->isRefundPoints($order->getStoreId())) {
+                            $comment = $helper->__('Cancelation of order #%s', $order->getIncrementId());
+                            $data = array('memo' => new Varien_Object(), 'order' => $order, 'customer' => $customer);
+                            $this->_refundSpentPoints($data, new Varien_Object(
+                                            array('comment' => $comment, 'points_to_return' => $pointsToCancel)));
+                        }
+                    }
+                }
+            }
+        }
     }
     
     /**
