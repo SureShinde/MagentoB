@@ -76,6 +76,11 @@ class Moxy_SocialCommerce_Adminhtml_CollectioncategoryController extends Mage_Ad
                 if (!isset($post_data["is_active"])) {
                     $post_data["is_active"] = 0;
                 }
+
+                if (!empty($post_data["url"])) {
+                    $helper = Mage::helper("socialcommerce");
+                    $post_data["url"] = $helper->seoUrl($post_data["url"]);
+                }
                 $model = Mage::getModel("socialcommerce/collectioncategory")
                     ->addData($post_data)
                     ->setId($this->getRequest()->getParam("id"))
