@@ -131,6 +131,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
             }
 
             $shipmentInternalId = $netsuiteShipment->internalId;
+            /*
             foreach ($netsuiteShipment->customFieldList->customField as $customField) {
                 // replace the netsuite internal ID to source RO if available
                 if ($customField->internalId == 'custbody_sourcero') {
@@ -138,6 +139,7 @@ class RocketWeb_Netsuite_Model_Process_Import_Order_Fulfillment extends RocketWe
                     break;
                 }
             }
+            */
             
             $magentoShipment->setNetsuiteInternalId($shipmentInternalId);
             $magentoShipment->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteShipment->lastModifiedDate));

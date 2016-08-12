@@ -68,9 +68,9 @@ class RocketWeb_Netsuite_Helper_Data extends Mage_Core_Helper_Data {
     public function getROInternalId($record)
     {
         $rointernalid = false;
-        if (!is_null($record->customFieldList->customField))
+        if (!is_null($record->basic->customFieldList->customField))
         {
-            foreach ($netsuiteOrder->customFieldList->customField as $customField) {
+            foreach ($record->basic->customFieldList->customField as $customField) {
                 if ($customField->internalId == 'custbody_sourcero') {
                     $rointernalid = $customField->searchValue->internalId;
                     break;
