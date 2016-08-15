@@ -30,6 +30,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
         $items = array();
 
         $vars['tranid'] = $magentoOrder->getIncrementId();
+        $vars['trandate'] = date("j/n/Y", strtotime($magentoOrder->getCreatedAt()));
         $vars['custbody_bln_customtrancustomer'] = $netsuiteCustomerId;
         $vars['custbody_customeremail'] = $magentoOrder->getCustomerEmail();
         $vars['subsidiary'] = 2;

@@ -211,10 +211,6 @@ class RocketWeb_Netsuite_Model_Process {
                             }
                         }
 
-                        // if there is no record to be processed, just ignore the following functions below and go to the next record to be processed
-                        if (count($internalRecordIds) <= 0)
-                            break;
-
                         if (is_array($internalRecordIds)) {
                             $listrequest = new GetListRequest();
 
