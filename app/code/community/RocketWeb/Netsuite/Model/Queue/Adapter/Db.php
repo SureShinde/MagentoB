@@ -208,6 +208,12 @@ class RocketWeb_Netsuite_Model_Queue_Adapter_Db extends Zend_Queue_Adapter_Db {
                     case "invoice":
                         $importWhereCondition .= "(body like 'invoice%' or body like 'cashsale%')";
                         break;
+                    case "proformainvoice":
+                        $importWhereCondition .= "(body like 'proformainvoice%')";
+                        break;
+                    case "requestorder":
+                        $importWhereCondition .= "(body like 'requestorder%')";
+                        break;
                     case "cashsale":
                         $importWhereCondition .= "(body like 'cashsale%')";
                         break;

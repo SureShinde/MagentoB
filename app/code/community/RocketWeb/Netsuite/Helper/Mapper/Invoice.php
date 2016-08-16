@@ -88,6 +88,17 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
         
         if (!$magentoInvoice) {
             $netsuiteOrderId = $cashSale->createdFrom->internalId;
+
+            if (!is_null($cashSale->customFieldList->customField))
+            {
+                foreach ($cashSale->customFieldList->customField as $customField) {
+                    if ($customField->internalId == 'custbody_sourcero') {
+                        $netsuiteOrderId = $customField->value->internalId;
+                        break;
+                    }
+                }
+            }
+
             $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
             $magentoOrder = $magentoOrders->getFirstItem(); // @var Mage_Sales_Model_Order $magentoOrder
 
@@ -283,6 +294,17 @@ class RocketWeb_Netsuite_Helper_Mapper_Invoice extends RocketWeb_Netsuite_Helper
         
         if (!$magentoInvoice) {
             $netsuiteOrderId = $invoice->createdFrom->internalId;
+
+            if (!is_null($invoice->customFieldList->customField))
+            {
+                foreach ($invoice->customFieldList->customField as $customField) {
+                    if ($customField->internalId == 'custbody_sourcero') {
+                        $netsuiteOrderId = $customField->value->internalId;
+                        break;
+                    }
+                }
+            }
+
             $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
             $magentoOrder = $magentoOrders->getFirstItem(); // @var Mage_Sales_Model_Order $magentoOrder
 

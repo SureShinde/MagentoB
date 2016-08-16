@@ -143,15 +143,71 @@ class RocketWeb_Netsuite_Model_Process {
             if (!$importableEntityModel->isActive()) {
                 continue;
             }
+
+            $update_lastmodified_entity = true;
             
             while ($records = $importableEntityModel->queryNetsuite($updatedFrom)) {
                 if (is_array($records)) {
                     $internalRecordIds = array ();
+
+                    // if current processed record type is proforma invoice
+                    /*
+                    if ($importableEntityModel->getRecordType() == 'proformainvoice') {
+                        foreach($records as $record)
+                        {
+                            if ($importableEntityModel->isMagentoImportable($record['createdfrom']) && !$importableEntityModel->isAlreadyImported($record['internalid'], $record['lastmodifieddate'])) {
+                                $message = Mage::getModel('rocketweb_netsuite/queue_message');
+                                $message = $message->create($importableEntityModel->getMessageType(), $record['internalid'], RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE, $record);
+
+                                if (!$importableEntityModel->isQueued($message)) {
+                                    Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE)->send($message->pack(), Mage::helper('rocketweb_netsuite')->getRecordPriority($path));
+                                }
+                            }
+                        }
+                        break;
+                    }
+                    */
+
+                    // if current processed record type is request order
+                    if ($importableEntityModel->getRecordType() == 'requestorder') {
+                        // if returned status is error, do not change the last modified date of current entity
+                        if ($records['status'] == 'error')
+                        {
+                            $update_lastmodified_entity = false;
+                            break;
+                        }
+
+                        foreach($records as $record)
+                        {
+                            if ($importableEntityModel->isMagentoImportable($record['internalid']) && !$importableEntityModel->isAlreadyImported($record['internalid'], $record['lastmodifieddate'])) {
+                                $message = Mage::getModel('rocketweb_netsuite/queue_message');
+                                $message = $message->create($importableEntityModel->getMessageType(), $record['internalid'], RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE, $record);
+                                if (!$importableEntityModel->isQueued($message)) {
+                                    Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE)->send($message->pack(), Mage::helper('rocketweb_netsuite')->getRecordPriority($path));
+                                }
+                            }
+                        }
+                        break;
+                    }
                     
                     if ($importableEntityModel->getRecordType() != RecordType::inventoryItem) {
                         foreach ($records as $record) {
-                            if ($importableEntityModel->isMagentoImportable($record) && !$importableEntityModel->isAlreadyImported($record)) {
-                                $internalRecordIds[] = $record->basic->internalId[0]->searchValue->internalId;
+                            // if payment method is COD, do the old way
+                            /*
+                            if (Mage::helper('rocketweb_netsuite')->checkCODPaymentMethod($record, $importableEntityModel->getRecordType()))
+                            {
+                                if ($importableEntityModel->isMagentoImportable($record) && !$importableEntityModel->isAlreadyImported($record)) {
+                                    $internalRecordIds[] = $record->basic->internalId[0]->searchValue->internalId;
+                                }
+                            }
+                            else
+                            */
+                            // if the record has no source RO, do the old way
+                            if (!Mage::helper('rocketweb_netsuite')->checkOneWorldBasedOnROExistence($record, $importableEntityModel->getRecordType()))
+                            {
+                                if ($importableEntityModel->isMagentoImportable($record) && !$importableEntityModel->isAlreadyImported($record)) {
+                                    $internalRecordIds[] = $record->basic->internalId[0]->searchValue->internalId;
+                                }
                             }
                         }
 
@@ -250,7 +306,8 @@ class RocketWeb_Netsuite_Model_Process {
             }
 
             // set last update access date for specific import entity
-            Mage::helper('rocketweb_netsuite/queue')->setLastUpdateAccessDateSpecificEntity($time, 'netsuite_import_'.$path);
+            if ($update_lastmodified_entity)
+                Mage::helper('rocketweb_netsuite/queue')->setLastUpdateAccessDateSpecificEntity($time, 'netsuite_import_'.$path);
         }
 
         Mage::helper('rocketweb_netsuite/queue')->setLastUpdateAccessDate($time, RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE);
@@ -308,7 +365,11 @@ class RocketWeb_Netsuite_Model_Process {
             }
             else {
                 try {
-                    $processModel->process($message->getObject(), $queueData);
+                    // we use different process for request order
+                    if (strpos($originalMessage->body, 'requestorder|') !== false)
+                        $processModel->processRequestOrder($originalMessage->body);
+                    else
+                        $processModel->process($message->getObject(), $queueData);
                     $queue->deleteMessage($originalMessage);
                 }
                 catch (Exception $ex) {
@@ -427,11 +488,14 @@ class RocketWeb_Netsuite_Model_Process {
         $updatedFromDefault = gmdate('Y-m-d H:i:s',mktime(date("H"),date("i")-$updatedFromDefault));
         $updatedFromDefault = new DateTime($updatedFromDefault);
 
+        $currentDate = gmdate('Y-m-d H:i:s',mktime(date("H"),date("i")));
+        $currentDate = new DateTime($currentDate);
+
         if (is_null($lastUpdateAccessDate)) {
             $retDate = $updatedFromDefault;
         }
         else {
-            if ($lastUpdateAccessDate->getTimestamp() > $updatedFromDefault->getTimestamp()) {
+            if ($lastUpdateAccessDate->getTimestamp() < $currentDate->getTimestamp()) {
                 $retDate = $lastUpdateAccessDate;
             }
             else {

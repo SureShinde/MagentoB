@@ -22,10 +22,14 @@ class RocketWeb_Netsuite_Model_Queue_Message  extends Mage_Core_Model_Abstract {
     const INVOICE_SAVE = 'invoice_save';
     const FULFILLMENT_IMPORTED = 'order_fulfillment';
     const CASHSALE_IMPORTED = 'cashsale';
+    const PROFORMAINVOICE_IMPORTED = 'proformainvoice';
+    const REQUESTORDER_IMPORTED = 'requestorder';
     const ORDER_IMPORTED = 'order';
     const INVENTORY_UPDATED = 'inventory';
     const FULFILLMENT_DELETED = 'order_fulfillment_delete';
     const CASHSALE_DELETED = 'cashsale_delete';
+    const PROFORMAINVOICE_DELETED = 'proformainvoice_delete';
+    const REQUESTORDER_DELETED = 'requestorder_delete';
     const ORDER_DELETED = 'order_delete';
     const INVENTORY_DELETED = 'inventory_delete';
     const PRODUCT_UPDATED = 'inventoryitem';
@@ -120,11 +124,11 @@ class RocketWeb_Netsuite_Model_Queue_Message  extends Mage_Core_Model_Abstract {
         }
         
         if ($queueName == RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE) {
-            return array (self::FULFILLMENT_IMPORTED, self::CASHSALE_IMPORTED, self::ORDER_IMPORTED, self::INVENTORY_UPDATED, self::PRODUCT_UPDATED, self::CREDITMEMO_IMPORTED);
+            return array (self::FULFILLMENT_IMPORTED, self::CASHSALE_IMPORTED, self::PROFORMAINVOICE_IMPORTED, self::REQUESTORDER_IMPORTED, self::ORDER_IMPORTED, self::INVENTORY_UPDATED, self::PRODUCT_UPDATED, self::CREDITMEMO_IMPORTED);
         }
         
         if ($queueName == RocketWeb_Netsuite_Helper_Queue::NETSUITE_DELETE_QUEUE) {
-            return array (self::FULFILLMENT_DELETED, self::CASHSALE_DELETED, self::ORDER_DELETED, self::INVENTORY_DELETED, self::PRODUCT_DELETED, self::CREDITMEMO_DELETED);
+            return array (self::FULFILLMENT_DELETED, self::CASHSALE_DELETED, self::PROFORMAINVOICE_DELETED, self::REQUESTORDER_DELETED, self::ORDER_DELETED, self::INVENTORY_DELETED, self::PRODUCT_DELETED, self::CREDITMEMO_DELETED);
         }
         
         return array ();
