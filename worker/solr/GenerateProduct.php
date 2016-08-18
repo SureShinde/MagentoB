@@ -79,7 +79,7 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
             $sql = "SELECT `sales_item`.`product_id` AS `entity_id`, SUM(`sales_item`.`row_total`) AS `total` ";
             $sql .= "FROM `{$this->_salesOrderItemTable}` AS `sales_item` ";
             $sql .= "INNER JOIN `catalog_product_flat_1` AS `prod` ON `sales_item`.`product_id` = `prod`.`entity_id` ";
-            $sql .= "INNER JOIN `cataloginventory_stock_item` AS `stock` ON `sales_item`.`product_id` = `stock`.`product_id` AND `stock`.`is_in_stock` > 0 ";
+            $sql .= "INNER JOIN `cataloginventory_stock_status` AS `stock` ON `sales_item`.`product_id` = `stock`.`product_id` AND stock_status > 0 ";
             $sql .= "WHERE `sales_item`.`updated_at` BETWEEN (NOW()-INTERVAL {$this->_getProductSalesInterval()} DAY) AND NOW() ";
             $sql .= "GROUP BY `sales_item`.`product_id` ";
         }
