@@ -27,9 +27,7 @@ class Bilna_Paymentconfirmation_Model_Api2_Confirm_Rest_Admin_V1 extends Bilna_P
 
             $confirmData = $confirmModel
                 ->getCollection()
-                ->addFieldToFilter('order_id',array('equal' => $data['order_number']))
-                ->setCurPage(1)
-                ->setPageSize(1);
+                ->addFieldToFilter('order_id',array('equal' => $data['order_number']));
 
             if(count($confirmData) > 0){
                 $this->_error('Order Number already confirmed.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
