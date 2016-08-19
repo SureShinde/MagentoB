@@ -17,10 +17,12 @@ class Bilna_Paymentconfirmation_Model_Api2_Confirm_Rest_Admin_V1 extends Bilna_P
 
             if (!$order->getId()) {
                 $this->_error('Order Number is not valid.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+                $this->_critical(self::RESOURCE_REQUEST_DATA_INVALID);
             }
 
             if (!$this->_validateOrderEmail($order, $data['email'])) {
                 $this->_error('Customer Email is not valid.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+                $this->_critical(self::RESOURCE_REQUEST_DATA_INVALID);
             }
 
             $confirmData = $confirmModel
@@ -31,6 +33,7 @@ class Bilna_Paymentconfirmation_Model_Api2_Confirm_Rest_Admin_V1 extends Bilna_P
 
             if(count($confirmData) > 0){
                 $this->_error('Order Number already confirmed.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+                $this->_critical(self::RESOURCE_REQUEST_DATA_INVALID);
             }
 
             $fields = array (
