@@ -1,7 +1,7 @@
 <?php
 
 class Moxy_SocialCommerce_Block_Adminhtml_Collectioncategory_Edit_Tab_Collections extends Mage_Adminhtml_Block_Widget_Grid
-{	
+{
 	protected $formId;
 
 	public function __construct()
@@ -55,7 +55,7 @@ class Moxy_SocialCommerce_Block_Adminhtml_Collectioncategory_Edit_Tab_Collection
             "header" => Mage::helper("socialcommerce")->__("name"),
             "index" => "name",
         ));
-		  
+
 	  	return parent::_prepareColumns();
 	}
 
@@ -116,7 +116,7 @@ class Moxy_SocialCommerce_Block_Adminhtml_Collectioncategory_Edit_Tab_Collection
 	}
 
     //Grid with Ajax Request
-	public function getGridUrl() 
+	public function getGridUrl()
 	{
 		return $this->getUrl('*/*/grid', array ('_current' => true));
 	}
