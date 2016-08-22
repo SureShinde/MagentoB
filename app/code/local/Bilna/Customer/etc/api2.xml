@@ -494,7 +494,7 @@
                         <delete>1</delete>
                     </admin>
                 </privileges>
-                <attributes translate="entity_id wishlist_id about location avatar cloud_avatar wishlist status temporary gender customer_id name desc image_url visibility username gender preset_image profile addnewitem wishlist_id collection_id collection_id2 product_id categories wishlist_collections wishlist_collection_items_total" module="Bilna_Customer">
+                <attributes translate="entity_id wishlist_id about location avatar cloud_avatar wishlist status temporary gender customer_id name desc image_url visibility username gender preset_image profile addnewitem collection_id collection_id2 product_id categories wishlist_collections wishlist_collection_items_total" module="Bilna_Customer">
                     <entity_id>Entity ID</entity_id>
                     <wishlist_id>Wishlist ID</wishlist_id>
                     <about>About</about>
@@ -515,7 +515,6 @@
                     <preset_image>Preset Image</preset_image>
                     <profile>Profile</profile>
                     <addnewitem>Addnewitem</addnewitem>
-                    <wishlist_id>Wishlist ID</wishlist_id> 
                     <collection_id>Collection ID</collection_id>
                     <collection_id2>Collection ID2</collection_id2>
                     <product_id>Product ID</product_id>
@@ -621,11 +620,12 @@
                         <retrieve>1</retrieve>
                     </admin>
                 </privileges>
-                <attributes translate="category_id category_name url_key total_record" module="Bilna_Customer">
+                <attributes translate="category_id category_name url_key collections wishlist_id total_record" module="Bilna_Customer">
                     <category_id>ID</category_id>
                     <category_name>Name</category_name>
                     <url_key>URL Key</url_key>
                     <collections>Collections</collections>
+                    <wishlist_id>Wishlist ID</wishlist_id>
                     <total_record>Total Record</total_record>
                 </attributes>
                 <routes>
