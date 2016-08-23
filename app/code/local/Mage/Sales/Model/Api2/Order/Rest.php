@@ -45,4 +45,29 @@ abstract class Mage_Sales_Model_Api2_Order_Rest extends Mage_Sales_Model_Api2_Or
         
         return false;
     }
+
+    protected function _getOrderShipment($order) {
+        $orderShipment = $order->getShipmentsCollection();
+        $result = [];
+
+        if ($orderShipment) {
+            foreach ($orderShipment as $shipment) {
+                $shipmentId = $shipment->getId();
+                $result[$shipmentId] = $shipment->getData();
+                
+                if ($shipmentTrack = $shipment->getAllTracks()) {
+                    foreach ($shipmentTrack as $track) {
+                        $result[$shipmentId]['tracking_info'][] = [
+                            'title' => $track->getTitle(),
+                            'number' => $track->getNumber(),
+                        ];
+                    }
+                }
+            }
+            
+            return $result;
+        }
+
+        return false;
+    }
 }
