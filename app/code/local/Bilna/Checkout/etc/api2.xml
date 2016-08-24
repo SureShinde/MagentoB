@@ -1021,9 +1021,10 @@
                             <retrieve>1</retrieve>
                     </customer>
                 </privileges>
-                <attributes translate="points, money" module="Bilna_Checkout">
+                <attributes translate="points, money, info_page" module="Bilna_Checkout">
                     <points>Points</points>
                     <money>Money</money>
+                    <info_page>Info Page</info_page>
                 </attributes>
                 <routes>
                     <route_entity>

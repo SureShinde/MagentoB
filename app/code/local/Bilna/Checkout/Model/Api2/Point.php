@@ -120,7 +120,7 @@ class Bilna_Checkout_Model_Api2_Point extends Bilna_Checkout_Model_Api2_Resource
             //        ->loadByDirection(AW_Points_Model_Rate::CURRENCY_TO_POINTS)
             //        ->exchange($apply);
 
-            $_pointsSummary = $this->pointsRate([
+            $_pointsSummary = $this->_pointsRate([
                 'direction' => AW_Points_Model_Rate::CURRENCY_TO_POINTS,
                 'website_ids' => 1,
                 'customer_group_ids' => $customer->getGroupId()
@@ -161,7 +161,8 @@ class Bilna_Checkout_Model_Api2_Point extends Bilna_Checkout_Model_Api2_Resource
         return $newAmount;
     }
 
-    private function pointsRate($param = []) {
+    private function _pointsRate($param = [])
+    {
         $resource = Mage::getSingleton('core/resource');
 
         /**
@@ -189,5 +190,10 @@ class Bilna_Checkout_Model_Api2_Point extends Bilna_Checkout_Model_Api2_Resource
         }
 
         return FALSE;
+    }
+
+    public function getInfoPage()
+    {
+        return Mage::getStoreConfig('points');
     }
 }
