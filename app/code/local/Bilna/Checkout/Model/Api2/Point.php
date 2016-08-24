@@ -46,11 +46,11 @@ class Bilna_Checkout_Model_Api2_Point extends Bilna_Checkout_Model_Api2_Resource
 
         return $quote;
     }
-    
+
     protected function _getRules($quote, $customer)
     {
         $rules = [];
-        
+
         if ($customer && $quote && $quote->getItemsCount() > 0) {
             $ruleCollection = Mage::getModel('points/rule')
                     ->getCollection()
@@ -60,11 +60,9 @@ class Bilna_Checkout_Model_Api2_Point extends Bilna_Checkout_Model_Api2_Resource
                     ->setOrder('priority', Varien_Data_Collection::SORT_ORDER_ASC);
 
             foreach ($ruleCollection as $rule) {
-                if ($rule->checkRule($quote)) {
-                    $rules[] = $rule;
-                    if ($rule->getStopRules())
-                        break;
-                }
+                $rules[] = $rule;
+                if ($rule->getStopRules())
+                    break;
             }
         }
 
@@ -74,7 +72,7 @@ class Bilna_Checkout_Model_Api2_Point extends Bilna_Checkout_Model_Api2_Resource
     public function getPoints($quote, $customer)
     {
         $rules = $this->_getRules($quote, $customer);
-        
+
         try {
             $pointsSummary = 0;
             $extraPointToBeAdd = 0;
@@ -103,6 +101,44 @@ class Bilna_Checkout_Model_Api2_Point extends Bilna_Checkout_Model_Api2_Resource
             }
 
             $pointsSummary = $pointsSummary - ($pointsSummary % 500);
+            $applyBefore = Mage::helper('points/config')->getPointsCollectionOrder() == AW_Points_Helper_Config::BEFORE_TAX;
+
+            if ($applyBefore) {
+                $apply = $quote->getData('base_subtotal_with_discount');
+            } else {
+                $baseSubtotal = $quote->getData('base_subtotal_with_discount');
+                if ($quote->isVirtual()) {
+                    $taxAmount = $quote->getBillingAddress()->getData('base_tax_amount');
+                } else {
+                    $taxAmount = $quote->getShippingAddress()->getData('base_tax_amount');
+                }
+                $apply = $baseSubtotal + $taxAmount;
+            }
+
+            //exchange code bellow are not working, so we use direct query to check point rate
+            //$pointsSummary += Mage::getModel('points/rate')
+            //        ->loadByDirection(AW_Points_Model_Rate::CURRENCY_TO_POINTS)
+            //        ->exchange($apply);
+
+            $_pointsSummary = $this->pointsRate([
+                'direction' => AW_Points_Model_Rate::CURRENCY_TO_POINTS,
+                'website_ids' => 1,
+                'customer_group_ids' => $customer->getGroupId()
+            ]);
+            $_customersPoints = Mage::getModel('points/summary')->loadByCustomer($customer)->getPoints();
+            $pointsSummary = (int) ((int)($apply / $_pointsSummary['money']) * $_pointsSummary['points']);
+
+            if (Mage::helper('points/config')->getMaximumPointsPerCustomer()) {
+                $customersPoints = 0;
+
+                if ($customer) {
+                    $customersPoints = Mage::getModel('points/summary')->loadByCustomer($customer)->getPoints();
+                }
+
+                if ($pointsSummary + $customersPoints > Mage::helper('points/config')->getMaximumPointsPerCustomer()) {
+                    $pointsSummary = Mage::helper('points/config')->getMaximumPointsPerCustomer() - $customersPoints;
+                }
+            }
 
         } catch (Exception $ex) {
             $this->_critical($ex->getMessage());
@@ -123,5 +159,35 @@ class Bilna_Checkout_Model_Api2_Point extends Bilna_Checkout_Model_Api2_Resource
         }
 
         return $newAmount;
+    }
+
+    private function pointsRate($param = []) {
+        $resource = Mage::getSingleton('core/resource');
+
+        /**
+        * Retrieve the write connection
+        */
+        $writeConnection = $resource->getConnection('core_write');
+
+        $tName = $resource->getTableName('points/rate');
+
+        $query = "SELECT customer_group_ids, points, money FROM $tName WHERE direction = ".$param['direction']." AND website_ids = ".$param['website_ids']."";
+
+        /**
+        * Execute the query
+        */
+        $result = $writeConnection->fetchAll($query);
+
+        if(!empty($result)) {
+            foreach($result as $row) {
+                $groups = explode(',', $row['customer_group_ids']);
+                if(in_array($param['customer_group_ids'], $groups)) {
+                    return $row;
+                    break;
+                }
+            }
+        }
+
+        return FALSE;
     }
 }
