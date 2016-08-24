@@ -51,7 +51,7 @@ class Bilna_Checkout_Model_Api2_Point extends Bilna_Checkout_Model_Api2_Resource
     {
         $rules = [];
         
-        if ($customer && $quote && count($quote->getAllItems())) {
+        if ($customer && $quote && $quote->getItemsCount() > 0) {
             $ruleCollection = Mage::getModel('points/rule')
                     ->getCollection()
                     ->addAvailableFilter()
