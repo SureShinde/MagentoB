@@ -151,7 +151,7 @@ class Bilna_Checkout_Model_Type_Onepage extends Mage_Checkout_Model_Type_Onepage
         return $coupon;
     }
 
-    private function _deleteOlderCouponLog()
+    public function _deleteOlderCouponLog()
     {
         $sql = "DELETE FROM bilna_unique_coupon_log WHERE created_at <= NOW() - INTERVAL 1 MINUTE";
         $connectionDelete = Mage::getSingleton('core/resource')->getConnection('core_write');
