@@ -132,8 +132,6 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                             $errorMessage = $e->getMessage();
                             // This is how we prevent racing condition by utilizing database unique lock
                             if ($errorMessage == "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '".$couponCode."' for key 'coupon_code'") {
-                            //if (stripos($errorMessage,"duplicate") !== false) {
-                                //Mage::throwException(Mage::helper('checkout')->__('Kupon yang anda gunakan sudah pernah terpakai.'));
                                 $this->_critical(Mage::helper('checkout')->__('Kupon yang anda gunakan sudah pernah terpakai.'));
                                 exit;
                             } else {
