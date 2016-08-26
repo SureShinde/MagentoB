@@ -23,7 +23,7 @@ class Bilna_Checkout_Model_Type_Onepage extends Mage_Checkout_Model_Type_Onepage
     public function saveOrder()
     {
         $checkoutHelper = Mage::helper('bilna_checkout');
-        $checkoutHelper->checkActiveCoupon($quote->getCouponCode(), $quoteId);
+        $checkoutHelper->checkActiveCoupon($this->getQuote()->getCouponCode(), $this->getQuote()->getId());
         $this->validate();
         $isNewCustomer = false;
         switch ($this->getCheckoutMethod()) {
