@@ -109,39 +109,8 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
 
             //Coupon Code re-check
             $couponCode = $quote->getCouponCode();
-            if(strlen($couponCode)) {
-                $onepageModel = Mage::getModel('checkout/type_onepage');
-
-                $coupon = Mage::getModel('salesrule/coupon')->load($couponCode, 'code');
-                if ($coupon->getUsageLimit() == 1) { // check for unique coupon code only
-                    $timeUsed = $coupon->getTimesUsed();
-                    if($timeUsed > 0) {
-                        $this->_critical(Mage::helper('checkout')->__('Kupon yang anda gunakan sudah pernah terpakai.'));
-                    }
-                    else{
-                        $onepageModel->_deleteOlderCouponLog(); // delete all active coupon logged after one minute or older
-                        $couponLogData = array(
-                            "coupon_code" => $couponCode,
-                            "quote_id" => $quote->getId()
-                        );
-                        $uniqueCouponLog = Mage::getModel('bilna_checkout/activeCoupon');
-                        $uniqueCouponLog->setData($couponLogData);
-                        try {
-                            $result = $uniqueCouponLog->save();
-                        } catch (Exception $e) {
-                            $errorMessage = $e->getMessage();
-                            // This is how we prevent racing condition by utilizing database unique lock
-                            if ($errorMessage == "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '".$couponCode."' for key 'coupon_code'") {
-                                $this->_critical(Mage::helper('checkout')->__('Kupon yang anda gunakan sudah pernah terpakai.'));
-                                exit;
-                            } else {
-                                Mage::logException($errorMessage);
-                            }
-                        }
-                    }
-                }
-                //exit;
-            }
+            $checkoutHelper = Mage::helper('bilna_checkout');
+            $checkoutHelper->checkActiveCoupon($quote->getCouponCode(), $quoteId);
 
             //add voucher checking
 
