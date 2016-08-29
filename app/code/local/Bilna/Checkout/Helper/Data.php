@@ -207,9 +207,9 @@ class Bilna_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
             // This is how we prevent racing condition by utilizing database unique lock¬
             if ($errorMessage == "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '".$couponCode."' for key 'coupon_code'") {
                 if ($type == "api") {
-                    Mage::throwException(Mage::helper('bilna_checkout')->__('Kupon yang anda gunakan sudah pernah terpakai.'));
-                } else {
                     $this->_critical('Kupon yang anda gunakan sudah pernah terpakai.');
+                } else {
+                    Mage::throwException(Mage::helper('bilna_checkout')->__('Kupon yang anda gunakan sudah pernah terpakai.'));
                 }
             } else {
                 Mage::logException($errorMessage);
