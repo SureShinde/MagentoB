@@ -126,13 +126,13 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
             $product = Mage::getModel('catalog/product')->load($item->getProductId());
             
             if (!((float) $item->getRowTotal()) && $item->getParentItemId()) {
-                if (isset($bundProduct[$item->getData('item_id')]))
+                if (isset($bundProduct[$item->getData('parent_item_id')]))
                 {
                     $price = $item->getRowTotal();
                     $taxPercent = $item->getTaxPercent();
                 }
                 else
-                if (isset($confProduct[$item->getData('item_id')]))
+                if (isset($confProduct[$item->getData('parent_item_id')]))
                 {
                     $parentItem = Mage::getModel('sales/order_item')->load($item->getParentItemId());
                     $price = $parentItem->getRowTotal();
