@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/../abstract.php';
 class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
     protected $_productHelper;
     protected $_productApi;
-    
+
     protected $_tubeIgnore = 'default';
     protected $_tubeAllow = 'solr_catalog_product_detail';
     protected $_productDbTableGet = 'catalog_product_flat_1';
@@ -25,7 +25,7 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
         $this->_start();
         $this->_getMode();
         $this->_getType();
-        
+
         if ($this->_mode == 'collect') {
             $this->_collect();
         }
@@ -35,50 +35,51 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
         else {
             $this->_critical('Invalid mode.');
         }
-        
+
         $this->_stop();
     }
-    
+
     protected function _start() {
         $this->_logProgress('START');
         $this->_dbConnect();
         $this->_queueConnect();
         $this->_productModule();
     }
-    
+
     protected function _stop() {
         $this->_logProgress('STOP');
     }
-    
+
     protected function _getMode() {
         if ($mode = $this->getArg('mode')) {
             $this->_mode = $mode;
         }
-        
+
         return $this->_mode;
     }
-    
+
     protected function _getType() {
         return $this->_type;
     }
 
     protected function _collect() {
         $queryProducts = $this->_getQuery();
-                
+
         while ($product = $queryProducts->fetch()) {
             $productId = $product['entity_id'];
-            
+
             if ($this->_queuePut($productId)) {
                 $this->_logProgress("{$productId} store to queue.");
             }
         }
     }
-    
+
     protected function _getQuery() {
         if ($this->_type == 'sales') {
             $sql = "SELECT `sales_item`.`product_id` AS `entity_id`, SUM(`sales_item`.`row_total`) AS `total` ";
             $sql .= "FROM `{$this->_salesOrderItemTable}` AS `sales_item` ";
-            $sql .= "INNER JOIN `catalog_product_flat_1` AS `prod` ON `sales_item`.`product_id` = `prod`.`entity_id` "; 
+            $sql .= "INNER JOIN `catalog_product_flat_1` AS `prod` ON `sales_item`.`product_id` = `prod`.`entity_id` ";
+            $sql .= "INNER JOIN `cataloginventory_stock_status` AS `stock` ON `sales_item`.`product_id` = `stock`.`product_id` AND stock_status > 0 ";
             $sql .= "WHERE `sales_item`.`updated_at` BETWEEN (NOW()-INTERVAL {$this->_getProductSalesInterval()} DAY) AND NOW() ";
             $sql .= "GROUP BY `sales_item`.`product_id` ";
         }
@@ -95,39 +96,39 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
             else {
                 $sql .= "WHERE 1 = 1 ";
             }
-            
+
             if ($id = $this->getArg('id')) {
                 $sql .= "AND `entity_id` = {$id} ";
             }
-            
+
             $sql .= "ORDER BY `entity_id` ";
         }
-        
+
         if ($limit = $this->getArg('limit')) {
             $sql .= "LIMIT {$limit} ";
         }
-        
+
         return $this->_dbRead->query($sql);
     }
-    
+
     protected function _getProductSalesInterval() {
         //- default interval 30 days
         $interval = ($this->getArg('interval')) ? (int) $this->getArg('interval') : 30;
-        
+
         return $interval;
     }
 
     protected function _queuePut($data) {
         try {
             $this->_queueSvc->useTube($this->_getTube())->put($this->_prepareData($data));
-            
+
             return true;
         }
         catch (Exception $ex) {
             $this->_critical($ex->getMessage());
         }
     }
-    
+
     protected function _getTube() {
         return $this->_tubeAllow;
     }
@@ -143,7 +144,7 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
                 $productId = $this->_getProductId($data);
                 $this->_logProgress("#{$productId} Received from queue");
                 $product = $this->_getProduct($data);
-                
+
                 if ($this->_setQuery($product)) {
                     $this->_queueSvc->delete($job);
                     $this->_logProgress("#{$productId} Insert to DB => success");
@@ -152,16 +153,16 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
                     $this->_queueSvc->bury($job);
                     $this->_logProgress("#{$productId} Insert to DB => failed");
                 }
-                
+
                 unset ($data);
                 unset ($product);
-                
+
                 if ($x == 1000) {
                     $this->_logProgress("Flush memory (5s)......");
                     $this->_flushMemory();
                     $x = 1;
                 }
-                
+
                 $x++;
             }
         }
@@ -170,19 +171,19 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
             $this->_critical($ex->getMessage());
         }
     }
-    
+
     protected function _getProductId($data) {
         if (is_array($data) || is_object($data)) {
             return $data['entity_id'];
         }
-        
+
         return $data;
     }
 
     protected function _getProduct($data) {
         $product = $this->_productHelper->getProduct($data, self::DEFAULT_STORE_ID);
         $productData = $this->_prepareData($this->_processProductData($product));
-        
+
         return array (
             'id' => $product->getId(),
             'data' => $productData,
@@ -202,7 +203,7 @@ class Bilna_Worker_Solr_GenerateProduct extends Bilna_Worker_Abstract {
         $this->_logProgress($message);
         exit(1);
     }
-    
+
     protected function _flushMemory() {
         ob_start();
         ob_end_clean();

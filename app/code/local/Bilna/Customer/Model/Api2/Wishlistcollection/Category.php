@@ -34,16 +34,18 @@ class Bilna_Customer_Model_Api2_Wishlistcollection_Category extends Bilna_Custom
 
         if ($totalRecord > 0) {
             $result[0]['total_record'] = $totalRecord;
+            $sort = 1;
             
             foreach ($collection as $key => $row) {
                 $wishlistId = $row->getWishlistId();
                 $name = $row->getName();
                 $customerId = $row->getCustomerId();
 
-                $result[$key] = $row->getData();
-                $result[$key]['slug'] = $this->_getCollectionSlug($wishlistId, $name);
-                $result[$key]['avatar'] = $this->_getCollectionAvatar($customerId);
-                $result[$key]['gender'] = $this->_getCollectionGender($customerId);
+                $result[$sort] = $row->getData();
+                $result[$sort]['slug'] = $this->_getCollectionSlug($wishlistId, $name);
+                $result[$sort]['avatar'] = $this->_getCollectionAvatar($customerId);
+                $result[$sort]['gender'] = $this->_getCollectionGender($customerId);
+                $sort++;
             }
         }
 
