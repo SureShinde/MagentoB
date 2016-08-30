@@ -214,10 +214,8 @@ class Bilna_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
             } else {
                 Mage::logException($errorMessage);
             }
-        } else {
-            if($type == "api") {
-                return true;
-            }
-        }
+        } 
+        return true;
+            
     }
 }
