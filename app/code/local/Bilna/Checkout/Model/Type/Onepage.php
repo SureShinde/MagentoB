@@ -22,7 +22,8 @@ class Bilna_Checkout_Model_Type_Onepage extends Mage_Checkout_Model_Type_Onepage
      */
     public function saveOrder()
     {
-        $this->_checkActiveCoupon();
+        $checkoutHelper = Mage::helper('bilna_checkout');
+        $checkoutHelper->checkActiveCoupon($this->getQuote()->getCouponCode(), $this->getQuote()->getId());
         $this->validate();
         $isNewCustomer = false;
         switch ($this->getCheckoutMethod()) {
@@ -105,56 +106,4 @@ class Bilna_Checkout_Model_Type_Onepage extends Mage_Checkout_Model_Type_Onepage
         return $this;
     }
 
-    /**
-     * This function will prevent racing condition if different user with same unique coupon code
-     * checkout at the same time (prevent single use coupon to be used multiple times at once)
-     */
-    private function _checkActiveCoupon()
-    {
-        $couponCode = $this->getQuote()->getCouponCode();
-        if (!strlen($couponCode)) {
-            return;
-        }
-
-        $coupon = $this->_getCoupon($couponCode);
-
-        if ($coupon->getUsageLimit() != 1) { // check for unique coupon code only
-            return;
-        }
-
-        $this->_deleteOlderCouponLog(); // delete all active coupon logged after one minute or older
-        $couponLogData = array(
-            "coupon_code" => $couponCode,
-            "quote_id" => $this->getQuote()->getId()
-        );
-
-        $uniqueCouponLog = $this->getCouponLog();
-        $uniqueCouponLog->setData($couponLogData);
-
-        try {
-            $uniqueCouponLog->save();
-        } catch (Exception $e) {
-            $errorMessage = $e->getMessage();
-
-            // This is how we prevent racing condition by utilizing database unique lock
-            if ($errorMessage == "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '".$couponCode."' for key 'coupon_code'") {
-                Mage::throwException(Mage::helper('checkout')->__('Kupon yang anda gunakan sudah pernah terpakai.'));
-            } else {
-                Mage::logException($errorMessage);
-            }
-        }
-    }
-
-    private function _getCoupon ($couponCode)
-    {
-        $coupon = Mage::getModel('salesrule/coupon')->load($couponCode, 'code');
-        return $coupon;
-    }
-
-    private function _deleteOlderCouponLog()
-    {
-        $sql = "DELETE FROM bilna_unique_coupon_log WHERE created_at <= NOW() - INTERVAL 1 MINUTE";
-        $connectionDelete = Mage::getSingleton('core/resource')->getConnection('core_write');
-        $connectionDelete->query($sql);
-    }
 }
