@@ -110,7 +110,10 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             //Coupon Code re-check
             $couponCode = $quote->getCouponCode();
             $checkoutHelper = Mage::helper('bilna_checkout');
-            $checkoutHelper->checkActiveCoupon($quote->getCouponCode(), $quoteId, "api");
+            $result = $checkoutHelper->checkActiveCoupon($quote->getCouponCode(), $quoteId, "api");
+            if(!$result){
+                $this->_critical('Kupon yang anda gunakan sudah pernah terpakai.');
+            }
 
             //add voucher checking
 
