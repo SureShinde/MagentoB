@@ -179,7 +179,7 @@ class Bilna_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         return $items;
     }
 
-    public function checkActiveCoupon($couponCode, $quoteId, $type = NULL)
+    public function checkActiveCoupon($couponCode, $quoteId)
     {
         if (is_null($couponCode) || !strlen($couponCode)) {
             return true;
@@ -206,16 +206,12 @@ class Bilna_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if (isset($errorMessage)) {
             // This is how we prevent racing condition by utilizing database unique lock¬
             if ($errorMessage == "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '".$couponCode."' for key 'coupon_code'") {
-                if($type == "api") {
-                    return false;
-                } else {
-                    Mage::throwException(Mage::helper('bilna_checkout')->__('Kupon yang anda gunakan sudah pernah terpakai.'));
-                }
+                Mage::throwException(Mage::helper('bilna_checkout')->__('Kupon yang anda gunakan sudah pernah terpakai.'));
             } else {
                 Mage::logException($errorMessage);
             }
         } 
-        return true;
+        
             
     }
 }
