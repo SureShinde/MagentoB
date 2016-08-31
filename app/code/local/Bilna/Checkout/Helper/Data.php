@@ -12,14 +12,14 @@ class Bilna_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const PARAM_PAYMENT_METHOD = '_payment_method';
     /**#@-*/
-
+    
 	public function retrieve()
 	{
 		$quoteId = $this->getRequest()->getParam('id');
         $quote = $this->__getCollection($quoteId);
 
         $quoteDataRaw = $quote->getData();
-
+        
         if(empty($quoteDataRaw)){
             throw Mage::throwException(Mage_Api2_Model_Resource::RESOURCE_NOT_FOUND);
         }
@@ -34,7 +34,7 @@ class Bilna_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if ($items) {
             $quoteData['quote_items'] = $items[$quoteData['entity_id']];
         }
-
+        
         return $quoteData;
 	}
 
@@ -48,15 +48,15 @@ class Bilna_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $quote = $collection->load();
-
+ 
         if (!$quote) {
             throw Mage::throwException(Mage_Api2_Model_Resource::RESOURCE_NOT_FOUND);
         }
         return $quote;
     }
 
-
-
+    
+    
     /**
      * Retrieve collection instance for single order
      *
@@ -113,7 +113,7 @@ class Bilna_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
             /** @var $addressesFilter Mage_Api2_Model_Acl_Filter */
             $addressesFilter = $this->_getSubModel('quote_address', array())->getFilter();
             // do addresses request if at least one attribute allowed
-            if ($addressesFilter->getAllowedAttributes()) {
+            if ($addressesFilter->getAllowedAttributes()) {               
                 $resource       = Mage::getSingleton('core/resource');
                 $adapter        = $resource->getConnection('core_read');
                 $tableName      = $resource->getTableName('sales_flat_quote_address');
@@ -127,7 +127,7 @@ class Bilna_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
                     ->order('name ASC');*/
 
                 $salesQuotesAddresses = $adapter->fetchAll($select);
-
+                
                 foreach($salesQuotesAddresses as $quoteAddress)
                 {
                     $addresses[$quoteAddress['quote_id']][] = $addressesFilter->out($quoteAddress);
@@ -149,7 +149,7 @@ class Bilna_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         $items = array();
 
         if ($this->_isSubCallAllowed('quote_item')) {
-
+        
             /** @var $itemsFilter Mage_Api2_Model_Acl_Filter */
             $itemsFilter = $this->_getSubModel('quote_item', array())->getFilter();
             // do items request if at least one attribute allowed
@@ -168,7 +168,7 @@ class Bilna_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
                     ->order('name ASC');*/
 
                 $salesQuotesItem = $adapter->fetchAll($select);
-
+                
 
                 foreach($salesQuotesItem as $quoteItem)
                 {
@@ -178,6 +178,7 @@ class Bilna_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return $items;
     }
+
 
     public function checkActiveCoupon($couponCode, $quoteId)
     {

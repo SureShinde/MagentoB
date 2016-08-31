@@ -1006,6 +1006,38 @@
                 </force_attributes>
                 <versions>1</versions>
             </cart_order>
+            <cart_point translate="title" module="api2">
+                <group>checkout</group>
+                <sort_order>130</sort_order>
+                <model>bilna_checkout/api2_point</model>
+                <title>Point</title>
+                <privileges>
+                    <admin>
+                            <create>1</create>
+                            <retrieve>1</retrieve>
+                            <update>1</update>
+                    </admin>
+                    <customer>
+                            <retrieve>1</retrieve>
+                    </customer>
+                </privileges>
+                <attributes translate="points, money, info_page" module="Bilna_Checkout">
+                    <points>Points</points>
+                    <money>Money</money>
+                    <info_page>Info Page</info_page>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/checkout/point/customer/:customer_id/quote/:quote_id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/checkout/point/customer</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </cart_point>
         </resources>
     </api2>
 </config>

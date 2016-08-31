@@ -37,11 +37,11 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         try {
             $store = $this->_getStore();
             $quote = $this->_getQuote($quoteId, $store);
-
+            
             if ($quote->getIsMultiShipping()) {
                 throw Mage::throwException('Invalid Checkout Type');
             }
-
+            
             if ($quote->getCheckoutMethod() == Mage_Checkout_Model_Api_Resource_Customer::MODE_GUEST && !Mage::helper('checkout')->isAllowedGuestCheckout($quote, $quote->getStoreId())) {
                 throw Mage::throwException('Guest Checkout is not Enable');
             }
@@ -57,7 +57,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             }
 
             $paymentCode = $quote->getPayment()->getMethodInstance()->getCode();
-
+            
             if ($installmentTenor) {
                 $quoteItems = $quote->getAllItems();
                 $item_ids = [];
@@ -96,7 +96,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                     //- API doesn't support installment per item, coz we need to evaluate existing code module @bilna_paymenthod
                     Mage::log("Quote #{$quoteId} : API doesn't support installment per item, coz we need to evaluate existing code module @bilna_paymenthod");
                 }
-
+                
                 $quote->setPayType($payType)->save();
             }
             //else {
@@ -116,13 +116,11 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 $this->_critical('Kupon yang anda gunakan sudah pernah terpakai.');
             }
 
-            //add voucher checking
-
             //- checking customer using their poinst or not
             if (isset ($payment['use_points']) && $payment['use_points'] > 0) {
                 $this->pointsCheck($quote, $payment);
             }
-
+            
             /** @var $service Mage_Sales_Model_Service_Quote */
             $service = Mage::getModel('sales/service_quote', $quote);
             $service->submitAll();
@@ -136,18 +134,18 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 }
             }
 
-            $order = $service->getOrder();
-
+            $order = $service->getOrder();            
+            
             /**
              * setTrxFrom: to determine where is transaction came from.
-             *
-             * Option:
+             * 
+             * Option: 
              * - 1 is from logan apps
              * - 2 is from mobile apps
              * - 3 is from magento apps
              */
             $saveOrder = false;
-
+            
             if (!empty ($trxFrom)) {
                 $order->setTrxFrom($trxFrom);
                 $saveOrder = true;
@@ -157,19 +155,19 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 $order->setRemoteIp($remoteIp);
                 $saveOrder = true;
             }
-
+            
             if (isset ($payment['use_points']) && $payment['use_points'] > 0) {
                 $order = $this->submitPoints($order, $payment);
                 $saveOrder = true;
             }
-
+            
             if ($saveOrder) {
                 $order->save();
             }
 
             Mage::dispatchEvent('checkout_submit_all_after', ['order' => $order, 'quote' => $quote]);
             //Mage::dispatchEvent('checkout_type_onepage_save_order_after', ['order' => $order, 'quote' => $quote]);
-
+            
             //- Fraud Detection System (FDS)
             Mage::helper('bilna_fraud')->checkFraud($order);
 
@@ -178,7 +176,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             $orderIncrementId = $order->getIncrementId();
             $orderGrandTotal = $order->getGrandTotal();
             $orderCanceled = $this->_getOrderCanceled($order);
-
+            
             if (!$orderCanceled) {
                 if (in_array($paymentCode, $this->getPaymentMethodCc()) && ($orderCanceled === false)) {
                     $this->_processChargeCc($order, $tokenId);
@@ -195,7 +193,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 }
 
                 Mage::dispatchEvent('checkout_onepage_controller_success_action', ['order_ids' => [$orderId], 'order' => $order]);
-
+                
                 //- send new order email
                 if ($order->getCanSendNewEmailFlag()) {
                     $order->sendNewOrderEmail();
@@ -216,13 +214,13 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
 
         if ($order->getCustomerId()) {
             $quote = $order->getQuote();
-
+            
             if (!$quote instanceof Mage_Sales_Model_Quote) {
                 $quote = Mage::getModel('sales/quote')
                     ->setSharedStoreIds([$order->getStoreId()])
                     ->load($order->getQuoteId());
             }
-
+            
             $sum = floatval($quote->getData('base_subtotal_with_discount'));
             $limitedPoints = Mage::helper('points')->getLimitedPoints($sum, $order->getCustomer(), $order->getStoreId());
 
@@ -241,7 +239,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             $moneyForPoints = $order->getBaseCurrency()->convert($moneyForPointsBase, $order->getOrderCurrencyCode());
 
             $order->setGrandTotal($order->getGrandTotal() + $moneyForPoints);
-            $order->setBaseGrandTotal($order->getBaseGrandTotal() + $moneyForPointsBase );
+            $order->setBaseGrandTotal($order->getBaseGrandTotal() + $moneyForPointsBase );            
             $order->setAmountToSubtract($amountToSubtract);
             $order->setBaseMoneyForPoints($moneyForPointsBase);
             $order->setMoneyForPoints($moneyForPoints);
@@ -261,7 +259,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                     ->setSharedStoreIds([$quote->getStoreId()])
                     ->load($quote->getId());
             }
-
+            
             $sum = floatval($quote->getData('base_subtotal_with_discount'));
             $limitedPoints = Mage::helper('points')->getLimitedPoints($sum, $quote->getCustomer(), $quote->getStoreId());
             $pointsAmount = (int) $payment['points_amount'];
@@ -277,12 +275,12 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
 
         return $quote;
     }
-
+    
     protected function getPaymentMethodHelper() {
         if (!$this->_paymentMethodHelper) {
             $this->_paymentMethodHelper = Mage::helper('paymethod');
         }
-
+        
         return $this->_paymentMethodHelper;
     }
 
@@ -294,7 +292,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         if (!$this->_paymentMethodCc) {
             $this->_paymentMethodCc = $this->getPaymentMethodHelper()->getPaymentMethodCc();
         }
-
+        
         return $this->_paymentMethodCc;
     }
 
@@ -306,10 +304,10 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         if (!$this->_paymentMethodVtdirect) {
             $this->_paymentMethodVtdirect = $this->getPaymentMethodHelper()->getPaymentMethodVtdirect();
         }
-
+        
         return $this->_paymentMethodVtdirect;
     }
-
+    
     /**
      * for Virtual Account
      * by Veritrans
@@ -318,7 +316,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         if (!$this->_paymentMethodVA) {
             $this->_paymentMethodVA = $this->getPaymentMethodHelper()->getPaymentMethodVA();
         }
-
+        
         return $this->_paymentMethodVA;
     }
 
@@ -349,14 +347,14 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             return '';
         }
     }
-
+    
     protected function _getOrderCanceled($order) {
         return (strtolower($order->getData('status')) == 'canceled');
     }
-
+    
     protected function _processChargeCc($order, $tokenId) {
         $charge = Mage::getModel('paymethod/api')->creditcardCharge($order, $tokenId);
-
+        
         if (strtolower($charge['response']->transaction_status) == 'deny' || strtolower($charge['response']->fraud_status) == 'deny') {
             if ($order->canCancel()) {
                 $order->cancel();
@@ -382,7 +380,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
         $order->addStatusHistoryComment($message);
         $order->save();
     }
-
+    
     protected function _storeChargeDataToQueue($charge, $invoice = true) {
         try {
             $hostname = Mage::getStoreConfig('bilna_queue/beanstalkd_settings/hostname');
