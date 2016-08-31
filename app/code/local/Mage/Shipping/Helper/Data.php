@@ -78,51 +78,6 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @deprecated after 1.4.0.0-alpha3
-     * Retrieve tracking pop up url by order id or object
-     *
-     * @param  int|Mage_Sales_Model_Order $order
-     * @return string
-     */
-    public function getTrackingPopUpUrlByOrderId($order = '')
-    {
-        if ($order && !is_object($order)) {
-            $order = Mage::getModel('sales/order')->load($order);
-        }
-        return $this->_getTrackingUrl('order_id', $order);
-    }
-
-    /**
-     * @deprecated after 1.4.0.0-alpha3
-     * Retrieve tracking pop up url by track id or object
-     *
-     * @param  int|Mage_Sales_Model_Order_Shipment_Track $track
-     * @return string
-     */
-    public function getTrackingPopUpUrlByTrackId($track = '')
-    {
-        if ($track && !is_object($track)) {
-            $track = Mage::getModel('sales/order_shipment_track')->load($track);
-        }
-        return $this->_getTrackingUrl('track_id', $track, 'getEntityId');
-    }
-
-    /**
-     * @deprecated after 1.4.0.0-alpha3
-     * Retrieve tracking pop up url by ship id or object
-     *
-     * @param  int|Mage_Sales_Model_Order_Shipment $track
-     * @return string
-     */
-    public function getTrackingPopUpUrlByShipId($ship = '')
-    {
-        if ($ship && !is_object($ship)) {
-            $ship = Mage::getModel('sales/order_shipment')->load($ship);
-        }
-        return $this->_getTrackingUrl('ship_id', $ship);
-    }
-
-    /**
      * Shipping tracking popup URL getter
      *
      * @param Mage_Sales_Model_Abstract $model
@@ -138,25 +93,5 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
             return $this->_getTrackingUrl('track_id', $model, 'getEntityId');
         }
         return '';
-    }
-
-    /**
-     * Retrieve tracking ajax url
-     *
-     * @return string
-     */
-    public function getTrackingAjaxUrl()
-    {
-        return $this->_getUrl('shipping/tracking/ajax');
-    }
-
-    public function isFreeMethod($method, $storeId = null)
-    {
-        $arr = explode('_', $method, 2);
-        if (!isset($arr[1])) {
-            return false;
-        }
-        $freeMethod = Mage::getStoreConfig('carriers/' . $arr[0] . '/free_method', $storeId);
-        return $freeMethod == $arr[1];
     }
 }
