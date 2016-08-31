@@ -182,11 +182,11 @@ class Bilna_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     public function checkActiveCoupon($couponCode, $quoteId)
     {
         if (is_null($couponCode) || !strlen($couponCode)) {
-            return true;
+            return;
         }
         $coupon = Mage::getModel('salesrule/coupon')->load($couponCode, 'code');
         if ($coupon->getUsageLimit() != 1) {
-            return true;
+            return;
         }
         // Delete older coupon log
         $sql = "DELETE FROM bilna_unique_coupon_log WHERE created_at <= NOW() - INTERVAL 1 MINUTE";
