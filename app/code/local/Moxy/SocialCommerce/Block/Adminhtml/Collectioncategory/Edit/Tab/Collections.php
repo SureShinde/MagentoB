@@ -49,6 +49,7 @@ class Moxy_SocialCommerce_Block_Adminhtml_Collectioncategory_Edit_Tab_Collection
             "width" => "50px",
             "type" => "number",
             "index" => "wishlist_id",
+            "filter_index" => "main_table.wishlist_id",
         ));
 
         $this->addColumn("wishlist_name", array(
@@ -102,8 +103,8 @@ class Moxy_SocialCommerce_Block_Adminhtml_Collectioncategory_Edit_Tab_Collection
   	protected function _prepareMassaction()
   	{
 	  	parent::_prepareMassaction();
-        $category_id = $this->getRequest()->getParams()['id'];
-        $this->setMassactionIdField('wishlist_id');
+        $category_id = $this->formId;
+        $this->setMassactionIdField('main_table.wishlist_id');
         $this->getMassactionBlock()->setFormFieldName('wishlist_ids');
         $this->getMassactionBlock()->addItem(
             'add',
