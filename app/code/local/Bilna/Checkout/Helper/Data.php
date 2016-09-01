@@ -178,41 +178,4 @@ class Bilna_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return $items;
     }
-
-
-    public function checkActiveCoupon($couponCode, $quoteId)
-    {
-        if (is_null($couponCode) || !strlen($couponCode)) {
-            return;
-        }
-        $coupon = Mage::getModel('salesrule/coupon')->load($couponCode, 'code');
-        if ($coupon->getUsageLimit() != 1) {
-            return;
-        }
-        // Delete older coupon log
-        $sql = "DELETE FROM bilna_unique_coupon_log WHERE created_at <= NOW() - INTERVAL 1 MINUTE";
-        $connectionDelete = Mage::getSingleton('core/resource')->getConnection('core_write');
-        $connectionDelete->query($sql);
-        $couponLogData = array(
-            "coupon_code" => $couponCode,
-            "quote_id" => $quoteId
-        );
-        $activeCouponModel = Mage::getModel('bilna_checkout/activeCoupon');
-        $activeCouponModel->setData($couponLogData);
-        try {
-            $activeCouponModel->save();
-        } catch (Exception $e) {
-            $errorMessage = $e->getMessage();
-        }
-        if (isset($errorMessage)) {
-            // This is how we prevent racing condition by utilizing database unique lock¬
-            if ($errorMessage == "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '".$couponCode."' for key 'coupon_code'") {
-                Mage::throwException(Mage::helper('bilna_checkout')->__('Kupon yang anda gunakan sudah pernah terpakai.'));
-            } else {
-                Mage::logException($errorMessage);
-            }
-        } 
-        
-            
-    }
 }
