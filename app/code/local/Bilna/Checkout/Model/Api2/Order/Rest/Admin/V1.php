@@ -107,6 +107,15 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             $quote->setPayType($payType);
             $quote->collectTotals();
             
+            //Coupon Code re-check
+            $couponCode = $quote->getCouponCode();
+            $checkoutHelper = Mage::helper('bilna_checkout');
+            try {
+                $checkoutHelper->checkActiveCoupon($quote->getCouponCode(), $quoteId);
+            } catch (Exception $e) {
+                $this->_critical('Kupon yang anda gunakan sudah pernah terpakai.');
+            }
+            
             //- checking customer using their poinst or not
             if (isset ($payment['use_points']) && $payment['use_points'] > 0) {
                 $this->pointsCheck($quote, $payment);
