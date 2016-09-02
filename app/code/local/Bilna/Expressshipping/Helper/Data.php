@@ -50,12 +50,14 @@ class Bilna_Expressshipping_Helper_Data extends Mage_Core_Helper_Abstract {
         $showExpress = true;
 
         $limit = (int) Mage::getStoreConfig('bilna_expressshipping/orderlimit/limit');
-        $todayDate = Mage::getModel('core/date')->date('Y-m-d');
+
+        $start = $this->getStartCutOffDateTime();
+        $end = $this->getEndCutOffDateTime();        
 
         $resource = Mage::getSingleton('core/resource');
         $readConnection = $resource->getConnection('core_read');
         $table = "sales_order_daily_count";
-        $query = "SELECT sales_count FROM $table WHERE sales_date = '$todayDate' LIMIT 1";
+        $query = "SELECT sales_count FROM $table WHERE sales_datetime_from = '$start' AND sales_datetime_to = '$end' LIMIT 1";
         $salesCount = $readConnection->fetchOne($query);
 
         if ($salesCount) {
@@ -140,28 +142,33 @@ class Bilna_Expressshipping_Helper_Data extends Mage_Core_Helper_Abstract {
         return false;
     }
 
-    /**
-     * Method to check if the current time is before Express Shippping Cut Off Time
-     * @return bool
-     */
-    public function isBeforeCutOffTime()
-    {
-        $dateTime = Mage::getModel('core/date')->timestamp(time());
-        $currentTime = date("H:i:s", $dateTime);
+    public function getCutOffTime() {
         $cutOffTime = str_replace(',', ':', Mage::getStoreConfig('bilna_expressshipping/orderlimit/cut_off'));
-        if (strtotime($currentTime) < strtotime($cutOffTime)) {
-            return true;
-        }
-        return false;
+        return date('H:i:s', strtotime($cutOffTime));
     }
 
-    /**
-     * Method to get the display format of Cut Off Time for front end
-     * @return bool|string
-     */
     public function getDisplayCutOffTime()
     {
-        $cutOffTime = str_replace(',', ':', Mage::getStoreConfig('bilna_expressshipping/orderlimit/cut_off'));
-        return date('H:i', strtotime($cutOffTime));
+        return date('H:i', strtotime($this->getCutOffTime()));
+    }
+
+    public function getCutOffDateTime() {
+        return date('Y-m-d H:i:s', strtotime(Mage::getModel('core/date')->date('Y-m-d')." ".$this->getCutOffTime()));
+    }
+
+    public function isBeforeCutOffTime()
+    {
+        return Mage::getModel('core/date')->date('H:i:s') <= $this->getCutOffTime();
+    }
+
+    public function getStartCutOffDateTime() {
+        if($this->isBeforeCutOffTime())
+            return date("Y-m-d H:i:s", strtotime($this->getCutOffDateTime()) - 86400);
+        else
+            return date("Y-m-d H:i:s", strtotime($this->getCutOffDateTime()));
+    }
+
+    public function getEndCutOffDateTime() {
+        return date("Y-m-d H:i:s", strtotime($this->getStartCutOffDateTime()) + 86399);
     }
 }
