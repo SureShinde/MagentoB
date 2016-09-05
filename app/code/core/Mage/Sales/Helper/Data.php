@@ -36,7 +36,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Maximum available number
      */
-    const MAXIMUM_AVAILABLE_NUMBER = 99999999;
+    const MAXIMUM_AVAILABLE_NUMBER = 999999999999;
 
     /**
      * Check quote amount
