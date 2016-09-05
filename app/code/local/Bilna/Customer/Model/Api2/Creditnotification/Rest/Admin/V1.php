@@ -12,8 +12,6 @@ class Bilna_Customer_Model_Api2_Creditnotification_Rest_Admin_V1 extends Bilna_C
     {
         $userID = $this->getRequest()->getParam('customer_id');
         $isSubsc = (int) $data['is_subscribed'];
-        Mage::log("Deni Debug: ".$userID);
-        Mage::log("Deni Debug: ".$isSubsc);
         $summary = Mage::getModel('points/summary')->loadByCustomerID($userID);
         try {
             $summary->setBalanceUpdateNotification($isSubsc)->save();
