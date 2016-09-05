@@ -202,7 +202,7 @@
             <customer_creditnotification translate="title" module="Bilna_Customer">
                 <group>customer</group>
                 <sort_order>111</sort_order>
-                <model>bilna_customer/api2_creditnotification</model>
+                <model>bilna_customer/api2_customer_bilnacredit</model>
                 <title>Credit Point Notification</title>
                 <privileges>
                     <admin>
