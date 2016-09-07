@@ -166,6 +166,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
      */
     public function updateCouponTimesUsed($couponId)
     {
+        /*
         $this->_getWriteAdapter()->update(
             $this->getMainTable(),
             array(
@@ -175,6 +176,9 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
                 'coupon_id = ?' => $couponId
             )
         );
-         
+        */
+        $write = Mage::getSingleton("core/resource")->getConnection("core_write");
+        $query = sprintf("UPDATE %s SET times_used = times_used + 1 WHERE coupon_id=:coupon_id",$this->getMainTable());
+        $binds = array("coupon_id" => $couponId);
     }
 }
