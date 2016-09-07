@@ -122,8 +122,8 @@ class Mage_SalesRule_Model_Observer
             /** @var Mage_SalesRule_Model_Coupon */
             $coupon->load($order->getCouponCode(), 'code');
             if ($coupon->getId()) {
-                $couponRuleUsage = Mage::getResourceModel('salesrule/coupon');
-                $couponRuleUsage->updateCouponTimesUsed($coupon->getId());
+                $couponResource = Mage::getResourceModel('salesrule/coupon');
+                $couponResource->updateCouponTimesUsed($coupon->getId());
                 if ($customerId) {
                     $couponUsage = Mage::getResourceModel('salesrule/coupon_usage');
                     $couponUsage->updateCustomerCouponTimesUsed($customerId, $coupon->getId());
