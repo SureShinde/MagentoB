@@ -160,14 +160,13 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
     
     /**
      * Increment times_used counter
-     *
-     *
-     * @param unknown_type $couponId
+     * 
+     * @param string $couponId
      */
     public function updateCouponTimesUsed($couponId)
     {
         $write = Mage::getSingleton("core/resource")->getConnection("core_write");
-        $query = sprintf("UPDATE %s SET times_used = times_used + 1 WHERE coupon_id=:coupon_id",$this->getMainTable());
+        $query = sprintf("UPDATE %s SET times_used = times_used + 1 WHERE coupon_id=:coupon_id", $this->getMainTable());
         $binds = array("coupon_id" => $couponId);
         $write->query($query, $binds);
     }
