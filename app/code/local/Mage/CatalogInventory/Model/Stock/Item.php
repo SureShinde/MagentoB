@@ -454,6 +454,10 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             return true;
         }
 
+        if ($this->isWholesaleQty($qty)) {
+            return $qty <= $this->getMaxWholesaleQty();
+        }
+
         if ($this->getQty() - $this->getMinQty() - $qty < 0) {
             switch ($this->getBackorders()) {
                 case Mage_CatalogInventory_Model_Stock::BACKORDERS_YES_NONOTIFY:
@@ -558,7 +562,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         }
 
         if ($this->getMaxSaleQty() && $qty > $this->getMaxSaleQty()) {
-            if ($this->_checkMaxWholesaleQty() && $qty > $this->getMaxSaleQty()) {
+            if ($this->isWholesaleQty($qty) && $qty > $this->getMaxSaleQty()) {
                 if ($qty > $this->getMaxWholesaleQty()) {
                     $result->setHasError(true)
                         ->setMessage(
@@ -928,12 +932,10 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
         return $this;
     }
 
-    private function _checkMaxWholesaleQty() {
-        $maxWholesaleQty = $this->getMaxWholesaleQty();
-        if (!empty($maxWholesaleQty) && $maxWholesaleQty > 0) {
+    public function isWholesaleQty($qty) {
+        if ($this->getMaxWholesaleQty() && $qty > $this->getMaxSaleQty()) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 }

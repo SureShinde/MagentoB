@@ -297,9 +297,6 @@ class Mage_CatalogInventory_Model_Observer
     public function checkQuoteItemQty($observer)
     {
         $quoteItem = $observer->getEvent()->getItem();
-        $inventoryItem = $quoteItem->getProduct()->getStockItem();
-        $maxSaleQty = $inventoryItem->getMaxSaleQty();
-        $maxWholesaleQty = $inventoryItem->getMaxWholesaleQty();
         /* @var $quoteItem Mage_Sales_Model_Quote_Item */
         if (!$quoteItem || !$quoteItem->getProductId() || !$quoteItem->getQuote()
             || $quoteItem->getQuote()->getIsSuperMode()) {
@@ -310,10 +307,6 @@ class Mage_CatalogInventory_Model_Observer
          * Get Qty
          */
         $qty = $quoteItem->getQty();
-
-        if (!empty($maxWholesaleQty) && $qty <= $maxWholesaleQty && $qty > $maxSaleQty) {
-            return $this;
-        }
 
         /**
          * Check if product in stock. For composite products check base (parent) item stosk status

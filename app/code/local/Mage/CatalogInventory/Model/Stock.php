@@ -137,32 +137,24 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
         $this->_getResource()->beginTransaction();
         $stockInfo = $this->_getResource()->getProductsStock($this, array_keys($qtys), true);
         $fullSaveItems = array();
-        $excludeFromSubtract = array();
+        $wholesaleItems = array();
         foreach ($stockInfo as $itemInfo) {
             $item->setData($itemInfo);
-            $maxWholesaleQty = $item->getMaxWholesaleQty();
-            if (($maxWholesaleQty > 0) && ($qtys[$itemInfo['product_id']] > $item->getMaxSaleQty())) {
-                if ($qtys[$item->getProductId()] <= $maxWholesaleQty) {
-                    $excludeFromSubtract[$itemInfo['product_id']] = '';
-                    $fullSaveItems[] = clone $item;
-                }
+            if (!$item->checkQty($qtys[$item->getProductId()])) {
+                $this->_getResource()->commit();
+                Mage::throwException(Mage::helper('cataloginventory')->__('Not all products are available in the requested quantity'));
+            }
+            if ($item->isWholesaleQty($qtys[$itemInfo['product_id']])) {
+                $wholesaleItems[$itemInfo['product_id']] = '';
             } else {
-                if ($qtys[$item->getProductId()] <= $item->getMaxSaleQty()){
-                    if (!$item->checkQty($qtys[$item->getProductId()])) {
-                        $this->_getResource()->commit();
-                        Mage::throwException(Mage::helper('cataloginventory')->__('Not all products are available in the requested quantity'));
-                    }
-                    $item->subtractQty($qtys[$item->getProductId()]);
-                    if (!$item->verifyStock() || $item->verifyNotification()) {
-                        $fullSaveItems[] = clone $item;
-                    }
+                $item->subtractQty($qtys[$item->getProductId()]);
+                if (!$item->verifyStock() || $item->verifyNotification()) {
+                    $fullSaveItems[] = clone $item;
                 }
             }
         }
 
-        if (count($qtys) > 0) {
-            $qtys = array_diff_key($qtys, $excludeFromSubtract);
-        }
+        $qtys = array_diff_key($qtys, $wholesaleItems);
         $this->_getResource()->correctItemsQty($this, $qtys, '-');
         $this->_getResource()->commit();
         return $fullSaveItems;
