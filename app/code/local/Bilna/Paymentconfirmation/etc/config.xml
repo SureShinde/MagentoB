@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Paymentconfirmation>
+            <version>0.1.0</version>
+        </Bilna_Paymentconfirmation>
+    </modules>
+  
+    <frontend>
+        
+        <routers>
+            <paymentconfirm>
+                <use>standard</use>
+                <args>
+                    <module>Bilna_Paymentconfirmation</module>
+                    <frontName>konfirmasipembayaran</frontName>
+                </args>
+            </paymentconfirm>
+        </routers>
+        
+        <layout>
+            <updates>
+                <Bilna_Paymentconfirmation>
+                    <file>bilna_paymentconfirmation.xml</file>
+                </Bilna_Paymentconfirmation>
+            </updates>
+        </layout>
+    </frontend>
+    
+    
+        
+    <global>
+        <models>
+            <Paymentconfirmation>
+                <class>Bilna_Paymentconfirmation_Model</class>
+                <resourceModel>paymentconfirmation_mysql4</resourceModel>
+            </Paymentconfirmation>
+            <paymentconfirmation_mysql4>
+                <class>Bilna_Paymentconfirmation_Model_Mysql4</class>
+                <entities>
+                    <payment>
+                        <table>bilna_payment_confirmation</table>
+                    </payment>
+                </entities>
+            </paymentconfirmation_mysql4>
+        </models>
+        
+        <helpers>
+            <paymentconfirmation>
+                <class>Bilna_Paymentconfirmation_Helper</class>
+            </paymentconfirmation>
+        </helpers>
+	
+        <blocks>
+            <paymentconfirm>
+                <class>Bilna_Paymentconfirmation_Block</class>
+            </paymentconfirm>
+        </blocks>
+        <resources>
+            <paymentconfirmation_setup>
+                <setup>
+                    <module>Bilna_Paymentconfirmation</module>
+                </setup>
+            </paymentconfirmation_setup>
+            <salescategory_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </salescategory_write>
+            <salescategory_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </salescategory_read> 
+        </resources>
+    </global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <bilna translate="title" module="paymentconfirmation">
+                                            <title>Bilna</title>
+                                            <children>
+                                                <paymentconfirmbackend translate="title">
+                                                    <title>Payment Confirmation Report</title>
+                                                </paymentconfirmbackend>
+                                            </children>
+                                        </bilna>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+
+</config>
+

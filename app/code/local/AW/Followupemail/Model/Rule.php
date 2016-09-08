@@ -887,8 +887,7 @@ class AW_Followupemail_Model_Rule extends Mage_Core_Model_Abstract {
             $objects['order']->status = '"' . Mage::getSingleton('sales/order_config')->getStatusLabel($objects['order']->status) . '"';
         }
         
-        
-        if ($objects['via'] == 'formbuilder') {
+        if (isset($objects['via']) && $objects['via'] == 'formbuilder') {
             $this->_isValid = true;
         }
         else {

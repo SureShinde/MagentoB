@@ -35,7 +35,7 @@
 <div class="aw-points-referral">
 	<div style="padding:5px;">
 		<p>
-		<?php echo $this->__("You can get Bilna Credit by sending invitation to your friends and relatives. Your credit will be added only after you had transaction on Bilna.com.");?> <a href="http://www.bilna.com/bilna-credits" style="font-weight: bold; color:#ff5719;text-decoration:none;"><?php echo $this->__("Click here");?></a> <?php echo $this->__("for more information on Bilna Credit.");?>
+		<?php echo $this->__("You can get Orami Credit by sending invitation to your friends and relatives. Your credit will be added only after you had transaction on Orami.co.id");?> <a href="<?php echo Mage::getBaseUrl();?>bilna-credits" style="font-weight: bold; color:#ff5719;text-decoration:none;"><?php echo $this->__("Click here");?></a> <?php echo $this->__("for more information on Orami Credit.");?>
 		</p>
 	</div>
    <span style="font-size:15px;padding-left: 5px;"><?php echo Mage::helper('points')->__('Use this link to share your invitation:'); ?></span><br/>
@@ -43,7 +43,7 @@
 	<a onclick="window.location.href='<?php echo $this->getInvitationFormUrl(); ?>'" target="_blank">
     	<input style="padding:20px;" type="image" onmouseover="this.src='http://assets.bilna.com/media/wysiwyg/landing/send-invitation-on.png'" onmouseout="this.src='http://assets.bilna.com/media/wysiwyg/landing/send-invitation.png'" src="http://assets.bilna.com/media/wysiwyg/landing/send-invitation.png" name="button" id="button" value="">
     </a>
-    <a href="http://www.twitter.com/share?text=Ayo+belanja+di+Bilna.com,+online+baby+shop+terbesar+di+Indonesia&amp;url=<?php echo $this->tinyurl(Mage::helper('points')->getInvitationLink()); ?>&amp;via=bilnaID" target="_blank">
+    <a href="http://www.twitter.com/share?text=Ayo+belanja+di+Orami.com,+online+baby+shop+terbesar+di+Indonesia&amp;url=<?php echo $this->tinyurl(Mage::helper('points')->getInvitationLink()); ?>&amp;via=oramiID" target="_blank">
     	<input style="padding:20px;" type="image" onmouseover="this.src='http://assets.bilna.com/media/wysiwyg/landing/son-twitter-on2.png'" onmouseout="this.src='http://assets.bilna.com/media/wysiwyg/landing/son-twitter-normal2.png'" src="http://assets.bilna.com/media/wysiwyg/landing/son-twitter-normal2.png" name="button" id="button" value="">
     </a>
     <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->tinyurl(Mage::helper('points')->getInvitationLink()); ?>" target="_blank">
@@ -84,12 +84,5 @@
 
 
 <div class="buttons-set">
-    <!--<button  title="<?php //echo $this->__('Send invitation') ?>" class="button" onclick="window.location.href='<?php //echo $this->getInvitationFormUrl(); ?>'">
-        <span>
-            <span>
-                <?php //echo $this->__('Send invitation') ?>
-            </span>
-        </span>
-    </button>-->
     <p class="back-link"><a href="<?php echo $this->getBackUrl(); ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
 </div>

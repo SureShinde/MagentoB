@@ -29,11 +29,10 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
         $this->storeId = $storeId;
 
         try {
-            /*$quote = $this->_getQuote($quoteId, $storeId);
-            $store = $quote->getStoreId();*/
-
+            //$quote = $this->_getQuote($quoteId, $storeId);
+            
             $_methods = $this->_getMethods();
-            $_methodsAllow = $this->getPaymentMethodsByShippingMethod();
+            $_methodsAllow = $this->getPaymentMethodsByShippingMethodUpdated();
             $_result = array ();
 
             foreach ($_methods as $_method)
@@ -114,6 +113,95 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
         $method->setInfoInstance($this->getQuote()->getPayment());
         return $this;
     }
+    
+    protected function _validateCOD($selectedShippingMethod = null)
+    {
+        $validateArray = [
+            'Free Shipping', 
+            'Bayar di Tempat', 
+            'Standard Shipping',
+            'Express Shipping',
+            'Economy Shipping',
+            'International Shipping'
+        ];
+        if(in_array($selectedShippingMethod, $validateArray)) {
+            return TRUE;
+        }
+        
+        return FALSE;
+    }
+
+    protected function getPaymentMethodsByShippingMethodUpdated() {
+        $quote = $this->getQuote();
+        $shippingAddress = $quote->getShippingAddress();
+        $shippingDescription = $shippingAddress->getShippingDescription();
+
+        $mapper = [
+            'standard' => 1,
+            'free shipping' => 1,
+            'economy' => 1,
+            'international' => 1,
+            'bayar di tempat' => 2,
+            'cod' => 2,
+            'express' => 3
+        ];
+
+        if (strpos(strtolower($shippingDescription), 'standard') !== false)
+            $shippingType = $mapper['standard'];
+        else
+        if (strpos(strtolower($shippingDescription), 'free shipping') !== false)
+            $shippingType = $mapper['free shipping'];
+        else
+        if (strpos(strtolower($shippingDescription), 'economy') !== false)
+            $shippingType = $mapper['economy'];
+        else
+        if (strpos(strtolower($shippingDescription), 'international') !== false)
+            $shippingType = $mapper['international'];
+        else
+        if (strpos(strtolower($shippingDescription), 'bayar di tempat') !== false)
+            $shippingType = $mapper['bayar di tempat'];
+        else
+        if (strpos(strtolower($shippingDescription), 'cod') !== false)
+            $shippingType = $mapper['cod'];
+        else
+        if (strpos(strtolower($shippingDescription), 'express') !== false)
+            $shippingType = $mapper['express'];
+
+        if ($shippingType == $mapper['express']) { // if this is express shipping
+            $allowedPaymethod = explode(',', Mage::getStoreConfig('bilna_expressshipping/paymethod/allowed_paymethod'));
+        }
+
+        $shipData = array (
+            'shipping_text' => $shippingAddress->getShippingDescription(),
+            'shipping_type' => $shippingType 
+        );
+
+        $paymentMethodsArr = Mage::getModel('cod/paymentMethod')->getSupportPaymentMethodsByShippingMethod($shipData);
+        $result = array ();
+
+        if (is_array($paymentMethodsArr)) {
+            if (count($paymentMethodsArr) > 0) {
+                foreach ($paymentMethodsArr as $key => $value) {
+                    if (isset($allowedPaymethod)) {
+                        if (in_array($value, $allowedPaymethod)) {
+                            $result[] = $value;
+                        }
+                    }
+                    else {
+                        if ($value == '*') {
+                            $result = $value;
+                            break;
+                        }
+                        else {
+                            $result[] = $value;
+                        }
+                    }
+                }
+            }
+        }
+
+        return $result;
+    }
 
     public function getPaymentMethodsByShippingMethod()
     {
@@ -123,10 +211,8 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
             'shipping_text' => $shippingAddress->getShippingDescription(),
             'shipping_type' => $shippingAddress->getShippingMethod()
         );
-
         $paymentMethodsArr = Mage::getModel('cod/paymentMethod')->getSupportPaymentMethodsByShippingMethod($shipData);
         $result = array ();
-
         if (is_array($paymentMethodsArr)) {
             if (count($paymentMethodsArr) > 0) {
                 foreach ($paymentMethodsArr as $key => $value) {
@@ -138,10 +224,31 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
                         $result[] = $value;
                     }
                 }
+                
+                if(!empty($result)) {
+                    $newResult = [];
+                    
+                    foreach($result as $key => $item) { 
+                        if(substr_count($shipData['shipping_text'], 'Free Shipping') || substr_count($shipData['shipping_text'], 'Standard Shipping')) {
+                            $newResult = $this->_removeKey('cod', $result);
+                            break;
+                        } elseif(substr_count($shipData['shipping_text'], 'Bayar di Tempat')) {
+                            $newResult = ['cod'];
+                            break;
+                        }
+                    }
+                }                
             }
         }
 
-        return $result;
+        return (empty($newResult) ? $result : $newResult);
+    }
+    
+    protected function _removeKey($removedKey, $array = array())
+    {
+        $indexRemoved = array_search($removedKey, $array);
+        unset($array[$indexRemoved]);
+        return $array;
     }
 
     protected function getQuote()

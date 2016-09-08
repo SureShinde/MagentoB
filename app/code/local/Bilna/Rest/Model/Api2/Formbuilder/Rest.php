@@ -6,8 +6,8 @@
  */
 
 abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_Api2_Formbuilder {
-    protected $_inputSimple = array ('text', 'textarea', 'hidden', 'dropdown', 'date', 'datetime');
-    protected $_inputChoice = array ('checkbox', 'radio', 'multiple');
+    protected $_inputSimple = array ('text', 'textarea', 'hidden', 'dropdown', 'date', 'datetime', 'ref');
+    protected $_inputChoice = array ('checkbox', 'radio', 'multiple', 'terms');
     
     protected function _validRequired($_input, $_formData) {
         if ($_input['required'] == 1) {
@@ -57,9 +57,9 @@ abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_A
         if ($_input['unique'] == 1) {
             $_collection = Mage::getModel('bilna_formbuilder/data')->getCollection();
             $_collection->addFieldToSelect('value')
-                ->addFieldToFilter('form_id', $_formId)
-                ->addFieldToFilter('type', $_input['name'])
-                ->addFieldToFilter('value', $_value);
+            ->addFieldToFilter('form_id', $_formId)
+            ->addFieldToFilter('type', $_input['name'])
+            ->addFieldToFilter('value', $_value);
             $_collection->getSelect()->limit(1);
             
             if ($_collection->getSize() > 0) {
@@ -89,8 +89,8 @@ abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_A
                 'record_id' => $_recordId,
                 'type' => $k,
                 'value' => $v,
-                'create_date' => $this->_getCurrentDate(),
-            );
+                'create_date' => $this->_getCurrentDateTime(),
+                );
         }
         
         $_table = Mage::getSingleton('core/resource')->getTableName('bilna_formbuilder/data');
@@ -145,7 +145,7 @@ abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_A
         $_sender = array (
             'name' => Mage::getStoreConfig('trans_email/ident_support/name'),
             'email' => Mage::getStoreConfig('trans_email/ident_support/email')
-        );
+            );
         $_translate = Mage::getSingleton('core/translate');
         $_translate->setTranslateInline(true);
         $_sendEmail = Mage::getModel('core/email_template')->sendTransactional($_templateId, $_sender, $_data['email'], $_data['name'], $_data);
@@ -179,10 +179,10 @@ abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_A
 
     protected function _getForm($_formId) {
         $_collection = Mage::getModel('bilna_formbuilder/form')->getCollection()
-            ->addFieldToFilter('id', $_formId)
-            ->addFieldToFilter('status', 1)
-            ->addFieldToFilter('DATE(active_from)', array ('lteq' => $this->_getCurrentDate()))
-            ->addFieldToFilter('DATE(active_to)', array ('gteq' => $this->_getCurrentDate()));
+        ->addFieldToFilter('id', $_formId)
+        ->addFieldToFilter('status', 1)
+        ->addFieldToFilter('active_from', array ('lteq' => $this->_getCurrentDate(), 'date' => true))
+        ->addFieldToFilter('active_to', array ('gteq' => $this->_getCurrentDate(), 'date' => true));
         $_form = $_collection->getFirstItem();
         
         if (!$_form->getId()) {
@@ -195,9 +195,8 @@ abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_A
     protected function _getInputs($_formId) {
         $_result = array ();
         $_collection = Mage::getModel('bilna_formbuilder/input')->getCollection()->addFieldToFilter('form_id', $_formId);
-        $_collection->getSelect()->order('group');
         $_collection->getSelect()->order('order');
-        
+        $_collection->getSelect()->order('group');
         if ($_collection->getSize() > 0) {
             foreach ($_collection as $_row) {
                 $_result[] = array (
@@ -212,8 +211,9 @@ abstract class Bilna_Rest_Model_Api2_Formbuilder_Rest extends Bilna_Rest_Model_A
                     'required' => $_row->getRequired(),
                     'unique' => $_row->getUnique(),
                     'order' => $_row->getOrder(),
-                );
+                    );
             }
+
         }
         
         return $_result;

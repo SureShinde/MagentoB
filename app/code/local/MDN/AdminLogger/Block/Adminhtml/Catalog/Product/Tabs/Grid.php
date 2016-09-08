@@ -25,11 +25,17 @@ class MDN_AdminLogger_Block_Adminhtml_Catalog_Product_Tabs_Grid extends Mage_Adm
      * @return unknown
      */
     protected function _prepareCollection() {
+        $productId = $this->getRequest()->getParam('id');
+        $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId);
+        $stockId = $stockItem->getId();
 
         $collection = Mage::getModel('AdminLogger/Log')
-                ->getCollection()
-                ->addFieldToFilter('al_object_id', array('eq' => $this->getRequest()->getParam('id')))
-                ->addFieldToFilter('al_object_type', array('like' => 'catalog/product'));
+            ->getCollection();
+//                ->addFieldToFilter('al_object_id', array('eq' => $this->getRequest()->getParam('id')))
+//                ->addFieldToFilter('al_object_type', array('like' => 'catalog/product'));
+        $collection->getSelect()->where(
+            "(al_object_type like 'catalog/product' AND al_object_id = {$productId}) OR (al_object_type like 'cataloginventory/stock_item' AND al_object_id = {$stockId})"
+        );
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -51,6 +57,11 @@ class MDN_AdminLogger_Block_Adminhtml_Catalog_Product_Tabs_Grid extends Mage_Adm
         $this->addColumn('al_user', array(
             'header' => Mage::helper('AdminLogger')->__('User'),
             'index' => 'al_user'
+        ));
+
+        $this->addColumn('al_object_type', array(
+            'header' => Mage::helper('AdminLogger')->__('Object Type'),
+            'index' => 'al_object_type'
         ));
 
         $this->addColumn('al_action_type', array(

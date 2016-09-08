@@ -1,6 +1,5 @@
 <?php
 /**
- * @author Indra Halim
  * Penambahan field include_in_sellercenter di EAV untuk Seller Center
  */
 $installer = $this;

@@ -26,12 +26,19 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         //Exclude the orders that have the same creation and last modified date as:
         //  - they are already present in Magento in the same format (Magento sent them to Net Suite)
         //  - they are not part of Magento
+        /*
         if ($salesOrder->basic->lastModifiedDate[0]->searchValue == $salesOrder->basic->dateCreated[0]->searchValue) {
             return false;
         }
+        */
 
-        //check if the order already exists in Magento. If not, we do not care about its updates as the order is not related to the store.
-        $netsuiteOrderId = $salesOrder->basic->internalId[0]->searchValue->internalId;
+        $rointernalid = Mage::helper('rocketweb_netsuite')->getROInternalId($salesOrder);
+
+        if ($rointernalid == false)
+            $netsuiteOrderId = $salesOrder->basic->internalId[0]->searchValue->internalId;
+        else
+            $netsuiteOrderId = $rointernalid;
+
         $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id',$netsuiteOrderId);
         $magentoOrders->load();
         if(!$magentoOrders->getSize()) {
@@ -48,9 +55,11 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
         //Exclude the orders that have the same creation and last modified date as:
         //  - they are already present in Magento in the same format (Magento sent them to Net Suite)
         //  - they are not part of Magento
+        /*
         if ($salesOrder->lastModifiedDate == $salesOrder->createdDate) {
             return false;
         }
+        */
 
         //check if the order already exists in Magento. If not, we do not care about its updates as the order is not related to the store.
         $netsuiteOrderId = $salesOrder->internalId;
@@ -65,8 +74,15 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
     }
 
     public function isAlreadyImported(SearchRow $record) {
+        $rointernalid = Mage::helper('rocketweb_netsuite')->getROInternalId($record);
+
+        if ($rointernalid == false)
+            $netsuiteOrderId = $record->basic->internalId[0]->searchValue->internalId;
+        else
+            $netsuiteOrderId = $rointernalid;
+
         $orderCollection = Mage::getModel('sales/order')->getCollection();
-        $orderCollection->addFieldToFilter('netsuite_internal_id',$record->basic->internalId[0]->searchValue->internalId);
+        $orderCollection->addFieldToFilter('netsuite_internal_id',$netsuiteOrderId);
         $netsuiteUpdateDatetime = Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($record->basic->lastModifiedDate[0]->searchValue);
         $orderCollection->addFieldToFilter('last_import_date',array('gteq'=>$netsuiteUpdateDatetime));
         $orderCollection->load();
@@ -102,7 +118,39 @@ class RocketWeb_Netsuite_Model_Process_Import_Order extends RocketWeb_Netsuite_M
 
     public function process(Record $netsuiteOrder, $queueData = null) {
         $magentoOrder = Mage::helper('rocketweb_netsuite/mapper_order')->getMagentoFormat($netsuiteOrder);
-        $magentoOrder->setNetsuiteInternalId($netsuiteOrder->internalId);
+
+        $readytoprocess = 0;
+        $paymentmethod = 0;
+
+        if (!is_null($netsuiteOrder->customFieldList->customField))
+        {
+            foreach ($netsuiteOrder->customFieldList->customField as $customField) {
+                if ($customField->internalId == 'custbody_orderfullypaid') {
+                    $readytoprocess = $customField->value;
+                }
+
+                if ($customField->internalId == 'custbody_paymentmethod') {
+                    $paymentmethod = $customField->value->internalId;
+                }
+            }
+        }
+
+        // if SO ready to process and payment method is COD
+        if ($readytoprocess == 1 && $paymentmethod == '12')
+            $magentoOrder->setStatus('processing_cod');
+
+        $netsuiteOrderId = $netsuiteOrder->internalId;
+        if (!is_null($netsuiteOrder->customFieldList->customField))
+        {
+            foreach ($netsuiteOrder->customFieldList->customField as $customField) {
+                if ($customField->internalId == 'custbody_sourcero') {
+                    $netsuiteOrderId = $customField->value->internalId;
+                    break;
+                }
+            }
+        }
+
+        $magentoOrder->setNetsuiteInternalId($netsuiteOrderId);
         $magentoOrder->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($netsuiteOrder->lastModifiedDate));
         $magentoOrder->getResource()->save($magentoOrder);
 

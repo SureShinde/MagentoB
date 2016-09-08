@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_Googlesitemap>
+            <version>1.0</version>
+        </Bilna_Googlesitemap>
+    </modules>
+    <global>
+        <models>
+            <googlesitemap>
+                <class>Model</class>
+            </googlesitemap>
+            <sitemap>
+                <rewrite>
+                    <sitemap>Bilna_Googlesitemap_Model_Sitemap_Model_Sitemap</sitemap>
+                </rewrite>
+            </sitemap>
+        </models>
+    </global>
+</config>

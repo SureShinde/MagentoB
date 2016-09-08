@@ -59,15 +59,15 @@
                         $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
                         $profiler = Mage::getModel('socialcommerce/profile')->load($customerId, 'customer_id');
                     ?>
-                    <?php if (! $profiler->getTemporary()) : ?>
+                    <?php if ($profiler->getUsername()) : ?>
                         <li><a href="<?php echo $this->getUrl('user/' . $profiler->getUsername()); ?>"><?php echo $this->__('My Collections') ?></a></li>
                     <?php else : ?>
-                        <li><a href="<?php echo $this->getUrl('collections')?>"><?php echo $this->__('My Collections') ?></a></li>
+                        <li><a href="<?php echo $this->getUrl('user/profile')?>"><?php echo $this->__('My Collections') ?></a></li>
                     <?php endif; ?>
                     <li><a href="javascript:;" onclick="newShowAddCollectionDialog()"><?php echo $this->__('Create Collections') ?></a></li>
                     <li><a href="<?php echo $this->getUrl('review/customer')?>"><?php echo $this->__('My Product Reviews') ?></a></li>
                     <li><a href="<?php echo $this->getUrl('points/invitation')?>"><?php echo $this->__('My Invitation') ?></a></li>
-                    <li><a href="<?php echo $this->getUrl('points/reward')?>"><?php echo $this->__('Bilna Credits') ?></a></li>
+                    <li><a href="<?php echo $this->getUrl('points/reward')?>"><?php echo $this->__('Orami Credits') ?></a></li>
                     <li><a href="<?php echo $this->getUrl('customer/account/logout')?>"><?php echo $this->__('Log Out') ?></a></li>
                 </ul>
             </div>

@@ -24,6 +24,7 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php $_escape_helper = Mage::helper('catalog/utils'); ?>
 <?php if($this->getResultCount()): ?>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <div class="page-title">
@@ -55,7 +56,7 @@
 <?php endif; ?>
 
 <script type="text/javascript">
-jQuery(document).ready(function () {    
-	dataLayer.push({'searchterms': '<?php echo $this->helper('catalogsearch')->getEscapedQueryText();?>'});
+jQuery(document).ready(function () {
+	dataLayer.push({'searchterms': '<?php echo $_escape_helper->escapeQuote($this->helper('catalogsearch')->getEscapedQueryText());?>'});
 });
 </script>

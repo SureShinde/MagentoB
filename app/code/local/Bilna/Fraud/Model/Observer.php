@@ -43,7 +43,7 @@ class Bilna_Fraud_Model_Observer {
             $ruleDataRuleId = $ruleData['rule_id'];
             if(($usesPerHousehold > 0) && (!empty($usesPerHousehold)) && !is_null($ruleDataRuleId)) {
                 if($ruleDataRuleId != 0) {
-                    $date = '[' . $fromDate . 'T23%3A59%3A59.999Z%2FDAY+TO+' . $toDate . 'T23%3A59%3A59.999Z%2FDAY]';
+                    $date = '[' . $fromDate . 'T17%3A00%3A00Z+TO+' . $toDate . 'T16%3A59%3A59Z]';
                 }
                 $telephone = '&fq=telp_clean%3A"'.str_replace(' ', '', trim($telephone)).'"';
                 $createdDate = '&fq=Created_Date%3A'.$date;

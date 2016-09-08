@@ -33,10 +33,12 @@
 ?>
 <?php $_helper = $this->helper('catalog/output'); ?>
 <?php $_product = $this->getProduct(); ?>
+<?php $_helper_socialcommerce = $this->helper('socialcommerce'); ?>
+<?php $wishlists = $_helper_socialcommerce->getRelatedCollection($_product); ?>
+<?php $hasRelatedCollection = (count($wishlists) < 1) ? false : true; ?>
 <input type="hidden" id="3rdparty-type" value="product"/>
 <input type="hidden" id="3rdparty-value" value="<?php echo $_product->getId(); ?>" />
 <input type="hidden" id="base-url" value="<?php echo Mage::getBaseUrl(); ?>" />
-<?php //$_product = $this->getProduct(); ?>
 <script type="text/javascript">
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
@@ -64,8 +66,7 @@
                     </div>
                 
                     <?php
-                    $myproduct = Mage::getModel('catalog/product')->load($_product->getId());
-                    $product_brands = $myproduct->getAttributeText('brands');
+                    $product_brands = $_product->getAttributeText('brand');
                     
                     if ($product_brands):
                     ?>
@@ -84,16 +85,20 @@
                     
                     <?php
                     $ship_from = $_helper->productAttribute($_product, $_product->getShipFrom(), 'ship_from');
-                    //$ship_by = $_helper->productAttribute($_product, $_product->getShipBy(), 'ship_by');
-                    //$sold_by = $_helper->productAttribute($_product, $_product->getSoldBy(), 'sold_by');
                     $ship_by = $_product->getAttributeText('ship_by');
-                    $sold_by = $_product->getAttributeText('sold_by');
+                    $userName = $_product->getMerchantUsername();
+                    $shopName = $_product->getMerchantShopName();
+                    if($userName && $shopName) {
+                        $sold_by =  $shopName;
+                        $ship_by = empty($ship_by) ? 'Bilna' : $ship_by;
+                    } else {
+                        $sold_by =  $_product->getAttributeText('sold_by');
+                    }
                     ?>
-                    
                     <div class="shipsfrom-soldby">
                         <p><?php echo $this->__('Sold by <span>%s</span> and Shipped by <span>%s</span>', ( $sold_by ? $sold_by : '-' ), ( $ship_from ? $ship_from : '-' )) ?></p>
                     </div>
-                
+
                     <hr/>
                     <?php echo $this->getChildHtml('product_type_data') ?>
                     
@@ -120,6 +125,10 @@
                             ?>
                         </p>
                     </div>
+
+                    <?php if (Mage::helper('bilna_crossborder')->isCrossBorder($_product)) { ?>
+                        <div><img src="<?php echo $this->getSkinUrl('images/cross-border-logo.png'); ?>"/></div>
+                    <?php } ?>
                 
                     <?php if ($_product->isSaleable() && $this->hasOptions()): ?>
                         <div class="product-container1">
@@ -146,11 +155,7 @@
                             <?php echo $this->getChildHtml('addtocart') ?>
                         <?php endif; ?>
                     <?php endif; ?>
-                
-                    <!--<div class="one-click-checkout">
-                        <a href="#"><?php //echo $this->__('One Click Checkout') ?></a>
-                    </div>-->   
-                    
+                                    
                     <div class="buy-later">             
                         <?php echo $this->getChildHtml('addto') ?>
                     </div>              
@@ -222,6 +227,19 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                    <?php elseif ($_code == 'express_shipping'): ?>
+                        <hr/>
+                        <div class="title-category" id="<?php echo "tabs-{$alias}"?>">
+                            <?php echo $this->__('Express Shipping'); ?>
+                        </div>
+                        <table id="product-attribute-specs-table" class="data-table">
+                            <tbody>
+                                <tr>
+                                    <th width="25%"><?php echo $_attribute['data'][0]['label']; ?></th>
+                                    <td><?php echo $_attribute['data'][0]['value']; ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     <?php elseif ($_code == 'additional_info'): ?>
                         <hr/>
                         <div class="title-category" id="<?php echo "tabs-{$alias}"?>">
@@ -254,6 +272,46 @@
             <?php endforeach; ?>
         </div>
     </div>
+    <?php if ($hasRelatedCollection) : ?>
+    <div class="product-tab-wrapper related-collection">
+        <div class="title-category">
+            <?php echo $this->__('Related Collections'); ?>
+        </div>
+        <div class="block-content">
+        <?php foreach ($wishlists as $wishlist) : ?>
+        <?php
+            $slug = Mage::getModel('catalog/product_url')->formatUrlKey($wishlist['name']);
+            $user = Mage::helper('socialcommerce')->getProfileInformation($wishlist['customer_id']);
+        ?>
+            <div class="cg-col-lg-3 cg-col-md-3 cg-col-sm-6 cg-col-xs-6 bottom-spacer-container">
+                <div class="cg-col-xs-12 nopadding collection-shade">
+                    <a href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>">
+                    <?php if ($wishlist['cover'] && strpos($wishlist['cover'],'socialcommerce') == true) : ?>
+                        <img src="<?php echo $wishlist['cover']; ?>" width="100%" class="img-collection">
+                    <?php elseif ($wishlist['cover'] && strpos($wishlist['cover'],'socialcommerce') == false) : ?>
+                        <img src="<?php echo $this->getUrl('media/collection-cover') . $wishlist['cover']; ?>" width="275" height ="275" class="img-collection collection-img">
+                    <?php else : ?>
+                        <img src="<?php echo $this->getSkinUrl('images') . '/orami_collection_empty.png'; ?>" width="100%" class="img-collection">
+                    <?php endif; ?>
+                    </a>
+                    <div id="explanation"></div>
+                    <div class="cg-col-xs-12 collection-title">
+                        <div class="cg-col-lg-12 cg-col-md-10 cg-col-sm-10 cg-col-xs-12 take-left" style="">
+                            <a class="display-title-coll link-pink-hover nameOfList uppercase opensans" href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>" style=""><?php echo $wishlist['name']; ?></a>
+                        <?php if ($user['url']) : ?>
+                            <span class="opensans hidden-xs oleh-elip">oleh</span> <a class="display-name-coll name-elip link-pink-hover opensans" href="<?php echo $user['url']; ?>" style=""><?php echo $user['display_name']; ?></a>
+                        <?php else : ?>
+                            <?php echo $user['display_name']; ?>
+                        <?php endif; ?>
+                            <span class="pull-right opensans hidden-md hidden-sm hidden-xs"><a href="<?php echo $this->getUrl('collections/' . $wishlist['wishlist_id'] . '-' . $slug); ?>">Lihat Koleksi ></a> </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        </div>
+    </div>
+    <?php endif; ?>
     
     <script type="text/javascript">
         //<![CDATA[
@@ -330,3 +388,5 @@
     dataLayer.push( {'skuid': '<?php echo $_product->getSku(); ?>'} );
     });
 </script>
+
+

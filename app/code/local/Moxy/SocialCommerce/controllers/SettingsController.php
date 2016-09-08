@@ -78,32 +78,24 @@ extends Mage_Core_Controller_Front_Action
                 $postData = $this->postData;
 
                 # Get username and slug it
-                $postUsername = Mage::getModel('catalog/product_url')->formatUrlKey($postData['username']);
+                $postUsername = isset($postData['username']) ? Mage::getModel('catalog/product_url')->formatUrlKey($postData['username']) : null;
 
                 $postAbout = $postData['about'];
                 $postLocation = $postData['location'];
-                $postDob = $postData['dob'];
+                $postDob = isset($postData['dob']) ? $postData['dob'] : null;
 
                 # Update the customer profile
                 $profile = Mage::getModel('socialcommerce/profile')
                     ->load($customerId, 'customer_id');
 
                 # Check if user has temporary profile and going to use different username
-                $profiler = Mage::getModel('socialcommerce/profile')->load($customerId, 'customer_id');
-                if ($profiler->getTemporary() && $profiler->getUsername() != $postUsername) {
+                if ($profile->getTemporary() && $profile->getUsername() != $postUsername) {
 
                     # Data validation
                     try {
-						Mage::helper('socialcommerce')->validateInput();
+                        Mage::helper('socialcommerce')->validateInput($postData);
                     } catch (Exception $e) {
                         throw new Exception($e->getMessage());
-                    }
-
-                    # Check route rewrite is still available
-                    $routeAvailable = Mage::helper('socialcommerce')->checkRouteAvailable($postUsername);
-
-                    if (! $routeAvailable) {
-                        throw new Exception("Username not available"); # Route not available
                     }
 
                     # Check if username is still available
@@ -116,10 +108,6 @@ extends Mage_Core_Controller_Front_Action
                     $oldUsername = $profile->getUsername();
 
                     $profile->setUsername($postUsername);
-
-					Mage::helper('socialcommerce')->createNewRewrite($postUsername);
-                    // $this->deleteRewrite($oldUsername);
-
                 }
 
                 # Check image submission
@@ -243,6 +231,7 @@ extends Mage_Core_Controller_Front_Action
         $customerId = $customer->getId();
 
         $visibility = ($this->getRequest()->getParam('visibility', 0) === 'on' ? 1 : 0);
+        $editorFlag = ($this->getRequest()->getParam('editor_flag', 0) === 'on' ? 1 : 0);
 
         $wishlistName = (isset($this->postData['name'])) ?
             $this->postData['name'] : null;
@@ -252,6 +241,14 @@ extends Mage_Core_Controller_Front_Action
 
         $desc = (isset($this->postData['desc'])) ?
         $this->postData['desc'] : null;
+
+        if ((isset($this->postData['col_categories'])) && (count($this->postData['col_categories']) > 0)) {
+            $collectionCategories = array();
+            foreach ($this->postData['col_categories'] as $colCategories) {
+                $collectionCategories[] = $colCategories;
+            }
+            $collectionCategory = implode(",", $collectionCategories);
+        }
         
 
 
@@ -260,7 +257,7 @@ extends Mage_Core_Controller_Front_Action
             # Check the limit is disabled
 			/*Mage::helper('socialcommerce')->checkCollectionLimit($customerId);*/
 
-            $this->createNewCollection($customerId, $wishlistName, $visibility, $desc);
+            $this->createNewCollection($customerId, $wishlistName, $visibility, $desc, $collectionCategory, $editorFlag);
 
             # Success notification
             $message = 'Your new collection "'.$wishlistName.'" has been successfully saved.';
@@ -281,7 +278,7 @@ extends Mage_Core_Controller_Front_Action
 
     }
 
-    protected function createNewCollection($customerId, $wishlistName, $visibility, $desc)
+    protected function createNewCollection($customerId, $wishlistName, $visibility, $desc, $collectionCategory, $editorFlag)
     {
         $wishlist = Mage::getModel('wishlist/wishlist');
 
@@ -294,50 +291,14 @@ extends Mage_Core_Controller_Front_Action
             ->generateSharingCode()
             //->setCloudCover($cover)
             ->setCover($cover)
+            ->setCategories($collectionCategory)
+            ->setEditorFlag($editorFlag)
             ->save();
 
-		if ($preset_image = $_POST['preset_image']) {
-					$wishlist->setCover($preset_image);
-					$wishlist->save();
-				}
-
-        # Create rewrite, first check the availability
-        $slug = Mage::getModel('catalog/product_url')->formatUrlKey($wishlistName);
-        $routeAvailable = Mage::helper('socialcommerce')->checkCollectionRouteAvailable($wishlist->getId(), $slug);
-
-        if ($routeAvailable) {
-
-            # Create new route rewrite
-			Mage::helper('socialcommerce')->createNewCollectionRewrite($wishlist->getId(), $slug);
-
-        } else {
-
-            # If not available, try another else
-
-            $error = false;
-            for ($i = 1;;$i++) {
-                $check = $slug . '-' . substr(uniqid(), 7);
-                if ($Mage::helper('socialcommerce')->checkCollectionRouteAvailable($wishlist->getId(), $check)) break;
-                if ($i == 100) {
-                    $error = true;
-                    break;
-                }
-            }
-
-            if ($error) {
-                throw new Exception("Error Processing Request", 1);
-            }
-
-            # Create new route rewrite
-			Mage::helper('socialcommerce')->createNewCollectionRewrite($wishlist->getId(), $slug);
-
+        if ($preset_image = $_POST['preset_image']) {
+            $wishlist->setCover($preset_image);
+            $wishlist->save();
         }
-
-        # Check if rewrite still available
-        if (! $routeAvailable) {
-            throw new Exception("Username not available"); # Route not available
-        }
-
         return $wishlist;
 
     }
@@ -366,14 +327,17 @@ extends Mage_Core_Controller_Front_Action
                 $this->postData['colname'] : null;
 
                 $del = (isset($this->postData['deleteButton']));
-                
+
+                $titleUpdate = null;
 
                 $visibility = (isset($this->postData['visibility'])) ? true : false;
+                $editorFlag = (isset($this->postData['editor_flag'])) ? true : false;
 
                 # TODO need to check if submitted collection is belong to logged user.
 
                 $wishlist = Mage::getModel('wishlist/wishlist')->load($collectionId);
                 $wishlist->setVisibility($visibility);
+                $wishlist->setEditorFlag($editorFlag);
 
                 #Get wishlist name
                 $wlname = $wishlist->getName();
@@ -386,9 +350,28 @@ extends Mage_Core_Controller_Front_Action
                     $wishlist->setCover($cover);
                 }
 
-				if ($preset_image = $_POST['preset_image']) {
-					$wishlist->setCover($preset_image);
-				}
+                if ($preset_image = $_POST['preset_image']) {
+                    $wishlist->setCover($preset_image);
+                }
+
+                if ($wlname != $title) {
+                    $titleUpdate = $wishlist->setName($title);
+                }
+
+                if ((isset($this->postData['col_categories'])) && (count($this->postData['col_categories']) > 0)) {
+                    $collectionCategories = array();
+
+                    foreach ($this->postData['col_categories'] as $colCategories) {
+                        $collectionCategories[] = $colCategories;
+                    }
+
+                    $collectionCategory = implode(",", $collectionCategories);
+                    $wlCategories = $wishlist->getCategories();
+
+                    if ($wlCategories != $collectionCategory) {
+                        $categoriesUpdate = $wishlist->setCategories($collectionCategory);
+                    }
+                }
 
                 #for deleting collection
                 if($del){
@@ -398,30 +381,7 @@ extends Mage_Core_Controller_Front_Action
                 
                 $descupdate = $wishlist->setDesc($desc);
 
-                #for changing title - checking if there's any title changing
-                if($title != $wlname){
-
-                $slug = Mage::getModel('catalog/product_url')->formatUrlKey($title);
-                $routeAvailable = Mage::helper('socialcommerce')->checkCollectionRouteAvailable($wishlist->getId(), $slug);
-
-                      if ($routeAvailable) {
-                        
-                       $titlechange = $wishlist->setName($title);
-                       # Create new route rewrite
-                       Mage::helper('socialcommerce')->createNewCollectionRewrite($wishlist->getId(), $slug);
-
-                       } 
-
-                       else {
-                            throw new Exception("Completely sorry the title is not available"); # Route not available
-                       }
-                         
-        
-                }
-
-                
-
-                if ($cover || $descupdate || $titlechange) {
+                if ($cover || $descupdate || $titleUpdate || $categoriesUpdate) {
                   
                     $wishlist->save();
 

@@ -39,14 +39,18 @@ class AW_Affiliate_Model_Api2_Generatereport_Rest_Admin_V1 extends AW_Affiliate_
         return $this->getReportAsJson($params);
     }
 
+    private function _getSession()
+    {
+        return Mage::getSingleton('core/session');
+    }
+
     protected function getReportAsJson($postData)
     {
         if (!$this->_customerId) {
             return 'Customer is not logged in';
         }
         
-        //$this->_getSession()->setCreateReportFormData($postData);
-        //var_dump(json_encode($postData));die;
+        $this->_getSession()->setCreateReportFormData($postData);
         
         $messages = array();
         
@@ -137,7 +141,7 @@ class AW_Affiliate_Model_Api2_Generatereport_Rest_Admin_V1 extends AW_Affiliate_
                 $messages[] = Mage::helper('awaffiliate')->__('Invalid report type');
             }
         }
-        //var_dump($postData);die;
+        
         return array(
             'message' => $messages, 
             'response' => $response, 

@@ -5,6 +5,8 @@
  * @author Bilna Development Team <development@bilna.com>
  */
 
+use Pheanstalk\Pheanstalk;
+
 abstract class Bilna_Worker_Abstract {
     const DEFAULT_STORE_ID = 1;
     
@@ -29,6 +31,8 @@ abstract class Bilna_Worker_Abstract {
     private $_formatDate = 'd-M-Y H:i:s';
     private $_start;
     private $_stop;
+
+    private $_logFile = 'magento_worker.log';
 
     public function __construct() {
         if ($this->_includeMage) {
@@ -159,17 +163,19 @@ USAGE;
         $this->_dbRead = $this->_dbResource->getConnection('core_read');
         $this->_dbWrite = $this->_dbResource->getConnection('core_write');
     }
-
+    
     protected function _queueConnect() {
-        $this->_queueSvc = Mage::getModel('bilna_queue/rabbitmq');
+        $beanstalkdConfig = Mage::getStoreConfig('bilna_queue/beanstalkd_settings');
         
-        if (!$this->_queueSvc->isEnabled()) {
-            $this->_critical('Queue service disabled.');
+        if (!$this->_isActive($beanstalkdConfig)) {
+            $this->_critical("Beanstalkd is not active");
         }
+        
+        $this->_queueSvc = new Pheanstalk($beanstalkdConfig['hostname']);
     }
     
     protected function _queueDisconnect() {
-        $this->_queueSvc->disconnect();
+        //$this->_queueSvc->disconnect();
     }
     
     protected function _getInterval($start, $stop) {
@@ -183,6 +189,36 @@ USAGE;
         
         return sprintf("%d years, %d months, %d days, %d hours, %d minutes, %d seconds", $years, $months, $days, $hours, $minutes, $seconds);
     }
+    
+    protected function _isActive($config) {
+        if (!isset ($config['enabled']) || !$config['enabled']) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    protected function _prepareData($data) {
+        if (is_array($data) || is_object($data)) {
+            $data = json_encode($data);
+        }
+        
+        return $data;
+    }
+    
+    protected function _parseData($data) {
+        if ($this->_isJson($data)) {
+            return json_decode($data, true);
+        }
+        
+        return $data;
+    }
+    
+    protected function _isJson($data) {
+        json_decode($data);
+        
+        return (json_last_error() == JSON_ERROR_NONE);
+    }
 
     protected function _critical($message) {
         $this->_logProgress($message);
@@ -191,12 +227,12 @@ USAGE;
     }
     
     protected function _logProgress($message) {
-        //Mage::log($message, null, $this->_logPath . '.log');
-        
         if ($this->getArg('verbose')) {
             $now = date($this->_formatDate);
             
             echo "[{$now}] {$message}\n";
         }
+
+        Mage::log($message, null, $this->_logFile);
     }
 }

@@ -41,7 +41,7 @@ $pointsConvertedIntoMoney = $this->getPointsConvertedIntoMoney()
 
 <div id="aw_points-summary-box2" style="margin-bottom:30px;">
 
-    <h2 class="box-title"><?php echo $this->__('Bilna Credit(s) balance information'); ?>
+    <h2 class="box-title"><?php echo $this->__('Orami Credit(s) balance information'); ?>
 
         <?php if ($infoPage): ?>
             <span class="separator">|</span>
@@ -51,17 +51,6 @@ $pointsConvertedIntoMoney = $this->getPointsConvertedIntoMoney()
     </h2>
     <dl class="box-content">
         <dt><?php echo $this->__("Your current balance is %s %s %s.", $this->getCurrentPointsBalance(), $rewardpoint, $pointsConvertedIntoMoney ? "($pointsConvertedIntoMoney)" : ""); ?></dt>
-
-        <!--<?php //if ($pointsFromRatePointsToCurrency || $pointsFromRateCurrencyToPoints): ?>
-            <dt><?php //echo $this->__('Current exchange rates:'); ?></dt>
-            <?php //if ($pointsFromRatePointsToCurrency): ?>
-                <dd><?php //echo $this->__("Each <strong> %s </strong> %s can be redeemed for <strong> %s </strong>.", $pointsFromRatePointsToCurrency, $rewardpoint, $this->getCurrencyFromRatePointsToCurrency()); ?></dd>
-            <?php //endif; ?>
-			
-            <?php //if ($pointsFromRateCurrencyToPoints): ?>
-                <dd><?php //echo $this->__("Each <strong> %s </strong> spent will earn <strong> %s </strong> %s.", $this->getCurrencyFromRateCurrencyToPoints(), $pointsFromRateCurrencyToPoints, $rewardpoint); ?></dd>
-            <?php //endif; ?>
-        <?php //endif; ?>-->
 
         <?php if ($highLimit || $lowLimit): ?>
             <dt><?php echo $this->__('Balance limitation:'); ?></dt>

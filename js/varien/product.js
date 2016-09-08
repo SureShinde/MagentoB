@@ -560,6 +560,7 @@ Product.OptionsPrice.prototype = {
         this.defaultTax         = config.defaultTax;
         this.currentTax         = config.currentTax;
         this.productPrice       = config.productPrice;
+        this.collectionPrice    = config.collectionPrice;
         this.showIncludeTax     = config.showIncludeTax;
         this.showBothPrices     = config.showBothPrices;
         this.productOldPrice    = config.productOldPrice;
@@ -599,6 +600,7 @@ Product.OptionsPrice.prototype = {
         this.containers[2] = 'price-including-tax-' + this.productId;
         this.containers[3] = 'price-excluding-tax-' + this.productId;
         this.containers[4] = 'old-price-' + this.productId;
+        this.containers[5] = 'collection-price-' + this.productId;
     },
 
     changePrice: function(key, price) {
@@ -610,6 +612,7 @@ Product.OptionsPrice.prototype = {
     },
     getOptionPrices: function() {
         var price = 0;
+        var collectionPrice = 0;
         var nonTaxable = 0;
         var oldPrice = 0;
         var priceInclTax = 0;
@@ -624,17 +627,20 @@ Product.OptionsPrice.prototype = {
                 priceInclTax += pair.value;
             } else if (pair.key == 'optionsPriceInclTax') {
                 priceInclTax += pair.value * (100 + currentTax) / 100;
+            } else if (pair.key == 'collection') {
+                collectionPrice = pair.value;
             } else {
                 price += parseFloat(pair.value);
                 oldPrice += parseFloat(pair.value);
             }
         });
-        var result = [price, nonTaxable, oldPrice, priceInclTax];
+        var result = [price, nonTaxable, oldPrice, priceInclTax, collectionPrice];
         return result;
     },
 
     reload: function() {
         var price;
+        var collectionPrice;
         var formattedPrice;
         var optionPrices = this.getOptionPrices();
         var nonTaxable = optionPrices[1];
@@ -644,16 +650,19 @@ Product.OptionsPrice.prototype = {
 
         $H(this.containers).each(function(pair) {
             var _productPrice;
+            var _collectionPrice;
             var _plusDisposition;
             var _minusDisposition;
             var _priceInclTax;
             if ($(pair.value)) {
                 if (pair.value == 'old-price-'+this.productId && this.productOldPrice != this.productPrice) {
                     _productPrice = this.productOldPrice;
+                    _collectionPrice = this.productOldPrice;
                     _plusDisposition = this.oldPlusDisposition;
                     _minusDisposition = this.oldMinusDisposition;
                 } else {
                     _productPrice = this.productPrice;
+                    _collectionPrice = this.productPrice;
                     _plusDisposition = this.plusDisposition;
                     _minusDisposition = this.minusDisposition;
                 }
@@ -664,6 +673,9 @@ Product.OptionsPrice.prototype = {
                 } else if (this.specialTaxPrice == 'true' && this.priceInclTax !== undefined && this.priceExclTax !== undefined) {
                     price = optionPrices+parseFloat(this.priceExclTax);
                     _priceInclTax += this.priceInclTax;
+                } else if (this.specialTaxPrice == 'true' && pair.value == 'collection-price-'+this.productId) {
+                    collectionPrice = optionPrices+parseFloat(_collectionPrice);
+                    _priceInclTax += parseFloat(_collectionPrice) * (100 + this.currentTax) / 100;
                 } else {
                     price = optionPrices+parseFloat(_productPrice);
                     _priceInclTax += parseFloat(_productPrice) * (100 + this.currentTax) / 100;
@@ -735,7 +747,9 @@ Product.OptionsPrice.prototype = {
                     formattedPrice = '';
                 }
 
-                if ($(pair.value).select('.price')[0]) {
+                if ($(pair.value).id == 'collection-price-'+this.productId) {
+                    $(pair.value).setAttribute("data-price", formattedPrice);
+                } else if ($(pair.value).select('.price')[0]) {
                     $(pair.value).select('.price')[0].innerHTML = formattedPrice;
                     if ($(pair.value+this.duplicateIdSuffix) && $(pair.value+this.duplicateIdSuffix).select('.price')[0]) {
                         $(pair.value+this.duplicateIdSuffix).select('.price')[0].innerHTML = formattedPrice;

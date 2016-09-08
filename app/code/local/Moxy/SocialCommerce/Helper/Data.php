@@ -6,8 +6,7 @@
  * @copyright Copyright (c) 2015 Moxy (moxy.co.id)
  * @version   Fri Sep 25 11:33:43 2015
  */
-class Moxy_SocialCommerce_Helper_Data
-extends Mage_Core_Helper_Abstract
+class Moxy_SocialCommerce_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public static function stripArray($input)
     {
@@ -47,15 +46,15 @@ extends Mage_Core_Helper_Abstract
         return trim(preg_replace("!\s+!", ' ', strip_tags($result)));
     }
 
-	public function checkUsernameAvailable($postUsername)
-	{
-		$profiler = Mage::getModel('socialcommerce/profile')->load($postUsername, 'username');
+    public function checkUsernameAvailable($postUsername)
+    {
+        $profiler = Mage::getModel('socialcommerce/profile')->load($postUsername, 'username');
 
-		# true means available
-		return (! $profiler->getEntityId()) ? true : false;
-	}
+        # true means available
+        return (! $profiler->getEntityId()) ? true : false;
+    }
 
-	# Create new custom rewrite for collection detail
+    # Create new custom rewrite for collection detail
     public function createNewCollectionRewrite($id, $slug)
     {
         # TODO loop thru all store ids, and create rewrite for each store id.
@@ -82,7 +81,7 @@ extends Mage_Core_Helper_Abstract
             ->save();*/
     }
 
-	public function checkCollectionLimit($customerId)
+    public function checkCollectionLimit($customerId)
     {
         $wishlistCollection = Mage::getModel('wishlist/wishlist')->getCollection()
             ->filterByCustomerId($customerId);
@@ -94,40 +93,29 @@ extends Mage_Core_Helper_Abstract
         }
     }
 
-    public function createTemporaryProfile() {
+    public function createTemporaryProfile($customer = NULL) 
+    {
 
-        $customer = Mage::getSingleton('customer/session')->getCustomer();
-
+        if($customer == NULL) {
+            $customer = Mage::getSingleton('customer/session')->getCustomer();
+        }
         # Temporary username
         $username = Mage::getModel('catalog/product_url')->formatUrlKey($customer->getName());
+        $profile = Mage::getModel('socialcommerce/profile')->load($username, 'username')->getData();
 
-        # Check route rewrite is still available
-        $routeAvailable = $this->checkRouteAvailable($username);
+        # If username exists, improvise
+        if ($profile) {
 
-        if (! $routeAvailable) {
-
-            # If route not available, improvise it.
-
-            $error = false;
-            for ($i = 1;;$i++) {
+            for ($i = 1; $i < 101; $i++) {
                 $slug = $username . '-' . substr(uniqid(), 7);
-                if ($this->checkRouteAvailable($slug)) break;
-                if ($i == 100) {
-                    $error = true;
+                $profile = Mage::getModel('socialcommerce/profile')->load($slug, 'username')->getData();
+
+                if (empty($profile)) {
+                    $username = $slug;
                     break;
                 }
             }
-
-            if ($error) {
-                throw new Exception("Error Processing Request", 1);
-            }
-
-            $username = $slug;
-
         }
-
-        # Create new route rewrite for this customer
-        $this->createNewRewrite($username);
 
         # Create new customer profile
         $profile = Mage::getModel('socialcommerce/profile');
@@ -146,9 +134,8 @@ extends Mage_Core_Helper_Abstract
     }
 
     # Input validation
-    public function validateInput()
+    public function validateInput($postData)
     {
-        $postData = $this->postData;
         $postUsername = $postData['username'];
         if (! $postUsername) {
             throw new Exception("Please fill username field");
@@ -182,7 +169,7 @@ extends Mage_Core_Helper_Abstract
     }
 
     # Upload avatar image
-    public function processAvatar($customerId)
+    public function processAvatar($customerId, $data = NULL)
     {
         $customerAvatar = null;
 
@@ -206,13 +193,30 @@ extends Mage_Core_Helper_Abstract
             $image->save($customerAvatar);
 
         }
+            
+        //to handle API data content
+        if(!empty($data['image_url'])) {
+            $_POST['image_url'] = $data['image_url'];
+        }
+        if (isset($_POST['image_url']) && $_POST['image_url']) {
+            $upFileTmpName = $this->download_image($_POST['image_url'], 'avatar');
+            $imageUrl = 'media'. DS .'avatar'. DS . basename($upFileTmpName);
+            $image = new Varien_Image ( $imageUrl );
+            $image->constrainOnly(true);
+            $image->keepAspectRatio(false);
+            $image->keepFrame(false);
+            $image->setWatermarkImageOpacity(0);
+            $image->adaptiveResize(800,800);
+            $image->save ($imageUrl);
+
+            return ltrim(basename($upFileTmpName), '/');
+        }
 
         return ltrim($result['file'], '/');
-
     }
 
     # Upload cover image
-	public function processCoverset($imagePath)
+    public function processCoverset($imagePath)
     {
         $return = null;
 
@@ -229,37 +233,40 @@ extends Mage_Core_Helper_Abstract
         }
 
         return $return;
-
     }
-	#
-	#
-	protected function download_image($image_url) {
-		$image_file = 'media'. DS .'collection-cover'. DS . substr(str_shuffle(md5(time())),0,5).'.jpg';
-		$dirname = dirname($image_file);
-                if (!is_dir($dirname))
-                {
-                    mkdir($dirname, 0777, true);
-                }
-		$fp = fopen($image_file, 'w+');
-
-		$ch = curl_init($image_url);
-		curl_setopt($ch, CURLOPT_FILE, $fp);          // output to file
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 1000);      // some large value to allow curl to run for a long time
-		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
-		curl_exec($ch);
-		curl_close($ch);
-		fclose($fp);
-		return $image_file;
-	}
-
-    public function processCover()
+    
+    protected function download_image($image_url, $target = 'collection-cover') 
     {
-        if($_FILES) {
+        $image_file = 'media'. DS .$target. DS . substr(str_shuffle(md5(time())),0,5).'.jpg';
+        $dirname = dirname($image_file);
+        if (!is_dir($dirname))
+        {
+            mkdir($dirname, 0777, true);
+        }
+        $fp = fopen($image_file, 'w+');
+
+        $ch = curl_init($image_url);
+        curl_setopt($ch, CURLOPT_FILE, $fp);          // output to file
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 1000);      // some large value to allow curl to run for a long time
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
+        if(curl_exec($ch) === false) Mage::log('CURL Error : ' . curl_error($ch));
+        curl_close($ch);
+        fclose($fp);
+        return $image_file;
+    }
+
+    public function processCover($data = NULL)
+    {
+        /** 
+         * bug fix image url not saved, so we commented on $_FILES code
+         */
+        //if($_FILES) {
+            
             if ($_FILES['cover']['tmp_name']) {
                 $image_name = substr(str_shuffle(md5(time())),0,5).'.jpg';
+                $uploader = new Varien_File_Uploader('cover', $data);   
                 
-                $uploader = new Varien_File_Uploader('cover');   
                 $uploader->setAllowedExtensions(array('jpg','jpeg','png')); 
                 $uploader->setAllowRenameFiles(true);  
                 $uploader->setFilesDispersion(true);  
@@ -276,9 +283,13 @@ extends Mage_Core_Helper_Abstract
 
                 return ltrim($result['file'], '/');
             }
-
+            
+            //to handle API data content            
+            if(!empty($data['image_url'])) {
+                $_POST['image_url'] = $data['image_url'];
+            }
             if ($_POST['image_url']) {
-                $upFileTmpName = $this->download_image($_POST['image_url']);
+                $upFileTmpName = $this->download_image($_POST['image_url']);                
                 $imageUrl = 'media'. DS .'collection-cover'. DS . basename($upFileTmpName);
                 $image = new Varien_Image ( $imageUrl );
                 $image->constrainOnly(true);
@@ -292,7 +303,7 @@ extends Mage_Core_Helper_Abstract
             }
 
             return null;
-        }
+        //}
     }
 
     # Check if custom route available for user URL
@@ -309,8 +320,7 @@ extends Mage_Core_Helper_Abstract
     # Check if the customer has public profile already
     public function checkExistingProfile($customerId)
     {
-        $profiler = Mage::getModel('socialcommerce/profile')
-            ->load($customerId, 'customer_id');
+        $profiler = Mage::getModel('socialcommerce/profile')->load($customerId, 'customer_id');
 
         return ($profiler->getEntityId()) ? true : false;
     }
@@ -355,7 +365,8 @@ extends Mage_Core_Helper_Abstract
         return (count($routeExists) == 0) ? true : false;
     }
 
-    public function getProfileInformation($customer_id) {
+    public function getProfileInformation($customer_id) 
+    {
         $customer = Mage::getModel('customer/customer')->load($customer_id);
         $profile = Mage::getModel('socialcommerce/profile')->load($customer_id, 'customer_id');
         $img = Mage::getDesign()->getSkinUrl('images/').'avatar-f.jpg';
@@ -388,4 +399,57 @@ extends Mage_Core_Helper_Abstract
         return array('profile_image' => $img, 'display_name' => $title, 'url' => $url);
     }
 
+    /**
+     * Retrieve related collection from product
+     *
+     */
+    public function getRelatedCollection($product)
+    {
+        $collectionsCollection = Mage::getModel('wishlist/item')->getCollection();
+        $collectionsCollection->addFieldToFilter('product_id', array('eq' => $product->getId()));
+        $relatedCollections = $collectionsCollection->getData();
+
+        if (count($relatedCollections) < 1) {
+            return array();
+        }
+
+        $relatedCollectionId = array();
+        foreach ($relatedCollections as $relatedCollection) {
+            $relatedCollectionId[] = $relatedCollection['wishlist_id'];
+        }
+
+        $wishlistCollection = Mage::getModel('wishlist/wishlist')
+        ->getCollection()
+        ->addFieldToFilter('wishlist_id', $relatedCollectionId)
+        ->addFieldToFilter('visibility', 1)
+        ->setOrder('counter', 'DESC')
+        ->setPageSize(4);
+
+        return $wishlistCollection->getData();
+    }
+
+    public function seoUrl($string)
+    {
+        //Lower case everything
+        $string = strtolower($string);
+        /**
+         * Make alphanumeric (removes all other characters)
+         * Clean up multiple dashes or whitespaces
+         * Convert whitespaces and underscore to dash
+         */
+        $patterns = array(
+            '/[^a-z0-9_\s-]/',
+            '/[\s-]+/',
+            '/[\s_]/'
+        );
+
+        $replace = array(
+            '',
+            ' ',
+            '-'
+        );
+
+        $string = preg_replace($patterns, $replace, $string);
+        return $string;
+    }
 }

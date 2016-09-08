@@ -226,7 +226,7 @@
 }
 .dashboard .box .box-title a {
 	font-weight: bold;
-	color: #EE5191;
+	color: #ff6c6c;
 }
 .dashboard .box-account.box-recent, 
 .dashboard .box-account.box-reviews {
@@ -240,7 +240,7 @@
 	border-bottom: 0;
 }
 .dashboard .box-account .box-head a {
-	color: #EE5191;
+	color: #ff6c6c;
 	font-weight: bold;
 }
 .dashboard .box-recent .box-head h2, 
@@ -357,7 +357,7 @@
 }
 .addresses-list li.item a, 
 .addresses-additional-wrap a {
-	color: #EE5191;
+	color: #ff6c6c;
 }
 .addresses-list li.item p {
 	text-align: right;
@@ -426,7 +426,7 @@
 .my-account .pager-wrapper .limiter ul li a, 
 .my-account .data-table .link-reorder, 
 .my-account .data-table .link-view-order {
-	color: #EE5191 !important;
+	color: #ff6c6c !important;
 	font-weight: bold;
 }
 .my-account .data-table {

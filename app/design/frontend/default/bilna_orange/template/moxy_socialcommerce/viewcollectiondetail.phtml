@@ -43,21 +43,44 @@ if ($view == '0'){
 <?php
 $wishlist = $this->getWishlist();
 $user = Mage::helper('socialcommerce')->getProfileInformation($wishlist['customer_id']);
-
+$coverImage = $this->getSkinUrl('images') . '/orami_collection_empty.png';
 $_productCollection = $this->getWishlistCollection();
 $_helper = $this->helper('catalog/output');
+$_core_helper =  Mage::helper('core');
+$messages=Mage::getSingleton("checkout/session")->getMessages(true);
+echo $this->getLayout()->createBlock("core/messages")->setMessages($messages)->getGroupedHtml();
 ?>
 <div class="cg-col-xs-12 nopadding detail-collect spacer-mobile">
   <div class="cg-col-xs-12 cg-col-sm-12 cg-col-md-4 cg-col-lg-4 nopadding bottom-spacer-container" >
 
+    <!-- Check is wishlist cover image is exist-->
     <?php if($wishlist['cover']) : ?>
-  <img src="<?php echo $this->getUrl('media/collection-cover') . $wishlist['cover']; ?>" class="collection-img"/>
-  <?php elseif ($wishlist['cloud_cover']) : ?>
+      <img src="<?php echo $this->getUrl('media/collection-cover') . $wishlist['cover']; ?>" class="collection-img"/>
+      <?php $coverImage = $this->getUrl('media/collection-cover') . $wishlist['cover']; ?>
+    <!-- Use cloud cover image, If wishlist cover image is not exist -->
+    <?php elseif ($wishlist['cloud_cover']) : ?>
       <?php echo cl_image_tag($wishlist['cloud_cover'], ['class' => 'collection-img cg-img-responsive', 'alt' => $wishlist->getName(), 'secure' => true, 'width' => 390, 'height' => 390, 'crop' => 'fill', 'format' => 'jpg']); ?>
+      <?php $coverImage = $wishlist['cloud_cover']; ?>
+    <!-- Use product image if both(cover and cloud cover) are not exist -->
+    <?php else : ?>
+      <?php
+            // Check first product item in user collection (wishlist)
+            $item = $_productCollection->getFirstItem();
+            if ($item->getProductId()) {
+              $product = Mage::getModel('catalog/product')->load($item->getProductId());
+            }
+          ?>
+        
+        <!-- Use product image if exist-->
+        <?php if (isset($product) && $product->getImageUrl()) { ?>
+          <img src="<?php echo $product->getImageUrl(); ?>" class="cg-img-responsive" alt="<?php echo $wishlist->getName(); ?>">
+          <?php $coverImage = $product->getImageUrl(); ?>
+        <?php } else { ?>
 
-  <?php else : ?>
-  <img src="<?php echo $this->getSkinUrl('images/') . 'default-collection.jpg'; ?>" class="cg-img-responsive" alt="<?php echo $wishlist->getName(); ?>">
-<?php endif; ?>
+        <!-- Use default user collection cover image exist, if no image options exist -->
+          <img src="<?php echo $this->getSkinUrl('images/') . 'orami_collection_empty.png'; ?>" class="cg-img-responsive" alt="<?php echo $wishlist->getName(); ?>">
+        <?php }?>
+    <?php endif; ?>
 
 </div>
 <div class="cg-col-lg-8 cg-col-md-8 cg-col-xs-12 cg-col-sm-12 custom-pad">
@@ -94,7 +117,7 @@ $_helper = $this->helper('catalog/output');
       <a style="color:#fff;" href="http://twitter.com/home?status=<?php echo $wishlist->getName(); ?>+<?php echo $this->helper('core/url')->getCurrentUrl(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-twitter" style="padding-top:7px;"></i></a>
     </div>
     <div class="cg-col-xs-2 padding-3lr soc-size pinterest">
-      <a style="color:#fff;" href="https://www.pinterest.com/pin/create/link/?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>&description=<?php echo $wishlist->getDesc(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-pinterest-p" style="padding-top:7px;"></i></a>
+      <a style="color:#fff;" href="https://www.pinterest.com/pin/create/link/?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>&media=<?php echo $coverImage; ?>&description=<?php echo urlencode($wishlist->getDesc()); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-pinterest-p" style="padding-top:7px;"></i></a>
     </div>
     <div class="cg-col-xs-2 padding-3lr soc-size gplus">
       <a style="color:#fff;" href="https://plus.google.com/share?url=<?php echo $this->helper('core/url')->getCurrentUrl(); ?>" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus" style="padding-top:7px;"></i></a>
@@ -113,23 +136,6 @@ $_helper = $this->helper('catalog/output');
   <?php $_collectionSize = $_productCollection->count() ?>
   <?php $_columnCount = $this->getColumnCount(); ?>
   <form method="post" id="frmAddMulti" action="<?php echo $this->getUrl('multiadd/add') ?>">
-    <div class="collectionbox">
-      <div class="collectioncontentbox">
-        <input type="checkbox" class="checkall" value="0" id = "sall">
-        <label for="checkall" class=" opensans"><?php echo $this->__('Select All Products') ?></label>
-        <br />
-        <div class="total-price opensans">
-          <span><?php echo $this->__('Total Price : ') ?></span><span class="totalPrice"><?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?> 0</span>
-        </div>
-      </div>
-      <div class="collectionactionbox">
-        <button type="button" title="<?php echo $this->__('Buy Selected Products') ?>" class="button btn-cartall" id = "bbtn">
-          <span> 
-            <span class="in-block"> <span class="pull-left">BUY&nbsp;</span>  <span class="hidden-md hidden-sm hidden-xs pull-left">SELECTED</span><span class="pull-left hidden-sm hidden-xs hidden-md">&nbsp;PRODUCTS&nbsp;</span> (</span><span class="in-block selectedItems">0</span><span class="in-block"><?php echo $this->__(')') ?></span>
-          </span>
-        </button>
-      </div>
-    </div>
 
     <div class="cg-container-100">
       <div class="cg-row">
@@ -152,13 +158,13 @@ $_helper = $this->helper('catalog/output');
             $productDesc = $this->stripTags($_product->getShortDescription(), null, true);
 
             $productRegularPrice = round($_product->getPrice());
-            $productRegularPriceFormatted = 'Rp ' . number_format($productRegularPrice, 0, '', '.');
+            $productRegularPriceFormatted = $_core_helper->currency($productRegularPrice, true, false);//'Rp ' . number_format($productRegularPrice, 0, '', '.');
 
             $productSpecialPrice = round($_product->getSpecialPrice());
-            $productSpecialPriceFormatted = 'Rp ' . number_format($productSpecialPrice, 0, '', '.');
+            $productSpecialPriceFormatted = $_core_helper->currency($productSpecialPrice, true, false);//'Rp ' . number_format($productSpecialPrice, 0, '', '.');
 
             $productFinalPrice = round($_product->getFinalPrice());
-            $productFinalPriceFormatted = 'Rp ' . number_format($productFinalPrice, 0, '', '.');
+            $productFinalPriceFormatted = $_core_helper->currency($productFinalPrice, true, false);//'Rp ' . number_format($productFinalPrice, 0, '', '.');
 
             $productBrand = $_product->getAttributeText('brand');
 
@@ -174,6 +180,10 @@ $_helper = $this->helper('catalog/output');
             $productDiscount = 100 - round(($productFinalPrice / $productRegularPrice) * 100);
 
             $stocklevel = (int)Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId)->getQty();
+            
+            $stockStatus = $_product->getStockItem();
+            
+            $backOrder = Mage::getModel('cataloginventory/stock_item')->loadByProduct($productId)->getBackorders();
 
               # Date compare for special price
             $productSpecialPriceFromDate = $_product->getSpecialFromDate();
@@ -196,11 +206,19 @@ $_helper = $this->helper('catalog/output');
                 <?php if(!$_product->canConfigure() && $_product->isSaleable() && $_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
                 <?php $item_in_stock = true; ?>
 
-                <div class="checker-this">
-                  <input type="checkbox" name="cc" class="check collection-checkbox" productId="<?php echo $_product->getId() ?>" id="check-<?php echo $_product->getId() ?>" value="<?php echo $_product->getId() ?>"/>
-                  <label for="check-<?php echo $_product->getId() ?>" ><span class="poper<?php echo $i;?>"></span></label>
-                  <div class="cg-hidden-xs check-to-clicking<?php echo $i;?>">select product</div>
-                </div>
+                <?php
+                // if cross border is disabled and the item is cross border, don't display the add to cart button
+                if (Mage::helper('bilna_crossborder')->isCrossBorderEnabled() == false && 
+                    Mage::helper('bilna_crossborder')->isCrossBorder($_product)): 
+                    ;
+                else:
+                ?>
+                  <div class="checker-this">
+                    <input type="checkbox" name="cc" class="check collection-checkbox" productId="<?php echo $_product->getId() ?>" id="check-<?php echo $_product->getId() ?>" value="<?php echo $_product->getId() ?>"/>
+                    <label for="check-<?php echo $_product->getId() ?>" ><span class="poper<?php echo $i;?>"></span></label>
+                    <div class="cg-hidden-xs check-to-clicking<?php echo $i;?>">select product</div>
+                  </div>
+                <?php endif; ?>
                 
                 <!--<div class="collection-checkbox-box">
                   <input type="checkbox" class="check collection-checkbox" productId="<?php echo $_product->getId() ?>" id="check-<?php echo $_product->getId() ?>" value="<?php echo $_product->getId() ?>">
@@ -214,7 +232,7 @@ $_helper = $this->helper('catalog/output');
               <span class="cg-col-xs-12 nopadding">Hapus product ini dari collection anda?</span>
               <div class="cg-col-xs-12 nopadding">
                 <div class="cg-col-xs-6">
-                  <span style="background: #3EB988;" class="btn btn-block btn-size-small yes-delete"  onclick="dontDelete<?php echo $i;?>()">tidak</span>
+                  <span style="background: #3EB988;" class="btn btn-block btn-size-small yes-delete"  onclick="dontDelete(<?php echo $i;?>)">tidak</span>
                 </div>
                 <div class="cg-col-xs-6">
                   <a class="btn btn-size-small btn-block yes-delete" style="" href="<?php echo $this->getUrl('social/settings/delitemcollection?user='.$user['display_name'].'&wlid='.$wlid.'&proid='.$_product->getId().'&url='); ?>">ya</a>
@@ -223,16 +241,16 @@ $_helper = $this->helper('catalog/output');
             </div>
 
             <div class="action<?php if ($productAvailability == 3) echo ' actions-outofstock hover'; ?>">
-              <a class="product-link" onclick="showQuickView<?php echo $i;?>()"></a>
+              <a class="product-link" onclick="showQuickView(<?php echo $i;?>,'<?php echo $productImageUrl;?>')"></a>
               <div class="add-to-links"> 
                 <div>
                  <?php 
                  $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
                  if ($wishlist['customer_id'] == $customerId) { ?>
-                 <span  onclick="deleteItem<?php echo $i; ?>()" class="addToCollectionLink" ><i class="fa fa-trash"></i></span>
+                 <span  onclick="deleteItem(<?php echo $i; ?>)" class="addToCollectionLink" ><i class="fa fa-trash"></i></span>
 
                  <?php } else { ?>
-                 <a
+                 <a id="collection-price-<?php echo $productId; ?>"
                  href="javascript:;"
                  class="link-wishlist addToCollectionLink"
                  onclick="showAddToCollectionDialog()"
@@ -240,6 +258,7 @@ $_helper = $this->helper('catalog/output');
                  data-image="<?php echo $productImageUrl; ?>"
                  data-product-name="<?php echo $productNameStripped; ?>"
                  data-price="<?php echo $productFinalPriceFormatted; ?>"
+                 data-oldprice="<?php echo $productRegularPriceFormatted; ?>"
                  data-id="<?php echo $productId; ?>"><div class="cg-hidden-xs add-to-hovering">add to collection</div></a></a>
                  <?php } ?> 
                </div>
@@ -249,7 +268,7 @@ $_helper = $this->helper('catalog/output');
              data-id="<?php echo $productId; ?>"
              title="Quick View"
              style="background: #3EB988; border:none;"
-             class="btn btn-size-small opensans pointer" onclick="showQuickView<?php echo $i;?>()">
+             class="btn btn-size-small opensans pointer" onclick="showQuickView(<?php echo $i;?>,'<?php echo $productImageUrl;?>')">
              Quick View
            </button>
          </div>
@@ -258,12 +277,12 @@ $_helper = $this->helper('catalog/output');
               <div class="container-collection-pop" style="display:none;" id="quickView<?php echo $i; ?>">
                 <div class="cg-col-lg-5 cg-col-md-6 cg-col-sm-6 cg-col-xs-11 container-collection-whitebg white-bg-new-coll quick-col" style="display:inline-table !important;">
                <div class="cg-col-lg-1 cg-col-md-1 cg-col-sm-1 cg-col-xs-1 quick-sub-col " id="closer-collection bottom-spacer-little" style="">
-                    <a href="javascript:;" onclick="hideQuickView<?php echo $i;?>()" style="text-decoration:none;width:100%;display:block; line-height:1px;"><i class="fa fa-times"></i></a>
+                    <a href="javascript:;" onclick="hideQuickView(<?php echo $i;?>)" style="text-decoration:none;width:100%;display:block; line-height:1px;"><i class="fa fa-times"></i></a>
                   </div>
                   <div class="cg-col-lg-12 cg-col-sm-12 cg-col-md-12 cg-col-xs-12 text-right bottom-spacer-container" style="">
                       </div>
                  <div class="cg-col-xs-12 cg-col-sm-12 cg-col-md-6 cg-col-lg-6">
-                  <img src="<?php echo $productImageUrl; ?>" alt="<?php echo $productImageLabel?>" id="product-collection-image-<?php echo $productId; ?>">
+                  <img src="<?php echo $productImageUrl; ?>" alt="<?php echo $productImageLabel?>" id="product-collection-image-<?php echo $productId; ?>" class="product-collection-image-quick">
 
                   <?php $_images = Mage::getModel('catalog/product')->load($_product->getId())->getMediaGalleryImages(); ?>  
 
@@ -278,7 +297,7 @@ $_helper = $this->helper('catalog/output');
                             ?>
                             
                             <li style ="line-height: 1px;float: left;">
-                              <a class="thumb-link quick-view" href="#" data-image-index="<?php echo $a; ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail', $_image->getFile())->resize(50); ?>" width="50" height="50" alt="<?=$this->htmlEscape($_image->getLabel());?>" title="<?=$this->htmlEscape($_image->getLabel());?>"/></a> 
+                              <a class="thumb-link quick-view pointer" data-image-index="<?php echo $a; ?>"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail', $_image->getFile())->resize(50); ?>" width="50" height="50" alt="<?=$this->htmlEscape($_image->getLabel());?>" title="<?=$this->htmlEscape($_image->getLabel());?>" data-image-main="<?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->resize(265); ?>" class="thumb-img" /></a> 
                             </li>
                         <?php } $a++; endforeach; ?>
                         </ul>
@@ -295,10 +314,25 @@ $_helper = $this->helper('catalog/output');
                     <div class="clearfix"></div>
                     <div> 
                       <div class="price-info">
-                        <div class="price-box quick-view-price-box" style="text-align: left;">
-                        <span class="regular-price" id="product-price-<?php echo $productId; ?>">
-                          <span class="price quick-price opensans" style=""><?php echo $productFinalPriceFormatted; ?></span>                                    
-                        </span>
+                        <div class="price-box quick-price quick-view-price-box" style="text-align: left;">
+                          <?php if ($_product->canConfigure()) {
+                              $productBlock = $this->getLayout()->createBlock('catalog/product_price');
+                                echo $productBlock->getPriceHtml($_product);
+                              } else {
+                                $oldPrice = "";
+                                $oldText = "";
+                                if ($productRegularPriceFormatted != $productFinalPriceFormatted) {
+                                  $oldPrice = $productRegularPriceFormatted;
+                                  $oldText = $this->__('Sebelumnya');
+                                }
+                              echo '<span class="regular-price" id="product-price-<?php echo $productId; ?>">
+                                    <p class="old-price">
+                                      <span class="price-label">'.$oldText.'</span>
+                                      <span class="price size12" id="old-price">'.$oldPrice.'</span>
+                                    </p>
+                              <div class="price-box"><span class="price opensans">'.$productFinalPriceFormatted.'</span></div></span>'; 
+                            }?>                                   
+                        
 
                         <!-- showing product rating --> 
                         <?php $storeId = Mage::app()->getStore()->getId(); 
@@ -344,13 +378,13 @@ $_helper = $this->helper('catalog/output');
                           </div>-->
 
                           <div class="add-to-cart-buttons cg-col-xs-12">
-                            <div class="cg-col-xs-2 coll-quick" onclick="newShowAddCollectionDialog()" style="cursor: pointer;">
+                            <!-- <div class="cg-col-xs-2 coll-quick" onclick="newShowAddCollectionDialog()" style="cursor: pointer;">
                               <i class="fa fa-heart"></i>
-                            </div>
+                            </div> -->
 
                             <!-- checking stock level for quick view-->
 
-                            <?php if ($stocklevel < 1) { ?>
+                            <?php if (($stocklevel < 1) && (!$stockStatus->getIsInStock()) && ($backOrder < 1)) { ?>
 
                             <div class="cg-col-xs-10">
                                               <button type ="button" class="btn btn-cancel-button nomargin" disabled style="">
@@ -363,6 +397,26 @@ $_helper = $this->helper('catalog/output');
                             
                             <div class="cg-col-xs-10">
 
+                               <?php
+                                // if cross border is disabled and the item is cross border, don't display the add to cart button
+                                if (Mage::helper('bilna_crossborder')->isCrossBorderEnabled() == false && 
+                                    Mage::helper('bilna_crossborder')->isCrossBorder($_product)): 
+                                ?>
+                                  <button
+                                      type ="button"
+                                      style="margin-top: 1px;font-family:'open sans';border:1px solid #ee5191;background:#ffffff;color:#ee5191;border-radius:5px;
+                                      cursor:pointer;" 
+                                      id="closeqv<?php echo $i;?>"
+                                      data-id="<?php echo $productId; ?>"
+                                      title="<?php echo $productButtonLabel; ?>"
+                                      class="btn full-width btn-size-small btn-addtochart btn-cart"
+                                      onclick="javascript:">
+                                      Segera tersedia
+                                  </button>
+                                <?php
+                                else:
+                                ?>
+
                                               <button
                                                     type ="button"
                                                     style="margin-top: 1px;font-family:'open sans';border:none;background:#ee5191;border-radius:5px;
@@ -374,6 +428,7 @@ $_helper = $this->helper('catalog/output');
                                                     onclick="setLocation('<?php echo $productAddToCartUrl; ?>'); hideQuickView();">
                                                     <?php echo $productButtonLabel; ?>
                                                 </button>
+                                <?php endif; ?>
 
                             </div>
 
@@ -475,21 +530,6 @@ $_helper = $this->helper('catalog/output');
 
           });
 
-         function showQuickView<?php echo $i;?>() {
-          jQuery('#quickView<?php echo $i;?>').fadeIn('fast');
-        }
-
-        function hideQuickView<?php echo $i;?>() {
-          jQuery('#quickView<?php echo $i;?>').fadeOut('fast');
-        }
-
-         function deleteItem<?php echo $i;?>(){
-          jQuery('#deleteItemIdku<?php echo $i;?>').fadeToggle('fast');
-        }
-        function dontDelete<?php echo $i;?>(){
-          jQuery('#deleteItemIdku<?php echo $i;?>').fadeOut('fast');
-        }
-
         </script>
 
         <input type = "hidden" class="collection-checkbox-qty" productId="<?php echo $_product->getId() ?>" id="qty-<?php echo $_product->getId() ?>" value ="1">
@@ -506,19 +546,28 @@ $_helper = $this->helper('catalog/output');
     <div class="text">
       <div class="preview-box">
         <div class="brand"><?php echo $productBrand; ?></div>
-        <p class="name-product opensans"><a class="bold" onclick = "showQuickView<?php echo $i; ?>()" title="<?php echo $productNameStripped; ?>" style = "cursor:pointer;"><?php echo $productNameStripped; ?></a></p>
+        <p class="name-product opensans"><a class="bold" onclick = "showQuickView(<?php echo $i; ?>,'<?php echo $productImageUrl;?>')" title="<?php echo $productNameStripped; ?>" style = "cursor:pointer;"><?php echo $productNameStripped; ?></a></p>
         <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
       </div>
       <div class="price-box">
         <input type="hidden" class="final-price-<?php echo $productId; ?>" value="<?php echo $productFinalPrice; ?>" />
-        <?php if ($productSpecialPrice && $productSpecialPrice < $productRegularPrice && $productSpecialDateIsValid) : ?>
-        <div class="special-price">
-          <span class="current-price price" id="product-price-<?php echo $productId; ?>"><?php echo $productSpecialPriceFormatted; ?></span>
+        <?php if ($_product->canConfigure()) : ?>
+          <?php 
+            $productBlock = $this->getLayout()->createBlock('catalog/product_price');
+            echo $productBlock->getPriceHtml($_product); 
+          ?>
+        <?php elseif ($productSpecialPrice && $productSpecialPrice < $productRegularPrice && $productSpecialDateIsValid) : ?>
+        <div class="special-price in-block full-width">
           <p class="old-price">
-            <span class="price" id="old-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
+            <span class="price-label" style="display: block;"><?php echo $this->__('Sebelumnya');?></span>
+            <span class="price size12" id="old-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
           </p>
+          <span class="current-price price" id="product-price-<?php echo $productId; ?>"><?php echo $productSpecialPriceFormatted; ?></span>
         </div>
       <?php else : ?>
+      <p class="old-price" style="min-height:22px;">
+            <span class="price size12"></span>
+          </p>
       <span class="regular-price">
         <span class="price" id="product-price-<?php echo $productId; ?>"><?php echo $productRegularPriceFormatted; ?></span>
       </span>
@@ -528,6 +577,21 @@ $_helper = $this->helper('catalog/output');
 </div>
 </div>
 <?php $i++; endforeach ?>
+<script language="javascript">
+    function showQuickView(id,imgSrc) {
+        jQuery('#quickView'+id).fadeIn('fast');
+        jQuery('.product-collection-image-quick').attr('src',imgSrc);
+    }
+    function hideQuickView(id) {
+        jQuery('#quickView'+id).fadeOut('fast');
+    }
+    function deleteItem(id){
+        jQuery('#deleteItemIdku'+id).fadeToggle('fast');
+    }
+    function dontDelete(id){
+        jQuery('#deleteItemIdku'+id).fadeOut('fast');
+    }
+</script>
 </div>
 </div>
 </div>  
@@ -635,6 +699,10 @@ jQuery('.category-products .item').hover(function(){
   }
 });
 
+jQuery('.thumb-img').bind("click",function(){
+  jQuery(".product-collection-image-quick").attr('src',jQuery(this).attr("data-image-main"));
+});
+
 function countSelectedItems(){
   var selectedItems = 0;
   var elQty;
@@ -686,4 +754,3 @@ function countTotalPrice(){
 }
 
 </script>
-

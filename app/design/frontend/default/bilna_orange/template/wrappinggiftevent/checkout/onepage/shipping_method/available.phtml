@@ -26,6 +26,8 @@
 ?>
 <?php /** @var $this Mage_Checkout_Block_Onepage_Shipping_Method_Available */ ?>
 <?php $_shippingRateGroups = $this->getShippingRates(); ?>
+<?php $helper = Mage::helper('wrappinggiftevent');?>
+<?php $codHelper = Mage::helper('cod');?>
 <?php if (!$_shippingRateGroups): ?>
     <p><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></p>
 <?php else: ?>
@@ -36,17 +38,48 @@
         <dd>
             <ul>
             <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
+                <?php $disableOption = false; /* disable option */ ?>
                 <?php $shippingCodePrice[] = "'".$_rate->getCode()."':".(float)$_rate->getPrice(); ?>
+                <?php
+                // if current shipping method is COD, check whether all the items can be COD
+                if ( strpos(strtolower($_rate->getCode()), 'bayar_di_tempat') !== false ):
+
+                    // if COD config is disabled, do not show this option at all
+                    if (!$codHelper->showCodMethod())
+                        continue;
+                ?>
+                <?php endif; ?>
+
+                <?php
+                // if current shipping method is Express, check whether all the items can be express-shipped
+                if ( (strpos(strtolower($_rate->getCode()), 'express') !== false) || (strpos(strtolower($_rate->getCode()), 'ekspres') !== false) ):
+
+                    // if express shipping config is disabled, do not show this option at all
+                    if ($this->isExpressShippingEnabled() === false)
+                        continue;
+                    
+                    if (!$this->showExpressShippingMethod())
+                        $disableOption = true;
+                    else
+                    if (!$this->checkExpressShippingSalesCount())
+                        $disableOption = true;
+                ?>
+                <?php endif ?>
                 <li>
                    <?php if ($_rate->getErrorMessage()): ?>
                     <ul class="messages"><li class="error-msg"><ul><li><?php echo $this->escapeHtml($_rate->getErrorMessage()) ?></li></ul></li></ul>
                    <?php else: ?>
                         <?php if ($_sole) : ?>
                         <span class="no-display">
-                        	<input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" data-text="<?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>" data-type="<?php echo $_rate->getDeliveryId() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" class="shipping-type" />
+                            <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" data-text="<?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>" data-type="<?php echo $_rate->getDeliveryId() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" class="shipping-type" />
                         </span>
                         <?php else: ?>
-                        <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" data-text="<?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>" data-type="<?php echo $_rate->getDeliveryId() ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio shipping-type"/>
+                        
+                            <?php if($disableOption): ?>
+                                <input type="radio" disabled="disabled" class="radio shipping-type disabled"/>
+                            <?php else: ?>
+                                <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" data-text="<?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>" data-type="<?php echo $_rate->getDeliveryId() ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' checked="checked"' ?> class="radio shipping-type"/>
+                            <?php endif; ?>
 
                         <?php if ($_rate->getCode() === $this->getAddressShippingMethod()): ?>
                         <script type="text/javascript">
@@ -57,17 +90,83 @@
                         <?php endif; ?>
 
                         <?php endif; ?>
-						<?php
-							//TODO: ini untuk shipping method
-						?>
-                        <label for="s_method_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
+                        <?php
+                            //TODO: ini untuk shipping method
+                        ?>
+                        <label for="s_method_<?php echo $_rate->getCode() ?>" style='font-weight:normal !important;'>
+                        <?php $shipping_word =  $this->escapeHtml($_rate->getMethodTitle()) ?>
                         <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                        <?php
+                            $show = '';
+                            if ($helper->contain($shipping_word,'economy shipping') || $helper->contain($shipping_word,'standard shipping') || $helper->contain($shipping_word,'international shipping')) {
+                                if($helper->contain($shipping_word,'economy shipping'))
+                                    $show = '<strong>Economy Shipping<br/></strong>';
+                                else
+                                    $show = '<strong>Pengiriman Standar<br/></strong>'; 
+                                $each = explode('+', $shipping_word);
+                                foreach ($each as $key => $value) {
+                                    if($helper->contain($value,'standard shipping') || $helper->contain($value,'economy shipping') || $helper->contain($value,'free shipping')) {
+                                        if($helper->contain($shipping_word,'international shipping'))
+                                            $show .= '<strong>Produk lokal</strong> - ';
+                                        else
+                                            $show .= '<p class="adjust"><strong>Produk lokal</strong> - ';
+                                    }
+                                    if($helper->contain($value,'international shipping')) {
+                                        $show .= '<strong>Produk impor</strong> - ';
+                                    }
+                                    if(!$helper->contain($shipping_word,'international shipping') || (count($each)==1 && $helper->contain($shipping_word,'international shipping')))
+                                        $show .= '<strong>'.$_excl.'</strong> ';
+                                    else
+                                        $show .= '<strong>'.$helper->getPrice($value).'</strong> ';
+                                    $show .= $helper->getDeliveryTime($value);
+                                    if($helper->contain($value,'economy shipping') || $helper->contain($value,'standard shipping') || $helper->contain($value, 'free shipping')) {
+                                        if($helper->contain($shipping_word,'international shipping'))
+                                            $show .= '<br/>';
+                                        else
+                                            $show .= '</p>';
+                                    }
+                                    
+                                }
+                            } else {
+                                preg_match('/^.*?(?=\()/', $shipping_word, $match);
+                                $shipping_type = $match[0];
+                                $price = !empty($helper->getPrice($value)) ? $helper->getPrice($value) : $_excl;
+                                $deliveryTime = $helper->getDeliveryTime($shipping_word);
+                                $show = '<strong>'.$shipping_type.'</strong><br/>';
+                                $show .= '<p class="adjust">'.$price.' ';
+                                if(strtolower($shipping_type) == 'express shipping'){
+                                    $time = explode('tanggal',$helper->getDeliveryTime($shipping_word));
+                                    $show .= $time[0];
+                                    if(count($time)>1) $show .= ' tanggal '.'<strong>'.$time[1].'</strong>';
+                                    $show .= '</p>';
+                                } else {
+                                    $show .= $deliveryTime.'</p>';
+                                }
+                            }
+                            echo $show; 
+                        ?>
+                        <?php //echo $_excl; ?>
                         <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
-                        <?php echo $_excl; ?>
                         <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
                             (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
                         <?php endif; ?>
                         </label>
+                        <?php
+                        if ( (strpos(strtolower($_rate->getCode()), 'express') !== false) || (strpos(strtolower($_rate->getCode()), 'ekspres') !== false) )
+                        {
+                            $expressShippingHelper = Mage::helper('bilna_expressshipping');
+                            $dateTime = Mage::getModel('core/date')->timestamp(time());
+                            $orderDate = date('d F Y', $dateTime);
+                            $nextDay = date('d F Y', strtotime($orderDate . ' +1 day'));
+                            echo "<div><p class='check-terima'>Terima pesanan tanggal <u style='text-decoration:underline;'>";
+                            if($expressShippingHelper->isBeforeCutOffTime()){
+                                echo $orderDate;
+                            }else{
+                                echo $nextDay;
+                            }
+                            echo "</u></p></div>";
+                        }
+                        ?>
                    <?php endif ?>
                 </li>
             <?php endforeach; ?>
@@ -108,7 +207,7 @@
 <?php $_wrappingGiftEventLists = $this->getWrappingGiftEvent();?>
 
 <?php if(!empty($_wrappingGiftEventLists)): ?>
-<?php 
+<?php
 $wrappingEvent = $this->getAddressWrappingEvent();
 ?>
 
@@ -173,7 +272,7 @@ $wrappingEvent = $this->getAddressWrappingEvent();
         jQuery('input[type="radio"][name="wrapping[gift]"]').on('change', function() {
             jQuery('input[type=radio][name="wrapping[gift]"]').not(this).prop('checked', false);
         });
-        
+
         jQuery('input[type="checkbox"][name="wrapping_for_gift"]').trigger('change');
     });
 </script>

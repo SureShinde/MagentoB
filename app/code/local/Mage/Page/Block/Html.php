@@ -305,7 +305,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
                                 break;
                             }
                             else {
-                                if ($_subcategory['child'] && count($_subcategory['child']) > 0) {
+                                if (isset($_subcategory['child']) && count($_subcategory['child']) > 0) {
                                     foreach ($_subcategory['child'] as $_subsubcategory) {
                                         if ($_subsubcategory['id'] == $id) {
                                             $result = $_subsubcategory['parent_url_key'];
@@ -360,7 +360,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
                                 break;
                             }
                             else {
-                                if ($_subcategory['child'] && count($_subcategory['child']) > 0) {
+                                if (isset($_subcategory['child']) && count($_subcategory['child']) > 0) {
                                     foreach ($_subcategory['child'] as $_subsubcategory) {
                                         if ($_subsubcategory['id'] == $id) {
                                             $result = $_subsubcategory['parent_id'];

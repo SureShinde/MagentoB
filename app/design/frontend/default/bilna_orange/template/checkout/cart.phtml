@@ -24,6 +24,11 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<style>
+    .main-container {
+        padding-top: 100px;
+    }
+</style>
 <?php
 /**
  * Shopping cart template
@@ -32,10 +37,13 @@
  */
 ?>
 <?php $gtmItemIds = ''; ?>
+<?php $_items = $this->getQuote()->getAllItems(); ?>
+<?php $itemQty = 0; ?>
+<?php foreach ($_items as $_item) { $parentId = $_item->getParentItemId(); if(empty($parentId)) {$itemQty++;} }?>
 <input type="hidden" id="3rdparty-type" value="cart"/>
 <input type="hidden" id="3rdparty-value" value="" />
 <div class="cart">
-    <div class="shopping-cart" rowspan="<?php echo $mergedCells; ?>">
+    <div class="shopping-cart">
         <span class="title"><?php echo $this->__('Shopping Cart') ?></span>
         <div class="continue-shopping">
             <?php if($this->getContinueShoppingUrl()): ?>
@@ -101,28 +109,6 @@
                         <tr>
                             <td colspan="10" class="a-right">
                                 <button type="submit" name="update_cart_action" value="update_qty" title="<?php echo $this->__('Update Changes'); ?>" class="button btn-update"><span><span><?php echo $this->__('Update Changes'); ?></span></span></button>
-                                <!--[if lt IE 8]>
-                                <input type="hidden" id="update_cart_action_container" />
-                                <script type="text/javascript">
-                                //<![CDATA[
-                                        Event.observe(window, 'load', function()
-                                        {
-                                                // Internet Explorer (lt 8) does not support value attribute in button elements
-                                                $emptyCartButton = $('empty_cart_button');
-                                                $cartActionContainer = $('update_cart_action_container');
-                                                if ($emptyCartButton && $cartActionContainer) {
-                                                        Event.observe($emptyCartButton, 'click', function()
-                                                        {
-                                                                $emptyCartButton.setAttribute('name', 'update_cart_action_temp');
-                                                                $cartActionContainer.setAttribute('name', 'update_cart_action');
-                                                                $cartActionContainer.setValue('empty_cart');
-                                                        });
-                                                }
-
-                                        });
-                                //]]>
-                                </script>
-                                <![endif]-->
                             </td>
                         </tr>
                     </tfoot>
@@ -365,54 +351,7 @@
     }
 ?>
 <script type="text/javascript">
-function ecommerceCheckout0(sku, price, quantity) {
-	var temp_sku = sku;
-	var temp_price = price;
-	var temp_quantity = quantity;
-	var temp_container = {
-		'event': 'checkout',
-	    'ecommerce': {
-	      'checkout': {
-	        'actionField': {
-	        	'step' : 1,
-	        	'list' : 'browsing'
-	        },
-	        'products': []
-	     }
-	   }
-	}
-
-	for (var i=0 ; i<jQuery("td.hi-res h2.product-name a").length ; i++) {
-		if (sku.length > jQuery("td.hi-res h2.product-name a").length) {	// check if exist same sku in array
-			if (sku[i] == sku[i+1]) {
-				sku.splice(i, 1);
-			}
-			if (sku[i+1] == sku[i+2]) {
-				sku.splice(i+1, 1);
-			}
-		}
-
-		temp_container.ecommerce.checkout.products.push({
-				  'id' : sku[i],
-				  'price' : jQuery("td.a-center.cart-price-td span.cart-price span.price").eq(i).text(),
-				  'quantity' : jQuery("input.input-text.qty").eq(i).val(),
-				  'name' : jQuery("td.hi-res h2.product-name a").eq(i).text(),
-                  'brandName': 'brand name',
-                  'imageUrl': jQuery("table#shopping-cart-table tbody tr.even td a img").eq(i).attr("src"),
-                  'link': jQuery("table#shopping-cart-table tbody tr.even td a img").eq(i).attr("alt")
-		       });
-	}
-
-    dataLayer.push(temp_container);
-    
-    // ematics checkout - prepare for logging
-    products = temp_container.ecommerce.checkout.products;
-    // ematics track checkout
-	ematics("log", "product", "checkout", products);
-}
-
 function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
-    // alert("HURRY_CART"+name+" "+price+" "+quantity);
     dataLayer.push({
 	  'event': 'removeFromCart',
 	  'ecommerce': {
@@ -430,20 +369,26 @@ function ecommerceRemoveCart(name, sku, price, quantity, imageUrl, link) {
 	  }
 	});
 
-	// ematics cart - prepare for logging
-    ematics("log", "product", "cart", 
-        [{
-        'id': sku,
-        'price': price,
-        'quantity': quantity,
-        'name': name,
-        'brandName': 'brand name',
-        'imageUrl': imageUrl,
-        'link': link
-       }]
-    );
-    // ematics track items in cart to enable pre-abandonded cart overlays
-	ematics("log", "product", "cart", products);
+    // ematics cart - find and remove removed items in cart
+    var index_removeditem = "";
+    var temp_cartQty = 0;
+    temp_cartQty = ecommerce_container.length;
+    products = ecommerce_container;
+
+    for (var itr=0; itr<temp_cartQty; itr++) {
+    	products[itr].price = "Rp" + products[itr].price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        if (products[itr].id.indexOf(sku) != -1) {
+        	index_removeditem = itr;
+        }
+    }
+    products.splice(index_removeditem, 1);	// trim removed item
+
+    // ematics cart - prepare for logging
+    if (temp_cartQty >= 0) {         // at least 1 item in cart
+
+        // ematics track items in cart to enable pre-abandonded cart overlays
+        ematics("log", "product", "cart", products);
+    }
 }
 
 jQuery(document).ready(function () {
@@ -470,8 +415,6 @@ jQuery(document).ready(function () {
 				dataLayer.push( {'skuid': response.data.quote.productSkuIds} );
 				dataLayer.push( {'prices': response.data.quote.productPrices} );
 				dataLayer.push( {'quantities': response.data.quote.productQtys} );
-
-				ecommerceCheckout0(response.data.quote.productSkuIds, response.data.quote.productPrices, response.data.quote.productQtys);
             }else{
                 return false;
             }

@@ -2,10 +2,24 @@
 /**
  * Description of Bilna_Rest_Model_Api2_Newsletter_Rest
  *
- * @author Bilna Development Team <development@bilna.com>
+ * @path    app/code/local/Bilna/Rest/Model/Api2/Newsletter/Rest.php
+ * @author  Bilna Development Team <development@bilna.com>
  */
 
 class Bilna_Rest_Model_Api2_Newsletter_Rest extends Bilna_Rest_Model_Api2_Newsletter {
+    protected function _validate($data) {
+        /* @var $validator Bilna_Rest_Model_Api2_Validator_Newsletter */
+        $validator = Mage::getModel('bilna_rest/api2_validator_newsletter');
+
+        if (!$validator->isValidData($data)) {
+            foreach ($validator->getErrors() as $error) {
+                $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
+            }
+            
+            $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
+        }
+    }
+    
     protected function _subscribe($customerId, $email, $ownerId) {
         $modelNewsletterSubscriber = Mage::getModel('newsletter/subscriber');
         $subscriber = $modelNewsletterSubscriber->loadByEmail($email);
@@ -65,5 +79,28 @@ class Bilna_Rest_Model_Api2_Newsletter_Rest extends Bilna_Rest_Model_Api2_Newsle
         catch (Exception $ex) {
             $this->_critical($ex->getMessage());
         }
+    }
+    
+    protected function getType($status = NULL)
+    {
+        if(empty($status)) {
+            return $status;
+        }
+        switch ($status) {
+            case 1:
+                $type = 'subscribe';
+                break;
+            case 2:
+                $type = 'not active';
+                break;
+            case 3:
+                $type = 'unsubscribe';
+                break;
+            case 4:
+                $type = 'unconfirmed';
+                break;
+        }
+        
+        return $type;
     }
 }

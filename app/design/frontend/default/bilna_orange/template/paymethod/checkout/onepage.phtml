@@ -2,7 +2,7 @@
 <input type="hidden" id="3rdparty-value" value="" />
 <script type="text/javascript" src="<?php echo Mage::getStoreConfig('payment/vtdirect/vtdirect_src'); ?>"></script>
 <script type="text/javascript">
-    var baseUrl = '<?php echo Mage::getBaseUrl(); ?>';
+    var baseUrl = '<?php echo Mage::helper('paymethod')->checkHttpsProtocol(Mage::getBaseUrl()); ?>';
     var bankCheckUrl = '<?php echo Mage::helper('paymethod')->checkHttpsProtocol(Mage::getBaseUrl() . 'paymethod/onepage/bankCheck'); ?>';
     var vtDirectUrl = '<?php echo Mage::getStoreConfig('payment/vtdirect/vtdirect_url'); ?>';
     var vtDirectClientKey = '<?php echo Mage::getStoreConfig('payment/vtdirect/client_key'); ?>';
@@ -48,12 +48,17 @@
 <?php $qtyCollection = array(); ?>
 <?php $valueCollection = array(); ?>
 <?php $totalValue = 0; ?>
+<?php $itemQty = 0; ?>
 <?php foreach($cartItems as $cartItem) : ?>
-    <?php $skuCollection[] = $cartItem->getSku(); ?>
-    <?php $productCollection[] = $cartItem->getProductId(); ?>
-    <?php $qtyCollection[] = $cartItem->getQty(); ?>
-    <?php $valueCollection[] = $cartItem->getPrice(); ?>
-    <?php $totalValue += ($cartItem->getPrice() * $cartItem->getQty()); ?>
+    <?php $parentId = $cartItem->getParentItemId(); ?>
+    <?php if(empty($parentId)): ?>
+        <?php $skuCollection[] = $cartItem->getSku(); ?>
+        <?php $productCollection[] = $cartItem->getProductId(); ?>
+        <?php $qtyCollection[] = $cartItem->getQty(); ?>
+        <?php $valueCollection[] = $cartItem->getPrice(); ?>
+        <?php $totalValue += ($cartItem->getPrice() * $cartItem->getQty()); ?>
+        <?php $itemQty++; ?>
+    <?php endif ?>
 <?php endforeach; ?>
 <?php $skuDisplay =  implode("','", $skuCollection); ?>
 <?php $productDisplay =  implode("','", $productCollection); ?>
@@ -61,6 +66,9 @@
 <?php $valueDisplay =  implode("','", $valueCollection); ?>
 
 <script type="text/javascript">
+    var crossBorder = new CrossBorder(baseUrl);
+    var oramiOrder = new OramiOrder(baseUrl);
+
     jQuery(document).ready(function () {
         dataLayer.push({'ecomm_pagetype': 'cart'});
         dataLayer.push({'productid': ['<?php echo $productDisplay; ?>']});
@@ -82,36 +90,40 @@
     //]]>
 
     function ecommercePurchases() {
-        var temp_grandTotal = jQuery("td#grand_total-onepage span.price").text().replace("Rp","");
-        temp_grandTotal = temp_grandTotal.replace(",","");
-        dataLayer.push({
-          'event': 'purchase',
-          'eventCategory':'ecommerce',
-          'eventAction':'purchase',
-          'ecommerce': {
-            'purchase': {
-              'actionField': {
-                'id' : 'default_id',
-                'list' : 'browsing'
-              },
-              'products' :
-                [
-                    <?php
-                        $itr_name = 0;
-                        for ($itr = 0 ; $itr <= count($productCollection)-1 ; $itr++) {
-                        if ($valueCollection[$itr] != 0) {
-                            echo '{"id":"'.$skuCollection[$itr].'","name":jQuery("#checkout-review-table tbody tr td h3").eq('.$itr_name.').text() , "price":"'.$valueCollection[$itr].'", "quantity":'.$qtyCollection[$itr].'}';
-                            if(($itr+1) < count($productCollection)) {
-                                echo ",";
-                            }
-                            $itr_name++;
-                        }
-                    }
-                    ?>
-                ]
+        var temp_container = {
+            'event': 'purchase',
+            'ecommerce': {
+              'purchase': {
+                'actionField': {
+                    'shipping' : parseInt(jQuery("#checkout-review-table-wrapper table#checkout-review-table tfoot tr td:contains('Shipping & Handling')").next().text().replace(/[^0-9\.]/g, ""), 10),
+                    'coupon' : jQuery("#checkout-review-table-wrapper table#checkout-review-table tfoot tr:contains('Discount') td:first").text().toString().substring(jQuery("#checkout-review-table-wrapper table#checkout-review-table tfoot tr:contains('Discount') td:first").text().indexOf("(")+1,jQuery("#checkout-review-table-wrapper table#checkout-review-table tfoot tr:contains('Discount') td:first").text().indexOf(")")),
+                    'list' : 'browsing'
+                },
+                'products': []
+             }
+           }
+        }
+
+        // ematics cart - amount items in cart
+        var temp_cartQty = 0;
+        temp_cartQty = ecommerce_container.length;
+
+        // ematics cart - prepare for logging
+        if (temp_cartQty > 0) {         // at least 1 item in cart
+            products = ecommerce_container;
+
+            // universal analytics
+            temp_container.ecommerce.purchase.products = products;
+            dataLayer.push(temp_container);
+
+            // add thousand separator and unit price to ematic container price
+            for (var itr=0; itr<temp_cartQty; itr++) {
+                products[itr].price = "Rp" + products[itr].price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
             }
-          }
-        });
+
+            // ematics track items in cart to enable pre-abandonded cart overlays
+            ematics("log", "product", "convert", products);
+        }
     }
 </script>
 

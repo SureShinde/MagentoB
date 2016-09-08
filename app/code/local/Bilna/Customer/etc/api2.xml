@@ -28,7 +28,7 @@
                         <delete>1</delete>
                     </customer>
                 </privileges>
-            <attributes translate="entity_id last_logged_in firstname lastname email gender dob newsletter password newsletter website_id created_in group_id disable_auto_group_change is_active" module="Bilna_Customer">
+            <attributes translate="entity_id last_logged_in firstname lastname email gender dob newsletter password newsletter website_id created_in group_id disable_auto_group_change is_active username" module="Bilna_Customer">
                 <entity_id>Customer ID</entity_id>
                 <last_logged_in>Last Logged In</last_logged_in>
                 <firstname>First Name</firstname>
@@ -44,6 +44,7 @@
                 <group_id>Group</group_id>
                 <is_active>Is Active</is_active>
                 <disable_auto_group_change>Disable automatic group change based on VAT ID</disable_auto_group_change>
+                <username>username</username>
             </attributes>
             <exclude_attributes>
                 <admin>
@@ -68,6 +69,7 @@
                             <confirmation>1</confirmation>
                             <password>1</password>
                             <created_at>1</created_at>
+                            <username>1</username>
                         </read>
                         <write>
                             <entity_id>1</entity_id>
@@ -78,6 +80,7 @@
                             <disable_auto_group_change>1</disable_auto_group_change>
                             <confirmation>1</confirmation>
                             <created_at>1</created_at>
+                            <username>1</username>
                         </write>
                     </customer>
                 </exclude_attributes>
@@ -257,7 +260,7 @@
                         <retrieve>1</retrieve>
                     </customer>
                 </privileges>
-                <attributes translate="entity_id email group_id created_at updated_at is_active firstname lastname gender dob newsletter default_billing default_shipping" module="Bilna_Customer">
+                <attributes translate="entity_id email group_id created_at updated_at is_active firstname lastname gender dob newsletter default_billing default_shipping username" module="Bilna_Customer">
                     <entity_id>ID</entity_id>
                     <email>Email</email>
                     <group_id>Group ID</group_id>
@@ -271,6 +274,7 @@
                     <newsletter>Newsletter</newsletter>
                     <default_billing>Default Billing ID</default_billing>
                     <default_shipping>Default Shipping ID</default_shipping>
+                    <username>Username</username>
                 </attributes>
                 <routes>
                     <route_entity>
@@ -280,6 +284,42 @@
                 </routes>
                 <versions>1</versions>
             </customer_login>
+            <customer_findbyemail translate="title" module="Bilna_Customer">
+                <group>customer</group>
+                <sort_order>110</sort_order>
+                <model>bilna_customer/api2_findbyemail</model>
+                <title>Customer Findbyemail</title>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="entity_id last_logged_in firstname lastname email gender dob newsletter password newsletter website_id created_in group_id disable_auto_group_change is_active username" module="Bilna_Customer">
+                    <entity_id>Customer ID</entity_id>
+                    <last_logged_in>Last Logged In</last_logged_in>
+                    <firstname>First Name</firstname>
+                    <lastname>Last Name</lastname>
+                    <email>Email</email>
+                    <gender>Gender</gender>
+                    <dob>Date of Birth</dob>
+                    <newsletter>Newsletter</newsletter>
+                    <password>Password</password>
+                    <newsletter>Newsletter</newsletter>
+                    <website_id>Associate to Website</website_id>
+                    <created_in>Created From</created_in>
+                    <group_id>Group</group_id>
+                    <is_active>Is Active</is_active>
+                    <disable_auto_group_change>Disable automatic group change based on VAT ID</disable_auto_group_change>
+                    <username>Username</username>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/customer/findbyemail</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                </routes>
+                <versions>1</versions>
+            </customer_findbyemail>
             <customer_subscription translate="title" module="Bilna_Customer">
                 <group>customer</group>
                 <sort_order>110</sort_order>
@@ -441,7 +481,165 @@
                     </route_entity>
                 </routes>
                 <versions>1</versions>
-            </customer_reorder>
+            </customer_reorder>            
+            <customer_wishlistcollection translate="title" module="Bilna_Customer">
+                <group>customer</group>
+                <sort_order>110</sort_order>
+                <model>bilna_customer/api2_wishlistcollection</model>
+                <title>Wishlist Collection</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <delete>1</delete>
+                    </admin>
+                </privileges>
+                <attributes translate="entity_id wishlist_id about location avatar cloud_avatar wishlist status temporary gender customer_id name desc image_url visibility username gender preset_image profile addnewitem collection_id collection_id2 product_id categories wishlist_collections wishlist_collection_items_total" module="Bilna_Customer">
+                    <entity_id>Entity ID</entity_id>
+                    <wishlist_id>Wishlist ID</wishlist_id>
+                    <about>About</about>
+                    <location>Location</location>
+                    <avatar>Avatar</avatar>
+                    <cloud_avatar>Cloud Avatar</cloud_avatar>
+                    <wishlist>Wishlist</wishlist>
+                    <status>Status</status>
+                    <temporary>Temporary</temporary>
+                    <gender>Gender</gender>
+                    <customer_id>Customer ID</customer_id>
+                    <name>Name</name>
+                    <desc>Desc</desc>
+                    <image_url>Image Url</image_url>
+                    <visibility>Visibility</visibility>
+                    <username>Username</username>
+                    <gender>Gender</gender>
+                    <preset_image>Preset Image</preset_image>
+                    <profile>Profile</profile>
+                    <addnewitem>Addnewitem</addnewitem>
+                    <collection_id>Collection ID</collection_id>
+                    <collection_id2>Collection ID2</collection_id2>
+                    <product_id>Product ID</product_id>
+                    <categories>Categories</categories>
+                    <wishlist_collections>Wishlist Collections</wishlist_collections>
+                    <wishlist_collection_items_total>Wishlist Collection Items Total</wishlist_collection_items_total>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/customer/:username/wishlistcollection/:collection_id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/customer/:username/wishlistcollection</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </customer_wishlistcollection>
+            <customer_wishlistcollectiongetcover translate="title" module="Bilna_Customer">
+                <group>customer</group>
+                <sort_order>110</sort_order>
+                <model>bilna_customer/api2_wishlistcollectiongetcover</model>
+                <title>Collection Cover</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                        <update>1</update>
+                        <delete>1</delete>
+                    </admin>
+                </privileges>
+                <attributes translate="response cover_id caption image category_id" module="Bilna_Customer">
+                    <cover_id>Cover ID</cover_id>
+                    <caption>Caption</caption>
+                    <image>Image</image>
+                    <category_id>Category ID</category_id>
+                    <response>Response</response>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/customer/:username/wishlistcollectiongetcover/:category_id</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                </routes>
+                <versions>1</versions>
+            </customer_wishlistcollectiongetcover>
+            <customer_wishlistcollectionprofile translate="title" module="Bilna_Customer">
+                <group>customer</group>
+                <sort_order>110</sort_order>
+                <model>bilna_customer/api2_wishlistcollectionprofile</model>
+                <title>Collection Profile</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                    </admin>
+                </privileges>
+                <attributes translate="dob location about image_url" module="Bilna_Customer">
+                    <dob>DOB</dob>
+                    <location>Location</location>
+                    <about>About</about>
+                    <image_url>Image Url</image_url>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/customer/:username/wishlistcollectionprofile</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </customer_wishlistcollectionprofile>
+            <customer_wishlistcollectionitems translate="title" module="Bilna_Customer">
+                <group>customer</group>
+                <sort_order>110</sort_order>
+                <model>bilna_customer/api2_wishlistcollectionitems</model>
+                <title>Wishlist Collection Items</title>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                    <customer>
+                        <retrieve>1</retrieve>
+                    </customer>
+                </privileges>
+                <attributes translate="wishlist_collection_items" module="Bilna_Customer">
+                    <wishlist_collection_items>Wishlist Collection Items</wishlist_collection_items>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/customer/:username/wishlistcollectionitems/:collection_id/item</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </customer_wishlistcollectionitems>
+            <customer_wishlistcollection_category>
+                <group>customer</group>
+                <sort_order>120</sort_order>
+                <model>bilna_customer/api2_wishlistcollection_category</model>
+                <title>Wishlist Collection Category List</title>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes translate="category_id category_name url_key collections wishlist_id total_record" module="Bilna_Customer">
+                    <category_id>ID</category_id>
+                    <category_name>Name</category_name>
+                    <url_key>URL Key</url_key>
+                    <collections>Collections</collections>
+                    <wishlist_id>Wishlist ID</wishlist_id>
+                    <total_record>Total Record</total_record>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/customer/collections/category/:url_key</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                    <route_collection>
+                        <route>/customer/collections/category</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </customer_wishlistcollection_category>
         </resources>
     </api2>
 </config>

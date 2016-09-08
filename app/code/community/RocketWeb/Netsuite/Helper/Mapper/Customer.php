@@ -27,7 +27,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
      * @param Mage_Customer_Model_Customer $magentoCustomer
      * @return Customer
      */
-    public function getNetsuiteFormat(Mage_Customer_Model_Customer $magentoCustomer) {
+    public function getNetsuiteFormat(Mage_Customer_Model_Customer $magentoCustomer, $mode = null) {
 
 		$netsuiteCustomer = new Customer();
 		
@@ -93,72 +93,76 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
 			$defaultShippingAddressId = null;
 		}
 		
-		$addresses = $magentoCustomer->getAddressesCollection();
-		$netsuiteAddressList = new CustomerAddressbookList();
-		$netsuiteAddressList->replaceAll = true;
-		
-		foreach($addresses as $magentoAddress) {
-				
-			$netsuiteAddress = new CustomerAddressbook();
-				
-			/*if($defaultShippingAddressId && $defaultShippingAddressId == $magentoAddress->getId()) {
-				$netsuiteAddress->defaultShipping = true;
-			}
-			else {
-				$netsuiteAddress->defaultShipping = false;
-			}
-				
-			if($defaultBillingAddressId && $defaultBillingAddressId == $magentoAddress->getId()) {
-				$netsuiteAddress->defaultBilling = true;
-			}
-			else {
-				$netsuiteAddress->defaultBilling = false;
-			}*/
-			
-            /*always set default shipping and billing to false, refer to ticket BILNA-847*/
-            $netsuiteAddress->defaultShipping = false;
-            $netsuiteAddress->defaultBilling = false;
-
-			$netsuiteAddress->addressee = $magentoCustomer->getName();
-			$netsuiteAddress->phone = substr($magentoAddress->getTelephone(), 0, 22);
+        // if no mode is passed, we add the address. if a mode is passed, we dont update the customer's address ( to prevent customer web service update error )
+        if (is_null($mode))
+        {
+            $addresses = $magentoCustomer->getAddressesCollection();
+            $netsuiteAddressList = new CustomerAddressbookList();
+            $netsuiteAddressList->replaceAll = false;
             
-            $lengthStreet1 = strlen(trim($magentoAddress->getStreet(1)));
-            $lengthStreet2 = strlen(trim($magentoAddress->getStreet(2)));
-            $street1 = substr(trim($magentoAddress->getStreet(1)), 0, 150);
-            $sisa = "";
-            if( $lengthStreet1 > 150 ) $sisa = substr(trim($magentoAddress->getStreet(1)), 151, $lengthStreet1);
-            $street2 = substr(trim($sisa." ".$magentoAddress->getStreet(2)), 0, 150);
+            foreach($addresses as $magentoAddress) {
+                    
+                $netsuiteAddress = new CustomerAddressbook();
+                    
+                /*if($defaultShippingAddressId && $defaultShippingAddressId == $magentoAddress->getId()) {
+                    $netsuiteAddress->defaultShipping = true;
+                }
+                else {
+                    $netsuiteAddress->defaultShipping = false;
+                }
+                    
+                if($defaultBillingAddressId && $defaultBillingAddressId == $magentoAddress->getId()) {
+                    $netsuiteAddress->defaultBilling = true;
+                }
+                else {
+                    $netsuiteAddress->defaultBilling = false;
+                }*/
+                
+                /*always set default shipping and billing to false, refer to ticket BILNA-847*/
+                $netsuiteAddress->defaultShipping = false;
+                $netsuiteAddress->defaultBilling = false;
 
-            //$netsuiteAddress->addr1 = $magentoAddress->getStreet(1);
-            //$netsuiteAddress->addr2 = $magentoAddress->getStreet(2);
-            $netsuiteAddress->addr1 = $street1;
-            $netsuiteAddress->addr2 = $street2;
-            $netsuiteAddress->city = $magentoAddress->getCity();
-            $netsuiteAddress->zip = $magentoAddress->getPostcode();
-            $netsuiteAddress->state = $magentoAddress->getRegionCode();
-            $country = Mage::getModel('directory/country')->loadByCode($magentoAddress->getCountry());
-            $netsuiteAddress->country = Mage::helper('rocketweb_netsuite/transform')->transformCountryCode($country->getCountryId());
-            $netsuiteAddress->externalId = $magentoAddress->getId();
+                $netsuiteAddress->addressee = $magentoCustomer->getName();
+                $netsuiteAddress->phone = substr($magentoAddress->getTelephone(), 0, 22);
+                
+                $lengthStreet1 = strlen(trim($magentoAddress->getStreet(1)));
+                $lengthStreet2 = strlen(trim($magentoAddress->getStreet(2)));
+                $street1 = substr(trim($magentoAddress->getStreet(1)), 0, 150);
+                $sisa = "";
+                if( $lengthStreet1 > 150 ) $sisa = substr(trim($magentoAddress->getStreet(1)), 151, $lengthStreet1);
+                $street2 = substr(trim($sisa." ".$magentoAddress->getStreet(2)), 0, 150);
 
-            Mage::dispatchEvent('netsuite_address_create_before',array('netsuite_address'=>$netsuiteAddress));
-        
-            $netsuiteAddressList->addressbook[]=$netsuiteAddress;
+                //$netsuiteAddress->addr1 = $magentoAddress->getStreet(1);
+                //$netsuiteAddress->addr2 = $magentoAddress->getStreet(2);
+                $netsuiteAddress->addr1 = $street1;
+                $netsuiteAddress->addr2 = $street2;
+                $netsuiteAddress->city = $magentoAddress->getCity();
+                $netsuiteAddress->zip = $magentoAddress->getPostcode();
+                $netsuiteAddress->state = $magentoAddress->getRegionCode();
+                $country = Mage::getModel('directory/country')->loadByCode($magentoAddress->getCountry());
+                $netsuiteAddress->country = Mage::helper('rocketweb_netsuite/transform')->transformCountryCode($country->getCountryId());
+                $netsuiteAddress->externalId = $magentoAddress->getId();
 
-            $firstname = "firstname".$magentoAddress->getAddressType();
-            $$firstname = $magentoAddress->getFirstname();
+                Mage::dispatchEvent('netsuite_address_create_before',array('netsuite_address'=>$netsuiteAddress));
+            
+                $netsuiteAddressList->addressbook[]=$netsuiteAddress;
 
-            $lastname = "lastname".$magentoAddress->getAddressType();
-            $$lastname = $magentoAddress->getLastname();
+                $firstname = "firstname".$magentoAddress->getAddressType();
+                $$firstname = $magentoAddress->getFirstname();
 
-            $custCollection = Mage::getModel('customer/customer')->load($magentoAddress->getCustomerId());
+                $lastname = "lastname".$magentoAddress->getAddressType();
+                $$lastname = $magentoAddress->getLastname();
 
-            $firstnameCustomer = $custCollection->getData('firstname');
-            $lastnameCustomer = $custCollection->getData('lastname');
+                $custCollection = Mage::getModel('customer/customer')->load($magentoAddress->getCustomerId());
 
+                $firstnameCustomer = $custCollection->getData('firstname');
+                $lastnameCustomer = $custCollection->getData('lastname');
+
+            }
+            
+            $netsuiteCustomer->addressbookList = $netsuiteAddressList;
+            /*end moving up*/
         }
-        
-        $netsuiteCustomer->addressbookList = $netsuiteAddressList;
-        /*end moving up*/
 
         $netsuiteCustomer->salutation = $magentoCustomer->getPrefix();
         $firstName = $magentoCustomer->getFirstname();
@@ -212,6 +216,10 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
         $netsuiteCustomer->vatRegNumber = $magentoCustomer->getTaxvat();
         $netsuiteCustomer->stage = CustomerStage::_customer;
         $netsuiteCustomer->isPerson = true;
+
+        $netsuiteCustomer->subsidiary = new RecordRef();
+        $netsuiteCustomer->subsidiary->internalId = 1;
+        $netsuiteCustomer->subsidiary->type = RecordType::subsidiary;
 		
         return $netsuiteCustomer;
     }
@@ -229,8 +237,19 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
         $searchField = new SearchStringField();
         $searchField->operator = SearchStringFieldOperator::is;
         $searchField->searchValue = $search_string;
+
+        $subsidiaryArr = array();
+        $subsidiaryArr[0] = new RecordRef();
+        $subsidiaryArr[0]->internalId = 1; // BJI customer
+        $subsidiaryArr[0]->type = RecordType::subsidiary;
+
+        $searchSubsidiaryField = new SearchMultiSelectField();
+        $searchSubsidiaryField->operator = SearchMultiSelectFieldOperator::anyOf;
+        $searchSubsidiaryField->searchValue = $subsidiaryArr;
+
         $search = new CustomerSearchBasic();
         $search->$by_field = $searchField;
+        $search->subsidiary = $searchSubsidiaryField;
 
         $request = new SearchRequest();
         $request->searchRecord = $search;
@@ -310,6 +329,10 @@ class RocketWeb_Netsuite_Helper_Mapper_Customer extends RocketWeb_Netsuite_Helpe
             $customer->addAddress($shippingAddr);
 
             $netsuiteCustomer = Mage::helper('rocketweb_netsuite/mapper_customer')->getNetsuiteFormat($customer);
+
+            $netsuiteCustomer->subsidiary = new RecordRef();
+            $netsuiteCustomer->subsidiary->internalId = 1;
+            $netsuiteCustomer->subsidiary->type = RecordType::subsidiary;
             
             if ($netsuiteCustomer->externalId == 0) {
                 $netsuiteCustomer->externalId = null;
