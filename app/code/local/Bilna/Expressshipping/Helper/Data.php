@@ -163,9 +163,9 @@ class Bilna_Expressshipping_Helper_Data extends Mage_Core_Helper_Abstract {
 
     public function getStartCutOffDateTime() {
         if($this->isBeforeCutOffTime())
-            return date("Y-m-d H:i:s", strtotime($this->getCutOffDateTime()) - 86400);
+            return date("Y-m-d H:i:s", strtotime($this->getCutOffDateTime()) - 86399);
         else
-            return date("Y-m-d H:i:s", strtotime($this->getCutOffDateTime()));
+            return date("Y-m-d H:i:s", strtotime($this->getCutOffDateTime()) + 1);
     }
 
     public function getEndCutOffDateTime() {

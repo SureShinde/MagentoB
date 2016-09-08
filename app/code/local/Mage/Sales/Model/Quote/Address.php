@@ -765,7 +765,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         $quote = Mage::getSingleton('adminhtml/session_quote')->getQuote();
         $expressshippingHelper = Mage::helper('bilna_expressshipping');
         $expressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled');
-        $expressShippingCounter = $expressshippingHelper->enableStatusExpressShippingMethod($quote);
+        $expressShippingCounterAllowed = $expressshippingHelper->enableStatusExpressShippingMethod($quote);
         $rates = array();
         foreach ($this->getShippingRatesCollection() as $rate) {
             if (!$rate->isDeleted() && $rate->getCarrierInstance()) {
@@ -773,11 +773,15 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                     $rates[$rate->getCarrier()] = array();
                 }
                 
-                /* if express shipping is disabled in config, don't display the express shipping method */
-                if ( strpos(strtolower($rate->getMethodTitle()), 'express') !== false && $expressShippingEnabled == 0 )
-                    continue;
-                else if ( (strpos(strtolower($rate->getMethodTitle()), 'express') !== false && $expressShippingEnabled == 1 && $expressShippingCounter == 1 ) || (strpos(strtolower($rate->getMethodTitle()), 'express') === false) )
-                {
+                $isExpress = strpos(strtolower($rate->getMethodTitle()), 'express') !== false;
+                if ( $isExpress ) {
+                    if ( !$expressShippingEnabled )
+                        continue;
+                    else if ( $expressShippingCounterAllowed ) {
+                        $rates[$rate->getCarrier()][] = $rate;
+                        $rates[$rate->getCarrier()][0]->carrier_sort_order = $rate->getCarrierInstance()->getSortOrder();
+                    }
+                } else {
                     $rates[$rate->getCarrier()][] = $rate;
                     $rates[$rate->getCarrier()][0]->carrier_sort_order = $rate->getCarrierInstance()->getSortOrder();
                 }
