@@ -157,7 +157,7 @@ class AW_Affiliate_Model_Api2_Createreport_Rest_Admin_V1 extends AW_Affiliate_Mo
         if (is_null($this->_collection)) {
             $this->_collection = Mage::getModel('awaffiliate/campaign')->getCollection();
         }
-        
+        $this->_collection->addFieldToFilter('status',array('equal' => 1));
         $affiliate = $this->__getAffiliate();
         
         if($affiliate->getId())
