@@ -158,6 +158,8 @@ class AW_Affiliate_Model_Api2_Createreport_Rest_Admin_V1 extends AW_Affiliate_Mo
             $this->_collection = Mage::getModel('awaffiliate/campaign')->getCollection();
         }
         $this->_collection->addFieldToFilter('status',array('equal' => 1));
+        $this->_collection->addFieldToFilter('active_from', array('lteq' => Mage::getModel('core/date')->date('Y-m-d H:i:s')));
+        $this->_collection->addFieldToFilter('active_to', array('gteq' => Mage::getModel('core/date')->date('Y-m-d H:i:s')));
         $affiliate = $this->__getAffiliate();
         
         if($affiliate->getId())
