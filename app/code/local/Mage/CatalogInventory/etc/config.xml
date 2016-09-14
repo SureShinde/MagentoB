@@ -78,6 +78,16 @@
             </cataloginventory>
         </blocks>
         <events>
+            <sales_quote_add_item>
+                <observers>
+                    <wholesale_quote_add_item>
+                        <type>singleton</type>
+                        <!--<class>Bilna_Crossborder_Model_Observer</class>-->
+                        <class>Mage_CatalogInventory_Model_Observer</class>
+                        <method>wholesaleQuoteAddItem</method>
+                    </wholesale_quote_add_item>
+                </observers>
+            </sales_quote_add_item>
             <catalog_block_product_status_display>
                 <observers>
                     <inventory>
