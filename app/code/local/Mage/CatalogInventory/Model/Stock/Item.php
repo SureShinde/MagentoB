@@ -214,9 +214,9 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      *
      * @return bool
      */
-    public function canSubtractQty()
+    public function canSubtractQty($qty = null)
     {
-        return $this->getManageStock() && Mage::getStoreConfigFlag(self::XML_PATH_CAN_SUBTRACT);
+        return $this->getManageStock() && Mage::getStoreConfigFlag(self::XML_PATH_CAN_SUBTRACT) && !$this->isWholesaleQty($qty);
     }
 
     /**
@@ -227,11 +227,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      */
     public function addQty($qty)
     {
-        if (!$this->getManageStock()) {
-            return $this;
-        }
-        $config = Mage::getStoreConfigFlag(self::XML_PATH_CAN_SUBTRACT);
-        if (!$config) {
+        if (!$this->canSubtractQty($qty)) {
             return $this;
         }
 
@@ -920,6 +916,9 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     }
 
     public function isWholesaleQty($qty) {
+        if (!$qty) {
+            return false;
+        }
         if ($this->getMaxWholesaleQty() && $qty > $this->getMaxSaleQty()) {
             return true;
         }
