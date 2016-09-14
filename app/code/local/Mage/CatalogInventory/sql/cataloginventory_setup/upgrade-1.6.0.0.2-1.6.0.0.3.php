@@ -43,3 +43,8 @@ $installer->getConnection()
             'COMMENT' => 'Maximum quantity for wholesale feature.'
         )
     );
+
+$installer->run("ALTER TABLE `{$this->getTable('sales_flat_order')}` ADD COLUMN `is_wholesale` INT(11) DEFAULT 0");
+$installer->run("ALTER TABLE `{$this->getTable('sales_flat_order_item')}` ADD COLUMN `is_wholesale` INT(11) DEFAULT 0");
+$installer->run("ALTER TABLE `{$this->getTable('sales_flat_quote')}` ADD COLUMN `is_wholesale` INT(11) DEFAULT 0");
+$installer->run("ALTER TABLE `{$this->getTable('sales_flat_quote_item')}` ADD COLUMN `is_wholesale` INT(11) DEFAULT 0");
