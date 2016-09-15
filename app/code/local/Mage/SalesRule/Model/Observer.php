@@ -105,7 +105,7 @@ class Mage_SalesRule_Model_Observer
                     if ($customerId) {
                         $ruleCustomer = Mage::getModel('salesrule/rule_customer');
                         $ruleCustomer->loadByCustomerRule($customerId, $ruleId);
-                        
+
                         if ($ruleCustomer->getId()) {
                             $ruleCustomer->setTimesUsed($ruleCustomer->getTimesUsed() + 1);
                         }
