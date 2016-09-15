@@ -15,7 +15,7 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
         if (in_array($orderStatus, Mage::helper('paymethod/vtdirect')->getStatusOrderIgnore()) && !$isVtdirectNotification) {
             return true;
         }
-                
+
         $message = $charge->status_message;
         $transactionStatus = $charge->transaction_status;
         $fraudStatus = $charge->fraud_status;
@@ -35,37 +35,19 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
                         $order->save();
                         $transaction->save();
                         $invoice->sendEmail(true, '');
-                        
+
                         return true;
                     }
                 }
-                
+
                 return false;
             }
-            
+
             return "skip";
         } else {
             if ($transactionStatus == 'capture') {
                 if ($fraudStatus == 'accept') {
-                    if ($order->canInvoice()) {
-                        $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
-
-                        if ($invoice->getTotalQty()) {
-                            //$invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_OFFLINE);
-                            //$invoice->setGrandTotal($order->getGrandTotal());
-                            //$invoice->setBaseGrandTotal($order->getBaseGrandTotal());
-                            $invoice->register();
-                            $transaction = Mage::getModel('core/resource_transaction')
-                                ->addObject($invoice)
-                                ->addObject($invoice->getOrder());
-                            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message, true);
-                            $order->save();
-                            $transaction->save();
-                            $invoice->sendEmail(true, '');
-
-                            return true;
-                        }
-                    }
+                    return $this->processOrder($order, $paymentCode, $message);
                 }
                 elseif ($fraudStatus == 'challenge') {
                     $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'cc_verification', $message, true);
@@ -127,8 +109,34 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
                 return Mage::helper('paymethod')->writeLogFile($paymentCode, 'confirmation', $order->getIncrementId(), $content, 'normal');
             }
         }
-        
+
         return false;
+    }
+
+    protected function processOrder($order, $paymentCode, $message) {
+        if (! $order->canInvoice()) {
+            Mage::log("Unable to create invoice for " . $order->getIncrementId(), Zend_Log::ERR);
+            return false;
+        }
+
+        $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
+        if (! $invoice->getTotalQty()) {
+            Mage::log("Invalid invoice for " . $order->getIncrementId(), Zend_Log::ERR);
+            return false;
+        }
+
+        $invoice->register();
+        $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message, true);
+
+        // FIXME: this save() needs to be removed to prevent order in processing state but no invoice,
+        //        but we can't do that yet because it seems to cause orders to not go to connectors
+        $order->save();
+
+        $transaction = Mage::getModel('core/resource_transaction')->addObject($invoice)->addObject($order);
+        $transaction->save();
+
+        $invoice->sendEmail(true, '');
+        return true;
     }
 
     protected function isVtdirectNotification($notification, $paymentCode) {
@@ -140,7 +148,7 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
 
         return false;
     }
-    
+
     public function addHistoryOrder($order, $charge) {
         $order->addStatusHistoryComment($charge->status_message);
         $order->save();

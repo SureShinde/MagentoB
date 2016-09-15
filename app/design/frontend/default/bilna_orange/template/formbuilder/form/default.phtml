@@ -41,181 +41,127 @@ if ($this->block->email_share_apps) {
 	<div class="formbuilder-form" id="formbuilder-form" style="margin: 0 1%; width: 78%;">
 		<ul>
 		<?php
-		$group = "";
-		$type = "";
-		$i = 0;
-		$dropdownCount = 1;
-		
 		foreach($this->inputs->getData() as $input){
-                    if ($input['type'] == 'codeshare') {
-                        continue;
-                    }
-                    
-		$groupcombine = "";
-		?>	
-			<!--Pembukaan untuk foreach-->	
-			<?php if($input["group"] !== $group){
-				if($group!==""){ 
-					if($type == "dropdown"){
-						echo "</select>";
-					}
-			?>
-			<!--End Pembukaan untuk foreach-->
-
-				</li>
-				<?php } ?>
-				<li style="clear: both; margin-bottom: 20px;">
-			<?php } ?>
-                        
-                        <!-- checkbox multiple -->
-                        <?php if ($input['type'] == 'checkbox_multi') { ?>
-                            <?php if ($input['group'] !== $group) { ?>
-                                <div class="form-question title-checkbox">
-                                    <?php echo $input['title']; ?>
-                                </div>
-                            <?php } ?>
-                        
-                            <div class="form-checkbox">
-                                <label>
-                                    <input style="margin: 0px 12px 0px 140px;" id="<?php echo $input['name'] . '-' . $input['id']; ?>" type="checkbox" name="inputs[<?php echo $input['name']; ?>][]" class="<?php if ($input['validation']) { echo $input['validation']; } ?>" value="<?php echo $input['value']; ?>" />
-                                    <?php
-                                    if ($input['helper_message']) {
-                                        echo $input['helper_message'];
-                                    }
-                                    else {
-                                        echo $input["value"];
-                                    }
-                                    ?>
-                                </label>
-                            </div>
-                        <!-- end checkbox multiple -->
-
-			<!--Checkbox Type-->
-                        <?php } else if($input["type"] == "checkbox"){ ?>
-				<?php if($input["name"]=="terms" && $this->block->termsconditions){ ?>
-		        <div style="clear:both"></div>
-		        <?php echo $this->block->termsconditions; ?>
-				<?php }
-				else if($input["group"] !== $group){ ?>
-				<div class="form-question title-checkbox"><?php echo $input["title"]; ?></div>
-                <?php } ?>
-				<div class="form-checkbox">
-                                    <input style="margin: 0px 12px 0px 140px;" id="<?php echo $input["name"]; ?>" type="checkbox" name="inputs[<?php echo $input["group"]; ?>]" class="<?php if ($input["required"]) { echo $_requiredEntry; } ?>">
-                                    <label for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?></label>
-				</div>
-			<!--End Checkbox Type-->
-
-			<!--Radio Button Type-->
-			<?php }else if($input["type"] == "radio"){ ?>
-			<?php if($input["group"] !== $group){ ?>
-				<div class="form-question"><?php echo $input["title"]; ?></div><?php } ?>
-				<div class="form-radio">
-					<input id="<?php echo $input["name"]; ?>" type="radio" name="inputs[<?php echo $input["group"]; ?>]" value="<?php echo $input["value"]; ?>">
-					<label for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?></label>
-				</div>
-			<!--End Radio Button Type-->
-
-			<!--Dropdown Type-->
-			<?php }else if($input["type"] == "dropdown"){ ?>
-					<div>	
-			<?php if($input["group"] !== $group){ ?>
-					<div>
-					<label class="required" style="float: left; width: 140px;"><?php echo $input["title"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em></label>
-					<div><select id="<?php echo $input["name"]; ?>" type="dropdown" name="inputs[<?php echo $input["group"]; ?>]">
-					</div>
-			<?php } ?>
-                            <option value="<?php echo $input["value"]; ?>"><?php if ($input['helper_message']) echo $input['helper_message']; else echo $input['value']; ?></option>
-			<!--End Dropdown Type-->
-			
-			<!--DOB (Date of Birth) Type-->			
-			<?php }else if($input["type"] == "dob"){ ?>
-					<div>	
-			<?php if($input["group"] !== $group){ ?>
-                            <div>
-                                <label class="required" style="float: left; width: 140px;"><?php echo $input["title"]; ?></label>
-                                <div><?php echo $this->_getDateDropdown($input["group"]); ?></div>
-                            </div>
-			<!--End DOB Type-->
-
-			<?php } ?>			
-
-			<?php }else{ ?>			
-
-				<div>
-                                    <?php if ($input['type'] != 'ref') { ?>
-                                        <label class="required" style="float:left; width:140px; padding-top:10px;" for="<?php echo $input["name"]; ?>">
-                                            <?php
-                                            if ($input['type'] == 'textarea') {
-                                                echo $input['title'];
-                                            }
-                                            else {
-                                                echo $input["value"];
-                                            }
-                                            ?>
-                                            <em><?php if($input["required"] == true) echo '*'; ?></em>
-                                        </label>
-                                    <?php } ?>
-
-				<!--Text Type-->
-				<?php if($input["type"] == "text"){ ?>
-                                    <?php
-                                    $_validateEmail = '';
-                                    $_validationClass = '';
-                                    
-                                    if ($input['name'] == 'email') {
-                                        $_validateEmail = 'validate-email-ind';
-                                    }
-                                    
-                                    if ($input['validation']) {
-                                        $_validationArr = explode(' ', $input['validation']);
-                                        $_validationClass = '';
-                                        
-                                        foreach ($_validationArr as $v) {
-                                            $vArr = explode('|', $v);
-                                            $_validationClass .= 'validate-' . $vArr[0] . ' ';
-                                        }
-                                    }
-                                    ?>
-                                    
-                                    <input id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) { echo $_requiredEntry; } ?> <?php echo $_validationClass; ?> <?php echo $_validateEmail; ?>" style="height: 26px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]" placeholder="<?php echo $input["helper_message"]; ?>" />
-				<!--End Text Type-->
-
-				<!--Textarea Type-->
-				<?php }else if($input["type"] == "textarea"){ ?>
-                                    <textarea id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) {echo $_requiredEntry;}?> input-text" style="height: 100px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" rows="3" cols="5" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]"></textarea>
-                                <!--Textarea Type-->
-				<?php
-                                }
-                                elseif ($input['type'] == 'ref') {
-                                    $_value = '';
-                                    
-                                    if ($this->getRequest()->getParam($input['type'])) {
-                                        $_value = $this->getRequest()->getParam($input['type']);
-                                    } ?>
-                                    <input id="<?php echo $input['name']; ?>" name="inputs[<?php echo $input['group']; ?>]" type="hidden" value="<?php echo $_value; ?>" />
-                                <?php } ?>
-
-				</div>
-				<div style="clear: both;">
-				</div>
-			<?php 
+			if ($input['type'] == 'codeshare') {
+				continue;
 			}
-			$group = $input["group"];
-			$type = $input["type"];
-			$i++;
-			
-			//Penutup untuk foreach
-			if($i == count($this->inputs->getData())){ 
-					if($type == "dropdown"){
-						echo "</select>";
-					}
-				?>
-			</li>
-			<?php }
-			//End Penutup untuk foreach
+			?> <li style="clear: both; margin-bottom: 20px;"> <div> <?php
+			$elem = array("dropdown", "checkbox_multi", "checkbox", "radio", "multiple");
+			if (in_array($input['type'], $elem)) {
+				$option = Mage::helper('core')->jsonDecode($input['value']); 
+            	usort($option, function($a, $b) {
+		            return $a['order'] < $b['order'] ? -1 : 1;
+		        });
+				if($input['type'] == "dropdown") { 
+					if(!empty($option)) {?>
+						<label class="required" style="float: left; width: 140px;">
+		        			<?php echo $input["title"]; ?><em><?php if($input["required"] == true) echo '*'; ?></em>
+		        		</label>
+	            		<div>
+							<select id="<?php echo $input['name']; ?>" type="dropdown" name="inputs[<?php echo $input['group']; ?>]">
+								<?php foreach ($option as $key => $value) { ?>
+						        	<option value="<?php echo $value["value"]; ?>">
+						        		<?php echo $value['label']; ?>
+						        	</option>
+						        <?php } ?>
+							</select>
+						</div>
+	            	<?php } 
+	            } else if ($input['type'] == "multiple" || $input['type'] == "multiple" || $input['type'] == "checkbox") {
+	            	if(!empty($option)) {?>
+						<div class="form-question title-checkbox">
+							<?php echo $input["title"]; ?>
+						</div>
+                		<?php
+                		foreach ($option as $key => $value) { ?>
+	                    	<div class="form-checkbox">
+	                    		<label>
+                            		<input style="margin: 0px 12px 0px 140px;" id="<?php echo $input['name'] . '-' . $input['id']; ?>" type="checkbox" name="inputs[<?php echo $input['name']; ?>][]" class="<?php if ($input['validation']) { echo $input['validation']; } ?>" value="<?php echo $value['value']; ?>" /> 
+                            		<?php echo $value["label"]; ?>
+                            	</label>
+                            </div>
+	                    <?php } ?>
+	                <?php }
+	            } else if ($input['type'] == "radio") { 
+	            	if(!empty($option)) {?>
+						<div class="form-question title-checkbox">
+							<?php echo $input["title"]; ?>
+						</div>
+						<?php 
+						foreach ($option as $key => $value) { ?>
+							<div class="form-checkbox">
+								<label for="<?php echo $input["name"]; ?>">
+									<input style="margin: 0px 12px 0px 140px;" id="<?php echo $input["name"]; ?>" type="radio" name="inputs[<?php echo $input["group"]; ?>]" value="<?php echo $value["value"]; ?>">
+									<?php echo $value["label"]; ?>
+								</label>
+							</div>
+						<?php }
+	                }
+	            }
+		    } else if ($input['type'] == "terms" || $input['name'] == "terms") {
+		    	if($input["name"]=="terms" && $this->block->termsconditions){ ?>
+		        	<div style="clear:both"></div>
+		        		<?php echo $this->block->termsconditions; ?>
+				<?php } else if($input["group"] !== $group){ ?>
+					<div class="form-question title-checkbox">
+						<?php echo $input["title"]; ?>
+					</div>
+                <?php } ?>
+                <div class="form-checkbox">
+                    <input style="margin: 0px 12px 0px 140px;" id="<?php echo $input["name"]; ?>" type="checkbox" name="inputs[<?php echo $input["group"]; ?>]" class="<?php if ($input["required"]) { echo $_requiredEntry; } ?>">
+                    <label for="<?php echo $input["name"]; ?>"><?php echo $input["value"]; ?></label>
+				</div>
+			<?php } else if ($input['type'] == "date" || $input['type'] == "datetime" || $input['type'] == "dob") { ?>
+            	<div>
+                    <label class="required" style="float: left; width: 140px;"><?php echo $input["title"]; ?></label>
+                    <div><?php echo $this->_getDateDropdown(); ?></div>
+                </div>
+	        <?php } else { ?>
+	        	<?php if ($input['type'] != 'ref') { ?>
+                    <label class="required" style="float:left; width:140px; padding-top:10px;" for="<?php echo $input["name"]; ?>">
+                        <?php
+                        if ($input['type'] == 'textarea') {
+                            echo $input['title'];
+                        }
+                        else {
+                            echo $input["value"];
+                        }
+                        ?>
+                        <em><?php if($input["required"] == true) echo '*'; ?></em>
+                    </label>
+                <?php } 
 
-		}
-		?>
+	        	if ($input['type'] == "text") { 
+		        	$_validateEmail = '';
+	                $_validationClass = '';
+	                if ($input['name'] == 'email') {
+	                	$_validateEmail = 'validate-email-ind';
+	                }
+	                if ($input['validation']) {
+	                	$_validationArr = explode(' ', $input['validation']);
+	                   	$_validationClass = '';
+	                    foreach ($_validationArr as $v) {
+	                    	$vArr = explode('|', $v);
+	                        $_validationClass .= 'validate-' . $vArr[0] . ' ';
+	                    }
+	                } ?>
+	               	<input id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) { echo $_requiredEntry; } ?> <?php echo $_validationClass; ?> <?php echo $_validateEmail; ?>" style="height: 26px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]" placeholder="<?php echo $input["helper_message"]; ?>" />
+		        <?php } else if($input["type"] == "textarea"){ ?>
+					<textarea id="<?php echo $input["name"]; ?>" class="<?php if ($input["required"]) {echo $_requiredEntry;}?> input-text" style="height: 100px !important; width: 40%; background: none repeat scroll 0 0 #F9F9F9; border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; color: #666666; padding: 7px 5px; float: left; margin-right: 60px;" rows="3" cols="5" title="<?php echo $input["value"]; ?>" name="inputs[<?php echo $input["group"]; ?>]"></textarea>
+				<?php } else {
+					if ($input['type'] == 'ref') {
+					$_value = '';
+	                if ($this->getRequest()->getParam($input['type'])) {
+	                    $_value = $this->getRequest()->getParam($input['type']);
+	                } ?>
+	                <input id="<?php echo $input['name']; ?>" name="inputs[<?php echo $input['group']; ?>]" type="hidden" value="<?php echo $_value; ?>" />
+	            <?php } 
+	        } ?>
+	        </div>
+	        <div style="clear: both;"></div>
+	        </li>
+	    <?php }
+		} ?>
 		</ul>
         <div style="clear:both"></div>
 		<p class="required" style="float: left; color: #eb340a; margin-left: 160px;">* Required Fields</p>

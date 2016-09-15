@@ -203,7 +203,7 @@ abstract class Mage_Api2_Model_Resource
         $logArr = array (
             'request_uri' => $this->getRequest()->getRequestUri(),
             'params' => $this->getRequest()->getParams(),
-            //'body_params' => $this->getRequest()->getBodyParams(),
+            'body_params' => in_array($this->getOperation(), [self::OPERATION_CREATE, self::OPERATION_UPDATE]) ? $this->getRequest()->getBodyParams() : '',
             'action_type' => $this->getActionType(),
             'operation' => $this->getOperation(),
         );

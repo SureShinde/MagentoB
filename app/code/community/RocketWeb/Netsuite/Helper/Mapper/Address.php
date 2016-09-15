@@ -25,6 +25,33 @@ class RocketWeb_Netsuite_Helper_Mapper_Address extends RocketWeb_Netsuite_Helper
         return $netsuiteAddress;
     }
 
+    public function formatBillingAddress(Mage_Sales_Model_Order_Address $address) {
+        $fulladdress = array();
+
+        $lengthStreet1 = strlen(trim($address->getStreet1()));
+        $lengthStreet2 = strlen(trim($address->getStreet2()));
+        $street1 = substr(trim($address->getStreet1()), 0, 150);
+        $sisa = "";
+        if( $lengthStreet1 > 150 ) $sisa = substr(trim($address->getStreet1()), 150, $lengthStreet1);
+        $street2 = substr(trim($sisa." ".$address->getStreet2()), 0, 150);
+
+        $country = Mage::getModel('directory/country')->loadByCode($address->getCountry());
+        $billCountry = Mage::helper('rocketweb_netsuite/transform')->transformCountryCode($country->getCountryId());
+
+        $fulladdress = array(
+            'addressee' => $address->getName(),
+            'addr1' => $street1,
+            'addr2' => $street2,
+            'city' => $address->getCity(),
+            'state' => $address->getRegionCode(),
+            'zip' => $address->getPostcode(),
+            'phone' => $address->getTelephone(),
+            'country' => $billCountry
+        );
+
+        return $fulladdress;
+    }
+
     public function getShippingAddressNetsuiteFormatFromOrderAddress(Mage_Sales_Model_Order_Address $address) {
         $netsuiteAddress = new ShipAddress();
 
@@ -48,6 +75,37 @@ class RocketWeb_Netsuite_Helper_Mapper_Address extends RocketWeb_Netsuite_Helper
         Mage::dispatchEvent('netsuite_ship_address_create_before',array('netsuite_address'=>$netsuiteAddress));
 
         return $netsuiteAddress;
+    }
+
+    public function formatShippingAddress(Mage_Sales_Model_Order_Address $address) {
+        $fulladdress = array();
+
+        $lengthStreet1 = strlen(trim($address->getStreet1()));
+        $lengthStreet2 = strlen(trim($address->getStreet2()));
+        $street1 = substr(trim($address->getStreet1()), 0, 150);
+        $sisa = "";
+        if( $lengthStreet1 > 150 ) $sisa = substr(trim($address->getStreet1()), 150, $lengthStreet1);
+        $street2 = substr(trim($sisa." ".$address->getStreet2()), 0, 150);
+
+        $country = Mage::getModel('directory/country')->loadByCode($address->getCountry());
+        $shipCountry = Mage::helper('rocketweb_netsuite/transform')->transformCountryCode($country->getCountryId());
+
+        $fulladdress = array(
+            'addressee' => $address->getName(),
+            'addr1' => $street1,
+            'addr2' => $street2,
+            'city' => $address->getCity(),
+            'state' => $address->getRegionCode(),
+            'zip' => $address->getPostcode(),
+            'phone' => $address->getTelephone(),
+            'country' => $shipCountry
+        );
+
+        return $fulladdress;
+    }
+
+    public function getShippingPhoneNumber(Mage_Sales_Model_Order_Address $address) {
+        return $address->getTelephone();
     }
 
     public function getShippingAddressMagentoFormatFromNetsuiteAddress(ShipAddress $netsuiteShippingAddress,Customer $netsuiteCustomer = null,Mage_Sales_Model_Order $magentoOrder = null) {

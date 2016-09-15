@@ -23,11 +23,51 @@ abstract class Mage_Sales_Model_Api2_Order_Rest extends Mage_Sales_Model_Api2_Or
     protected function _getAdditionalInfo($order) {
         $result = array ();
         
+        //- get BIN Number for Credit Card
+        if ($this->_isCreditCard($order->getPaymentMethod())) {
+            $result['bin_number'] = $order->getPayment()->getCcBins();
+        }
+        
         //- get virtual account number
         if ($vaNumber = $order->getPayment()->getVaNumber()) {
             $result['va_number'] = $vaNumber;
         }
         
         return $result;
+    }
+    
+    protected function _isCreditCard($paymentCode) {
+        $creditCards = Mage::helper('paymethod')->getPaymentMethodCc();
+        
+        if (in_array($paymentCode, $creditCards)) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    protected function _getOrderShipment($order) {
+        $orderShipment = $order->getShipmentsCollection();
+        $result = [];
+
+        if ($orderShipment) {
+            foreach ($orderShipment as $shipment) {
+                $shipmentId = $shipment->getId();
+                $result[$shipmentId] = $shipment->getData();
+                
+                if ($shipmentTrack = $shipment->getAllTracks()) {
+                    foreach ($shipmentTrack as $track) {
+                        $result[$shipmentId]['tracking_info'][] = [
+                            'title' => $track->getTitle(),
+                            'number' => $track->getNumber(),
+                        ];
+                    }
+                }
+            }
+            
+            return $result;
+        }
+
+        return false;
     }
 }

@@ -134,9 +134,8 @@ class Moxy_SocialCommerce_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     # Input validation
-    public function validateInput()
+    public function validateInput($postData)
     {
-        $postData = $this->postData;
         $postUsername = $postData['username'];
         if (! $postUsername) {
             throw new Exception("Please fill username field");
@@ -199,7 +198,7 @@ class Moxy_SocialCommerce_Helper_Data extends Mage_Core_Helper_Abstract
         if(!empty($data['image_url'])) {
             $_POST['image_url'] = $data['image_url'];
         }
-        if ($_POST['image_url']) {
+        if (isset($_POST['image_url']) && $_POST['image_url']) {
             $upFileTmpName = $this->download_image($_POST['image_url'], 'avatar');
             $imageUrl = 'media'. DS .'avatar'. DS . basename($upFileTmpName);
             $image = new Varien_Image ( $imageUrl );
@@ -251,7 +250,7 @@ class Moxy_SocialCommerce_Helper_Data extends Mage_Core_Helper_Abstract
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, 1000);      // some large value to allow curl to run for a long time
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
-        curl_exec($ch);
+        if(curl_exec($ch) === false) Mage::log('CURL Error : ' . curl_error($ch));
         curl_close($ch);
         fclose($fp);
         return $image_file;
@@ -398,5 +397,59 @@ class Moxy_SocialCommerce_Helper_Data extends Mage_Core_Helper_Abstract
                 $img = Mage::getDesign()->getSkinUrl('images/').'avatar-m.jpg';
         }
         return array('profile_image' => $img, 'display_name' => $title, 'url' => $url);
+    }
+
+    /**
+     * Retrieve related collection from product
+     *
+     */
+    public function getRelatedCollection($product)
+    {
+        $collectionsCollection = Mage::getModel('wishlist/item')->getCollection();
+        $collectionsCollection->addFieldToFilter('product_id', array('eq' => $product->getId()));
+        $relatedCollections = $collectionsCollection->getData();
+
+        if (count($relatedCollections) < 1) {
+            return array();
+        }
+
+        $relatedCollectionId = array();
+        foreach ($relatedCollections as $relatedCollection) {
+            $relatedCollectionId[] = $relatedCollection['wishlist_id'];
+        }
+
+        $wishlistCollection = Mage::getModel('wishlist/wishlist')
+        ->getCollection()
+        ->addFieldToFilter('wishlist_id', $relatedCollectionId)
+        ->addFieldToFilter('visibility', 1)
+        ->setOrder('counter', 'DESC')
+        ->setPageSize(4);
+
+        return $wishlistCollection->getData();
+    }
+
+    public function seoUrl($string)
+    {
+        //Lower case everything
+        $string = strtolower($string);
+        /**
+         * Make alphanumeric (removes all other characters)
+         * Clean up multiple dashes or whitespaces
+         * Convert whitespaces and underscore to dash
+         */
+        $patterns = array(
+            '/[^a-z0-9_\s-]/',
+            '/[\s-]+/',
+            '/[\s_]/'
+        );
+
+        $replace = array(
+            '',
+            ' ',
+            '-'
+        );
+
+        $string = preg_replace($patterns, $replace, $string);
+        return $string;
     }
 }

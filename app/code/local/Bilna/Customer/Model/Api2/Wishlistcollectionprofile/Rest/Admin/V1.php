@@ -6,12 +6,12 @@
  */
 class Bilna_Customer_Model_Api2_Wishlistcollectionprofile_Rest_Admin_V1 extends Bilna_Customer_Model_Api2_Wishlistcollectionprofile_Rest
 {
-    /** 
+    /**
      * Update collection profile by username.
-     * 
+     *
      * bodyParams:
      * {"dob":"01\/06\/1983","location":"asdasd","about":"asd", "image_url":"http://pathtoimageurl"}
-     * 
+     *
      * Method was use create function since, logan didnt need to send entity_id as param
      */
     protected function _create(array $data)
@@ -28,19 +28,12 @@ class Bilna_Customer_Model_Api2_Wishlistcollectionprofile_Rest_Admin_V1 extends 
             # Check if request is a post request
             try {
 
-                if (!isset($data['dob']) || $data['dob'] == "") {
-                    $this->_critical('Please provide DOB.');
-                } 
-                if (!isset($data['location']) || $data['location'] == "") {
-                    $this->_critical('Please provide location.');
-                }
-
                 # Get username and slug it
                 $postUsername = Mage::getModel('catalog/product_url')->formatUrlKey($username);
 
-                $postAbout = $data['about'];
-                $postLocation = $data['location'];
-                $postDob = $data['dob'];
+                $postAbout = (isset($data['about'])) ? $data['about'] : "";
+                $postLocation = (isset($data['location'])) ? $data['location'] : "";
+                $postDob = (isset($data['dob'])) ? $data['dob'] : "";
 
                 # Check if user has temporary profile and going to use different username
                 if ($profiler->getTemporary() && $profiler->getUsername() != $postUsername) {

@@ -29,9 +29,13 @@ $_item = $this->getItem();
 $isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
 $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
 $_escape_helper = Mage::helper('catalog/utils');
+$product = Mage::getModel('catalog/product')->load($_item->getProduct()->getId());
+$isExpressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled');
 ?>
 <tr class="low-res-cart" width="100%">
-    <td><?php if ($this->hasProductUrl()):?><a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image"><?php endif;?><img src="<?php echo $this->getProductThumbnail()->resize(75); ?>" width="75" height="75" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /><?php if ($this->hasProductUrl()):?></a><?php endif;?></td>
+    <td>
+        <?php if ($this->hasProductUrl()):?><a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image"><?php endif;?><img src="<?php echo $this->getProductThumbnail()->resize(75); ?>" width="75" height="75" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /><?php if ($this->hasProductUrl()):?></a><?php endif;?>
+    </td>
     <td colspan="4">
         <h2 class="product-name">
             <?php if ($this->hasProductUrl()):?>
@@ -40,6 +44,8 @@ $_escape_helper = Mage::helper('catalog/utils');
                 <?php echo $this->escapeHtml($this->getProductName()) ?>
             <?php endif; ?>
         </h2>
+
+        <?php echo ($_item->getCrossBorder() == 1) ? '<p class="item-msg error">Produk Impor</p>' : ''; ?>
 
         <?php if ($_options = $this->getOptionList()):?>
             <dl class="item-options">
@@ -58,6 +64,24 @@ $_escape_helper = Mage::helper('catalog/utils');
                     </dd>
                 <?php endforeach; ?>
             </dl>
+        <?php endif; ?>
+
+        <?php if ($product->getExpressShipping() && $isExpressShippingEnabled) : ?>
+            <div class='in-block container-express noborder nopadding'>
+                <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:25px; margin-top:5px;float:left;'>
+                <div class='in-block'>
+                    <p class=''>Tersedia Pengiriman Ekspress untuk <strong>Jakarta &amp; Bekasi</strong>
+                    <span class='tool-box relative in-block'>
+                      <span class='question spancart'>?</span>
+                      <span class='pops'>
+                        <span class='arrow_box in-block stay-float' style="top: 27px; margin-right: -102px;">
+                          <span class='logo' style="line-height: 14px;">Pengiriman Express tersedia di <strong>Jakarta &amp; Bekasi</strong> khusus produk dengan icon <span class='in-tab'>
+                          <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:12px; margin-top:5px;'></span>. tidak dapat digabungkan dengan produk tanpa ikon tersebut &amp; COD</span>
+                        </span>
+                    </span>
+                    </p>
+                </div>
+            </div>
         <?php endif; ?>
 
         <?php if ($messages = $this->getMessages()): ?>
@@ -92,7 +116,6 @@ $_escape_helper = Mage::helper('catalog/utils');
             </span>
         </td>
     <?php else: ?>
-
 
         <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
         <td>
@@ -137,14 +160,7 @@ $_escape_helper = Mage::helper('catalog/utils');
         </td>
         <?php endif; ?>
     <?php endif; ?>
-
-
-
 </tr>
-
-
-
-
 
 <tr>
     <td class="hi-res"><?php if ($this->hasProductUrl()):?><a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image"><?php endif;?><img src="<?php echo $this->getProductThumbnail()->resize(75); ?>" width="75" height="75" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /><?php if ($this->hasProductUrl()):?></a><?php endif;?></td>
@@ -156,7 +172,26 @@ $_escape_helper = Mage::helper('catalog/utils');
                 <?php echo $this->escapeHtml($this->getProductName()) ?>
             <?php endif; ?>
         </h2>
+        <?php echo ($_item->getCrossBorder() == 1) ? '<p class="item-msg error">Produk Impor</p>' : ''; ?>
 
+        <?php if ($product->getExpressShipping() && $isExpressShippingEnabled) : ?>
+            <div class='in-block container-express noborder nopadding'>
+                  <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:25px; margin-top:5px;float:left;'>
+                <div class='in-block'>
+                  <p class=''>Tersedia Pengiriman Ekspress untuk <strong>Jakarta &amp; Bekasi</strong>
+                    <span class='tool-box relative in-block'>
+                      <span class='question spancart'>?</span> 
+                      <span class='pops'>
+                        <span class='arrow_box in-block stay-float' style="top: 27px; margin-right: -102px;">
+                          <span class='logo' style="line-height: 14px;">Pengiriman Express tersedia di <strong>Jakarta &amp; Bekasi</strong> khusus produk dengan icon <span class='in-tab'>
+                          <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:12px; margin-top:5px;'></span>. tidak dapat digabungkan dengan produk tanpa ikon tersebut &amp; COD</span>
+                        </span>
+                    </span>
+                  </p>
+                </div>
+            </div>
+        <?php endif; ?>
+        
         <?php if ($_options = $this->getOptionList()):?>
             <dl class="item-options">
                 <?php foreach ($_options as $_option) : ?>
@@ -182,6 +217,24 @@ $_escape_helper = Mage::helper('catalog/utils');
             <?php endforeach; ?>
         <?php endif; ?>
 
+        <?php if ($this->getExpressShipping() && $isExpressShippingEnabled) { ?>
+                <div class='in-block container-express noborder nopadding'>
+                  <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:25px; margin-top:5px;float:left;'>
+                <div class='in-block'>
+                  <p class=''>Tersedia Pengiriman Ekspress untuk <strong>Jakarta &amp; Bekasi</strong>
+                    <span class='tool-box relative in-block' >
+                      <span class='question spancart'>?</span> 
+                      <span class='pops'>
+                        <span class='arrow_box in-block stay-float' style="top: 27px; margin-right: -102px;">
+                          <span class='logo' style="line-height: 14px;">Pengiriman Express tersedia di <strong>Jakarta &amp; Bekasi</strong> khusus produk dengan icon <span class='in-tab'>
+                          <img src="<?php echo $this->getSkinUrl('images/') . 'VIP-SHIPMENT-ICON-GREEN.png'; ?>" class='in-block margin-right-8'  style='width:12px; margin-top:5px;'></span>. tidak dapat digabungkan dengan produk tanpa ikon tersebut &amp; COD</span>
+                        </span>
+                    </span>
+                  </p>
+                </div>
+            </div>
+            <?php } ?>
+        
         <?php $addInfoBlock = $this->getProductAdditionalInformationBlock(); ?>
         <?php if ($addInfoBlock): ?>
             <?php echo $addInfoBlock->setItem($_item)->toHtml() ?>
@@ -403,3 +456,4 @@ $_escape_helper = Mage::helper('catalog/utils');
     <?php endif; ?>
     <td class="a-right"><a onClick="ecommerceRemoveCart('<?php echo $_escape_helper->escapeQuote($this->getProductName()); ?>','<?php echo $_item->getSku() ?>','<?php echo $_item->getCalculationPrice() ?>','<?php echo $this->getQty() ?>','<?php echo $this->getProductThumbnail()->resize(75); ?>','<?php echo $this->getProductUrl() ?>');" href="<?php echo $this->getDeleteUrl()?>" title="<?php echo $this->__('Remove item')?>" class="remove-item"><i class="fa fa-times-circle"></i></a></td>
 </tr>
+

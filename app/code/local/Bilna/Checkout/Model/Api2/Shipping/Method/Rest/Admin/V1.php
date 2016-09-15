@@ -61,13 +61,21 @@ class Bilna_Checkout_Model_Api2_Shipping_Method_Rest_Admin_V1 extends Bilna_Chec
         $quoteData = $quoteDataRaw[0];
         $addresses = $this->_getAddresses(array($quoteData['entity_id']));
         $items     = $this->_getItems(array($quoteData['entity_id']));
-
+        
+        $oCoupon = Mage::getModel('salesrule/coupon')->load($quoteData['coupon_code'], 'code');
+        if($oCoupon->getRuleId()) {
+            $ruleArr = Mage::getModel('salesrule/rule')->load($oCoupon->getRuleId())->getStoreLabel();
+            $quoteData['coupon_name'] = $ruleArr;
+        }
+        
         if ($addresses) {
             $quoteData['addresses'] = $addresses[$quoteData['entity_id']];
         }
         if ($items) {
             $quoteData['quote_items'] = $items[$quoteData['entity_id']];
         }
+
+        $quoteData = Mage::helper('bilna_expressshipping')->updateParentQuoteExpressShipping($quoteData);
         
         return $quoteData;
     }

@@ -123,8 +123,6 @@ class Bilna_Paymethod_Model_Method_Vtdirect extends Mage_Payment_Model_Method_Cc
     }
     
     public function validate() {
-        parent::validate();
-        
         $info = $this->getInfoInstance();
         $no = $info->getCcBins();
         $errorMsg = null;

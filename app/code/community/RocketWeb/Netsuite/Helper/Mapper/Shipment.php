@@ -24,6 +24,17 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
         
         if (!$magentoShipment) {
             $netsuiteOrderId = $netsuiteShipment->createdFrom->internalId;
+            // replace the way the order's internal ID is obtained. now we want to obtain the source RO
+            if (!is_null($netsuiteShipment->customFieldList->customField))
+            {
+                foreach ($netsuiteShipment->customFieldList->customField as $customField) {
+                    if ($customField->internalId == 'custbody_sourcero') {
+                        $netsuiteOrderId = $customField->value->internalId;
+                        break;
+                    }
+                }
+            }
+
             $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $netsuiteOrderId);
             $magentoOrder = $magentoOrders->getFirstItem(); // @var Mage_Sales_Model_Order $magentoOrder
 
@@ -66,7 +77,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
                 $magentoOrder = $magentoShipment->getOrder();
             }
             if ($magentoOrder->getPayment()->getMethodInstance()->getCode() == 'cod') {
-            	$magentoOrderStatus = 'shipping_cod';
+                $magentoOrderStatus = 'shipping_cod';
                 $magentoOrder->setStatus($magentoOrderStatus);
                 $magentoOrder->save();
             }
@@ -136,7 +147,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Shipment extends RocketWeb_Netsuite_Helpe
             else {
                 $netProducts[$netsuiteMagentoItemId]['quantity'] = $netsuiteShipmentItem->quantity;
             }
-	
+    
             $netProducts[$netsuiteMagentoItemId]['sku'] = $netsuiteShipmentItem->description;
             $netProducts[$netsuiteMagentoItemId]['internalId'] = $netsuiteShipmentItem->item->internalId;
             $netProducts[$netsuiteMagentoItemId]['itemId'] = $netsuiteMagentoItemId;

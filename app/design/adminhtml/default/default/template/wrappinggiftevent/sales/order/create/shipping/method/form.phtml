@@ -1,5 +1,6 @@
 <?php /** @var $this Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form */ ?>
 <?php $_shippingRateGroups = $this->getShippingRates(); ?>
+<?php $codHelper = Mage::helper('cod');?>
 <?php if ($_shippingRateGroups): ?>
     <div id="order-shipping-method-choose" style="display: none;">
     <dl class="shipment-methods">
@@ -9,6 +10,33 @@
         <dd>
             <ul>
             <?php foreach ($_rates as $_rate): ?>
+                <?php $disableOption = false; ?>
+
+                <?php
+                // if current shipping method is COD, check whether all the items can be COD
+                if ( strpos(strtolower($_rate->getCode()), 'bayar_di_tempat') !== false ):
+
+                    // if COD config is disabled, do not show this option at all
+                    if (!$codHelper->showCodMethod('admin'))
+                        continue;
+                ?>
+                <?php endif; ?>
+
+                <?php 
+                // if current shipping method is Express, check whether all the items can be express-shipped
+                if ( (strpos(strtolower($_rate->getCode()), 'express') !== false) || (strpos(strtolower($_rate->getCode()), 'ekspres') !== false) ):
+
+                    // if express shipping config is disabled, do not show this option at all
+                    if ($this->isExpressShippingEnabled() === false)
+                        continue;
+                    
+                    if (!$this->showExpressShippingMethod())
+                        $disableOption = true;
+                    else
+                    if (!$this->checkExpressShippingSalesCount())
+                        $disableOption = true;
+                ?>
+                <?php endif ?>
                 <?php $_code = $_rate->getCode() ?>
                 <?php $_radioProperty = 'name="order[shipping_method]" class="shipping-method" type="radio" onclick="order.setShippingMethod(this.value)"' ?>
                 <li>
@@ -29,7 +57,11 @@
                             //$_checked = $this->isMethodActive($_code) ? 'checked="checked"' : '';
                             //$_codeChecked = $this->isMethodActive($_code) ? $_code : '';
                         ?>
-                        <input <?php echo $_radioProperty ?> value="<?php echo $_code ?>" id="s_method_<?php echo $_code ?>" <?php echo $_checked ?> datatype="<?php echo $_rate->getDeliveryId(); ?>" datatext="<?php echo $_rate->getMethodTitle(); ?>" />
+                        <?php if($disableOption): ?>
+                            <input type="radio" disabled="disabled" class="radio shipping-type disabled"/>
+                        <?php else: ?>
+                            <input <?php echo $_radioProperty ?> value="<?php echo $_code ?>" id="s_method_<?php echo $_code ?>" <?php echo $_checked ?> datatype="<?php echo $_rate->getDeliveryId(); ?>" datatext="<?php echo $_rate->getMethodTitle(); ?>" />
+                        <?php endif; ?>
                         <label class="normal" for="s_method_<?php echo $_code ?>">
                             <?php echo $this->escapeHtml($_rate->getMethodTitle() ? $_rate->getMethodTitle() : $_rate->getMethodDescription()) ?> -
                             <strong>

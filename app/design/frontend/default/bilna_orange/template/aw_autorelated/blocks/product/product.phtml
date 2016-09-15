@@ -68,6 +68,7 @@ if ($this->getPosition() == AW_Autorelated_Model_Source_Position::INSTEAD_NATIVE
                                         data-image="<?php echo $this->helper('catalog/image')->init($product, 'small_image')->resize(320, 320); ?>"
                                         data-product-name="<?php echo $this->stripTags($product->getName(), null, true); ?>"
                                         data-price="<?php echo $_core_helper->currency($product->getFinalPrice(), true, false); ?>"
+                                        data-oldprice="<?php echo $_core_helper->currency($product->getPrice(),true,false);?>"
                                         data-merchant = "<?php echo ($merchant) ? 'dijual oleh ' . $merchant : ''; ?>"
                                         data-id="<?php echo $product->getId(); ?>"
                                         ><i class="fa fa-heart"></i></a>
@@ -83,13 +84,23 @@ if ($this->getPosition() == AW_Autorelated_Model_Source_Position::INSTEAD_NATIVE
 								<div class="bottom_thumb_list_product">
 									<div class="aw-arp-addtocart">
 									<?php if ($product->isSaleable()) : ?>
-										<p>
-										   <?php if(!$this->isLocationLink($product)): ?>
-												<a class="link-cart" href="<?php echo $abstractBlock->getAddToCartUrl($product) ?>"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></a>
-											<?php else : ?>
-												<a class="link-cart" href="javascript:setLocation('<?php echo $abstractBlock->getAddToCartUrl($product) ?>');"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></a>                                            
-											<?php endif; ?>                                       
-										</p>
+                                        <?php
+                                        // if cross border is disabled and the item is cross border, don't display the add to cart button
+                                        if (Mage::helper('bilna_crossborder')->isCrossBorderEnabled() == false && 
+                                            Mage::helper('bilna_crossborder')->isCrossBorder($product)): 
+                                        ?>
+                                            <p class="availability out-of-stock"><span><a href="javascript:"><?php echo $this->__('Segera tersedia') ?></a></span></p>
+                                        <?php
+                                        else:
+                                        ?>
+    										<p>
+    										   <?php if(!$this->isLocationLink($product)): ?>
+    												<a class="link-cart" href="<?php echo $abstractBlock->getAddToCartUrl($product) ?>"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></a>
+    											<?php else : ?>
+    												<a class="link-cart" href="javascript:setLocation('<?php echo $abstractBlock->getAddToCartUrl($product) ?>');"><i class="fa fa-cart-plus"></i><?php echo $this->__('Tambah ke troli') ?></a>                                            
+    											<?php endif; ?>                                       
+    										</p>
+                                        <?php endif; ?>
 									</div>
 								</div>
                                 <?php else : ?>

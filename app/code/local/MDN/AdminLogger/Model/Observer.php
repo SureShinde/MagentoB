@@ -65,10 +65,20 @@ class MDN_AdminLogger_Model_Observer extends Mage_Core_Model_Abstract
 		
 		if (mage::getStoreConfig('adminlogger/general/enable_log') == 1)
 			mage::log('Save before for '.$objectType);
-		
+
 		if (!$object->getId())
 			$object->setis_new(true);
-		
+
+		$objectType = mage::helper('AdminLogger')->getObjectType($object);
+		switch ($objectType) {
+			case 'catalog/product':
+				$oldCategoryIds = $object->getResource()->getCategoryIds($object);
+				$object->setOldCategoryIds($oldCategoryIds); // Set Old Category Ids to be retrieved after saved
+				break;
+			default:
+				break;
+		}
+
 		if (mage::getStoreConfig('adminlogger/general/force_initial_data') == 1)
 			$this->forceOrigDataLoad($object);
 

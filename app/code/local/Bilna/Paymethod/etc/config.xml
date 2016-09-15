@@ -57,8 +57,12 @@
         <rewrite>
             <paymethod>
                 <from><![CDATA[#^/checkout/onepage/#]]></from>
-                <to>/paymethod/onepage/</to>
+                <to><![CDATA[/paymethod/onepage/]]></to>
             </paymethod>
+            <paymethod_index>
+                <from><![CDATA[#^/checkout/onepage#]]></from>
+                <to><![CDATA[/paymethod/onepage/]]></to>
+            </paymethod_index>
         </rewrite>
 
         <resources>
@@ -309,7 +313,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (ANZ Visa)</title>
                 <cctypes>VI</cctypes>
-                <payment_action>authorize</payment_action>
+                <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </anzvisa>
 
@@ -319,7 +323,7 @@
                 <order_status>pending</order_status>
                 <title>Credit Card (ANZ MasterCard)</title>
                 <cctypes>MC</cctypes>
-                <payment_action>authorize</payment_action>
+                <!--payment_action>authorize</payment_action-->
                 <allowspecific>0</allowspecific>
             </anzmc>
 
