@@ -995,7 +995,41 @@ class Mage_CatalogInventory_Model_Observer
         $stockItem = $item->getProduct()->getStockItem();
         if ( $stockItem->isWholesaleQty($item->getProduct()->getQty()) ) {
             $item->setIsWholesale(1);
+            $item->getQuote()->setIsWholesale(1);
+        }
+        return $this;
+    }
+
+    public function wholesaleQuoteRemoveItem(Varien_Event_Observer $observer)
+    {
+        $item = $observer->getEvent()->getQuoteItem();
+        $quoteItemCollections = Mage::getModel('sales/quote_item')->getCollection()->addFieldToFilter('is_wholesale', 1)->addFieldToFilter('quote_id', $item->getQuoteId());
+
+        if ($item->getIsWholesale() == 1 && $item->getQuote()->getIsWholesale() == 1 && count($quoteItemCollections->getData()) == 1) {
+            $item->getQuote()->setIsWholesale(0);
+        }
+
+        return $this;
+    }
+
+    public function wholesaleConvertQuoteToOrder(Varien_Event_Observer $observer)
+    {
+        $quote = $observer->getEvent()->getQuote();
+        $order = $observer->getEvent()->getOrder();
+        if ($quote->getIsWholesale() == 1) {
+            $order->setIsWholesale(1);
+        }
+        return $this;
+    }
+
+    public function wholesaleConvertQuoteToOrderItem(Varien_Event_Observer $observer)
+    {
+        $orderItem = $observer->getEvent()->getOrderItem();
+        $quoteItem = $observer->getEvent()->getItem();
+        if ($quoteItem->getIsWholesale() == 1) {
+            $orderItem->setIsWholesale(1);
         }
         return $this;
     }
 }
+

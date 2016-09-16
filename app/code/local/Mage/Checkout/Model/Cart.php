@@ -276,6 +276,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                 $totalQty = $this->getQuote()->getItemsQty() + $request->getQty();
                 if ($product->getStockItem()->isWholesaleQty($totalQty)) {
                     $request->setIsWholesale(1);
+                    $this->getQuote()->setIsWholesale(1);
                 }
 
                 $result = $this->getQuote()->addProduct($product, $request);
@@ -636,3 +637,4 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
         return $result;
     }
 }
+
