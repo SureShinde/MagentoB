@@ -273,20 +273,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
 
         if ($productId) {
             try {
-                $itemQty = 0;
-                $item = $this->getQuote()->getItemByProduct($product);
-                if ($item) {
-                    $itemQty = $item->getQty();
-                }
-                $totalQty = $itemQty + $request->getQty();
-                if ($product->getStockItem()->isWholesaleQty($totalQty)) {
-                    if ($item) {
-                        $item->setIsWholesale(1);
-                    }
-
-                    $this->getQuote()->setIsWholesale(1);
-                }
-
                 $result = $this->getQuote()->addProduct($product, $request);
             } catch (Mage_Core_Exception $e) {
                 $this->getCheckoutSession()->setUseNotice(false);
@@ -418,10 +404,8 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
         $messageFactory = Mage::getSingleton('core/message');
         $session = $this->getCheckoutSession();
         $qtyRecalculatedFlag = false;
-        $isWholesaleOrder = false;
         foreach ($data as $itemId => $itemInfo) {
             $item = $this->getQuote()->getItemById($itemId);
-            $product = $this->_getProduct($item->getProductId());
             if (!$item) {
                 continue;
             }
@@ -429,15 +413,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
             if (!empty($itemInfo['remove']) || (isset($itemInfo['qty']) && $itemInfo['qty']=='0')) {
                 $this->removeItem($itemId);
                 continue;
-            }
-
-            if (!$product->getStockItem()->isWholesaleQty($itemInfo['qty'])) {
-                $item->setIsWholesale(0);
-            } else {
-                $item->setIsWholesale(1);
-                if (!$isWholesaleOrder) {
-                    $isWholesaleOrder = true;
-                }
             }
 
             $qty = isset($itemInfo['qty']) ? (float) $itemInfo['qty'] : false;
@@ -456,12 +431,6 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                     $session->addQuoteItemMessage($item->getId(), $message);
                 }
             }
-        }
-
-        if ($isWholesaleOrder) {
-            $this->getQuote()->setIsWholesale(1);
-        } else {
-            $this->getQuote()->setIsWholesale(0);
         }
 
         if ($qtyRecalculatedFlag) {
