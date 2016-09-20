@@ -615,4 +615,3 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
         return $result;
     }
 }
-
