@@ -273,9 +273,17 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
 
         if ($productId) {
             try {
-                $totalQty = $this->getQuote()->getItemsQty() + $request->getQty();
+                $itemQty = 0;
+                $item = $this->getQuote()->getItemByProduct($product);
+                if ($item) {
+                    $itemQty = $item->getQty();
+                }
+                $totalQty = $itemQty + $request->getQty();
                 if ($product->getStockItem()->isWholesaleQty($totalQty)) {
-                    $request->setIsWholesale(1);
+                    if ($item) {
+                        $item->setIsWholesale(1);
+                    }
+
                     $this->getQuote()->setIsWholesale(1);
                 }
 
@@ -426,6 +434,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
             if (!$product->getStockItem()->isWholesaleQty($itemInfo['qty'])) {
                 $item->setIsWholesale(0);
             } else {
+                $item->setIsWholesale(1);
                 if (!$isWholesaleOrder) {
                     $isWholesaleOrder = true;
                 }
