@@ -98,6 +98,11 @@ class Mage_SalesRule_Model_Observer
                 $rule = Mage::getModel('salesrule/rule');
                 $rule->load($ruleId);
                 if ($rule->getId()) {
+                    if(!$order->getCouponCode()){
+                        $ruleResource = Mage::getResourceModel('salesrule/rule');
+                        $ruleResource->updateRuleTimesUsed($rule->getId());
+                        
+                    }
                     if ($customerId) {
                         $ruleCustomer = Mage::getModel('salesrule/rule_customer');
                         $ruleCustomer->loadByCustomerRule($customerId, $ruleId);
