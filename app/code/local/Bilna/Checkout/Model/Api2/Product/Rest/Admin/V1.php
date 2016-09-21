@@ -93,6 +93,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
     	
     	try {
 	    	$quote = $this->_getQuote($quoteId, $storeId);
+            $isWholesaleOrder = false;
 	        
 	    	if(empty($productsData))
 	    	{
@@ -126,10 +127,23 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
 
                 if ($productItem['qty'] > 0 && !empty($quoteItemId)) {
                     $quoteItem->setQty($productItem['qty']);
+                    $stockItem = $productByItem->getStockItem();
+                    if ($stockItem->isWholesaleQty($productItem['qty'])) {
+                        $quoteItem->setIsWholesale(1);
+                        $isWholesaleOrder = true;
+                    } else {
+                        $quoteItem->setIsWholesale(0);
+                    }
                 }
 
                 $quote->addItem($quoteItem);
                 $this->_validateCrossBorder($quote);
+            }
+
+            if ($isWholesaleOrder) {
+                $quote->setIsWholesale(1);
+            } else {
+                $quote->setIsWholesale(0);
             }
 
             $quote->getShippingAddress()->setCollectShippingRates(true);
