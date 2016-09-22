@@ -271,6 +271,7 @@ class Bilna_Paymethod_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtml_Bl
             1 => $salesHelper->__('Magento'),
             2 => $salesHelper->__('Logan'),
             3 => $salesHelper->__('Mobile Apps'),
+            4 => $salesHelper->__('Affiliate')
         ];
         
         return $trxFrom;
