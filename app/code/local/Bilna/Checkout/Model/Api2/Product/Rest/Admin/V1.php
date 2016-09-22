@@ -128,6 +128,9 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
 
                 if ($productItem['qty'] > 0 && !empty($quoteItemId)) {
                     $quoteItem->setQty($productItem['qty']);
+                    if ($quoteItem->getHasError()) {
+                        throw Mage::throwException($quoteItem->getMessage());
+                    }
                     $stockItem = $productByItem->getStockItem();
                     if ($stockItem->isWholesaleQty($productItem['qty'])) {
                         $quoteItem->setIsWholesale(1);
