@@ -79,7 +79,8 @@ abstract class Bilna_Sales_Model_Api2_Order_Info_Rest extends Bilna_Sales_Model_
     	$currency = 'IDR';
     	$transactionAmount = number_format((int) $order->getGrandTotal(), 2, null, '');
     	$payType = $order->getPayType();
-    	$callBackUrl = Mage::getBaseUrl() . 'success/' . $transactionNo;
+    	//$callBackUrl = Mage::getBaseUrl() . 'success/' . $transactionNo;
+    	$callBackUrl = (isset($klikpayConfig['call_back_url']) ? $klikpayConfig['call_back_url'] : FALSE);
     	$transactionDate = date('d/m/Y H:i:s', strtotime($order->getCreatedAt()));
     	$clearKey = $klikpayConfig['klikpay_clearkey'];
     	$signature = Mage::helper('paymethod/klikpay')->signature($klikpayUserId, $transactionNo, $currency, $clearKey, $transactionDate, $transactionAmount);
