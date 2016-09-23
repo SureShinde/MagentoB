@@ -94,12 +94,18 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
     	
     	try {
 	    	$quote = $this->_getQuote($quoteId, $storeId);
-            $isWholesaleOrder = false;
+            $totalIsWholesaleItem = 0;
+            $totalCanceledWholesaleItem = 0;
 	        
 	    	if(empty($productsData))
 	    	{
 	    		throw Mage::throwException("Invalid Product Data");
 	    	}
+
+            if ($quote->isWholesale()) {
+                $quoteItemCollection = Mage::getModel('sales/quote_item')->getCollection()->addFieldToFilter('quote_id', $quoteId)->addFieldToFilter('is_wholesale', 1);
+                $totalIsWholesaleItem = count($quoteItemCollection->getData());
+            }
 
             foreach ($productsData as $productItem)
             {
@@ -137,6 +143,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                         $isWholesaleOrder = true;
                     } else {
                         $quoteItem->setIsWholesale(0);
+                        $totalCanceledWholesaleItem++;
                     }
                 }
 
@@ -144,10 +151,10 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                 $this->_validateCrossBorder($quote);
             }
 
-            if ($isWholesaleOrder) {
-                $quote->setIsWholesale(1);
-            } else {
+            if  ($totalIsWholesaleItem == $totalCanceledWholesaleItem) {
                 $quote->setIsWholesale(0);
+            } else {
+                $quote->setIsWholesale(1);
             }
 
             $quote->getShippingAddress()->setCollectShippingRates(true);
