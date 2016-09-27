@@ -85,16 +85,16 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
      * @throws Mage_Api2_Exception
      */
     protected function _update(array $data)
-    {       
+    {
     	$quoteId = $data['entity_id'];
     	$storeId = isset($data['store_id']) ? $data['store_id'] : 1;
     	/*$productId = $data['product_id'];
     	$qty = isset($data['qty']) ? $data['qty'] : 1;*/
         $productsData = array($data['products']);
-    	
+
     	try {
 	    	$quote = $this->_getQuote($quoteId, $storeId);
-	        
+
 	    	if(empty($productsData))
 	    	{
 	    		throw Mage::throwException("Invalid Product Data");
@@ -116,16 +116,16 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                 $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
                     $this->_getProductRequest($productItem)
                 );
-                
+
                 //Mage::log(json_encode($quoteItem->getData()), null, 'mylog.log');
-                //bug fix if quote item id is free product, will return call to undefined getId, 
+                //bug fix if quote item id is free product, will return call to undefined getId,
                 //since it was not an object. because the product is free, and will return null object.
                 if(is_object($quoteItem)) {
                     $quoteItemId = $quoteItem->getId();
                 } else {
                     $quoteItemId = array();
                 }
-                
+
                 //if (!$quoteItem->getId()) {
                 if (empty($quoteItemId)) {
                     return false;
@@ -186,7 +186,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
         //     $quote->getShippingAddress()->setCollectShippingRates(true);
         //     $quote->getShippingAddress()->collectShippingRates();
         //     $quote->collectTotals(); // calls $address->collectTotals();
-        //     $quote->save(); 
+        //     $quote->save();
 
 
 	    } catch (Mage_Core_Exception $e) {
@@ -208,7 +208,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
         $quote = $this->__getCollection($quoteId);
 
         $quoteDataRaw = $quote->getData();
-        
+
         if(empty($quoteDataRaw)){
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
@@ -223,7 +223,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
         if ($items) {
             $quoteData['quote_items'] = $items[$quoteData['entity_id']];
         }
-        
+
         return $quoteData;
     }
 }
