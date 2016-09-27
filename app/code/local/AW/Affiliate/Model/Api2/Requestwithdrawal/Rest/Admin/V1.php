@@ -59,8 +59,8 @@ class AW_Affiliate_Model_Api2_Requestwithdrawal_Rest_Admin_V1 extends AW_Affilia
         }
 
         if (!$isError && !Mage::helper('awaffiliate/affiliate')->isWithdrawalRequestAvailableOn($affiliate, $amount)) {
-            
             $response->setError(1);
+            $isError = true;
             $messages[] = Mage::helper('awaffiliate')->__('This amount is not available for request');
         }
         if (Mage::helper('awaffiliate/config')->getMinimumAmountToWithdraw(Mage::app()->getStore(true)->getId()) > $amount) {
