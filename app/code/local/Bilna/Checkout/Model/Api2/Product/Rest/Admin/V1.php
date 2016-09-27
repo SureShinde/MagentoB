@@ -142,8 +142,10 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                     if ($stockItem->isWholesaleQty($productItem['qty'])) {
                         $quoteItem->setIsWholesale(1);
                     } else {
-                        $quoteItem->setIsWholesale(0);
-                        $totalCanceledWholesaleItem++;
+                        if ($quoteItem->getIsWholesale())  {
+                            $quoteItem->setIsWholesale(0);
+                            $totalCanceledWholesaleItem++;
+                        }
                     }
                 }
 
