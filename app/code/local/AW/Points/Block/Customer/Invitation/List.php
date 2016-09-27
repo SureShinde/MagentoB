@@ -78,7 +78,7 @@ class AW_Points_Block_Customer_Invitation_List extends Mage_Core_Block_Template 
 
     /**
      * Get back url in account dashboard
-     *     
+     *
      * @return string
      */
     public function getBackUrl() {
@@ -144,12 +144,12 @@ class AW_Points_Block_Customer_Invitation_List extends Mage_Core_Block_Template 
     	// Create instance with key
     	$key = 'AIzaSyDrsNm_2zt7DZbRe-xcApNoIHxsjn848n8';
     	$googer = new GoogleURLAPI();
-    
+
     	// Test: Shorten a URL
     	$shortDWName = $googer->shorten($url, $key);
     	$shortDWName = json_decode($shortDWName);
-    
-    	return $shortDWName->id;
+
+    	return (isset($shortDWName->id)) ? $shortDWName->id : $url;
     }
 }
 
