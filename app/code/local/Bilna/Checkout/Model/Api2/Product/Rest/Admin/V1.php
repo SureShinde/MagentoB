@@ -94,15 +94,16 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
     	
     	try {
 	    	$quote = $this->_getQuote($quoteId, $storeId);
-            $totalIsWholesaleItem = 0;
-            $totalCanceledWholesaleItem = 0;
 	        
 	    	if(empty($productsData))
 	    	{
 	    		throw Mage::throwException("Invalid Product Data");
 	    	}
 
-            if ($quote->isWholesale()) {
+            $totalIsWholesaleItem = 0;
+            $totalCanceledWholesaleItem = 0;
+
+            if ($quote->getIsWholesale()) {
                 $quoteItemCollection = Mage::getModel('sales/quote_item')->getCollection()->addFieldToFilter('quote_id', $quoteId)->addFieldToFilter('is_wholesale', 1);
                 $totalIsWholesaleItem = count($quoteItemCollection->getData());
             }
@@ -140,7 +141,6 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                     $stockItem = $productByItem->getStockItem();
                     if ($stockItem->isWholesaleQty($productItem['qty'])) {
                         $quoteItem->setIsWholesale(1);
-                        $isWholesaleOrder = true;
                     } else {
                         $quoteItem->setIsWholesale(0);
                         $totalCanceledWholesaleItem++;
@@ -151,7 +151,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                 $this->_validateCrossBorder($quote);
             }
 
-            if  ($totalIsWholesaleItem == $totalCanceledWholesaleItem) {
+            if  ($totalIsWholesaleItem <= $totalCanceledWholesaleItem) {
                 $quote->setIsWholesale(0);
             } else {
                 $quote->setIsWholesale(1);

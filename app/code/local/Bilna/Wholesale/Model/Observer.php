@@ -7,6 +7,24 @@
  */
 class Bilna_Wholesale_Model_Observer
 {
+    public function cancelOrderItem($observer)
+    {
+        $item = $observer->getEvent()->getItem();
+
+        if ($item->getIsWholesale()) {
+            return $this;
+        }
+
+        $children = $item->getChildrenItems();
+        $qty = $item->getQtyOrdered() - max($item->getQtyShipped(), $item->getQtyInvoiced()) - $item->getQtyCanceled();
+
+        if ($item->getId() && ($productId = $item->getProductId()) && empty($children) && $qty) {
+            Mage::getSingleton('cataloginventory/stock')->backItemQty($productId, $qty);
+        }
+
+        return $this;
+    }
+
     public function wholesaleCartAddItem(Varien_Event_Observer $observer)
     {
         $items = $observer->getEvent()->getItems();

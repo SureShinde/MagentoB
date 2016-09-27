@@ -6,7 +6,25 @@
         </Bilna_Wholesale>
     </modules>
     <global>
+        <models>
+            <bilna_wholesale>
+                <class>Bilna_Wholesale_Model</class>
+            </bilna_wholesale>
+            <cataloginventory>
+                <rewrite>
+                    <observer>Bilna_Wholesale_Model_Observer</observer>
+                </rewrite>
+            </cataloginventory>
+        </models>
         <events>
+            <sales_order_item_cancel>
+                <observers>
+                    <inventory>
+                        <class>cataloginventory/observer</class>
+                        <method>cancelOrderItem</method>
+                    </inventory>
+                </observers>
+            </sales_order_item_cancel>
             <sales_quote_product_add_after>
                 <observers>
                     <wholesale_quote_add_item>
