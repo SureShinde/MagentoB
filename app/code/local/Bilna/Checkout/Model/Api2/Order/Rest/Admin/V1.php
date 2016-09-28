@@ -157,7 +157,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             }
             
             if (isset ($payment['use_points']) && $payment['use_points'] > 0) {
-                //$order = $this->submitPoints($order, $payment);
+                $order = $this->submitPoints($order, $payment);
                 $saveOrder = true;
             }
             
