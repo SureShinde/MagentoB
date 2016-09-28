@@ -199,6 +199,32 @@
                 </routes>
                 <versions>1</versions>
             </customer_address>
+            <customer_creditnotification translate="title" module="Bilna_Customer">
+                <group>customer</group>
+                <sort_order>111</sort_order>
+                <model>bilna_customer/api2_customer_bilnacredit</model>
+                <title>Credit Point Notification</title>
+                <privileges>
+                    <admin>
+                        <update>1</update>
+                        <retrieve>1</retrieve>
+                    </admin>
+                    <customer>
+                        <update>1</update>
+                        <retrieve>1</retrieve>
+                    </customer>
+                </privileges>
+                <attributes translate="is_subscribed" module="Bilna_Customer">
+                    <is_subscribed>Is Notified</is_subscribed>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/customer/:customer_id/creditnotification</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </customer_creditnotification>
             <customer_resetpassword translate="title" module="Bilna_Customer">
                 <group>customer</group>
                 <sort_order>110</sort_order>

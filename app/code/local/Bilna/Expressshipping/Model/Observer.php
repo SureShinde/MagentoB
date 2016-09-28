@@ -32,6 +32,7 @@ class Bilna_Expressshipping_Model_Observer {
 
     public function expressSalesCancel(Varien_Event_Observer $observer)
     {
+        $expressShippingHelper = Mage::helper('bilna_expressshipping');
         $order = $observer->getEvent()->getOrder();
         $shippingMethod = $order->getShippingMethod();
         $orderDate = $order->getCreatedAt();
@@ -39,17 +40,20 @@ class Bilna_Expressshipping_Model_Observer {
         // only increment the sales order daily count table if the shipping method is Express
         if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
         {
-            $orderDate = Mage::getModel('core/date')->date('Y-m-d', strtotime($orderDate));
+            $start = $expressShippingHelper->getStartCutOffDateTime();
+            $end = $expressShippingHelper->getEndCutOffDateTime();
+
             // check whether today's date is available inside the table sales_order_daily_count
             $resource = Mage::getSingleton('core/resource');
             $readConnection = $resource->getConnection('core_read');
             $table = "sales_order_daily_count";
-            $query = "SELECT sales_date FROM $table WHERE sales_date = '$orderDate' LIMIT 1";
-            $salesDate = $readConnection->fetchOne($query);
+            $query = "SELECT sales_count FROM $table WHERE sales_datetime_from = '$start' AND sales_datetime_to = '$end' LIMIT 1";
+
+            $salesCount = $readConnection->fetchOne($query);
             $writeConnection = $resource->getConnection('core_write');
-            if ($salesDate) {
+            if ($salesCount) {
                 // update
-                $query = "UPDATE $table SET sales_count = sales_count - 1 WHERE sales_date = '$orderDate' AND sales_count > 0";
+                $query = "UPDATE $table SET sales_count = sales_count - 1 WHERE sales_datetime_from = '$start' AND sales_datetime_to = '$end' AND sales_count > 0";
             }
             $writeConnection->query($query);
         }
@@ -57,30 +61,33 @@ class Bilna_Expressshipping_Model_Observer {
 
     public function salesOrderIncrementCount(Varien_Event_Observer $observer)
     {
+        $expressShippingHelper = Mage::helper('bilna_expressshipping');
         $order = $observer->getEvent()->getOrder();
         $shippingMethod = $order->getShippingMethod();
 
         // only increment the sales order daily count table if the shipping method is Express
         if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
         {
-            $todayDate = Mage::getModel('core/date')->date('Y-m-d');
+            $start = $expressShippingHelper->getStartCutOffDateTime();
+            $end = $expressShippingHelper->getEndCutOffDateTime();
 
             // check whether today's date is available inside the table sales_order_daily_count
             $resource = Mage::getSingleton('core/resource');
             $readConnection = $resource->getConnection('core_read');
             $table = "sales_order_daily_count";
-            $query = "SELECT sales_date FROM $table WHERE sales_date = '$todayDate' LIMIT 1";
-            $salesDate = $readConnection->fetchOne($query);
+
+            $query = "SELECT sales_count FROM $table WHERE sales_datetime_from = '$start' AND sales_datetime_to = '$end' LIMIT 1";
+            $salesCount = $readConnection->fetchOne($query);
 
             $writeConnection = $resource->getConnection('core_write');
-            if ($salesDate) {
+            if ($salesCount) {
                 // update
-                $query = "UPDATE $table SET sales_count = sales_count + 1 WHERE sales_date = '$todayDate'";
+                $query = "UPDATE $table SET sales_count = sales_count + 1 WHERE sales_datetime_from = '$start' AND sales_datetime_to = '$end'";
             }
             else
             {
                 // insert new
-                $query = "INSERT INTO $table (sales_date, sales_count) VALUES ('$todayDate', 1)";
+                $query = "INSERT INTO $table (sales_datetime_from, sales_datetime_to, sales_count) VALUES ('$start', '$end', 1)";
             }
 
             $writeConnection->query($query);

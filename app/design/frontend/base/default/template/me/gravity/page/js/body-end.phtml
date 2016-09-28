@@ -1,0 +1,41 @@
+<?php
+/**
+ * Class Me_Gravity_Block_Js_Gravity
+ *
+ * @category  Me
+ * @package   Me_Gravity
+ * @author    Attila Sági <sagi.attila@magevolve.com>
+ * @copyright 2014 Magevolve Ltd. (http://magevolve.com)
+ * @license   http://magevolve.com/terms-and-conditions Magevolve Ltd. License
+ * @link      http://magevolve.com
+ */
+?>
+<?php
+/**
+ * Gravity initialization script
+ *
+ * var $this Me_Gravity_Block_Page_Js_Gravity
+ * @see Me_Gravity_Block_Page_Js_Gravity
+ */
+?>
+<?php if($this->isEnabled() && $this->getGravityCustomerId() && $customerId = $this->getCustomerId()) : ?>
+    <script type="text/javascript">
+        //<![CDATA[
+        _gravity = _gravity || [];
+        _gravity.push({
+            type: "set",
+            //mode: "DEVELOP",
+            userId: "<?php echo $customerId ?>"
+        });
+        //]]>
+    </script>
+<?php endif; ?>
+<?php if ($this->isEnabled() && $this->getGravityHelper()->useBulkRecommendation() && $this->getGravityHelper()->useGravityTemplate()) : ?>
+<script type="text/javascript">
+    //<![CDATA[
+        $$('.me-gravity').each(function () {
+            window.gravityGroupSize++;
+        });
+    //]]>
+</script>
+<?php endif; ?>
