@@ -38,6 +38,9 @@ class RocketWeb_Netsuite_Helper_Mapper_Address extends RocketWeb_Netsuite_Helper
         $country = Mage::getModel('directory/country')->loadByCode($address->getCountry());
         $billCountry = Mage::helper('rocketweb_netsuite/transform')->transformCountryCode($country->getCountryId());
 
+        if ($street2 === false)
+            $street2 = '';
+
         $fulladdress = array(
             'addressee' => $address->getName(),
             'addr1' => $street1,
@@ -89,6 +92,9 @@ class RocketWeb_Netsuite_Helper_Mapper_Address extends RocketWeb_Netsuite_Helper
 
         $country = Mage::getModel('directory/country')->loadByCode($address->getCountry());
         $shipCountry = Mage::helper('rocketweb_netsuite/transform')->transformCountryCode($country->getCountryId());
+
+        if ($street2 === false)
+            $street2 = '';
 
         $fulladdress = array(
             'addressee' => $address->getName(),
