@@ -183,6 +183,10 @@
             </td>
             <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?></td>
         </tr>
+        <tr>
+            <td class="label"><label for="max_wholesale_qty"><?php echo Mage::helper('catalog')->__('Max Wholesale Quantity') ?></label></td>
+            <td class="value"><input type="text" class="input-text validate-number" id="max_wholesale_qty" name="<?php echo $this->getFieldSuffix() ?>[stock_data][max_wholesale_qty]" value="<?php echo $this->getFieldValue('max_wholesale_qty') ?>" /></td>
+        </tr>
         </table>
     </fieldset>
 </div>
