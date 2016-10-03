@@ -189,7 +189,7 @@
                 </validators>
                 <routes>
                     <route_entity>
-                        <route>/customers/addresses/:id</route>
+                        <route>/customers/:customer_id/addresses/:id</route>
                         <action_type>entity</action_type>
                     </route_entity>
                     <route_collection>
