@@ -854,6 +854,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 }
                 if ($isWholesaleQuote) {
                     $this->getQuote()->setIsWholesale(1);
+                } else {
+                    $this->getQuote()->setIsWholesale(0);
                 }
             } catch (Mage_Core_Exception $e) {
                 $this->recollectCart();
