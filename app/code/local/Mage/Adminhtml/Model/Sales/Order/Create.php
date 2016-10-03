@@ -819,7 +819,9 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                     if ($item) {
                         $isWholesale = $item->getProduct()->getStockItem()->isWholesaleQty($itemQty);
                         if ($isWholesale) {
-                            $isWholesaleQuote = true;
+                            if (empty($info['action'])) {
+                                $isWholesaleQuote = true;
+                            }
                         }
 
                         if ($item->getProduct()->getStockItem()) {
@@ -855,6 +857,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                 if ($isWholesaleQuote) {
                     $this->getQuote()->setIsWholesale(1);
                 } else {
+Mage::log('harfil false');
                     $this->getQuote()->setIsWholesale(0);
                 }
             } catch (Mage_Core_Exception $e) {
