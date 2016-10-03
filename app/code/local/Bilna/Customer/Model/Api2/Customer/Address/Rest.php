@@ -110,18 +110,18 @@ abstract class Bilna_Customer_Model_Api2_Customer_Address_Rest extends Bilna_Cus
      */
     protected function _retrieveCollection() {
         $collectionForRetrieve = $this->_getCollectionForRetrieve();
-        
+
         $data = array ();
         $data[0]['total_record'] = $collectionForRetrieve->getSize();
-        
+
         /* @var $address Mage_Customer_Model_Address */
         foreach ($collectionForRetrieve as $address) {
             $addressData = $address->getData();
             $addressData['street'] = $address->getStreet();
-            
+
             $data[$address->getId()] = array_merge($addressData, $this->_getDefaultAddressesInfo($address));
         }
-        
+
         return $data;
     }
 
@@ -139,7 +139,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Address_Rest extends Bilna_Cus
         $collection = $customer->getAddressesCollection();
 
         $this->_applyCollectionModifiers($collection);
-        
+
         return $collection;
     }
 
@@ -180,7 +180,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Address_Rest extends Bilna_Cus
         if(!in_array($this->getRequest()->getParam('id'), $customerAddressLists)) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
-        
+
         $validator = $this->_getValidator();
 
         $data = $validator->filter($data);
