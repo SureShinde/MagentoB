@@ -64,44 +64,47 @@ class RocketWeb_Netsuite_Helper_Mapper_Requestorder extends RocketWeb_Netsuite_H
         {
             if ($paymentMethod == '12')
             {
-                $magentoOrder->setStatus('processing_cod');
-                $magentoOrder->addStatusHistoryComment('', 'processing_cod')
-                    ->setIsVisibleOnFront(true)
-                    ->setIsCustomerNotified(true);
+                // if status is not complete yet
+                if ($magentoOrder->getState() == 'new') {
+                    $magentoOrder->setStatus('processing_cod');
+                    $magentoOrder->addStatusHistoryComment('', 'processing_cod')
+                        ->setIsVisibleOnFront(true)
+                        ->setIsCustomerNotified(true);
 
-                $magentoOrder->save();
+                    $magentoOrder->save();
 
-                // send email
-                $translate = Mage::getSingleton('core/translate');
-                $email = Mage::getModel('core/email_template');
+                    // send email
+                    $translate = Mage::getSingleton('core/translate');
+                    $email = Mage::getModel('core/email_template');
 
-                $sender['name'] = Mage::getStoreConfig('trans_email/ident_support/name', Mage::app()->getStore()->getId());
-                $sender['email'] = Mage::getStoreConfig('trans_email/ident_support/email', Mage::app()->getStore()->getId());
+                    $sender['name'] = Mage::getStoreConfig('trans_email/ident_support/name', Mage::app()->getStore()->getId());
+                    $sender['email'] = Mage::getStoreConfig('trans_email/ident_support/email', Mage::app()->getStore()->getId());
 
-                $guess = $magentoOrder->getCustomerIsGuest();
+                    $guess = $magentoOrder->getCustomerIsGuest();
 
-                if (!isset ($guess) || $guess == 0) {
-                    //login user
-                    $customerName = $magentoOrder->getShippingAddress()->getFirstname() . " " . $magentoOrder->getShippingAddress()->getLastname();
+                    if (!isset ($guess) || $guess == 0) {
+                        //login user
+                        $customerName = $magentoOrder->getShippingAddress()->getFirstname() . " " . $magentoOrder->getShippingAddress()->getLastname();
 
-                    //must change this id to actual template id
-                    $template = Mage::getStoreConfig('bilna_module/cod/template_email_user');
+                        //must change this id to actual template id
+                        $template = Mage::getStoreConfig('bilna_module/cod/template_email_user');
+                    }
+                    else {
+                        //guest
+                        $customerName = "Moms and Dads";
+
+                        //must change this id to actual template id
+                        $template = Mage::getStoreConfig('bilna_module/cod/template_email_guest');
+                    }
+
+                    $customerEmail = $magentoOrder->getPayment()->getOrder()->getCustomerEmail();
+
+                    $vars = array ('order' => $magentoOrder);
+                    $storeId = Mage::app()->getStore()->getId();
+                    $translate = Mage::getSingleton('core/translate');
+                    Mage::getModel('core/email_template')->sendTransactional($template, $sender, $customerEmail, $customerName, $vars, $storeId);
+                    $translate->setTranslateInline(true);
                 }
-                else {
-                    //guest
-                    $customerName = "Moms and Dads";
-
-                    //must change this id to actual template id
-                    $template = Mage::getStoreConfig('bilna_module/cod/template_email_guest');
-                }
-
-                $customerEmail = $magentoOrder->getPayment()->getOrder()->getCustomerEmail();
-
-                $vars = array ('order' => $magentoOrder);
-                $storeId = Mage::app()->getStore()->getId();
-                $translate = Mage::getSingleton('core/translate');
-                Mage::getModel('core/email_template')->sendTransactional($template, $sender, $customerEmail, $customerName, $vars, $storeId);
-                $translate->setTranslateInline(true);
 
                 return true;
             }
