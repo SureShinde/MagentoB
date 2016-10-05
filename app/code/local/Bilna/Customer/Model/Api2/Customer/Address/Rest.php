@@ -70,7 +70,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Address_Rest extends Bilna_Cus
         } catch (Exception $e) {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
-        return $this->_getLocation($address);
+        return $address;
     }
 
     /**
