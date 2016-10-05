@@ -70,7 +70,31 @@ abstract class Bilna_Customer_Model_Api2_Customer_Address_Rest extends Bilna_Cus
         } catch (Exception $e) {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
-        return $address;
+        return $this->_getLocation($address);
+    }
+
+    /**
+     * Get resource location
+     *
+     * @param Mage_Core_Model_Abstract $resource
+     * @return string URL
+     */
+    protected function _getLocation($resource)
+    {
+        /* @var $apiTypeRoute Mage_Api2_Model_Route_ApiType */
+        $apiTypeRoute = Mage::getModel('api2/route_apiType');
+
+        $chain = $apiTypeRoute->chain(
+            new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType()))
+        );
+        $params = array(
+            'api_type' => $this->getRequest()->getApiType(),
+            'id'       => $resource->getId(), 
+            'customer_id' => $this->getRequest()->getParam('customer_id')
+        );
+        $uri = $chain->assemble($params);
+
+        return '/' . $uri;
     }
 
     /**
