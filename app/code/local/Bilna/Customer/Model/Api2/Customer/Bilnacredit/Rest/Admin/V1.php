@@ -28,4 +28,16 @@ class Bilna_Customer_Model_Api2_Customer_Bilnacredit_Rest_Admin_V1 extends Bilna
             'credit_history' => $creditHistory
         );
     }
+    
+    public function _create(array $data)
+    {
+        $userID = $this->getRequest()->getParam('customer_id');
+        $isSubsc = (int) $data['is_subscribed'];
+        $summary = Mage::getModel('points/summary')->loadByCustomerID($userID);
+        try {
+            $summary->setBalanceUpdateNotification($isSubsc)->save();
+        } catch (Mage_Core_Exception $e) {
+            $this->_critical($e->getMessage());
+        }
+    }
 }
