@@ -51,6 +51,7 @@ class Bilna_Rest_Model_Api2_Checkorder_Rest_Admin_V1 extends Bilna_Rest_Model_Ap
 
         if ($orderData) {
             $orderData['increment_id'] = $order->getIncrementId();
+            $orderData['orderId'] = $orderId;
             $orderData['status'] = $order->getStatus();
 
             if ($order->getSubtotal()) {
