@@ -24,6 +24,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Requestorder extends RocketWeb_Netsuite_H
         $grandTotal = $requestOrderData['grandtotal'];
         $cancelStatus = $requestOrderData['cancelstatus'];
         $paymentMethod = $requestOrderData['paymethod'];
+        $grandTotal = $requestOrderData['grandtotal'];
+        $totalPaid = $requestOrderData['totalpaid'];
 
         $magentoOrders = Mage::getModel('sales/order')->getCollection()->addFieldToFilter('netsuite_internal_id', $roInternalId);
         $magentoOrder = $magentoOrders->getFirstItem(); // @var Mage_Sales_Model_Order $magentoOrder
@@ -106,74 +108,86 @@ class RocketWeb_Netsuite_Helper_Mapper_Requestorder extends RocketWeb_Netsuite_H
                     $translate->setTranslateInline(true);
                 }
 
+                // to handle generating invoice for payment type COD, check whether grand total is the same as total paid
+                if ($grandTotal > 0 && $totalPaid > 0) {
+                    if ($grandTotal == $totalPaid) {
+                        if ($magentoOrder->hasInvoices() <= 0) {
+                            $this->createMagentoInvoiceFromRO($roInternalId, $lastModifiedDate, $magentoOrder);
+                        }
+                    }
+                }
+
                 return true;
             }
             else
-            if ($magentoOrder->hasInvoices() <= 0)
-            {
-                // create invoice
-                $invoiceMap = array();
-                $itemQty = array();
-
-                $request_order_create_invoice_log_file = 'request_order_create_invoice.log';
-                
-                foreach ($magentoOrder->getAllItems() as $magentoOrderItem) {
-                    $itemQty[$magentoOrderItem->getId()] = $magentoOrderItem->getQtyOrdered();
-                }
-                
-                /**
-                 * Check shipment create availability
-                 */
-                if (!$magentoOrder->canInvoice()) {
-                    Mage::log(($magentoOrder->getNetsuiteInternalId() . ' cannot create invoice'), null, $request_order_create_invoice_log_file);
-                   throw new Exception("{$magentoOrder->getId()}: Cannot do shipment for this order!");
-                }
-
-                /**
-                 * check registry skip invoice export
-                 */
-                if (!Mage::registry('skip_invoice_export_queue_push')) {
-                    Mage::register('skip_invoice_export_queue_push', 1);
-                }
-                
-                //Mage::register('skip_invoice_export_queue_push', 1);
-                $magentoInvoice = $magentoOrder->prepareInvoice($itemQty);
-                
-                if ($magentoInvoice) {
-                    $grandTotal = $magentoOrder->getGrandTotal();
-
-                    $magentoInvoice->register();
-                    $magentoInvoice->addComment("Create Invoice from Netsuite RO#{$roInternalId}");
-                    $magentoInvoice->getOrder()->setIsInProcess(true);
-                    $magentoInvoice->setGrandTotal($grandTotal);
-                    $magentoInvoice->setBaseGrandTotal($grandTotal);
-                    $magentoInvoice->getOrder()->setTotalPaid($grandTotal);
-                    $magentoInvoice->getOrder()->setBaseTotalPaid($grandTotal);
-                    //$magentoInvoice->getOrder()->save();
-                    
-                    try {
-                        $magentoInvoice->sendEmail(true);
-                        $magentoInvoice->setEmailSent(true); 
-                        $magentoInvoice->setNetsuiteInternalId($roInternalId);
-                        $magentoInvoice->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($lastModifiedDate));
-
-                        $transactionSave = Mage::getModel('core/resource_transaction')
-                            ->addObject($magentoInvoice)
-                            ->addObject($magentoInvoice->getOrder())
-                            ->save();
-
-                        Mage::log(($magentoOrder->getNetsuiteInternalId() . ' successfully created invoice'), null, $request_order_create_invoice_log_file);
-                        
-                        return true;
-                    }
-                    catch (Mage_Core_Exception $e) {
-                        throw new Exception("{$magentoOrder->getId()}: {$e->getMessage()}");
-                    }
-                }
+            if ($magentoOrder->hasInvoices() <= 0) {
+                $this->createMagentoInvoiceFromRO($roInternalId, $lastModifiedDate, $magentoOrder);
             }
         }
 
         $magentoOrder->save();
+    }
+
+    private function createMagentoInvoiceFromRO($roInternalId, $lastModifiedDate, $magentoOrder) {
+        // create invoice
+        $invoiceMap = array();
+        $itemQty = array();
+
+        $request_order_create_invoice_log_file = 'request_order_create_invoice.log';
+        
+        foreach ($magentoOrder->getAllItems() as $magentoOrderItem) {
+            $itemQty[$magentoOrderItem->getId()] = $magentoOrderItem->getQtyOrdered();
+        }
+        
+        /**
+         * Check shipment create availability
+         */
+        if (!$magentoOrder->canInvoice()) {
+            Mage::log(($magentoOrder->getNetsuiteInternalId() . ' cannot create invoice'), null, $request_order_create_invoice_log_file);
+           throw new Exception("{$magentoOrder->getId()}: Cannot do shipment for this order!");
+        }
+
+        /**
+         * check registry skip invoice export
+         */
+        if (!Mage::registry('skip_invoice_export_queue_push')) {
+            Mage::register('skip_invoice_export_queue_push', 1);
+        }
+        
+        //Mage::register('skip_invoice_export_queue_push', 1);
+        $magentoInvoice = $magentoOrder->prepareInvoice($itemQty);
+        
+        if ($magentoInvoice) {
+            $grandTotal = $magentoOrder->getGrandTotal();
+
+            $magentoInvoice->register();
+            $magentoInvoice->addComment("Create Invoice from Netsuite RO#{$roInternalId}");
+            $magentoInvoice->getOrder()->setIsInProcess(true);
+            $magentoInvoice->setGrandTotal($grandTotal);
+            $magentoInvoice->setBaseGrandTotal($grandTotal);
+            $magentoInvoice->getOrder()->setTotalPaid($grandTotal);
+            $magentoInvoice->getOrder()->setBaseTotalPaid($grandTotal);
+            //$magentoInvoice->getOrder()->save();
+            
+            try {
+                $magentoInvoice->sendEmail(true);
+                $magentoInvoice->setEmailSent(true); 
+                $magentoInvoice->setNetsuiteInternalId($roInternalId);
+                $magentoInvoice->setLastImportDate(Mage::helper('rocketweb_netsuite')->convertNetsuiteDateToSqlFormat($lastModifiedDate));
+
+                $transactionSave = Mage::getModel('core/resource_transaction')
+                    ->addObject($magentoInvoice)
+                    ->addObject($magentoInvoice->getOrder())
+                    ->save();
+
+                Mage::log(($magentoOrder->getNetsuiteInternalId() . ' successfully created invoice'), null, $request_order_create_invoice_log_file);
+                
+                return true;
+            }
+            catch (Mage_Core_Exception $e) {
+                throw new Exception("{$magentoOrder->getId()}: {$e->getMessage()}");
+            }
+        }
     }
 
     public function getRequestOrder()
