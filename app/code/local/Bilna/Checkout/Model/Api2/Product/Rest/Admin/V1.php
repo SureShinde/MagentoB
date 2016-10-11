@@ -100,13 +100,13 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
 	    		throw Mage::throwException("Invalid Product Data");
 	    	}
 
-            $totalIsWholesaleItem = 0;
-            $totalCanceledWholesaleItem = 0;
+            //$totalIsWholesaleItem = 0;
+            //$totalCanceledWholesaleItem = 0;
 
-            if ($quote->getIsWholesale()) {
+            /*if ($quote->getIsWholesale()) {
                 $quoteItemCollection = Mage::getModel('sales/quote_item')->getCollection()->addFieldToFilter('quote_id', $quoteId)->addFieldToFilter('is_wholesale', 1);
                 $totalIsWholesaleItem = count($quoteItemCollection->getData());
-            }
+            }*/
 
             foreach ($productsData as $productItem)
             {
@@ -138,7 +138,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                     if ($quoteItem->getHasError()) {
                         throw Mage::throwException($quoteItem->getMessage());
                     }
-                    $stockItem = $productByItem->getStockItem();
+                    /*$stockItem = $productByItem->getStockItem();
                     if ($stockItem->isWholesaleQty($productItem['qty'])) {
                         $quoteItem->setIsWholesale(1);
                     } else {
@@ -146,18 +146,18 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                             $quoteItem->setIsWholesale(0);
                             $totalCanceledWholesaleItem++;
                         }
-                    }
+                    }*/
                 }
 
                 $quote->addItem($quoteItem);
                 $this->_validateCrossBorder($quote);
             }
 
-            if  ($totalIsWholesaleItem <= $totalCanceledWholesaleItem) {
+            /*if  ($totalIsWholesaleItem <= $totalCanceledWholesaleItem) {
                 $quote->setIsWholesale(0);
             } else {
                 $quote->setIsWholesale(1);
-            }
+            }*/
 
             $quote->getShippingAddress()->setCollectShippingRates(true);
             $quote->getShippingAddress()->collectShippingRates();
