@@ -27,7 +27,7 @@ class Bilna_Customer_Model_Api2_Customer extends Bilna_Customer_Model_Api2 {
         $customerProfileData = $customerProfile->getData();
 
         if (!isset($customerProfileData['entity_id'])) {
-            $username = Mage::helper('socialcommerce')->createTemporaryProfile();
+            $username = Mage::helper('socialcommerce')->createTemporaryProfile($customer);
         } else {
             $username = $customerProfileData['username'];
         }
