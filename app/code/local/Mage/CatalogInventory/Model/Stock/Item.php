@@ -214,9 +214,9 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      *
      * @return bool
      */
-    public function canSubtractQty()
+    public function canSubtractQty($qty = null)
     {
-        return $this->getManageStock() && Mage::getStoreConfigFlag(self::XML_PATH_CAN_SUBTRACT);
+        return $this->getManageStock() && Mage::getStoreConfigFlag(self::XML_PATH_CAN_SUBTRACT) && !$this->isWholesaleQty($qty);
     }
 
     /**
@@ -227,11 +227,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      */
     public function addQty($qty)
     {
-        if (!$this->getManageStock()) {
-            return $this;
-        }
-        $config = Mage::getStoreConfigFlag(self::XML_PATH_CAN_SUBTRACT);
-        if (!$config) {
+        if (!$this->canSubtractQty($qty)) {
             return $this;
         }
 
@@ -561,39 +557,26 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             return $result;
         }
 
-        if ($this->getMaxSaleQty() && $qty > $this->getMaxSaleQty()) {
-            if ($this->isWholesaleQty($qty) && $qty > $this->getMaxSaleQty()) {
-                if ($qty > $this->getMaxWholesaleQty()) {
-                    $result->setHasError(true)
-                        ->setMessage(
-                        Mage::helper('cataloginventory')->__('The maximum quantity allowed for purchase is %s.', $this->getMaxWholesaleQty() * 1)
-                        )
-                        ->setErrorCode('qty_max')
-                        ->setQuoteMessage(Mage::helper('cataloginventory')->__('Some of the products cannot be ordered in requested quantity.'))
-                        ->setQuoteMessageIndex('qty');
-                    return $result;
-                }
-            } else {
-                if ($this->getCrossBorder()) {
-                    $result->setHasError(true)
-                        ->setMessage(
-                            Mage::helper('cataloginventory')->__('Jumlah pesanan produk impor lebih dari %s.', $this->getMaxSaleQty() * 1)
-                        )
-                        ->setErrorCode('qty_max')
-                        ->setQuoteMessage(Mage::helper('cataloginventory')->__('Some of the products cannot be ordered in requested quantity.'))
-                        ->setQuoteMessageIndex('qty');
-                    return $result;
-                }
-
+        if ($qty > $this->getDynamicMaxSaleQty($qty)) {
+            if ($this->getCrossBorder()) {
                 $result->setHasError(true)
                     ->setMessage(
-                        Mage::helper('cataloginventory')->__('The maximum quantity allowed for purchase is %s.', $this->getMaxSaleQty() * 1)
+                        Mage::helper('cataloginventory')->__('Jumlah pesanan produk impor lebih dari %s.', $this->getDynamicMaxSaleQty($qty) * 1)
                     )
                     ->setErrorCode('qty_max')
                     ->setQuoteMessage(Mage::helper('cataloginventory')->__('Some of the products cannot be ordered in requested quantity.'))
                     ->setQuoteMessageIndex('qty');
                 return $result;
             }
+
+            $result->setHasError(true)
+                ->setMessage(
+                    Mage::helper('cataloginventory')->__('The maximum quantity allowed for purchase is %s.', $this->getDynamicMaxSaleQty($qty) * 1)
+                )
+                ->setErrorCode('qty_max')
+                ->setQuoteMessage(Mage::helper('cataloginventory')->__('Some of the products cannot be ordered in requested quantity.'))
+                ->setQuoteMessageIndex('qty');
+            return $result;
         }
 
         $result->addData($this->checkQtyIncrements($qty)->getData());
@@ -614,7 +597,8 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             return $result;
         }
 
-        if (!$this->checkQty($summaryQty) || !$this->checkQty($qty)) {
+        //if (!$this->checkQty($summaryQty) || !$this->checkQty($qty)) {
+        if (!$this->checkQty($qty)) {
             $message = Mage::helper('cataloginventory')->__('The requested quantity for "%s" is not available.', $this->getProductName());
             $result->setHasError(true)
                 ->setMessage($message)
@@ -933,9 +917,19 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     }
 
     public function isWholesaleQty($qty) {
+        if (!$qty) {
+            return false;
+        }
         if ($this->getMaxWholesaleQty() && $qty > $this->getMaxSaleQty()) {
             return true;
         }
         return false;
+    }
+
+    public function getDynamicMaxSaleQty($qty) {
+        if ($this->isWholesaleQty($qty)) {
+            return $this->getMaxWholesaleQty();
+        }
+        return $this->getMaxSaleQty();
     }
 }

@@ -115,7 +115,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
             } else {
                 $stockItem = $item['item'];
             }
-            $canSubtractQty = $stockItem->getId() && $stockItem->canSubtractQty();
+            $canSubtractQty = $stockItem->getId() && $stockItem->canSubtractQty($item['qty']);
             if ($canSubtractQty && Mage::helper('catalogInventory')->isQty($stockItem->getTypeId())) {
                 $qtys[$productId] = $item['qty'];
             }
@@ -137,24 +137,17 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
         $this->_getResource()->beginTransaction();
         $stockInfo = $this->_getResource()->getProductsStock($this, array_keys($qtys), true);
         $fullSaveItems = array();
-        $wholesaleItems = array();
         foreach ($stockInfo as $itemInfo) {
             $item->setData($itemInfo);
             if (!$item->checkQty($qtys[$item->getProductId()])) {
                 $this->_getResource()->commit();
                 Mage::throwException(Mage::helper('cataloginventory')->__('Not all products are available in the requested quantity'));
             }
-            if ($item->isWholesaleQty($qtys[$itemInfo['product_id']])) {
-                $wholesaleItems[$itemInfo['product_id']] = '';
-            } else {
-                $item->subtractQty($qtys[$item->getProductId()]);
-                if (!$item->verifyStock() || $item->verifyNotification()) {
-                    $fullSaveItems[] = clone $item;
-                }
+            $item->subtractQty($qtys[$item->getProductId()]);
+            if (!$item->verifyStock() || $item->verifyNotification()) {
+                $fullSaveItems[] = clone $item;
             }
         }
-
-        $qtys = array_diff_key($qtys, $wholesaleItems);
         $this->_getResource()->correctItemsQty($this, $qtys, '-');
         $this->_getResource()->commit();
         return $fullSaveItems;
