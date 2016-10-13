@@ -5,7 +5,7 @@ class Bilna_Rules_Model_Rule_Condition_Orders extends Mage_Rule_Model_Condition_
     public function loadAttributeOptions()
     {
         $attributes = array(
-            'order_num'    => Mage::helper('bilna_rules')->__('Number of Completed Orders'),
+            'order_num'    => Mage::helper('bilna_rules')->__('Number of Orders'),
         );
 
         $this->setAttributeOption($attributes);
@@ -62,7 +62,6 @@ class Bilna_Rules_Model_Rule_Condition_Orders extends Mage_Rule_Model_Condition_
             $select = $db->select()
                 ->from(array('o'=>$resource->getTableName('sales/order')), array())
                 ->where('o.customer_id = ?', $quote->getCustomerId())
-                ->where('o.status IN(?)', array('complete', 'shipping_cod'))
             ;
 
             if ('order_num' == $this->getAttribute()) {
