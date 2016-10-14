@@ -303,22 +303,6 @@ class Mage_CatalogInventory_Model_Observer
             return $this;
         }
 
-        if ($quoteItem->getQuote()->getIsWholesale()) {
-            $wholesaleItems = Mage::getModel('sales/quote_item')
-                ->getCollection()
-                ->addFieldToFilter('quote_id', $quoteItem->getQuote()->getId())
-                ->addFieldToFilter('is_wholesale', 1)
-                ->getData();
-
-            if (count($wholesaleItems) > 0) {
-                $wholesaleItemsArray = array();
-                foreach ($wholesaleItems as $wholesaleItem) {
-                    $wholesaleItemsArray[$wholesaleItem['product_id']] = '';
-                }
-            }
-        }
-
-
         /**
          * Get Qty
          */
@@ -384,6 +368,7 @@ class Mage_CatalogInventory_Model_Observer
             }
 
             $thisBundleIsWholesale = false;
+
             foreach ($options as $option) {
                 $optionValue = $option->getValue();
                 /* @var $option Mage_Sales_Model_Quote_Item_Option */
@@ -419,15 +404,7 @@ class Mage_CatalogInventory_Model_Observer
                 );
 
                 $result = $stockItem->checkQuoteItemQty($optionQty, $qtyForCheck, $optionValue);
-
-                // set parent item wholesale flag for bundle/config product
-                if (!$stockItem->isWholesaleQty($optionQty) && $quoteItem->getIsWholesale()) {
-                    if (array_key_exists($quoteItem->getProductId(), $wholesaleItemsArray)) {
-                        unset($wholesaleItemsArray[$quoteItem->getProductId()]);
-                    }
-                }
-
-                $thisBundleIsWholesale = $this->setIsWholesaleFlag($optionQty, $stockItem, $quoteItem, true, $thisBundleIsWholesale);
+                $thisBundleIsWholesale |= $this->isWholesale($optionQty, $stockItem);
 
                 if (!is_null($result->getItemIsQtyDecimal())) {
                     $option->setIsQtyDecimal($result->getItemIsQtyDecimal());
@@ -472,6 +449,13 @@ class Mage_CatalogInventory_Model_Observer
 
                 $stockItem->unsIsChildItem();
             }
+
+            $quoteItem->setIsWholesale(0);
+            if ($thisBundleIsWholesale) {
+                $quoteItem->setIsWholesale(1);
+                $quoteItem->getQuote()->setIsWholesale(1);
+            }
+
         } else {
             /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
             if (!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item) {
@@ -484,15 +468,6 @@ class Mage_CatalogInventory_Model_Observer
             if ($quoteItem->getParentItem()) {
                 $rowQty = $quoteItem->getParentItem()->getQty() * $qty;
 
-                // set child item wholesale flag for bundle/config product
-                if (!$stockItem->isWholesaleQty($rowQty) && $quoteItem->getIsWholesale()) {
-                    if (array_key_exists($quoteItem->getProductId(), $wholesaleItemsArray)) {
-                        unset($wholesaleItemsArray[$quoteItem->getProductId()]);
-                    }
-                }
-
-                $this->setIsWholesaleFlag($rowQty, $stockItem, $quoteItem, false, false);
-
                 /**
                  * we are using 0 because original qty was processed
                  */
@@ -504,15 +479,6 @@ class Mage_CatalogInventory_Model_Observer
             } else {
                 $increaseQty = $quoteItem->getQtyToAdd() ? $quoteItem->getQtyToAdd() : $qty;
                 $rowQty = $qty;
-
-                // set item wholesale flag for simple product
-                if (!$stockItem->isWholesaleQty($rowQty) && $quoteItem->getIsWholesale()) {
-                    if (array_key_exists($quoteItem->getProductId(), $wholesaleItemsArray)) {
-                        unset($wholesaleItemsArray[$quoteItem->getProductId()]);
-                    }
-                }
-
-                $this->setWholesaleFlag($rowQty, $stockItem, $quoteItem, false, false);
 
                 $qtyForCheck = $this->_getQuoteItemQtyForCheck(
                     $quoteItem->getProduct()->getId(),
@@ -531,6 +497,12 @@ class Mage_CatalogInventory_Model_Observer
             }
 
             $result = $stockItem->checkQuoteItemQty($rowQty, $qtyForCheck, $qty);
+
+            $quoteItem->setIsWholesale(0);
+            if ($this->isWholesale($rowQty, $stockItem)) {
+                $quoteItem->setIsWholesale(1);
+                $quoteItem->getQuote()->setIsWholesale(1);
+            }
 
             if ($stockItem->hasIsChildItem()) {
                 $stockItem->unsIsChildItem();
@@ -585,10 +557,6 @@ class Mage_CatalogInventory_Model_Observer
                 // Delete error from item and its quote, if it was set due to qty lack
                 $this->_removeErrorsFromQuoteAndItem($quoteItem, Mage_CatalogInventory_Helper_Data::ERROR_QTY);
             }
-        }
-
-        if (isset($wholesaleItemsArray) && count($wholesaleItemsArray) < 1) {
-            $quoteItem->getQuote()->setIsWholesale(0);
         }
 
         return $this;
@@ -1036,25 +1004,11 @@ class Mage_CatalogInventory_Model_Observer
         return $this;
     }
 
-    public function setIsWholesaleFlag($qty, $stockItem, $quoteItem, $parent = false, $thisBundleIsWholesale = false) {
+    public function isWholesale($qty, $stockItem) {
         if ($stockItem->isWholesaleQty($qty)) {
-            $quoteItem->setIsWholesale(1);
-            $quoteItem->getQuote()->setIsWholesale(1);
-            if ($parent) {
-                $thisBundleIsWholesale = true;
-            }
+            return true;
         } else {
-            if ($parent && !$thisBundleIsWholesale) {
-                $quoteItem->setIsWholesale(0);
-            }
-
-            if (!$parent) {
-                $quoteItem->setIsWholesale(0);
-            }
-        }
-
-        if ($parent) {
-            return $thisBundleIsWholesale;
+            return false;
         }
     }
 }
