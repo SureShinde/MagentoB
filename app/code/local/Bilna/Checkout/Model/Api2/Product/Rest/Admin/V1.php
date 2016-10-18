@@ -139,7 +139,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
             $quote->getShippingAddress()->setCollectShippingRates(true);
             $quote->getShippingAddress()->collectShippingRates();
             $quote->collectTotals(); // calls $address->collectTotals();
-            $quote->setIsWholesale(0);
+            $quote->setIsWholesale(0); // reset is_wholesale flag to be processed by Mage_CatalogInventory_Model_Observer
             $quote->save();
 
 //            $productModel = Mage::getModel('catalog/product');

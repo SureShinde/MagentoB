@@ -295,7 +295,7 @@ class Mage_CatalogInventory_Model_Observer
      * @return Mage_CatalogInventory_Model_Observer
      */
     public function checkQuoteItemQty($observer)
-    {   
+    {
         $quoteItem = $observer->getEvent()->getItem();
         /* @var $quoteItem Mage_Sales_Model_Quote_Item */
         if (!$quoteItem || !$quoteItem->getProductId() || !$quoteItem->getQuote()
@@ -404,7 +404,7 @@ class Mage_CatalogInventory_Model_Observer
                 );
 
                 $result = $stockItem->checkQuoteItemQty($optionQty, $qtyForCheck, $optionValue);
-                $thisBundleIsWholesale |= $this->isWholesale($optionQty, $stockItem);
+                $thisBundleIsWholesale |= $stockItem->isWholesaleQty($optionQty);
 
                 if (!is_null($result->getItemIsQtyDecimal())) {
                     $option->setIsQtyDecimal($result->getItemIsQtyDecimal());
@@ -499,7 +499,7 @@ class Mage_CatalogInventory_Model_Observer
             $result = $stockItem->checkQuoteItemQty($rowQty, $qtyForCheck, $qty);
 
             $quoteItem->setIsWholesale(0);
-            if ($this->isWholesale($rowQty, $stockItem)) {
+            if ($stockItem->isWholesaleQty($rowQty)) {
                 $quoteItem->setIsWholesale(1);
                 $quoteItem->getQuote()->setIsWholesale(1);
             }
@@ -1002,13 +1002,5 @@ class Mage_CatalogInventory_Model_Observer
         $info = $observer->getEvent()->getStatus();
         $info->setDisplayStatus(Mage::helper('cataloginventory')->isDisplayProductStockStatus());
         return $this;
-    }
-
-    public function isWholesale($qty, $stockItem) {
-        if ($stockItem->isWholesaleQty($qty)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }
