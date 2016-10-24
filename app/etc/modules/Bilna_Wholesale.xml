@@ -4,6 +4,9 @@
 		<Bilna_Wholesale>
 			<active>true</active>
 			<codePool>local</codePool>
+            <depends>
+                <Mage_Shipping />
+            </depends>
 		</Bilna_Wholesale>
 	</modules>
 </config>
