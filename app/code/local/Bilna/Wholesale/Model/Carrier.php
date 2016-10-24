@@ -12,10 +12,12 @@ class Bilna_Wholesale_Model_Carrier extends Mage_Shipping_Model_Carrier_Abstract
 
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
-        $result = Mage::getModel('shipping/rate_result');
-        $result->append($this->_getPickupData());
+        if (Mage::getSingleton('checkout/session')->getQuote()->getIsWholesale()) {
+            $result = Mage::getModel('shipping/rate_result');
+            $result->append($this->_getPickupData());
 
-        return $result;
+            return $result;
+        }
     }
 
     protected function _getPickupData()
