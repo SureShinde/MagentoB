@@ -109,6 +109,11 @@
                                 <strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong>
                                 <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->escapeHtml($_item->getSku()))); ?>
                             </div>
+                            <?php if ($_item->getIsWholesale()) : ?>
+                                <div class="error">
+                                    <div style="font-size:95%">Wholesale</div>
+                                </div>
+                            <?php endif; ?>
                             <?php if($_item->getMessage(false)): ?>
                                 <?php foreach ($_item->getMessage(false) as $message): ?>
                                 <div class="<?php if($_item->getHasError()): ?>error<?php else: ?>notice<?php endif; ?>">

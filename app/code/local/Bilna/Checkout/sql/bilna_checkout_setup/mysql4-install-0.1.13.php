@@ -19,11 +19,11 @@ try {
     $installer->run(
         "ALTER TABLE  `".$installer->getTable('sales/order')."` 
         ADD `trx_from` INT( 1 ) NULL DEFAULT  '1' COMMENT 
-        'Option: 1 is from magento apps, 2 is from logan apps, 3 is from mobile apps';
+        'Option: 1 is from magento apps, 2 is from logan apps, 3 is from mobile apps, 4 is from affiliate';
         
         ALTER TABLE  `".$installer->getTable('sales/quote')."` 
         ADD `trx_from` INT( 1 ) NULL DEFAULT  '1' COMMENT 
-        'Option: 1 is from magento apps, 2 is from logan apps, 3 is from mobile apps';
+        'Option: 1 is from magento apps, 2 is from logan apps, 3 is from mobile apps, 4 is from affiliate';
         
         "
     );
