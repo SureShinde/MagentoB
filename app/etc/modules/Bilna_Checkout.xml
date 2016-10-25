@@ -5,6 +5,7 @@
             <active>true</active>
             <codePool>local</codePool>
             <depends>Mage_Api2</depends>
+            <depends>RocketWeb_Netsuite</depends>
         </Bilna_Checkout>
     </modules>
 </config>

@@ -57,6 +57,7 @@ class AW_Points_Model_Api {
 
             $transactionId = $a->getTransaction()->getId();
         } catch (Exception $ex) {
+            Mage::logException($ex);
             return 0;
         }
         return $transactionId;
