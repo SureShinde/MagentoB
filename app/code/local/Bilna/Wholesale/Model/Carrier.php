@@ -14,15 +14,7 @@ class Bilna_Wholesale_Model_Carrier
 
     public function collectRates(Mage_Shipping_Model_Rate_Request $request)
     {
-        $allItems = $request->getAllItems();
-
-        if (count($allItems) <= 0) {
-            return;
-        }
-
-        $isWholesale = $allItems[0]->getQuote()->getIsWholesale();
-
-        if (!$isWholesale) {
+        if (!$request->getIsWholesaleQuote()) {
             return;
         }
 

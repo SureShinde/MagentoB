@@ -912,6 +912,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         $request->setDestCountryId($this->getCountryId());
         $request->setDestRegionId($this->getRegionId());
         $request->setDestRegionCode($this->getRegionCode());
+        $request->setIsWholesaleQuote($this->getQuote()->getIsWholesale());
         /**
          * need to call getStreet with -1
          * to get data in string instead of array
