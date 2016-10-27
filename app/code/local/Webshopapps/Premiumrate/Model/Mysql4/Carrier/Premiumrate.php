@@ -393,16 +393,18 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                 /* depending on the condition of current item type ( local or item ),
                 the where condition has to be checked whether it is import or local
                 */
-                if ($item_type == 'local_items')
+                if ($item_type == 'local_items') {
                     $select->where('(is_import IS NULL or is_import = ?)', 0);
-                else
-                if ($item_type == 'import_items')
-                    $select->where('is_import = ?', 1);
-
-                // we only want to find the one with Standard Shipping
-                if ($request->getIsWholesaleQuote()) {
-                    $select->where('delivery_id = ?', 4);
+                    if ($request->getIsWholesaleQuote()) {
+                        $select->where('delivery_id = ?', 4);
+                    } else {
+                        $select->where('delivery_id = ?', 1);
+                    }
                 } else {
+                    if ($item_type == 'import_items') {
+                        $select->where('is_import = ?', 1);
+                    }
+                    // we only want to find the one with Standard Shipping
                     $select->where('delivery_id = ?', 1);
                 }
 
