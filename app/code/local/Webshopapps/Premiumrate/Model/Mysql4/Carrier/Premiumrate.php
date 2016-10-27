@@ -400,7 +400,11 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
                     $select->where('is_import = ?', 1);
 
                 // we only want to find the one with Standard Shipping
-                $select->where('delivery_id = ?', 1);
+                if ($request->getIsWholesaleQuote()) {
+                    $select->where('delivery_id = ?', 4);
+                } else {
+                    $select->where('delivery_id = ?', 1);
+                }
 
                 if ($request->getPRConditionName() == 'package_volweight') {
                     if ($usingGreaterVolLogic) {
