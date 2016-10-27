@@ -4,7 +4,7 @@
  *
  * @category  Me
  * @package   Me_Gravity
- * @author    Attila SÃ¡gi <sagi.attila@magevolve.com>
+ * @author    Attila Sági <sagi.attila@magevolve.com>
  * @copyright 2015 Magevolve Ltd. (http://magevolve.com)
  * @license   http://magevolve.com/terms-and-conditions Magevolve Ltd. License
  * @link      http://magevolve.com
@@ -13,7 +13,7 @@
 /**
  * Class Me_Gravity_Block_Adminhtml_System_Config_Form_Test
  */
-class Me_Gravity_Block_Adminhtml_System_Config_Form_Test extends Mage_Adminhtml_Block_System_Config_Form_Field
+class Me_Gravity_Block_Adminhtml_System_Config_Form_Synch extends Mage_Adminhtml_Block_System_Config_Form_Field
 {
     /**
      * Construct
@@ -23,7 +23,7 @@ class Me_Gravity_Block_Adminhtml_System_Config_Form_Test extends Mage_Adminhtml_
     protected function _construct()
     {
         parent::_construct();
-        $this->setTemplate('me/gravity/system/config/form/test.phtml');
+        $this->setTemplate('me/gravity/system/config/form/synch.phtml');
     }
 
     /**
