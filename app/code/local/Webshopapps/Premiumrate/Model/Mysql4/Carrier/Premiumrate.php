@@ -93,6 +93,10 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
         for ($j = 0; $j < $switchSearches; $j++) {
             $select = $this->getSwitchSelect($read,$j);
 
+            if ($request->getIsWholesaleQuote()) {
+                $select->where('delivery_id = ?', 4);
+            }
+
             if ($request->getPRConditionName() == 'package_volweight') {
                 if ($usingGreaterVolLogic) {
                     $select->where('condition_name=?', $request->getPRConditionName());

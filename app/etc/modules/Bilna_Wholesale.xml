@@ -1,12 +1,9 @@
 <?xml version="1.0"?>
 <config>
-	<modules>
-		<Bilna_Wholesale>
-			<active>true</active>
-			<codePool>local</codePool>
-            <depends>
-                <Mage_Shipping />
-            </depends>
-		</Bilna_Wholesale>
-	</modules>
+    <modules>
+        <Bilna_Wholesale>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Bilna_Wholesale>
+    </modules>
 </config>

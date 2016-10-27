@@ -1,16 +1,5 @@
 <?xml version="1.0"?>
 <config>
-    <default>
-        <carriers>
-            <pickup>
-                <active>1</active>
-                <model>bilna_wholesale/carrier</model>
-                <title>Wholesale Pickup</title>
-                <sort_order>10</sort_order>
-                <sallowspecific>0</sallowspecific>
-            </pickup>
-        </carriers>
-    </default>
     <modules>
         <Bilna_Wholesale>
             <version>0.1.0</version>
