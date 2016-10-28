@@ -95,6 +95,8 @@ class Webshopapps_Premiumrate_Model_Mysql4_Carrier_Premiumrate extends Mage_Core
 
             if ($request->getIsWholesaleQuote()) {
                 $select->where('delivery_id = ?', 4);
+            } else {
+                $select->where('delivery_id <> ?', 4);
             }
 
             if ($request->getPRConditionName() == 'package_volweight') {
