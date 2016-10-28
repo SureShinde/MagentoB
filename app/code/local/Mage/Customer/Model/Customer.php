@@ -694,10 +694,12 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $emailInfo->addTo($this->getEmail(), $this->getName());
         $mailer->addEmailInfo($emailInfo);
 
+        $templateId = Mage::getStoreConfig(self::XML_PATH_FORGOT_EMAIL_TEMPLATE, $storeId);
+
         // Set all required params and send emails
         $mailer->setSender(Mage::getStoreConfig($sender, $storeId));
         $mailer->setStoreId($storeId);
-        $mailer->setTemplateId((string) 'customer_password_forgot_email_template_logan');
+        $mailer->setTemplateId($templateId);
         $mailer->setTemplateParams($templateParams);
         $mailer->send();
         return $this;
