@@ -63,7 +63,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
             </tr>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Is Wholesale Order?') ?></label></td>
-                <td class="value"><strong><span id="is_wholesale" class="error"><?php echo ($_order->getIsWholeSale()) ? "Yes" : "No" ?></span></strong></td>
+                <td class="value"><strong><span id="is_wholesale" class="error"><?php echo ($_order->getIsWholesale()) ? "Yes" : "No" ?></span></strong></td>
             </tr>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Purchased From') ?></label></td>

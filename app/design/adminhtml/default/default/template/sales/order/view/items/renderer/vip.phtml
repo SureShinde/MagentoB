@@ -33,7 +33,7 @@
             <?php endif; ?>
             <div class="item-text">
                 <?php echo $this->getColumnHtml($_item, 'name') ?>
-                <?php echo ($_item->getData()['is_wholesale']) ?  '<span class="error">Wholesale</span>': ""; ?>
+                <?php echo ($_item->getIsWholesale()) ?  '<span class="error">Wholesale</span>': ""; ?>
             </div>
             <?php if ($this->canDisplayContainer()): ?>
         </div>
