@@ -161,6 +161,9 @@ class GenerateMegamenu extends Mage_Shell_Abstract {
                                     continue;
                                 }
 
+                                $_id3 = $storeCategory3->getId();
+                                $_urlKey3 = $storeCategory3->getUrlKey();
+
                                 Mage::log('Check if is an active category..');
                                 if (!$this->checkActiveCategory($storeCategory3)) {
                                     Mage::log('ID '.$storeCategory3->getId(). ' is not an active category. Proceed to next category.');
@@ -174,7 +177,56 @@ class GenerateMegamenu extends Mage_Shell_Abstract {
                                 $this->_activeCategory[$x]['child'][$y]['child'][$z]['parent_url_key'] = $_urlKey;
                                 $this->_activeCategory[$x]['child'][$y]['child'][$z]['parent_sub_id'] = $_id2;
                                 $this->_activeCategory[$x]['child'][$y]['child'][$z]['parent_sub_url_key'] = $_urlKey2;
-                                Mage::log('done');
+
+                                Mage::log('Starting define getMegamenuStaticBlock');
+                                $this->_activeCategory[$x]['child'][$y]['child'][$z]['megamenu_staticblock'] = $storeCategory3->getMegamenuStaticBlock() ? $this->getMegamenuCmsBlock($storeCategory3->getMegamenuStaticBlock()) : '';
+                                Mage::log('done. Value is '.$this->_activeCategory[$x]['child'][$y]['child'][$z]['megamenu_staticblock']);
+
+                                Mage::log('Starting define getMegamenuImage');
+                                $this->_activeCategory[$x]['child'][$y]['child'][$z]['megamenu_image'] = $storeCategory3->getMegamenuImage() ? $storeCategory3->getMegamenuImageUrl($storeCategory3->getMegamenuImage()) : '';
+                                Mage::log('done. Value is '.$this->_activeCategory[$x]['child'][$y]['child'][$z]['megamenu_image']);
+
+                                Mage::log('Starting get children categories level 3');
+                                $storeCategories4 = $storeCategory3->getChildrenCategories();
+                                Mage::log('done. It has '.count($storeCategories4).' children category.');
+
+                                $zz = 0;
+                                if (count($storeCategories4) > 0) {
+                                    Mage::log('Start to process children categories level 4');
+                                    foreach ($storeCategories4 as $storeCategory4) {
+                                        Mage::log('Trying to get children model');
+                                        $storeCategory4 = $this->_model->load($storeCategory4->getId());
+                                        Mage::log('done');
+
+                                        // If Category is not included Mega Menu, skip to next category
+                                        if ($storeCategory4->getIncludeInMegamenu() != 1) {
+                                            Mage::log('Category is not included in Mega Menu. Proceed to next category..');
+                                            continue;
+                                        }
+
+                                        Mage::log('Check if is an active category..');
+                                        if (!$this->checkActiveCategory($storeCategory4)) {
+                                            Mage::log('ID '.$storeCategory4->getId(). ' is not an active category. Proceed to next category.');
+                                            continue;
+                                        }
+                                        Mage::log('Category is an active category. Proceed the script..');
+
+                                        Mage::log('Defining the parameters..');
+                                        $this->_activeCategory[$x]['child'][$y]['child'][$z]['child'][$zz] = $this->parseStoreCategory($storeCategory4);
+                                        $this->_activeCategory[$x]['child'][$y]['child'][$z]['child'][$zz]['parent_id'] = $_id2;
+                                        $this->_activeCategory[$x]['child'][$y]['child'][$z]['child'][$zz]['parent_url_key'] = $_urlKey2;
+                                        $this->_activeCategory[$x]['child'][$y]['child'][$z]['child'][$zz]['parent_sub_id'] = $_id3;
+                                        $this->_activeCategory[$x]['child'][$y]['child'][$z]['child'][$zz]['parent_sub_url_key'] = $_urlKey3;
+                                        Mage::log('done');
+                                        $zz++;
+                                    }
+                                    Mage::log('End of process children categories level 4');
+                                }
+                                else {
+                                    Mage::log('It has no children category.');
+                                    $this->_activeCategory[$x]['child'][$y]['child'][$z]['child'] = null;
+                                }
+
                                 $z++;
                             }
                             Mage::log('End of process children categories level 3');
