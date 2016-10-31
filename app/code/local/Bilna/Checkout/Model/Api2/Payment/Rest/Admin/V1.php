@@ -143,8 +143,7 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
             'international' => 1,
             'bayar di tempat' => 2,
             'cod' => 2,
-            'express' => 3,
-            'pickup' => 4
+            'express' => 3
         ];
 
         if (strpos(strtolower($shippingDescription), 'standard') !== false)
@@ -168,8 +167,9 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
         if (strpos(strtolower($shippingDescription), 'express') !== false)
             $shippingType = $mapper['express'];
         else
-        if (strpos(strtolower($shippingDescription), 'pickup') !== false)
-            $shippingType = $mapper['pickup'];
+        if ($quote->getIsWholesale()) {
+            $shippingType = 4; // this is for wholesale shipping method in payment_base_shipping table and it will exclude COD paymethod
+        }
 
         if ($shippingType == $mapper['express']) { // if this is express shipping
             $allowedPaymethod = explode(',', Mage::getStoreConfig('bilna_expressshipping/paymethod/allowed_paymethod'));
