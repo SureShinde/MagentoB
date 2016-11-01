@@ -731,14 +731,14 @@ class Mage_CatalogInventory_Model_Observer
             Mage::getResourceSingleton('cataloginventory/indexer_stock')->reindexProducts($productIds);
         }
 
+        // Reindex previously remembered items
+        $productIds = array();
+        foreach ($this->_itemsForReindex as $item) {
+            $item->save();
+            $productIds[] = $item->getProductId();
+        }
         /* INCIDENT-93: We suspect that reindexProductIds below is contributing towards a deadlock.
          * Disabling it for now. */
-        //// Reindex previously remembered items
-        //$productIds = array();
-        //foreach ($this->_itemsForReindex as $item) {
-        //    $item->save();
-        //    $productIds[] = $item->getProductId();
-        //}
         //Mage::getResourceSingleton('catalog/product_indexer_price')->reindexProductIds($productIds);
         /* End of INCIDENT-93 */
 
