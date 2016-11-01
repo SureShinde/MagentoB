@@ -23,8 +23,13 @@ class AW_Affiliate_Model_Api2_Requestwithdrawal_Rest_Admin_V1 extends AW_Affilia
             'amount' => $amount, 
             'details' => $details
         );
-        //var_dump($params);die;
+
         $this->_customerId = $params['customer_id'];
+        $affiliate = Mage::getModel('awaffiliate/affiliate');
+        if ($this->_customerId) {
+            $affiliate->loadByCustomerId($this->_customerId);
+            Mage::register('current_affiliate', $affiliate);
+        }
         
         return $this->withdrawalRequestCreate($params);
     }
@@ -40,10 +45,7 @@ class AW_Affiliate_Model_Api2_Requestwithdrawal_Rest_Admin_V1 extends AW_Affilia
         $response = new Varien_Object();
         $response->setError(0);
         
-        $affiliate = Mage::getModel('awaffiliate/affiliate');
-        if ($this->_customerId) {
-            $affiliate->loadByCustomerId($this->_customerId);
-        }
+        $affiliate = Mage::registry('current_affiliate');
 
         $affiliateId = intval($affiliate->getId());
         if ($affiliateId < 1) {
@@ -59,8 +61,8 @@ class AW_Affiliate_Model_Api2_Requestwithdrawal_Rest_Admin_V1 extends AW_Affilia
         }
 
         if (!$isError && !Mage::helper('awaffiliate/affiliate')->isWithdrawalRequestAvailableOn($affiliate, $amount)) {
-            
             $response->setError(1);
+            $isError = true;
             $messages[] = Mage::helper('awaffiliate')->__('This amount is not available for request');
         }
         if (Mage::helper('awaffiliate/config')->getMinimumAmountToWithdraw(Mage::app()->getStore(true)->getId()) > $amount) {
@@ -77,6 +79,7 @@ class AW_Affiliate_Model_Api2_Requestwithdrawal_Rest_Admin_V1 extends AW_Affilia
             $withdrawalRequest->setData('created_at', Mage::getModel('core/date')->gmtDate());
             try {
                 $withdrawalRequest->save();
+                Mage::dispatchEvent('awaffiliate_withdrawal_request_save_commit_after', $withdrawalRequest);
                 $messages[] = Mage::helper('awaffiliate')->__('Withdrawal request saved');
             } catch (Exception $e) {
                 $messages[] = $e->getMessage();
