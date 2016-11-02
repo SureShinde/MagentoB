@@ -2,35 +2,14 @@
 <config>
     <modules>
         <Bilna_Smsverification>
-            <version>1.0.1</version>
+            <version>1.0.0</version>
         </Bilna_Smsverification>
     </modules>
     <global>
-        <models>
-            <oramicash>
-                <class>Bilna_Smsverification_Model</class>
-                <resourceModel>smsverification_mysql4</resourceModel>
-            </oramicash>
-            <smsverification_mysql4>
-                <class>Bilna_Smsverification_Model_Mysql4</class>
-                <entities>
-                    <list>
-                        <table>otp_list</table>
-                    </list>
-                </entities>
-            </smsverification_mysql4>
-        </models>
-
-        <helpers>
-            <smsverification>
-                <class>Bilna_Smsverification_Helper</class>
-            </smsverification>
-        </helpers>
-
         <resources>
             <smsverification_setup>
                 <setup>
-                    <module>Bilna_Smsverification</module>
+                    <module>Bilna_SmsVerification</module>
                 </setup>
                 <connection>
                     <use>core_setup</use>
@@ -51,33 +30,4 @@
         </resources>
 
     </global>
-    <adminhtml>
-        <acl>
-            <resources>
-                <all>
-                    <title>Allow Everything</title>
-                </all>
-                <admin>
-                    <children>
-                        <system>
-                            <children>
-                                <config>
-                                    <children>
-                                        <bilna translate="title" module="smsverification">
-                                            <title>Bilna</title>
-                                            <children>
-                                                <smsverificationbackend translate="title">
-                                                    <title>SMS Verification Config</title>
-                                                </smsverificationbackend>
-                                            </children>
-                                        </bilna>
-                                    </children>
-                                </config>
-                            </children>
-                        </system>
-                    </children>
-                </admin>
-            </resources>
-        </acl>
-    </adminhtml>
 </config>
