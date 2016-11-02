@@ -28,7 +28,7 @@
                         <delete>1</delete>
                     </customer>
                 </privileges>
-            <attributes translate="entity_id last_logged_in firstname lastname email gender dob newsletter password newsletter website_id created_in group_id disable_auto_group_change is_active username" module="Bilna_Customer">
+            <attributes translate="entity_id last_logged_in firstname lastname email gender dob newsletter password newsletter website_id created_in group_id disable_auto_group_change is_active username mobile_number verified_date" module="Bilna_Customer">
                 <entity_id>Customer ID</entity_id>
                 <last_logged_in>Last Logged In</last_logged_in>
                 <firstname>First Name</firstname>
@@ -45,6 +45,8 @@
                 <is_active>Is Active</is_active>
                 <disable_auto_group_change>Disable automatic group change based on VAT ID</disable_auto_group_change>
                 <username>username</username>
+                <mobile_number>Mobile Number</mobile_number>
+                <verified_date>Verified Date</verified_date>
             </attributes>
             <exclude_attributes>
                 <admin>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Bilna_SmsVerification>
+            <version>1.0.0</version>
+        </Bilna_SmsVerification>
+    </modules>
+    <global>
+        <resources>
+            <smsverification_setup>
+                <setup>
+                    <module>Bilna_SmsVerification</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </smsverification_setup>
+
+            <smsverification_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </smsverification_write>
+
+            <smsverification_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </smsverification_read>
+        </resources>
+
+    </global>
+</config>
