@@ -6,10 +6,31 @@
         </Bilna_Smsverification>
     </modules>
     <global>
+        <models>
+            <smsverification>
+                <class>Bilna_Smsverification_Model</class>
+                <resourceModel>smsverification_mysql4</resourceModel>
+            </smsverification>
+            <smsverification_mysql4>
+                <class>Bilna_Smsverification_Model_Mysql4</class>
+                <entities>
+                    <otplist>
+                        <table>otp_list</table>
+                    </otplist>
+                </entities>
+            </smsverification_mysql4>
+        </models>
+
+        <helpers>
+            <smsverification>
+                <class>Bilna_Smsverification_Helper</class>
+            </smsverification>
+        </helpers>
+
         <resources>
             <smsverification_setup>
                 <setup>
-                    <module>Bilna_SmsVerification</module>
+                    <module>Bilna_Smsverification</module>
                 </setup>
                 <connection>
                     <use>core_setup</use>
@@ -30,4 +51,33 @@
         </resources>
 
     </global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <bilna translate="title" module="smsverification">
+                                            <title>Bilna</title>
+                                            <children>
+                                                <smsverificationbackend translate="title">
+                                                    <title>SMS Verification Config</title>
+                                                </smsverificationbackend>
+                                            </children>
+                                        </bilna>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
 </config>
