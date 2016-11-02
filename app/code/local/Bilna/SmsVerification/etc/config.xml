@@ -6,6 +6,12 @@
         </Bilna_SmsVerification>
     </modules>
     <global>
+        <helpers>
+            <smsverification>
+                <class>Bilna_SmsVerification_Helper</class>
+            </smsverification>
+        </helpers>
+
         <resources>
             <smsverification_setup>
                 <setup>
@@ -30,4 +36,33 @@
         </resources>
 
     </global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <bilna translate="title" module="smsverification">
+                                            <title>Bilna</title>
+                                            <children>
+                                                <smsverificationbackend translate="title">
+                                                    <title>SMS Verification Config</title>
+                                                </smsverificationbackend>
+                                            </children>
+                                        </bilna>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
 </config>
