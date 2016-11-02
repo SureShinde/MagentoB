@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <modules>
-        <Bilna_SmsVerification>
-            <version>1.0.0</version>
-        </Bilna_SmsVerification>
+        <Bilna_Smsverification>
+            <version>1.0.1</version>
+        </Bilna_Smsverification>
     </modules>
     <global>
+        <models>
+            <oramicash>
+                <class>Bilna_Smsverification_Model</class>
+                <resourceModel>smsverification_mysql4</resourceModel>
+            </oramicash>
+            <smsverification_mysql4>
+                <class>Bilna_Smsverification_Model_Mysql4</class>
+                <entities>
+                    <list>
+                        <table>otp_list</table>
+                    </list>
+                </entities>
+            </smsverification_mysql4>
+        </models>
+
         <helpers>
             <smsverification>
-                <class>Bilna_SmsVerification_Helper</class>
+                <class>Bilna_Smsverification_Helper</class>
             </smsverification>
         </helpers>
 
         <resources>
             <smsverification_setup>
                 <setup>
-                    <module>Bilna_SmsVerification</module>
+                    <module>Bilna_Smsverification</module>
                 </setup>
                 <connection>
                     <use>core_setup</use>

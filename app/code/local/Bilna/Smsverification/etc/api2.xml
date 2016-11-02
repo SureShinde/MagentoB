@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config>
+    <api2>
+        <resources>
+            <sms_send translate="title" module="Bilna_Smsverification">
+                <group>smsverification</group>
+                <sort_order>115</sort_order>
+                <model>smsverification/api2_send</model>
+                <title>SMS Verification send SMS</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </admin>
+                    <customer>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </customer>
+                </privileges>
+                <attributes translate="message msisdn" module="Bilna_Smsverification">
+                    <msisdn>MSISDN</msisdn>
+                    <message>Message</message>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/verifiysend/:customer_id</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </sms_send>
+        </resources>
+    </api2>
+</config>
