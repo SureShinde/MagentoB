@@ -74,6 +74,30 @@ abstract class Bilna_Customer_Model_Api2_Customer_Address_Rest extends Bilna_Cus
     }
 
     /**
+     * Get resource location
+     *
+     * @param Mage_Core_Model_Abstract $resource
+     * @return string URL
+     */
+    protected function _getLocation($resource)
+    {
+        /* @var $apiTypeRoute Mage_Api2_Model_Route_ApiType */
+        $apiTypeRoute = Mage::getModel('api2/route_apiType');
+
+        $chain = $apiTypeRoute->chain(
+            new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType()))
+        );
+        $params = array(
+            'api_type' => $this->getRequest()->getApiType(),
+            'id'       => $resource->getId(), 
+            'customer_id' => $this->getRequest()->getParam('customer_id')
+        );
+        $uri = $chain->assemble($params);
+
+        return '/' . $uri;
+    }
+
+    /**
      * Retrieve information about specified customer address
      *
      * @throws Mage_Api2_Exception
@@ -85,7 +109,22 @@ abstract class Bilna_Customer_Model_Api2_Customer_Address_Rest extends Bilna_Cus
         $address = $this->_loadCustomerAddressById($this->getRequest()->getParam('id'));
         $addressData = $address->getData();
         $addressData['street'] = $address->getStreet();
-        return $addressData;
+        /* @var $customer Mage_Customer_Model_Customer */
+        $customer = $this->_loadCustomerById($this->getRequest()->getParam('customer_id'));
+        /* @var $collection Mage_Customer_Model_Resource_Address_Collection */
+        $collection = $customer->getAddressesCollection();
+        if($collection->getData()) {
+            $customerAddressLists = [];
+            foreach($collection as $item) {
+                $customerAddressLists[] = $item->getId();
+            }
+        }
+
+        if(in_array($this->getRequest()->getParam('id'), $customerAddressLists)) {
+            return $addressData;
+        } else {
+            $this->_critical(self::RESOURCE_NOT_FOUND);
+        }
     }
 
     /**
@@ -95,18 +134,18 @@ abstract class Bilna_Customer_Model_Api2_Customer_Address_Rest extends Bilna_Cus
      */
     protected function _retrieveCollection() {
         $collectionForRetrieve = $this->_getCollectionForRetrieve();
-        
+
         $data = array ();
         $data[0]['total_record'] = $collectionForRetrieve->getSize();
-        
+
         /* @var $address Mage_Customer_Model_Address */
         foreach ($collectionForRetrieve as $address) {
             $addressData = $address->getData();
             $addressData['street'] = $address->getStreet();
-            
+
             $data[$address->getId()] = array_merge($addressData, $this->_getDefaultAddressesInfo($address));
         }
-        
+
         return $data;
     }
 
@@ -124,7 +163,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Address_Rest extends Bilna_Cus
         $collection = $customer->getAddressesCollection();
 
         $this->_applyCollectionModifiers($collection);
-        
+
         return $collection;
     }
 
@@ -152,6 +191,20 @@ abstract class Bilna_Customer_Model_Api2_Customer_Address_Rest extends Bilna_Cus
     {
         /* @var $address Mage_Customer_Model_Address */
         $address = $this->_loadCustomerAddressById($this->getRequest()->getParam('id'));
+        /* @var $customer Mage_Customer_Model_Customer */
+        $customer = $this->_loadCustomerById($this->getRequest()->getParam('customer_id'));
+        /* @var $collection Mage_Customer_Model_Resource_Address_Collection */
+        $collection = $customer->getAddressesCollection();
+        if($collection->getData()) {
+            $customerAddressLists = [];
+            foreach($collection as $item) {
+                $customerAddressLists[] = $item->getId();
+            }
+        }
+        if(!in_array($this->getRequest()->getParam('id'), $customerAddressLists)) {
+            $this->_critical(self::RESOURCE_NOT_FOUND);
+        }
+
         $validator = $this->_getValidator();
 
         $data = $validator->filter($data);

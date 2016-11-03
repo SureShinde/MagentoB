@@ -4,6 +4,7 @@
  * Gravity recommendation engine.
  *
  * @package GravityClient
+ * @author Péter Ritzinger
  */
 
 /**
@@ -18,16 +19,13 @@
  *			$config->remoteUrl = 'https://saas.gravityrd.com/grrec-CustomerID-war/WebshopServlet';
  *			$config->user = 'sampleUser';
  *			$config->password = 'samplePasswd';
- *			$config->retry = 0;
+ *			$config->retry = 3
  *			return new GravityClient($config);
  *		}
  *		$client = createGravityClient();
  *		$context = new GravityRecommendationContext();
  *		$context->numberLimit = 5;
  *		$context->scenarioId = 'HOMEPAGE_MAIN';
- *              $context->nameValues = array(
- *                      new GravityNameValue('minPrice', '100'),
- *              );
  *		$client->getItemRecommendation('user1', '123456789abcdef', $context);
  * </pre>
  *
@@ -42,7 +40,7 @@ class GravityClient {
 	/**
 	 * The version info of the client.
 	 */
-	public $version = '1.0.13';
+	private $version = '1.0.10';
 
 	/**
 	 * Creates a new client instance with the specified configuration
@@ -240,13 +238,19 @@ class GravityClient {
 		if ($queryString) {
 			$queryString = "&" . $queryString;
 		}
-		return "?method=" . urlencode($methodName) . $queryString . "&_v=" . urlencode($this->version);
+		return "?method=" . urlencode($methodName) . $queryString;
 	}
-	
-	private function sendRequestRetry($requestUrl, $requestBody, $isLast) {
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $requestUrl);
+
+	private function sendRequest($methodName, $queryStringParams, $requestBody, $hasAnswer) {
+		// get the # of retries
+		$retry = 0;
+		if(isset($this->config->retry) && is_int($this->config->retry)) {
+			$retry = $this->config->retry;
+		}
 		
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $this->config->remoteUrl . "/" . $methodName . $this->getRequestQueryString($methodName, $queryStringParams));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array("X-Gravity-RecEng-ClientVersion: $this->version",'Expect:')); // disable Expect: 100-Continue, it would be an unnecessary roundtrip
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 		if (is_int($this->config->timeoutSeconds)) {
@@ -270,106 +274,30 @@ class GravityClient {
 		if ($requestBody) {
 			curl_setopt($ch, CURLOPT_POST, true);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestBody));
-		}	
-
-		$header = array("X-Gravity-RecEng-ClientVersion: $this->version");
-		if ($this->config->forwardClientInfo) {
-			try {
-				if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
-					$header[] = "X-Forwarded-For: ".$_SERVER['REMOTE_ADDR'];
-				}
-				if (array_key_exists('HTTP_REFERER', $_SERVER)) {
-					$header[] = "X-Original-Referer: ".$_SERVER['HTTP_REFERER'];
-				}
-				if (array_key_exists('HTTP_USER_AGENT', $_SERVER)) {
-					$header[] = "X-Device-User-Agent: ".$_SERVER['HTTP_USER_AGENT'];
-					curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
-				}
-				if (array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER)) { 
-					$header[] = "X-Device-Accept-Language: ".$_SERVER['HTTP_ACCEPT_LANGUAGE'];
-				}
-				$originalRequestUri = $this->guessOriginalRequestURI();
-				if (!empty($originalRequestUri)) {
-					$header[] = "X-Original-RequestUri: ".$this->guessOriginalRequestURI();
-				} else {
-					// could not detect original request URI, send SAPI name for debugging purposes
-					$header[] = "X-PhpServerAPIName: ".php_sapi_name();
-				}
-			} catch (Exception $e) {
-				// FIXME: add error to the param list ...
-			}
 		}
-		
-		// disable Expect: 100-Continue, it would cause an unnecessary roundtrip
-		// see http://www.w3.org/Protocols/rfc2616/rfc2616-sec8.html#sec8.2.3
-		$header[] = 'Expect:';
-		
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-		
 		$result = curl_exec($ch);
-		$err_code = curl_errno($ch);		
 		
-		
-		if($isLast) {
-			$verbStr = '';
-			if($this->config->verbose) {
-				$hostname = "nan";
-				if(gethostname())
-					$hostname = gethostname();
+		$retryEnabled = in_array($methodName, array("addUsers", "addItems"));
 
-				$serverip = "nan";
-				if(array_key_exists('SERVER_ADDR', $_SERVER))
-					$serverip = $_SERVER['SERVER_ADDR'];
-				
-				$curlinfo = curl_getinfo($ch);
-				$name_lookup_time = "nan";
-				if($curlinfo["namelookup_time"])
-					$name_lookup_time = $curlinfo["namelookup_time"];
-
-				$verbStr = "\nHOST: " .$hostname . "\nIP: " . $serverip . "\nlookup time: " . $name_lookup_time . "\nURL: " . $requestUrl . "\nBODY: " . print_r($requestBody, true) . "\n";
+		if($retryEnabled && curl_errno($ch) == 28){
+			while($retry > 0 && curl_errno($ch) == 28){
+				curl_exec($ch);
+				$retry--;
 			}
-			$rc = $this->handleError($ch, $result, $verbStr);
 		}
+		
+		$rc = $this->handleError($ch, $result);
 		if (is_resource($ch)) {
 			curl_close($ch);
 		}
-		
-		return array($err_code, $result);
-	}
-
-	private function sendRequest($methodName, $queryStringParams, $requestBody, $hasAnswer) {
-		$retry = 0;
-		if(isset($this->config->retry) && is_int($this->config->retry)) {
-			$retry = $this->config->retry;
-		}
-		if ($this->config->retryMethods) {
-			$retryEnabled = in_array($methodName, $this->config->retryMethods);
-		}
-		$isLast = !($retryEnabled && $retry > 0);
-		
-		$requestUrl = $this->config->remoteUrl . "/" . $methodName . $this->getRequestQueryString($methodName, $queryStringParams);	
-		$result_arr = $this->sendRequestRetry($requestUrl, $requestBody, $isLast);
-		$errnum = $result_arr[0];
-		
-		while ($retryEnabled && $retry > 0 && $errnum != 0) {
-			$isLast = $retry <= 1;
-			
-			$requestUrl = $requestUrl . "&_er=" . $errnum;
-			$result_arr = $this->sendRequestRetry($requestUrl, $requestBody, $isLast);
-			$errnum = $result_arr[0];
-			
-			$retry--;
-		}
-		
 		if ($hasAnswer) {
-			$result = $result_arr[1];
 			return json_decode($result, false);
 		} else {
 			return null;
 		}
 	}
 
-	private function handleError($ch, $result, $verbStr) {
+	private function handleError($ch, $result) {
 		$errorNumber = curl_errno($ch);
 		if ($errorNumber != 0) {
 			$errorMessage = curl_error($ch);
@@ -377,29 +305,28 @@ class GravityClient {
 			switch ($errorNumber) {
 				case 6: //CURLE_COULDNT_RESOLVE_HOST
 					throw new GravityException(
-					"CURLE$errorNumber Could not resolve host error during curl_exec(): $errorMessage" . $verbStr,
+					"Could not resolve host error during curl_exec(): $errorMessage",
 					new GravityFaultInfo(GRAVITY_ERRORCODE_COMM_HOSTRESOLVE));
 				case 7: //CURLE_COULDNT_CONNECT
 					throw new GravityException(
-					"CURLE$errorNumber Could not connect to host error during curl_exec(): $errorMessage" . $verbStr,
+					"Could not connect to host error during curl_exec(): $errorMessage",
 					new GravityFaultInfo(GRAVITY_ERRORCODE_COMM_CONNECT));
 				case 28: //CURLE_OPERATION_TIMEDOUT
 					throw new GravityException(
-					"CURLE$errorNumber Timeout error during curl_exec(): $errorMessage" . $verbStr,
+					"Timeout error during curl_exec(): $errorMessage",
 					new GravityFaultInfo(GRAVITY_ERRORCODE_COMM_TIMEOUT));
 				default:
 					throw new GravityException(
-					"CURLE$errorNumber Error during curl_exec(): $errorMessage" . $verbStr,
+					"Error during curl_exec(): $errorMessage",
 					new GravityFaultInfo(GRAVITY_ERRORCODE_COMM_OTHER));
 			}
 		} else {
 			$responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			if ($responseCode != 200) {
-				curl_close($ch);
 				$e = json_decode($result, false);
 				$supplement = "";
 				if (is_object($e)) {
-					$supplement = ", Message: $e->message" . $verbStr;
+					$supplement = ", Message: $e->message";
 				}
 				throw new GravityException(
 				"Non-200 HTTP response code: $responseCode $supplement",
@@ -409,22 +336,6 @@ class GravityClient {
 		}
 	}
 
-	private function guessOriginalRequestURI()
-	{
-		$sapi_name = php_sapi_name();
-		if ($sapi_name == 'cli') {
-			// using CLI PHP
-			return null;
-		}
-		$ssl = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? true:false;
-		$sp = strtolower($_SERVER['SERVER_PROTOCOL']);
-		$protocol = substr($sp, 0, strpos($sp, '/')) . (($ssl) ? 's' : '');
-		$port = $_SERVER['SERVER_PORT'];
-		$port = ((!$ssl && $port=='80') || ($ssl && $port=='443')) ? '' : ':'.$port;
-		$host = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
-		$uri = $protocol . '://' . $host . $port . $_SERVER['REQUEST_URI'];
-		return $uri;
-	}
 	/**
 	 * The client configuration.
 	 *
@@ -906,22 +817,10 @@ class GravityNameValue {
 
 class GravityClientConfig {
 	function __construct() {
-		$this->timeoutSeconds = 2;
+		$this->timeoutSeconds = 3;
 		$this->verifyPeer = true;
-		$this->retryMethods = array("addUsers", "addItems", "addEvents", "getItemRecommendation");
-		$this->retry = 0;
-		$this->verbose = true;
-		$this->forwardClientInfo = true;
 	}
 
-	/**
-	 * Forwards the user-agent, referrer, browser language and client IP to the recommendation engine.
-	 * Default value is true;
-	 * 
-	 * @var boolean
-	 */
-	public $forwardClientInfo;
-	
 	/**
 	 * The URL of the server side interface. It has no default value, must be specified.
 	 * Strings in the PHP client are always UTF-8 encoded.
@@ -963,27 +862,7 @@ class GravityClientConfig {
 	 * @var string
 	 */
 	public $password;
-	
-	/**
-	 * The list of method names which should be retried after communication error.
-	 * 
-	 * @var array(string)
-	 */
-	public $retryMethods;
-	
-	/**
-	 * More verbose error messages in case of error.
-	 * 
-	 * @var boolean
-	 */
-	public $verbose;
-	
-	/**
-	 * If > 1 enables retry for the methods specified in $retryMethods.
-	 * 
-	 * @var int
-	 */
-	public $retry;
+
 }
 
 /**

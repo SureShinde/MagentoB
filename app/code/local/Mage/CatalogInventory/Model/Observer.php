@@ -467,7 +467,6 @@ class Mage_CatalogInventory_Model_Observer
              */
             if ($quoteItem->getParentItem()) {
                 $rowQty = $quoteItem->getParentItem()->getQty() * $qty;
-
                 /**
                  * we are using 0 because original qty was processed
                  */
@@ -479,7 +478,6 @@ class Mage_CatalogInventory_Model_Observer
             } else {
                 $increaseQty = $quoteItem->getQtyToAdd() ? $quoteItem->getQtyToAdd() : $qty;
                 $rowQty = $qty;
-
                 $qtyForCheck = $this->_getQuoteItemQtyForCheck(
                     $quoteItem->getProduct()->getId(),
                     $quoteItem->getId(),
@@ -755,7 +753,10 @@ class Mage_CatalogInventory_Model_Observer
             $item->save();
             $productIds[] = $item->getProductId();
         }
-        Mage::getResourceSingleton('catalog/product_indexer_price')->reindexProductIds($productIds);
+        /* INCIDENT-93: We suspect that reindexProductIds below is contributing towards a deadlock.
+         * Disabling it for now. */
+        //Mage::getResourceSingleton('catalog/product_indexer_price')->reindexProductIds($productIds);
+        /* End of INCIDENT-93 */
 
         $this->_itemsForReindex = array(); // Clear list of remembered items - we don't need it anymore
 

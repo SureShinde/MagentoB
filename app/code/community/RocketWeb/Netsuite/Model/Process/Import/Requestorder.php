@@ -74,6 +74,12 @@ class RocketWeb_Netsuite_Model_Process_Import_Requestorder extends RocketWeb_Net
             return false;
         }
         else {
+            $magentoOrder = $magentoOrders->getFirstItem();
+            // ignore status complete, closed, canceled or holded
+            if ($magentoOrder->getState() == 'complete' || $magentoOrder->getState() == 'closed' || $magentoOrder->getState() == 'canceled' ||
+                $magentoOrder->getState() == 'holded')
+                return false;
+
             return true;
         }
     }

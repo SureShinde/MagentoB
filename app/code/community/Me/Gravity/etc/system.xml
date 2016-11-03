@@ -19,7 +19,7 @@
     <sections>
         <gravity>
             <class>separator-top</class>
-            <label>Gravity Reco</label>
+            <label>Yusp</label>
             <tab>me_tab</tab>
             <frontend_type>text</frontend_type>
             <sort_order>500</sort_order>
@@ -53,7 +53,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Enabled Preview mode. In this case recommendation boxes are only visible if there is a special ?gr_reco_test=true parameter in the url. E.g.: http://example.com/example-product.html?gr_reco_test=true</comment>
+                            <comment>Enabled Preview mode. If set to YES, recommendation boxes are only visible if there is a special ?gr_reco_test=true parameter in the url. E.g.: http://example.com/example-product.html?gr_reco_test=true</comment>
                         </preview>
                         <api_user translate="label">
                             <label>API Username</label>
@@ -62,7 +62,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>API user name in Gravity system.</comment>
+                            <comment>API username in the Yusp system.</comment>
                         </api_user>
                         <api_password translate="label">
                             <label>API Password</label>
@@ -71,7 +71,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>API password in Gravity system.</comment>
+                            <comment>API password in the Yusp system.</comment>
                         </api_password>
                         <api_url translate="label">
                             <label>API URL</label>
@@ -82,28 +82,28 @@
                             <show_in_store>1</show_in_store>
                             <comment>API communication URL.</comment>
                         </api_url>
-                        <enabled_js translate="label">
-                            <label>Enable Custom Gravity Javascript</label>
+                      <!--  <enabled_js translate="label">
+                            <label>Enable Custom Yusp Javascript</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>55</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Please select YES, if you want to edit or customize the extension's main Gravity javascript.</comment>
+                            <comment>Please select YES if you want to edit or customize the Yusp extension's main javascript.</comment>
                         </enabled_js>
                         <custom_js translate="label">
-                            <label>Custom Gravity Javascript</label>
+                            <label>Custom Yusp Javascript</label>
                             <frontend_type>textarea</frontend_type>
                             <sort_order>56</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[<strong> Important!</strong> Here you can edit the main Gravity javascript. <strong>You have to replace</strong> the two occurrence of the "magento" string in your custom javascript with the API username above!]]></comment>
+                            <comment><![CDATA[<strong> Important!</strong> Here you can edit the main Yusp javascript. <strong>You have to replace</strong> the two occurrences of the "magento" string in your custom javascript with your Yusp API username above!]]></comment>
                             <depends>
                                 <enabled_js>1</enabled_js>
                             </depends>
-                        </custom_js>
+                        </custom_js> -->
                         <test translate="label">
                             <label>Test Connection</label>
                             <frontend_type>button</frontend_type>
@@ -112,17 +112,17 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Press button to test connection.</comment>
+                            <comment>Click here to check the connection between your Yusp account and Magento extension.</comment>
                         </test>
-                        <template translate="label">
-                            <label>Use Garvity Template</label>
+                      <!--  <template translate="label">
+                            <label>Use Yusp Template</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>General display setting. If YES all boxes will use Gravity template.</comment>
+                            <comment>General display setting. If switched to YES, all boxes will use a Yusp template.</comment>
                         </template>
                         <bulk translate="label">
                             <label>Enable Bulk Recommendation</label>
@@ -132,11 +132,11 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>General recommendation setting. If YES bulk recommendation will be enabled.</comment>
-                        </bulk>
+                            <comment>General recommendation setting. If switched to YES, bulk recommendation will be enabled.</comment>
+                        </bulk>-->
                     </fields>
                 </config>
-                <export translate="label">
+            <!--   <export translate="label">
                     <label>Export Products</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>20</sort_order>
@@ -151,17 +151,17 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Path where catalog export file will be saved. Example: "gravity_reco/" (path must be writeable)</comment>
+                            <comment>The path where the catalog export file will be saved (relative to your Magento folder). Example: "yusp/" (path must be writable).</comment>
                         </catalog_path>
                         <all translate="label">
-                            <label>Enable All Products Export</label>
+                            <label>Enable Full Product Export</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>15</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Enable all products to export. Otherwise please select NO and set the maximum number. Note: there can be performance impact during this operation.</comment>
+                            <comment>Enable the export of all your products. Otherwise, please select NO and set a maximum number. Note: switching this to YES can impact your site’s performance. </comment>
                         </all>
                         <max translate="label">
                             <label>Maximum Products Export</label>
@@ -175,14 +175,14 @@
                             <depends><all>0</all></depends>
                         </max>
                         <description_enabled translate="label">
-                            <label>Enable Products Description in Export</label>
+                            <label>Enable Product Descriptions in the Export</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>25</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Please select YES, if you want to add product's description attribute to the catalog export.</comment>
+                            <comment>Please, select YES if you wish to include product description attributes in the catalog export.</comment>
                         </description_enabled>
                         <additional translate="label">
                             <label>Additional Attributes</label>
@@ -195,14 +195,14 @@
                             <comment>Select additional attributes for catalog export.</comment>
                         </additional>
                         <only_salable translate="label">
-                            <label>Only Salable</label>
+                            <label>Only In-stock</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>In this case only those products will be exported which quantity higher than zero(is in stock). If your store doesn't use stock management choose YES.</comment>
+                            <comment>If switched to YES, only products with quantities exceeding zero will be exported. If your store doesn't use stock management, also choose YES.</comment>
                         </only_salable>
                         <status translate="label">
                             <label>Export Disabled Products</label>
@@ -226,7 +226,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Enable scheduled export job bby cron. Note: you must configure your server to run cron jobs.</comment>
+                            <comment>Enable scheduled export on cron jobs. Note: you must configure your server to run cron jobs.</comment>
                         </catalog_cron>
                         <catalog_cron_time translate="label">
                             <label>Start Time</label>
@@ -246,7 +246,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>This will export product catalog and save in xml file. Note: there can be performance impact during this operation.</comment>
+                            <comment>Export your product catalog in an XML file. Note: this operation can impact your site’s performance.</comment>
                         </catalog>
                     </fields>
                 </export>
@@ -259,14 +259,14 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <all translate="label">
-                            <label>Enable All Customers Export</label>
+                            <label>Enable Full Customer Export</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Enable all customer to export. Otherwise please select NO and set the maximum number. Note: there can be performance impact during this operation.</comment>
+                            <comment>Enable the export of all customers. Otherwise, please select no and set a maximum number. Note: This operation can impact the performance of your site.</comment>
                         </all>
                         <max translate="label">
                             <label>Maximum Customers Export</label>
@@ -297,10 +297,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>This will export customers. Note: there can be performance impact during this operation.</comment>
+                            <comment>Export your customers in an XML file. Note: this operation can impact your site’s performance.</comment>
                         </customer>
                     </fields>
-                </cutomer_export>
+                </cutomer_export>-->
                 <general_display translate="label">
                     <label>General Pages Display</label>
                     <frontend_type>text</frontend_type>
@@ -317,7 +317,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Pages on general layout recommendation boxes enabled.</comment>
+                            <comment>General pages where Yusp recommendation boxes are enabled.</comment>
                         </pages>
                         <best_heading translate="label">
                             <label>Personal Best Box (PERSONAL_BEST)</label>
@@ -335,7 +335,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Enable "Recommended for you" box on general page views.</comment>
+                            <comment>Enable "Recommended for you” boxes on general pages. </comment>
                         </best_box>
                         <best_box_layout translate="label">
                             <label>Personal Best Box Layout</label>
@@ -345,7 +345,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Select where "Recommended for you" box should be shown on general page views.</comment>
+                            <comment>Select where "Recommended for you” boxes should be shown on general pages.</comment>
                             <depends><best_box>1</best_box></depends>
                         </best_box_layout>
                         <best_box_title translate="label">
@@ -355,7 +355,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>"Recommended for you" box title on general page views.</comment>
+                            <comment>"Recommended for you" box title on general pages.</comment>
                             <depends><best_box>1</best_box></depends>
                         </best_box_title>
                         <best_box_limit translate="label">
@@ -365,7 +365,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Number of items show in "Recommended for you" box on general page views. This number must be between 1 and 10.</comment>
+                            <comment>The number of items shown in "Recommended for you" boxes on general pages. This number must be between 1 and 10.
+                            </comment>
                             <validate>validate-number validate-number-range number-range-1-10</validate>
                             <depends><best_box>1</best_box></depends>
                         </best_box_limit>
@@ -376,7 +377,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Columns count in "Recommended for you" box on general page views. This number must be between 1 and 6. It has no effect if box is in sidebar.</comment>
+                            <comment>The number of columns in "Recommended for you" boxes on general pages. This number must be between 1 and 6. This option has no effects if the box is in the sidebar.</comment>
                             <validate>validate-number validate-number-range number-range-1-6</validate>
                             <depends>
                                 <best_box>1</best_box>
@@ -399,7 +400,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Enable "You viewed" box on general page views.</comment>
+                            <comment>Enable "You viewed" boxes on general pages.</comment>
                         </history_box>
                         <history_box_layout translate="label">
                             <label>History Box Layout</label>
@@ -409,7 +410,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Select where "You viewed" box should be shown on general page views.</comment>
+                            <comment>Select where "You viewed" boxes should be shown on general pages.</comment>
                             <depends><history_box>1</history_box></depends>
                         </history_box_layout>
                         <history_box_title translate="label">
@@ -419,7 +420,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>"You viewed" box title on general page views.</comment>
+                            <comment>"You viewed" box title on general pages.</comment>
                             <depends><history_box>1</history_box></depends>
                         </history_box_title>
                         <history_box_limit translate="label">
@@ -429,7 +430,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Number of items show in "You viewed" box on general page views. This number must be between 1 and 10.</comment>
+                            <comment>The number of items shown in "You viewed" boxes on general pages. This number must be between 1 and 10.
+                            </comment>
                             <validate>validate-number validate-number-range number-range-1-10</validate>
                             <depends><history_box>1</history_box></depends>
                         </history_box_limit>
@@ -440,7 +442,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Columns count in "You viewed" box on general page views. This number must be between 1 and 6. It has no effect if box is in sidebar.</comment>
+                            <comment>The number of columns in "You viewed" boxes on general pages. This number must be between 1 and 6. This option has no effects if the box is in the sidebar.</comment>
                             <validate>validate-number validate-number-range number-range-1-6</validate>
                             <depends>
                                 <history_box>1</history_box>
@@ -463,7 +465,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Enable "Others are looking at right now" box on general page views.</comment>
+                            <comment>Enable "Others are looking at right now" boxes on general pages.</comment>
                         </others_box>
                         <others_box_layout translate="label">
                             <label>Currently Viewed Box Layout</label>
@@ -473,7 +475,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Select where "Others are looking at right now" box should be shown on general page views.</comment>
+                            <comment>Select where "Others are looking at right now" boxes should be shown on general pages.</comment>
                             <depends><others_box>1</others_box></depends>
                         </others_box_layout>
                         <others_box_title translate="label">
@@ -483,7 +485,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>"Others are looking at right now" box title on general page views.</comment>
+                            <comment>"Others are looking at right now" box title on general pages.</comment>
                             <depends><others_box>1</others_box></depends>
                         </others_box_title>
                         <others_box_limit translate="label">
@@ -493,7 +495,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Number of items show in "Others are looking at right now" box on general page views. This number must be between 1 and 10.</comment>
+                            <comment>The number of items shown in "Others are looking at right now" boxes on general pages. This number must be between 1 and 10.</comment>
                             <validate>validate-number validate-number-range number-range-1-10</validate>
                             <depends><others_box>1</others_box></depends>
                         </others_box_limit>
@@ -504,7 +506,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Columns count in "Others are looking at right now" box on general page views. This number must be between 1 and 6. It has no effect if box is in sidebar.</comment>
+                            <comment>The number of columns in "Others are looking at right now" boxes on general pages. This number must be between 1 and 6. This option has no effects if the box is in the sidebar.</comment>
                             <validate>validate-number validate-number-range number-range-1-6</validate>
                             <depends>
                                 <others_box>1</others_box>
@@ -527,7 +529,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Enable "Top products" box on general page views.</comment>
+                            <comment>Enable "Top products" boxes on general pages.</comment>
                         </popular_box>
                         <popular_box_layout translate="label">
                             <label>Popular Box Layout</label>
@@ -537,7 +539,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Select where "Top products" box should be shown on general page views.</comment>
+                            <comment>Select where "Top products" boxes should be shown on general pages.</comment>
                             <depends><popular_box>1</popular_box></depends>
                         </popular_box_layout>
                         <popular_box_title translate="label">
@@ -547,7 +549,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>"Top products" box title on general page views.</comment>
+                            <comment>"Top products" box title on general pages.</comment>
                             <depends><popular_box>1</popular_box></depends>
                         </popular_box_title>
                         <popular_box_limit translate="label">
@@ -557,7 +559,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Number of items show in "Top products" box on general page views. This number must be between 1 and 10.</comment>
+                            <comment>The number of items shown in "Top products" boxes on general pages. This number must be between 1 and 10.</comment>
                             <validate>validate-number validate-number-range number-range-1-10</validate>
                             <depends><popular_box>1</popular_box></depends>
                         </popular_box_limit>
@@ -568,7 +570,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Columns count in "Top products" box on general page views. This number must be between 1 and 6. It has no effect if box is in sidebar.</comment>
+                            <comment>The number of columns in "Top products" boxes on general pages. This number must be between 1 and 6. This option has no effects if the box is in the sidebar.</comment>
                             <validate>validate-number validate-number-range number-range-1-6</validate>
                             <depends>
                                 <popular_box>1</popular_box>
@@ -601,7 +603,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Enable "You might also like" box on product page view.</comment>
+                            <comment>Enable "You might also like" boxes on product pages.</comment>
                         </similar_box>
                         <similar_box_layout translate="label">
                             <label>Similar Box Layout</label>
@@ -611,7 +613,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Select where "You might also like" box should be shown on product page view.</comment>
+                            <comment>Select where "You might also like" boxes should be shown on product pages.</comment>
                             <depends><similar_box>1</similar_box></depends>
                         </similar_box_layout>
                         <similar_box_title translate="label">
@@ -621,7 +623,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>"You might also like" box title on product page view.</comment>
+                            <comment>"You might also like" box title on product pages.</comment>
                             <depends><similar_box>1</similar_box></depends>
                         </similar_box_title>
                         <similar_box_limit translate="label">
@@ -631,7 +633,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Number of items show in "You might also like" box on product page view. This number must be between 1 and 10.</comment>
+                            <comment>The number of items shown in "You might also like" boxes on product pages. This number must be between 1 and 10.
+                            </comment>
                             <validate>validate-number validate-number-range number-range-1-10</validate>
                             <depends><similar_box>1</similar_box></depends>
                         </similar_box_limit>
@@ -642,7 +645,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Columns count in "You might also like" box on product page view. This number must be between 1 and 6. It has no effect if box is in sidebar.</comment>
+                            <comment>The number of columns in "You might also like" boxes on product pages. This number must be between 1 and 6. This option has no effects if the box is in the sidebar.</comment>
                             <validate>validate-number validate-number-range number-range-1-6</validate>
                             <depends>
                                 <similar_box>1</similar_box>
@@ -665,7 +668,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Enable "Recommended for you" box on product page view.</comment>
+                            <comment>Enable "Recommended for you" boxes on product pages.</comment>
                         </personal_box>
                         <personal_box_layout translate="label">
                             <label>Personal Box Layout</label>
@@ -675,7 +678,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Select where "Recommended for you" box should be shown on product page view.</comment>
+                            <comment>Select where "Recommended for you" boxes should be shown on product pages.</comment>
                             <depends><personal_box>1</personal_box></depends>
                         </personal_box_layout>
                         <personal_box_title translate="label">
@@ -685,7 +688,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>"Recommended for you" box title on product page view.</comment>
+                            <comment>"Recommended for you" box title on product pages.</comment>
                             <depends><personal_box>1</personal_box></depends>
                         </personal_box_title>
                         <personal_box_limit translate="label">
@@ -695,7 +698,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Number of items show in "Recommended for you" box on product page view. This number must be between 1 and 10.</comment>
+                            <comment>The number of items shown in "Recommended for you" boxes on product pages. This number must be between 1 and 10.
+                            </comment>
                             <validate>validate-number validate-number-range number-range-1-10</validate>
                             <depends><personal_box>1</personal_box></depends>
                         </personal_box_limit>
@@ -706,7 +710,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Columns count in "Recommended for you" box on product page view. This number must be between 1 and 6. It has no effect if box is in sidebar.</comment>
+                            <comment>The number of columns in "Recommended for you" boxes on product pages. This number must be between 1 and 6. This option has no effects if the box is in the sidebar.</comment>
                             <validate>validate-number validate-number-range number-range-1-6</validate>
                             <depends>
                                 <personal_box>1</personal_box>
@@ -729,7 +733,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Enable "You might also need" box on product page view.</comment>
+                            <comment>Enable "You might also need" boxes on product pages.</comment>
                         </accessories_box>
                         <accessories_box_layout translate="label">
                             <label>Accessories Box Layout</label>
@@ -739,7 +743,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Select where "You might also need" box should be shown on product page view.</comment>
+                            <comment>Select where "You might also need" boxes should be shown on product pages.</comment>
                             <depends><accessories_box>1</accessories_box></depends>
                         </accessories_box_layout>
                         <accessories_box_title translate="label">
@@ -749,7 +753,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>"You might also need" box title on product page view.</comment>
+                            <comment>"You might also need" box title on product pages.</comment>
                             <depends><accessories_box>1</accessories_box></depends>
                         </accessories_box_title>
                         <accessories_box_limit translate="label">
@@ -759,7 +763,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Number of items show in "You might also need" box on product page view. This number must be between 1 and 10.</comment>
+                            <comment>The number of items shown in "You might also need" boxes on product pages. This number must be between 1 and 10.</comment>
                             <validate>validate-number validate-number-range number-range-1-10</validate>
                             <depends><accessories_box>1</accessories_box></depends>
                         </accessories_box_limit>
@@ -770,7 +774,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Columns count in "You might also need" box on product page view. This number must be between 1 and 6. It has no effect if box is in sidebar.</comment>
+                            <comment>The number of columns in "You might also need" boxes on product pages. This number must be between 1 and 6. This option has no effects if the box is in the sidebar.</comment>
                             <validate>validate-number validate-number-range number-range-1-6</validate>
                             <depends>
                                 <accessories_box>1</accessories_box>
@@ -803,7 +807,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Enable "Recommended for you" box on category page view.</comment>
+                            <comment>Enable "Recommended for you" boxes on category pages.</comment>
                         </personal_box>
                         <personal_box_layout translate="label">
                             <label>Personal Box Layout</label>
@@ -813,7 +817,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Select where "Recommended for you" box should be shown on category page view.</comment>
+                            <comment>Select where "Recommended for you" boxes should be shown on category pages.</comment>
                             <depends><personal_box>1</personal_box></depends>
                         </personal_box_layout>
                         <personal_box_title translate="label">
@@ -823,7 +827,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>"Recommended for you" box title on category page view.</comment>
+                            <comment>"Recommended for you" box title on category pages.</comment>
                             <depends><personal_box>1</personal_box></depends>
                         </personal_box_title>
                         <personal_box_limit translate="label">
@@ -833,7 +837,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Number of items show in "Recommended for you" box on category page view. This number must be between 1 and 10.</comment>
+                            <comment>The number of items shown in "Recommended for you" boxes on category pages. This number must be between 1 and 10.</comment>
                             <validate>validate-number validate-number-range number-range-1-10</validate>
                             <depends><personal_box>1</personal_box></depends>
                         </personal_box_limit>
@@ -844,7 +848,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Columns count in "Recommended for you" box on category page view. This number must be between 1 and 6. It has no effect if box is in sidebar.</comment>
+                            <comment>The number of columns in "Recommended for you" boxes on category pages. This number must be between 1 and 6. This option has no effects if the box is in the sidebar.</comment>
                             <validate>validate-number validate-number-range number-range-1-6</validate>
                             <depends>
                                 <personal_box>1</personal_box>
@@ -867,7 +871,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Enable "Top products" box on category page view.</comment>
+                            <comment>Enable "Top products" boxes on category pages.</comment>
                         </top_box>
                         <top_box_layout translate="label">
                             <label>Top Box Layout</label>
@@ -877,7 +881,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Select where "Top products" box should be shown on category page view.</comment>
+                            <comment>Select where "Top products" boxes should be shown on category pages.</comment>
                             <depends><top_box>1</top_box></depends>
                         </top_box_layout>
                         <top_box_title translate="label">
@@ -887,7 +891,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>"Top products" box title on category page view.</comment>
+                            <comment>"Top products" box title on category pages.</comment>
                             <depends><top_box>1</top_box></depends>
                         </top_box_title>
                         <top_box_limit translate="label">
@@ -897,7 +901,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Number of items show in "Top products" box on category page view. This number must be between 1 and 10.</comment>
+                            <comment>The number of items shown in "Top products" boxes on category pages. This number must be between 1 and 10.</comment>
                             <validate>validate-number validate-number-range number-range-1-10</validate>
                             <depends><top_box>1</top_box></depends>
                         </top_box_limit>
@@ -908,7 +912,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Columns count in "Top products" box on category page view. This number must be between 1 and 6. It has no effect if box is in sidebar.</comment>
+                            <comment>The number of columns in "Top products" boxes on category pages. This number must be between 1 and 6. This option has no effects if the box is in the sidebar.</comment>
                             <validate>validate-number validate-number-range number-range-1-6</validate>
                             <depends>
                                 <top_box>1</top_box>
@@ -917,7 +921,7 @@
                         </top_box_columns>
                     </fields>
                 </category_display>
-                <search_display translate="label">
+           <!--     <search_display translate="label">
                     <label>Search Result Page Display</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>70</sort_order>
@@ -941,7 +945,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Enable "Recommended for you" box on search result page view.</comment>
+                            <comment>Enable "Recommended for you" boxes on search result pages.</comment>
                         </search_box>
                         <search_box_layout translate="label">
                             <label>Recommendation Box Layout</label>
@@ -951,7 +955,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Select where "Recommended for you" box should be shown on search result page view.</comment>
+                            <comment>Select where "Recommended for you" boxes should be shown on search result pages.</comment>
                             <depends><search_box>1</search_box></depends>
                         </search_box_layout>
                         <search_box_title translate="label">
@@ -961,7 +965,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>"Recommended for you" box title on search result page view.</comment>
+                            <comment>"Recommended for you" box title on search result pages.</comment>
                             <depends><search_box>1</search_box></depends>
                         </search_box_title>
                         <search_box_limit translate="label">
@@ -971,7 +975,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Number of items show in "Recommended for you" box on search result page view. This number must be between 1 and 10.</comment>
+                            <comment>The number of items shown in "Recommended for you" boxes on search result pages. This number must be between 1 and 10.</comment>
                             <validate>validate-number validate-number-range number-range-1-10</validate>
                             <depends><search_box>1</search_box></depends>
                         </search_box_limit>
@@ -982,7 +986,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Columns count in "Recommended for you" box on search result page view. This number must be between 1 and 6. It has no effect if box is in sidebar.</comment>
+                            <comment>The number of columns in "Recommended for you" boxes on search result pages. This number must be between 1 and 6. This option has no effects if the box is in the sidebar.
+                            </comment>
                             <validate>validate-number validate-number-range number-range-1-6</validate>
                             <depends>
                                 <search_box>1</search_box>
@@ -990,7 +995,7 @@
                             </depends>
                         </search_box_columns>
                     </fields>
-                </search_display>
+                </search_display>-->
                 <cart_display translate="label">
                     <label>Cart Page Display</label>
                     <frontend_type>text</frontend_type>
@@ -1015,7 +1020,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Enable "Others also bought" box on cart page view.</comment>
+                            <comment>Enable "Others also bought" boxes on cart pages.</comment>
                         </cart_box>
                         <cart_box_layout translate="label">
                             <label>Cart Box Layout</label>
@@ -1025,7 +1030,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Select where "Others also bought" box should be shown on cart page view.</comment>
+                            <comment>Select where "Others also bought" boxes should be shown on cart pages.</comment>
                             <depends><cart_box>1</cart_box></depends>
                         </cart_box_layout>
                         <cart_box_title translate="label">
@@ -1035,7 +1040,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>"Others also bought" box title on cart page view.</comment>
+                            <comment>"Others also bought" box title on cart pages.</comment>
                             <depends><cart_box>1</cart_box></depends>
                         </cart_box_title>
                         <cart_box_limit translate="label">
@@ -1045,7 +1050,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Number of items show in "Others also bought" box on cart page view. This number must be between 1 and 10.</comment>
+                            <comment>The number of items shown in "Others also bought" boxes on cart pages. This number must be between 1 and 10.</comment>
                             <validate>validate-number validate-number-range number-range-1-10</validate>
                             <depends><cart_box>1</cart_box></depends>
                         </cart_box_limit>
@@ -1056,7 +1061,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Columns count in "Others also bought" box on cart page view. This number must be between 1 and 6. It has no effect if box is in sidebar.</comment>
+                            <comment>The number of columns in "Others also bought" boxes on cart pages. This number must be between 1 and 6. This option has no effects if the box is in the sidebar.</comment>
                             <validate>validate-number validate-number-range number-range-1-6</validate>
                             <depends>
                                 <cart_box>1</cart_box>
@@ -1073,42 +1078,146 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
+						<!--<additional translate="label">
+                            <label>Additional Attributes</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>me_gravity/system_config_source_catalog_attributes</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Select additional attributes for catalog export.</comment>
+                        </additional>-->
+						<resynch translate="label">
+                            <label>Synchronization</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>me_gravity/adminhtml_system_config_form_synch</frontend_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Every user and product item will be exported or updated in your database.</comment>
+                        </resynch>
+						<only_salable translate="label">
+                            <label>Only In-stock</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>If switched to YES, only products with quantities exceeding zero will be exported. If your store doesn't use stock management, also choose YES.</comment>
+                        </only_salable>
                         <customer_update translate="label">
-                            <label>Enable Gravity Customer Update</label>
+                            <label>Enable Yusp Customer Update</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>If customer is saved in backend it will be updated in Gravity.</comment>
+                            <comment>If a customer is saved on the backend, it will be updated in the Yusp system.</comment>
                         </customer_update>
                         <product_update translate="label">
-                            <label>Enable Gravity Product Update</label>
+                            <label>Enable Yusp Product Update</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>If product is saved in backend it will be updated in Gravity.</comment>
+                            <comment>If a product is saved on the backend, it will be updated in the Yusp system.</comment>
                         </product_update>
                         <customer_registration translate="label">
-                            <label>Enable Gravity Customer Registration</label>
+                            <label>Enable Yusp Customer Registration</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>If customer is registered on frontend it will be added in Gravity.</comment>
+                            <comment>If a customer registers on your site, it will be added to your Yusp database.</comment>
                         </customer_registration>
                     </fields>
                 </sync>
-                <debug translate="label">
-                    <label>Debug</label>
+				<advanced translate="label">
+                    <label>Advanced</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+					<fields>
+						<enabled_js translate="label">
+                            <label>Enable Custom Yusp Javascript</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Please select YES if you want to edit or customize the Yusp extension's main javascript.</comment>
+                        </enabled_js>
+                        <custom_js translate="label">
+                            <label>Custom Yusp Javascript</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<strong> Important!</strong> Here you can edit the main Yusp javascript. <strong>You have to replace</strong> the two occurrences of the "magento" string in your custom javascript with your Yusp API username above!]]></comment>
+                            <depends>
+                                <enabled_js>1</enabled_js>
+                            </depends>
+                        </custom_js>
+					<!--	<template translate="label">
+                            <label>Use Yusp Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>General display setting. If switched to YES, all boxes will use a Yusp template.</comment>
+                        </template>-->
+						<bulk translate="label">
+                            <label>Enable Bulk Recommendation</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>General recommendation setting. If switched to YES, bulk recommendation will be enabled.</comment>
+                        </bulk>
+					</fields>
+					<fields>
+                        <log translate="label">
+                            <label>Enable Debug</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Enable debug. In this case all transactions will be logged in /var/gravity.log.</comment>
+                        </log>
+                        <version translate="label">
+                            <label>Extension Version</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>me_gravity/adminhtml_system_config_form_version</frontend_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </version>
+                    </fields>
+                </advanced>
+
+                <!--<debug translate="label">
+                    <label>Debug</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>110</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>0</show_in_store>
@@ -1133,7 +1242,7 @@
                             <show_in_store>0</show_in_store>
                         </version>
                     </fields>
-                </debug>
+                </debug>-->
             </groups>
         </gravity>
     </sections>

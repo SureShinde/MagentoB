@@ -37,6 +37,7 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
         $vars['custbody_bln_customtranshippingcost'] = $magentoOrder->getShippingAmount();
         $vars['custbody_magento_order_id'] = $magentoOrder->getIncrementId();
         $vars['custbody_bln_customtransubtotal'] = $magentoOrder->getSubtotal();
+        $vars['custbody_is_order_wholesale'] = $magentoOrder->getIsWholesale();
 
         $paymentMethodNetsuiteId = Mage::helper('rocketweb_netsuite')->getNetsuitePaymentMethodInternalId($magentoOrder->getPayment());
         if(!is_null($paymentMethodNetsuiteId)) {
@@ -331,7 +332,8 @@ class RocketWeb_Netsuite_Helper_Mapper_Order extends RocketWeb_Netsuite_Helper_M
                 'custcol_parentid' => $set_parent_item_id,
                 'custcol_parentname' => $set_parent_name,
                 'custcol_bln_customtran_taxcode' => $itemTaxCode,
-                'custcol_bln_customtran_unitprice' => $final_unit_price
+                'custcol_bln_customtran_unitprice' => $final_unit_price,
+                'custcol_is_item_wholesale' => $item->getIsWholesale()
             );
 
             $line_no++;
