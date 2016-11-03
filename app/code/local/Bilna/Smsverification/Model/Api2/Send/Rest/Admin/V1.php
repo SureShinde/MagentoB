@@ -9,6 +9,7 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
     protected function _create(array $data) {
         $customerId = $this->getRequest()->getParam('customer_id') ? $this->getRequest()->getParam('customer_id') : '';
         $msisdn = $data['msisdn'];
+        $msisdn = substr($msisdn,0,1) == "0" ? "62".substr($msisdn,1) : $msisdn;
         $otp = $this->OTPGenerator();
 
         $url = Mage::getStoreConfig('bilna/smsverification/url_api');
@@ -19,8 +20,8 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
         $umID = Mage::getStoreConfig('bilna/smsverification/umid');
         $body = Mage::getStoreConfig('bilna/smsverification/template');
 
-        $ScheduledDateTime = str_replace(" ","T",Mage::getModel('core/date')->date('Y-m-d H:i:s'));
-        $ScheduledDateTime = str_replace(":", "%3A", $ScheduledDateTime);
+        //$ScheduledDateTime = str_replace(" ","T",Mage::getModel('core/date')->date('Y-m-d H:i:s'));
+        //$ScheduledDateTime = str_replace(":", "%3A", $ScheduledDateTime);
         $ScheduledDateTime="";
         $body = str_replace("[OTP]", $otp, $body);
         $url = $url."?AccountId=".$accountID."&SubAccountId=".$subAccountID."&Password=".$password."&Destination=".$msisdn."&Source=".$source."&Body=".urlencode($body)."&Encoding=ASCII&ScheduledDateTime=".$ScheduledDateTime."&UMID=".$umID;
