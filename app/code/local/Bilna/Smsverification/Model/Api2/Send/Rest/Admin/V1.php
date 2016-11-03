@@ -17,11 +17,14 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
         $password = Mage::getStoreConfig('bilna/smsverification/password');
         $source = Mage::getStoreConfig('bilna/smsverification/source');
         $umID = Mage::getStoreConfig('bilna/smsverification/umid');
+        $body = Mage::getStoreConfig('bilna/smsverification/template');
 
         $ScheduledDateTime = str_replace(" ","T",Mage::getModel('core/date')->date('Y-m-d H:i:s'));
         $ScheduledDateTime = str_replace(":", "%3A", $ScheduledDateTime);
-        $url = $url."?AccountId=".$accountID."&SubAccountId=".$subAccountID."&Password=".$password."&Destination=".$msisdn."&Source=".$source."&Body=".urlencode($otp)."&Encoding=ASCII&ScheduledDateTime=".$ScheduledDateTime."&UMID=".$umID;
-        //print $url;exit;
+        $ScheduledDateTime="";
+        $body = str_replace("[OTP]", $otp, $body);
+        $url = $url."?AccountId=".$accountID."&SubAccountId=".$subAccountID."&Password=".$password."&Destination=".$msisdn."&Source=".$source."&Body=".urlencode($body)."&Encoding=ASCII&ScheduledDateTime=".$ScheduledDateTime."&UMID=".$umID;
+
         $curl = curl_init();
         curl_setopt_array($curl, array(
         CURLOPT_URL => $url,
@@ -38,13 +41,6 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
 
         curl_close($curl);
 
-        //exit;
-        /*
-        $curl = new Varien_Http_Adapter_Curl();
-        $curl->setConfig(array( 'timeout' => 15));
-        $curl->write(Zend_Http_Client::GET, $feed_url, '1.0');
-        $data = $curl->read();
-        */
         if ($err) {
             $this->_critical('Failed to Send OTP');
         }
