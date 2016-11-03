@@ -19,7 +19,6 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
         $source = Mage::getStoreConfig('bilna/smsverification/source');
         $umID = Mage::getStoreConfig('bilna/smsverification/umid');
         $body = Mage::getStoreConfig('bilna/smsverification/template');
-
         //$ScheduledDateTime = str_replace(" ","T",Mage::getModel('core/date')->date('Y-m-d H:i:s'));
         //$ScheduledDateTime = str_replace(":", "%3A", $ScheduledDateTime);
         $ScheduledDateTime="";
@@ -45,13 +44,23 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
         if ($err) {
             $this->_critical('Failed to Send OTP');
         }
-
+        /*
         $OTPModel = Mage::getModel('smsverification/otplist');
         $OTPModel->setData('msisdn',$msisdn);
         $OTPModel->setData('otp_code',$otp);
         $OTPModel->setData('created_at',Mage::getModel('core/date')->date('Y-m-d H:i:s'));
-        $OTPModel->save();
+        $OTPModel->setData('customer_id',"adad");
 
+        $OTPModel->save();
+        */
+        $write = Mage::getSingleton("core/resource")->getConnection("core_write");
+        $query = "INSERT INTO otp_list SET msisdn=:msisdn,otp_code=:otp,created_at=NOW(),customer_id=:customer_id";
+        $binds = array(
+            'msisdn'    => $msisdn,
+            'otp'   => $otp,
+            'customer_id' => $customerId
+        );
+        $OTPModel = $write->query($query, $binds);
         return $OTPModel;
     }
 
