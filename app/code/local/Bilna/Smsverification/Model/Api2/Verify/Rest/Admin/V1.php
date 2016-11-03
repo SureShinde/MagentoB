@@ -12,8 +12,13 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
         $OTPData = $OTPModel
             ->getCollection()
             ->addFilter('msisdn',array('equal' => $data['msisdn']))
-            ->addFilter('otp_code',array('equal' => $data['otp_code']));
+            ->addFilter('otp_code',array('equal' => $data['otp_code']))
+            ->addFilter('customer_id',array('equal' => $data['customer_id']));
         if(count($OTPData) > 0) {
+            $customer = Mage::getModel('customer/customer')->load($data['customer_id']);
+            $customer->setMobileNumber($data['msisdn']);
+            $customer->setVerifiedDate(Mage::getModel('core/date')->date('Y-m-d H:i:s'));
+            $customer->save();
             return $OTPData->getFirstItem()->delete();
         } else {
             $this->_critical('Invalid OTP Code');
