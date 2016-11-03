@@ -17,7 +17,7 @@
                         <retrieve>1</retrieve>
                     </customer>
                 </privileges>
-                <attributes translate="message" module="Bilna_Smsverification">
+                <attributes translate="msisdn" module="Bilna_Smsverification">
                     <msisdn>MSISDN</msisdn>
                 </attributes>
                 <routes>
