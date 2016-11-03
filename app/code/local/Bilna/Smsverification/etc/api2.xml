@@ -22,7 +22,7 @@
                 </attributes>
                 <routes>
                     <route_collection>
-                        <route>/verifiysend/:customer_id</route>
+                        <route>/verifysend/:customer_id</route>
                         <action_type>collection</action_type>
                     </route_collection>
                 </routes>
