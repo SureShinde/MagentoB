@@ -15,6 +15,15 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
             ->addFilter('otp_code',array('equal' => $data['otp_code']))
             ->addFilter('customer_id',array('equal' => $data['customer_id']));
         if(count($OTPData) > 0) {
+            $OTP = $OTPData->getFirstItem()->getData();
+            $createdAt = strtotime($OTPDetail['created_at']);
+            $currentTime = strtotime(date('Y-m-d H:i:s'));
+            $timeOut = $body = Mage::getStoreConfig('bilna/smsverification/timeout');
+            if (($currentTime - $createdAt) > ($timeOut * 60)) {
+                $OTPData->getFirstItem()->delete();
+                $this->_critical('Expired OTP Code');
+            }
+
             $otherCustomer = Mage::getModel('customer/customer')->getCollection()
                             ->addAttributeToFilter('mobile_number',array('eq' => $data['msisdn']))
                             ->addAttributeToFilter('entity_id',array('neq' => $data['customer_id']))
@@ -27,7 +36,6 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
                     $customer->save();
                 }
             }
-
             $customer = Mage::getModel('customer/customer')->load($data['customer_id']);
             $customer->setMobileNumber($data['msisdn']);
             $customer->setVerifiedDate(Mage::getModel('core/date')->date('Y-m-d H:i:s'));
