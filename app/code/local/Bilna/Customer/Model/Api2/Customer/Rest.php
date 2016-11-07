@@ -284,11 +284,6 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         return $username;
     }
 
-    protected function _getVerificationData($customerId = null) {
-        $customer = $this->_loadCustomerById($customerId);
-        return array('mobile_number' => $customer->getData('mobile_number'), 'verified_date' => $customer->getData('verified_date'));
-    }
-
     public function createTemporaryProfile($customerId = null)
     {
 
