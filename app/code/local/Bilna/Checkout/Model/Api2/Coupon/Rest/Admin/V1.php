@@ -65,7 +65,6 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
     {
         $quote = $this->_getQuote($quoteId, $store);
 
-
         $method = $quote->getCheckoutMethod(true);
         if ($method == 'customer') {
             $customerData = Mage::getModel('customer/customer')->load($quote->getCustomerId());
