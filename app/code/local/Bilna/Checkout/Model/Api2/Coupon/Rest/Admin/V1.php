@@ -65,6 +65,16 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
     {
         $quote = $this->_getQuote($quoteId, $store);
 
+
+        $method = $quote->getCheckoutMethod(true);
+        if ($method == 'customer') {
+            $customerData = Mage::getModel('customer/customer')->load($quote->getCustomerId());
+            if(($customerData->getMobileNumber() != "") && ($customerData->getVerifiedDate()) != "") {
+                throw Mage::throwException("Please Verify Your Mobile Number!");
+            }
+        }
+
+
         if (!$quote->getItemsCount()) {
             throw Mage::throwException('Quote is Empty');
         }
@@ -98,7 +108,7 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
         $quote = $this->__getCollection($quoteId);
 
         $quoteDataRaw = $quote->getData();
-        
+
         if(empty($quoteDataRaw)){
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
@@ -113,7 +123,7 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
         if ($items) {
             $quoteData['quote_items'] = $items[$quoteData['entity_id']];
         }
-        
+
         return $quoteData;
     }
 }
