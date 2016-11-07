@@ -68,7 +68,7 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
         $method = $quote->getCheckoutMethod(true);
         if ($method == 'customer') {
             $customerData = Mage::getModel('customer/customer')->load($quote->getCustomerId());
-            if(($customerData->getMobileNumber() == "") && ($customerData->getVerifiedDate()) == "") {
+            if(($customerData->getMobileNumber() == "") || ($customerData->getVerifiedDate()) == "") {
                 throw Mage::throwException("Please Verify Your Mobile Number!");
             }
         }
