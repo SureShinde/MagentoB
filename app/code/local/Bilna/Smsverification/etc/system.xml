@@ -74,7 +74,7 @@
                             <show_in_store>1</show_in_store>
                         </umid>
                         <timeout translate="label">
-                            <label>Timeout</label>
+                            <label>OTP Timeout</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
@@ -82,11 +82,20 @@
                             <show_in_store>1</show_in_store>
                             <comment>In Minutes</comment>
                         </timeout>
+                        <duration translate="label">
+                            <label>Unverified Duration</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>In Minutes (For new registered users)</comment>
+                        </duration>
 
                         <template translate="label">
                             <label>SMS template</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>6</sort_order>
+                            <sort_order>7</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
