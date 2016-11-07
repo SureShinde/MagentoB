@@ -8,6 +8,11 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
 {
     protected function _create(array $data) {
         $customerId = $data['customer_id'];
+        $customer = Mage::getModel('customer/customer')->load($customerId);
+        if(!$customer->getId()) {
+            $this->_critical("Customer Does Not Exists");
+        }
+
         $msisdn = $data['msisdn'];
         $msisdn = substr($msisdn,0,1) == "0" ? "62".substr($msisdn,1) : $msisdn;
         $otp = $this->OTPGenerator();
