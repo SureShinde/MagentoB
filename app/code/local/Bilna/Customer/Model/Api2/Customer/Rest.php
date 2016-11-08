@@ -88,7 +88,9 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
          */
         $customer = $this->_loadCustomerById($this->getRequest()
             ->getParam('id'));
-        return $customer->getData();
+        $customerData = $customer->getData();
+        $customerData['verified_status'] = trim($customerData['verified_date']) == "" ? 0 : 1;
+        return $customerData;
     }
 
     /**
