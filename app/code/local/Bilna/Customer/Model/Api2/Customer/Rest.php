@@ -127,11 +127,10 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
 
         if($data["password"]) $extra["password_hash"] = $this->_getHelper('core')->getHash($data["password"], Mage_Admin_Model_User::HASH_SALT_LENGTH);
 
-        if(trim($customer->getData('mobile_number')) != "") {
-            if(trim($customer->getData('verified_date')) != "") {
-                $data['mobile_number'] = $customer->getData('mobile_number'); //always set to current until verified when the current mobile_number is not empty
-            }
+        if(trim($customer->getData('verified_date')) != "") {
+            $data['mobile_number'] = $customer->getData('mobile_number'); //always set to current until verified when the current mobile_number is not empty
         }
+
 
         $data = $validator->filter($data);
         if($extra){
