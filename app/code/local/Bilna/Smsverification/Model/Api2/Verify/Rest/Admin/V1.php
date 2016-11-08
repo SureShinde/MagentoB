@@ -31,7 +31,6 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
             if(count($otherCustomer) > 0) {
                 foreach($otherCustomer as $idx => $val) {
                     $customer = Mage::getModel('customer/customer')->load($val['entity_id']);
-                    $customer->setMobileNumber(NULL);
                     $customer->setVerifiedDate(NULL);
                     $customer->save();
                 }
