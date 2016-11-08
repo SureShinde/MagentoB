@@ -35,6 +35,10 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
                     $customer->save();
                 }
             }
+
+            if(substr($data['msisdn'],0,2) == "62") {
+                $data['msisdn'] = "0".substr($data['msisdn'],2);
+            }
             $customer = Mage::getModel('customer/customer')->load($data['customer_id']);
             $customer->setMobileNumber($data['msisdn']);
             $customer->setVerifiedDate(Mage::getModel('core/date')->date('Y-m-d H:i:s'));
