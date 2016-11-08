@@ -115,7 +115,6 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         /**
          * @var $customer Mage_Customer_Model_Customer
          */
-        Mage::log("Deni : ".json_encode($data));
         $customer = $this->_loadCustomerById($this->getRequest()
             ->getParam('id'));
         /**
