@@ -16,9 +16,9 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
             ->addFilter('customer_id',array('equal' => $data['customer_id']));
         if(count($OTPData) > 0) {
             $OTP = $OTPData->getFirstItem()->getData();
-            $createdAt = strtotime($OTPDetail['created_at']);
+            $createdAt = strtotime($OTP['created_at']);
             $currentTime = strtotime(date('Y-m-d H:i:s'));
-            $timeOut = $body = Mage::getStoreConfig('bilna/smsverification/timeout');
+            $timeOut = Mage::getStoreConfig('bilna/smsverification/timeout');
             if (($currentTime - $createdAt) > ($timeOut * 60)) {
                 $OTPData->getFirstItem()->delete();
                 $this->_critical('Expired OTP Code');
