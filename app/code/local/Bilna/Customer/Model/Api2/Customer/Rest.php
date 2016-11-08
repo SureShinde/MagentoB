@@ -23,7 +23,6 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         if(isset($data["newsletter"]) && $data["newsletter"]==1) $extra["is_subscribed"] = true;
 
         $username = $data['username'];
-        $data['mobile_number'] = ''; //always set to empty when register until verified
         $data = $validator->filter($data);
         $data = array_merge($data, $extra);
         unset($extra);
@@ -116,6 +115,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         /**
          * @var $customer Mage_Customer_Model_Customer
          */
+        Mage::log("Deni : ".json_encode($data));
         $customer = $this->_loadCustomerById($this->getRequest()
             ->getParam('id'));
         /**
@@ -127,7 +127,11 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
 
         if($data["password"]) $extra["password_hash"] = $this->_getHelper('core')->getHash($data["password"], Mage_Admin_Model_User::HASH_SALT_LENGTH);
 
-        $data['mobile_number'] = $customer->getData('mobile_number'); //always set to current until verified
+        if(trim($customer->getData('mobile_number')) != "") {
+            if(trim($customer->getData('verified_date')) != "") {
+                $data['mobile_number'] = $customer->getData('mobile_number'); //always set to current until verified when the current mobile_number is not empty
+            }
+        }
 
         $data = $validator->filter($data);
         if($extra){
