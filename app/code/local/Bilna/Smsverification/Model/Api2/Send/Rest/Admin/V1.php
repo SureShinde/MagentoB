@@ -13,6 +13,42 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
             $this->_critical("Customer Does Not Exists");
         }
 
+        $minChangeMobileNumber = Mage::getStoreConfig('bilna/smsverification/mindays');
+        $data['msisdn'] = substr($data['msisdn'],0,1) == "0" ? "62".substr($data['msisdn'],1) : $data['msisdn'];
+        $OTPModel = Mage::getModel('smsverification/otplist');
+        if($customer->getMobileNumber() != ""){
+            $OTPData = $OTPModel
+                ->getCollection()
+                ->setOrder('created_at','DESC')
+                ->addFilter('customer_id',array('equal' => $customerId))
+                ->addFilter('type',array('equal' => 1));
+            if(count($OTPData) > 0) {
+                $OTPDetail = $OTPData->getFirstItem()->getData();
+                $lastUsed = strtotime($OTPDetail['created_at']);
+                $current = strtotime(date('Y-m-d H:i:s'));
+                $timeDiff = ($current - $lastUsed) / (60*60*24);
+                if($timeDiff < $minChangeMobileNumber) {
+                    $this->_critical('You can not update your Mobile Number for now');
+                }
+            }
+        }
+        $OTPData = $OTPModel
+            ->getCollection()
+            ->setOrder('created_at','DESC')
+            ->addFilter('msisdn',array('equal' => $data['msisdn']))
+            ->addFilter('type',array('equal' => 1));
+
+        if(count($OTPData) > 0) {
+            $OTPDetail = $OTPData->getFirstItem()->getData();
+            $lastUsed = strtotime($OTPDetail['created_at']);
+            $current = strtotime(date('Y-m-d H:i:s'));
+            $timeDiff = ($current - $lastUsed) / (60*60*24);
+            if($timeDiff < $minChangeMobileNumber) {
+                $this->_critical('This Number is already used before');
+            }
+        }
+
+
         $msisdn = $data['msisdn'];
         $msisdn = substr($msisdn,0,1) == "0" ? "62".substr($msisdn,1) : $msisdn;
         $otp = $this->OTPGenerator();
