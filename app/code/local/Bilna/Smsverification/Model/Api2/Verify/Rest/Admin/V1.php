@@ -7,11 +7,11 @@
 class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsverification_Model_Api2_Verify_Rest
 {
     protected function _create(array $data) {
-        //$data['msisdn'] = substr($data['msisdn'],0,1) == "0" ? "62".substr($data['msisdn'],1) : $data['msisdn'];
+        $msisdn = substr($data['msisdn'],0,1) == "0" ? "62".substr($data['msisdn'],1) : $data['msisdn'];
         $OTPModel = Mage::getModel('smsverification/otplist');
         $OTPData = $OTPModel
             ->getCollection()
-            ->addFilter('msisdn',array('equal' => $data['msisdn']))
+            ->addFilter('msisdn',array('equal' => $msisdn))
             ->addFilter('otp_code',array('equal' => $data['otp_code']))
             ->addFilter('type',array('equal' => 0))
             ->addFilter('customer_id',array('equal' => $data['customer_id']));
