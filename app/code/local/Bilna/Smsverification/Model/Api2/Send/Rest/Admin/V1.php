@@ -91,7 +91,7 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
     }
 
     protected function OTPGenerator() {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $characters = '0123456789';
         $length = 6;
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {
