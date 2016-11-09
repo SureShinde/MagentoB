@@ -35,6 +35,7 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
             $data = $OTPData->getFirstItem();
             $data->setType(1);
             $data->save();
+            return $data;
         } else {
             $this->_critical('Invalid OTP Code');
         }
