@@ -39,6 +39,9 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
             if (!preg_match ('/^[0-9]+$/', $data['mobile_number'])) {
                 $this->_critical("Invalid Mobile Number");
             }
+            if ((strlen($data['mobile_number']) < Mage::getStoreConfig('bilna/smsverification/min_msisdn')) || (strlen($data['mobile_number']) > Mage::getStoreConfig('bilna/smsverification/max_msisdn'))) {
+                $this->_critical("Invalid Mobile Number Length");
+            }
         }
 
         /**
@@ -144,6 +147,9 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
             $data['mobile_number'] = str_replace(array("+","-",".","(",")"," "), "", $data['mobile_number']);
             if (!preg_match ('/^[0-9]+$/', $data['mobile_number'])) {
                 $this->_critical("Invalid Mobile Number");
+            }
+            if ((strlen($data['mobile_number']) < Mage::getStoreConfig('bilna/smsverification/min_msisdn')) || (strlen($data['mobile_number']) > Mage::getStoreConfig('bilna/smsverification/max_msisdn'))) {
+                $this->_critical("Invalid Mobile Number Length");
             }
         }
 

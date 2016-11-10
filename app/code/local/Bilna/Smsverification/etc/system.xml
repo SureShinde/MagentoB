@@ -140,6 +140,24 @@
                             <show_in_store>1</show_in_store>
                             <comment>In Minutes</comment>
                         </time_limit>
+
+                        <min_msisdn translate="label">
+                            <label>Min Mobile Number Length</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </min_msisdn>
+
+                        <max_msisdn translate="label">
+                            <label>Max Mobile Number Length</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_msisdn>
                     </fields>
                 </smsverification>
             </groups>
