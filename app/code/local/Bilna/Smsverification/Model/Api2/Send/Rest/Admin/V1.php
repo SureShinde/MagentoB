@@ -27,7 +27,7 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
             ->addFieldToFilter('created_at',array('gteq' => $startFrom));
 
         if($maxOTP <= count($OTPData)) {
-            $this->_critical("You have reach max OTP Request. Please Wait Max ".$timeChecking." Minutes to be able to request OTP again");
+            $this->_critical("You have reach max OTP Request. Please Try Again later");
         }
 
 
