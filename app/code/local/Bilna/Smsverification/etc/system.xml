@@ -111,6 +111,35 @@
                             <show_in_store>1</show_in_store>
                             <comment>In Days</comment>
                         </mindays>
+
+                        <voucher_check translate="label">
+                            <label>Check verified status before using voucher</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </voucher_check>
+
+                        <max_otp translate="label">
+                            <label>Max unverified OTP each customer for certain times</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_otp>
+
+                        <time_limit translate="label">
+                            <label>Max Times to count OTP each customer</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>In Minutes</comment>
+                        </time_limit>
                     </fields>
                 </smsverification>
             </groups>

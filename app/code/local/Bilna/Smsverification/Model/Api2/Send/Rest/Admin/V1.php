@@ -13,11 +13,28 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
             $this->_critical("Customer Does Not Exists");
         }
 
+        $OTPModel = Mage::getModel('smsverification/otplist');
+
+        $maxOTP = Mage::getStoreConfig('bilna/smsverification/max_otp');
+        $timeChecking = Mage::getStoreConfig('bilna/smsverification/time_limit');
+        $startFrom = date('Y-m-d H:i:s', mktime(date('H'),intval(date('i')) - $timeChecking,date('s'),date('m'),date('d'),date('Y')));
+
+        $OTPData = $OTPModel
+            ->getCollection()
+            ->setOrder('created_at','DESC')
+            ->addFilter('customer_id',array('equal' => $customerId))
+            ->addFilter('type',array('equal' => 0))
+            ->addFieldToFilter('created_at',array('gteq' => $startFrom));
+
+        if($maxOTP <= count($OTPData)) {
+            $this->_critical("You have reach max OTP Request. Please Wait Max ".$timeChecking." Minutes to be able to request OTP again");
+        }
+
+
         $minChangeMobileNumber = Mage::getStoreConfig('bilna/smsverification/mindays');
 
         $msisdn = substr($data['msisdn'],0,1) == "0" ? "62".substr($data['msisdn'],1) : $data['msisdn'];
 
-        $OTPModel = Mage::getModel('smsverification/otplist');
         $OTPData = $OTPModel
             ->getCollection()
             ->setOrder('created_at','DESC')
@@ -30,7 +47,7 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
             $current = strtotime(date('Y-m-d H:i:s'));
             $timeDiff = ($current - $lastUsed) / (60*60*24);
             if($timeDiff < $minChangeMobileNumber) {
-                $this->_critical('This Number is already used before');
+                //$this->_critical('This Number is already used before');
             }
         }
 
