@@ -73,7 +73,6 @@ class Bilna_Checkout_Model_Api2_Shipping_Method_Rest_Admin_V1 extends Bilna_Chec
         }
         if ($items) {
             $quoteData['quote_items'] = $items[$quoteData['entity_id']];
-            $this->_markWholesaleItems($quoteId, $quoteData['quote_items']);
         }
 
         $quoteData = Mage::helper('bilna_expressshipping')->updateParentQuoteExpressShipping($quoteData);
@@ -100,50 +99,6 @@ class Bilna_Checkout_Model_Api2_Shipping_Method_Rest_Admin_V1 extends Bilna_Chec
         } catch (Mage_Core_Exception $e) {
             $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         }
-    }
-
-    protected function _markWholesaleItems($quoteId, $quoteItems)
-    {
-        $groupedQtys = array();
-        $itemIds = array();
-        foreach ($quoteItems as $quoteItem) {
-            $groupedQtys[$quoteItem['product_id']] += $quoteItem['qty'];
-            if (!$itemIds[$quoteItem['product_id']]) {
-                $itemIds[$quoteItem['product_id']] = [];
-            }
-            $itemIds[$quoteItem['product_id']][] = $quoteItem['item_id'];
-        }
-
-        $stockItems = Mage::getModel('cataloginventory/stock_item')
-            ->getCollection()
-            ->addFieldToFilter('product_id', array('in' => array_keys($itemIds)))
-            ->addFieldToFilter('max_wholesale_qty', array('neq' => 0));
-
-        foreach ($stockItems as $stockItem) {
-            $productId = $stockItem->getProductId();
-            if ($stockItem->isWholesaleQty($groupedQtys[$productId])) {
-                foreach ($itemIds[$productId] as $itemId) {
-                    $quoteItemData = $this->_setWholesaleFlag($itemId);
-
-                    if ($quoteItemData->getParentItemId()) {
-                        $this->_setWholesaleFlag($quoteItemData->getParentItemId());
-                    }
-
-                    $quoteModel = Mage::getModel('sales/quote')->load($quoteId)->setIsWholesale(1)->save();
-                }
-            }
-        }
-    }
-
-    protected function _setWholesaleFlag($quoteItemId)
-    {
-        $quoteItemData = Mage::getModel('sales/quote_item')->load($quoteItemId);
-        $quoteItemData->setIsWholesale(1);
-        $product = Mage::getModel('catalog/product')->setStoreId($quoteItemData->getStoreId())->load($quoteItemData->getProductId());
-        $quoteItemData->setProduct($product);
-        $quoteItemData->save();
-
-        return $quoteItemData;
     }
 
     /**

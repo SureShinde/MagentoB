@@ -201,9 +201,9 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      * @param   decimal $qty
      * @return  Mage_CatalogInventory_Model_Stock_Item
      */
-    public function subtractQty($qty)
+    public function subtractQty($qty, $forceSubtract = false)
     {
-        if ($this->canSubtractQty()) {
+        if ($this->canSubtractQty($qty, $forceSubtract)) {
             $this->setQty($this->getQty()-$qty);
         }
         return $this;
@@ -214,8 +214,12 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      *
      * @return bool
      */
-    public function canSubtractQty($qty = null)
+    public function canSubtractQty($qty = null, $forceSubtract = false)
     {
+        if ($forceSubtract) {
+            return $this->getManageStock() && Mage::getStoreConfigFlag(self::XML_PATH_CAN_SUBTRACT);
+        }
+
         return $this->getManageStock() && Mage::getStoreConfigFlag(self::XML_PATH_CAN_SUBTRACT) && !$this->isWholesaleQty($qty);
     }
 

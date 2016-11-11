@@ -106,7 +106,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
      *
      * @param array $items
      */
-    protected function _prepareProductQtys($items)
+    protected function _prepareProductQtys($items, $forceSubtract = false)
     {
         $qtys = array();
         foreach ($items as $productId => $item) {
@@ -115,7 +115,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
             } else {
                 $stockItem = $item['item'];
             }
-            $canSubtractQty = $stockItem->getId() && $stockItem->canSubtractQty($item['qty']);
+            $canSubtractQty = $stockItem->getId() && $stockItem->canSubtractQty($item['qty'], $forceSubtract);
             if ($canSubtractQty && Mage::helper('catalogInventory')->isQty($stockItem->getTypeId())) {
                 $qtys[$productId] = $item['qty'];
             }
@@ -130,9 +130,9 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
      * @param array $items
      * @return array
      */
-    public function registerProductsSale($items)
+    public function registerProductsSale($items, $forceSubtract = false)
     {
-        $qtys = $this->_prepareProductQtys($items);
+        $qtys = $this->_prepareProductQtys($items, $forceSubtract);
         $item = Mage::getModel('cataloginventory/stock_item');
         $this->_getResource()->beginTransaction();
         $stockInfo = $this->_getResource()->getProductsStock($this, array_keys($qtys), true);
@@ -143,7 +143,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
                 $this->_getResource()->commit();
                 Mage::throwException(Mage::helper('cataloginventory')->__('Not all products are available in the requested quantity'));
             }
-            $item->subtractQty($qtys[$item->getProductId()]);
+            $item->subtractQty($qtys[$item->getProductId()], $forceSubtract);
             if (!$item->verifyStock() || $item->verifyNotification()) {
                 $fullSaveItems[] = clone $item;
             }
