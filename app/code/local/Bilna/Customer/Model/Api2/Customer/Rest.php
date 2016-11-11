@@ -81,7 +81,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
     {
         if(trim($mobileNumber) != ""){
             $mobileNumber = str_replace(array("+","-",".","(",")"," "), "", $mobileNumber);
-            if (!preg_match ('/^[0-9]+$/', $mobileNumber)) {
+            if (!preg_match ('/^[0-9]*$/', $mobileNumber)) {
                 $this->_critical("Invalid Mobile Number");
             }
             if ((strlen($mobileNumber) < Mage::getStoreConfig('bilna/smsverification/min_msisdn')) || (strlen($mobileNumber) > Mage::getStoreConfig('bilna/smsverification/max_msisdn'))) {
