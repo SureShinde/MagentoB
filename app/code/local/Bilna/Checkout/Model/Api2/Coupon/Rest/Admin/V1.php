@@ -64,23 +64,23 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
     protected function _applyCoupon($quoteId, $couponCode, $store = null)
     {
         $quote = $this->_getQuote($quoteId, $store);
+        if($couponCode != '') {
+            $isEnabledVerification = Mage::getStoreConfig('bilna/smsverification/voucher_check');
+            if ($isEnabledVerification) {
+                $method = $quote->getCheckoutMethod(true);
+                if ($method == 'customer') {
+                    $customerData = Mage::getModel('customer/customer')->load($quote->getCustomerId());
+                    if(($customerData->getMobileNumber() == "") || ($customerData->getVerifiedDate()) == "") {
+                        $newCustomerDuration = (int) Mage::getStoreConfig('bilna/smsverification/duration');
+                        $interval  = abs((strtotime(date('Y-m-d H:i:s'))) - strtotime($customerData->getCreatedAt())) / 60;
 
-        $isEnabledVerification = Mage::getStoreConfig('bilna/smsverification/voucher_check');
-        if ($isEnabledVerification) {
-            $method = $quote->getCheckoutMethod(true);
-            if ($method == 'customer') {
-                $customerData = Mage::getModel('customer/customer')->load($quote->getCustomerId());
-                if(($customerData->getMobileNumber() == "") || ($customerData->getVerifiedDate()) == "") {
-                    $newCustomerDuration = (int) Mage::getStoreConfig('bilna/smsverification/duration');
-                    $interval  = abs((strtotime(date('Y-m-d H:i:s'))) - strtotime($customerData->getCreatedAt())) / 60;
-
-                    if ($interval > $newCustomerDuration) {
-                        throw Mage::throwException("Please Verify Your Mobile Number!");
+                        if ($interval > $newCustomerDuration) {
+                            throw Mage::throwException("Please Verify Your Mobile Number!");
+                        }
                     }
                 }
             }
         }
-
 
         if (!$quote->getItemsCount()) {
             throw Mage::throwException('Quote is Empty');
