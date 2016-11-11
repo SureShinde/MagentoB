@@ -34,7 +34,11 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
 
-        $this->validateMobileNumber($data['mobile_number']);
+        try{
+            Mage::Helper('smsverification')->validateMobileNumber($data['mobile_number']);
+        } catch (Exception $e) {
+            $this->_critical($e->getMessage());
+        }
 
         /**
          * @var $customer Mage_Customer_Model_Customer
@@ -75,19 +79,6 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         }
 
         return $this->_getLocation($customer);
-    }
-
-    protected function validateMobileNumber($mobileNumber)
-    {
-        if(trim($mobileNumber) != ""){
-            $mobileNumber = str_replace(array("+","-",".","(",")"," "), "", $mobileNumber);
-            if (!preg_match ('/^[0-9]*$/', $mobileNumber)) {
-                $this->_critical("Invalid Mobile Number");
-            }
-            if ((strlen($mobileNumber) < Mage::getStoreConfig('bilna/smsverification/min_msisdn')) || (strlen($mobileNumber) > Mage::getStoreConfig('bilna/smsverification/max_msisdn'))) {
-                $this->_critical("Invalid Mobile Number");
-            }
-        }
     }
 
     /**
@@ -148,7 +139,11 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
 
         if($data["password"]) $extra["password_hash"] = $this->_getHelper('core')->getHash($data["password"], Mage_Admin_Model_User::HASH_SALT_LENGTH);
 
-        $this->validateMobileNumber($data['mobile_number']);
+        try{
+            Mage::Helper('smsverification')->validateMobileNumber($data['mobile_number']);
+        } catch (Exception $e) {
+            $this->_critical($e->getMessage());
+        }
 
         if(trim($customer->getData('verified_date')) != "") {
             $data['mobile_number'] = $customer->getData('mobile_number'); //always set to current until verified when the current mobile_number is not empty

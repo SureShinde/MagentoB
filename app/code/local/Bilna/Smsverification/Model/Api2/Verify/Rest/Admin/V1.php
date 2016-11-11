@@ -7,8 +7,11 @@
 class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsverification_Model_Api2_Verify_Rest
 {
     protected function _create(array $data) {
-        $msisdn = str_replace(array("+","-",".","(",")"," "), "", $data['msisdn']);
-        $msisdn = substr($msisdn,0,1) == "0" ? "62".substr($msisdn,1) : $msisdn;
+        try{
+            $msisdn = Mage::Helper('smsverification')->validateMobileNumber($data['msisdn']);
+        } catch (Exception $e) {
+            $this->_critical($e->getMessage());
+        }
         $OTPModel = Mage::getModel('smsverification/otplist');
         $OTPData = $OTPModel
             ->getCollection()
