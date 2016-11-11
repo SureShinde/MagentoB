@@ -279,11 +279,11 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
      * additional paramters:
      * ?product_id=62978
      */
-    public function deleteWishlistCollectionItem($wlid, $proid)
+    public function deleteWishlistCollectionItem($userid, $wlid, $proid)
     {
         try {
             $w = Mage::getSingleton('core/resource')->getConnection('core_write');
-            $result = $w->query('DELETE FROM wishlist_item WHERE wishlist_id ='.$wlid.' and product_id ='.$proid);
+            $result = $w->query('DELETE FROM wishlist_item WHERE product_id ='.$proid.' and wishlist_id IN (select wishlist_id from wishlist where customer_id='.$userid.' and wishlist_id='.$wlid.')');
 
             return $result;
 
