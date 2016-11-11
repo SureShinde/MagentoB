@@ -3,10 +3,7 @@ class Bilna_Smsverification_Helper_Data extends Mage_Core_Helper_Abstract {
     public function validateMobileNumber($mobileNumber) {
         if(trim($mobileNumber) != ""){
             $mobileNumber = str_replace(array("+","-",".","(",")"," "), "", $mobileNumber);
-            if (!preg_match ('/^[0-9]*$/', $mobileNumber)) {
-                throw Mage::throwException("Invalid Mobile Number");
-            }
-            if ((strlen($mobileNumber) < Mage::getStoreConfig('bilna/smsverification/min_msisdn')) || (strlen($mobileNumber) > Mage::getStoreConfig('bilna/smsverification/max_msisdn'))) {
+            if (!preg_match ('/^[0-9]{'.Mage::getStoreConfig('bilna/smsverification/min_msisdn').','.Mage::getStoreConfig('bilna/smsverification/max_msisdn').'}$/', $mobileNumber)) {
                 throw Mage::throwException("Invalid Mobile Number");
             }
         }
