@@ -32,15 +32,7 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
             $this->_critical('You Have reached max OTP Retry');
         }
 
-        //Delete old otp failed data of customer
         $write = Mage::getSingleton("core/resource")->getConnection("core_write");
-        $query = "DELETE FROM otp_failed WHERE customer_id=:customer_id AND created_at<:created_at";
-        $binds = array(
-            'customer_id' => $customerId,
-            'created_at' => $startDate
-        );
-        $write->query($query, $binds);
-
 
         $OTPModel = Mage::getModel('smsverification/otplist');
         $OTPData = $OTPModel
@@ -86,6 +78,14 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
             $write->query($query, $binds);
             return $data;
         } else {
+            //Delete old otp failed data of customer
+            $query = "DELETE FROM otp_failed WHERE customer_id=:customer_id AND created_at<:created_at";
+            $binds = array(
+                'customer_id' => $customerId,
+                'created_at' => $startDate
+            );
+            $write->query($query, $binds);
+
             $query = "INSERT INTO otp_failed SET customer_id=:customer_id,otp_code=:otp,created_at=NOW()";
             $binds = array(
                 'otp'   => $data['otp_code'],
