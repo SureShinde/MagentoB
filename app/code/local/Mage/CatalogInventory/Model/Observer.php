@@ -638,12 +638,8 @@ class Mage_CatalogInventory_Model_Observer
 
         /**
          * Remember items
-         * @param array $items
-         * @param bool $forceSubtract - to force subtract item qty from stock
-         *     regardless of the qty, because we've excluded wholesale item(s)
-         *     from $items
          */
-        $this->_itemsForReindex = Mage::getSingleton('cataloginventory/stock')->registerProductsSale($items, true);
+        $this->_itemsForReindex = Mage::getSingleton('cataloginventory/stock')->registerProductsSale($items);
 
         $quote->setInventoryProcessed(true);
         return $this;
