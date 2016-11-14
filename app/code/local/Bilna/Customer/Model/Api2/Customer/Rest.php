@@ -99,7 +99,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         $customerData['bypass_unverified_until'] = NULL;
         if(trim($customerData['verified_date']) == "") {
             $customerData['verified_status'] = 0;
-            $customerData['bypass_unverified_until'] = date('Y-m-d H:i:s',strtotime("+".Mage::getStoreConfig('bilna/smsverification/mindays')." days",strtotime($customerData['created_at'])));
+            $customerData['bypass_unverified_until'] = date('Y-m-d H:i:s',strtotime("+".Mage::getStoreConfig('bilna/smsverification/duration')." days",strtotime($customerData['created_at'])));
         }
         return $customerData;
     }
