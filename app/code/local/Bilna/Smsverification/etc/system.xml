@@ -158,6 +158,37 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </max_msisdn>
+
+                        <max_invalid translate="label">
+                            <label>Max Invalid OTP each customer for certain times</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_invalid>
+
+                        <invalid_time_limit translate="label">
+                            <label>Max Times to count Invalid OTP each customer</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>In Minutes</comment>
+                        </invalid_time_limit>
+
+                        <!--payment translate="label">
+                            <label>Apply On</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>smsverification/otplist</source_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </payment-->
+
+
                     </fields>
                 </smsverification>
             </groups>
