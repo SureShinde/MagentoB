@@ -7,16 +7,16 @@
 class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsverification_Model_Api2_Verify_Rest
 {
     protected function _create(array $data) {
-        $customerId = $data['customer_id'];
-        $customer = Mage::getModel('customer/customer')->load($customerId);
-        if(!$customer->getId()) {
-            $this->_critical("Customer Does Not Exists");
-        }
-
         try{
             $msisdn = Mage::Helper('smsverification')->validateMobileNumber($data['msisdn']);
         } catch (Exception $e) {
             $this->_critical($e->getMessage());
+        }
+
+        $customerId = $data['customer_id'];
+        $customer = Mage::getModel('customer/customer')->load($customerId);
+        if(!$customer->getId()) {
+            $this->_critical("Customer Does Not Exists");
         }
 
         //otp valid retry limit check
@@ -24,7 +24,7 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
         $maxInvalidCount = Mage::getStoreConfig('bilna/smsverification/max_invalid');
         $OTPHistory = Mage::getModel('smsverification/otpfailed');
 
-        $startDate = date('Y-m-d H:i:s',strtotime("-".Mage::getStoreConfig('bilna/smsverification/invalid_time_limit')." minutes",strtotime(Mage::getModel('core/date')->date('Y-m-d H:i:s'))));
+        $startDate = date('Y-m-d H:i:s',strtotime("-".$maxInvalidTime." minutes",strtotime(Mage::getModel('core/date')->date('Y-m-d H:i:s'))));
         $failedData = $OTPHistory->getCollection()
             ->addFieldToFilter('customer_id',array('equal' => $data['customer_id']))
             ->addFieldToFilter('created_at',array('gteq' => $startDate));
@@ -63,7 +63,6 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
                 }
             }
 
-            $customer = Mage::getModel('customer/customer')->load($data['customer_id']);
             $customer->setMobileNumber($data['msisdn']);
             $customer->setVerifiedDate(Mage::getModel('core/date')->date('Y-m-d H:i:s'));
             $customer->save();
@@ -78,20 +77,14 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
             $write->query($query, $binds);
             return $data;
         } else {
-            //Delete old otp failed data of customer
-            $query = "DELETE FROM otp_failed WHERE customer_id=:customer_id AND created_at<:created_at";
+            //Delete old otp failed data of customer and insert new otp failed data
+            $query = "DELETE FROM otp_failed WHERE customer_id=:customer_id AND created_at<:created_at; INSERT INTO otp_failed SET customer_id=:customer_id,otp_code=:otp,created_at=NOW()";
             $binds = array(
                 'customer_id' => $customerId,
-                'created_at' => $startDate
+                'created_at' => $startDate,
+                'otp'   => $data['otp_code']
             );
             $write->query($query, $binds);
-
-            $query = "INSERT INTO otp_failed SET customer_id=:customer_id,otp_code=:otp,created_at=NOW()";
-            $binds = array(
-                'otp'   => $data['otp_code'],
-                'customer_id' => $customerId
-            );
-            $OTPModel = $write->query($query, $binds);
             $this->_critical('Invalid OTP Code');
         }
 
