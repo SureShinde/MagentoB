@@ -65,14 +65,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </source>
-                        <umid translate="label">
-                            <label>UMID</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>5</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </umid>
                         <timeout translate="label">
                             <label>OTP Timeout</label>
                             <frontend_type>text</frontend_type>
@@ -93,7 +85,7 @@
                         </duration>
 
                         <template translate="label">
-                            <label>SMS template</label>
+                            <label>SMS OTP template</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>7</sort_order>
                             <show_in_default>1</show_in_default>
@@ -102,10 +94,20 @@
                             <comment>"[OTP]" will be replaced automatically</comment>
                         </template>
 
+                        <template_trans translate="label">
+                            <label>SMS Transaction template</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>"[TRX]" will be replaced automatically</comment>
+                        </template_trans>
+
                         <mindays translate="label">
                             <label>Days to able change or re-use mobile number</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>7</sort_order>
+                            <sort_order>9</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -115,7 +117,7 @@
                         <voucher_check translate="label">
                             <label>Check verified status before using voucher</label>
                             <frontend_type>select</frontend_type>
-                            <sort_order>8</sort_order>
+                            <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -125,7 +127,7 @@
                         <max_otp translate="label">
                             <label>Max unverified OTP each customer for certain times</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>9</sort_order>
+                            <sort_order>11</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -134,7 +136,7 @@
                         <time_limit translate="label">
                             <label>Max Times to count OTP each customer</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>10</sort_order>
+                            <sort_order>12</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -144,7 +146,7 @@
                         <min_msisdn translate="label">
                             <label>Min Mobile Number Length</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>11</sort_order>
+                            <sort_order>13</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -153,7 +155,7 @@
                         <max_msisdn translate="label">
                             <label>Max Mobile Number Length</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>12</sort_order>
+                            <sort_order>14</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -162,7 +164,7 @@
                         <max_invalid translate="label">
                             <label>Max Invalid OTP each customer for certain times</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>13</sort_order>
+                            <sort_order>15</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -171,7 +173,7 @@
                         <invalid_time_limit translate="label">
                             <label>Max Times to count Invalid OTP each customer</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>14</sort_order>
+                            <sort_order>16</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -182,7 +184,7 @@
                             <label>Apply On</label>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>smsverification/otplist</source_model>
-                            <sort_order>13</sort_order>
+                            <sort_order>16</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
