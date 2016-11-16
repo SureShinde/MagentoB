@@ -108,7 +108,7 @@ class Bilna_Cod_Helper_Data extends Mage_Core_Helper_Abstract {
 
     public function isCodOrder($order) {
         $paymentMethod = $order->getPayment()->getMethodInstance()->getTitle();
-        if($paymentMethod == Mage::getStoreConfig('payment/cod/title')) {
+        if ($paymentMethod == Mage::getStoreConfig('payment/cod/title')) {
             return true;
         }
         return false;

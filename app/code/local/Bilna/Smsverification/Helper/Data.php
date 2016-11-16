@@ -12,14 +12,14 @@ class Bilna_Smsverification_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
     public function sendSMS($msisdn,$body) {
-        $urlAPI = Mage::getStoreConfig('bilna/smsverification/url_api');
-        $accountID = Mage::getStoreConfig('bilna/smsverification/account_id');
-        $subAccountID = Mage::getStoreConfig('bilna/smsverification/sub_account_id');
+        $urlApi = Mage::getStoreConfig('bilna/smsverification/url_api');
+        $accountId = Mage::getStoreConfig('bilna/smsverification/account_id');
+        $subAccountId = Mage::getStoreConfig('bilna/smsverification/sub_account_id');
         $password = Mage::getStoreConfig('bilna/smsverification/password');
         $source = Mage::getStoreConfig('bilna/smsverification/source');
-        $umID = Mage::getStoreConfig('bilna/smsverification/umid');
+        $umId = Mage::getStoreConfig('bilna/smsverification/umid');
         $ScheduledDateTime="";
-        $url = $urlAPI."?AccountId=".$accountID."&SubAccountId=".$subAccountID."&Password=".$password."&Destination=".$msisdn."&Source=".$source."&Body=".urlencode($body)."&Encoding=ASCII&ScheduledDateTime=".$ScheduledDateTime."&UMID=".$umID;
+        $url = $urlApi."?AccountId=".$accountId."&SubAccountId=".$subAccountId."&Password=".$password."&Destination=".$msisdn."&Source=".$source."&Body=".urlencode($body)."&Encoding=ASCII&ScheduledDateTime=".$ScheduledDateTime."&UMID=".$umId;
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -38,12 +38,12 @@ class Bilna_Smsverification_Helper_Data extends Mage_Core_Helper_Abstract {
         curl_close($curl);
 
         if ($err) {
-            Mage::log("Send SMS error: ".json_encode($err));
+            Mage::log("Send SMS error: ".$err);
             Mage::throwException("Failed to Send SMS");
         }
         $drData = simplexml_load_string($response);
-        $drID = str_replace("RECEIVED:","",$drData[0]);
-        return $drID;
+        $drId = str_replace("RECEIVED:","",$drData[0]);
+        return $drId;
     }
 
 }
