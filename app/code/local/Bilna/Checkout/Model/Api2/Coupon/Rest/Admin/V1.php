@@ -75,7 +75,7 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
                         $interval  = abs((strtotime(date('Y-m-d H:i:s'))) - strtotime($customerData->getCreatedAt())) / 60;
 
                         if ($interval > $newCustomerDuration) {
-                            throw Mage::throwException("Please Verify Your Mobile Number!");
+                            Mage::throwException("Please Verify Your Mobile Number!");
                         }
                     }
                 }
