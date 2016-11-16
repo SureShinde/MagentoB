@@ -46,4 +46,22 @@ class Bilna_Smsverification_Helper_Data extends Mage_Core_Helper_Abstract {
         return $code;
     }
 
+    public function isAbleApplyCoupon($quote) {
+        $isEnabledVerification = Mage::getStoreConfig('bilna/smsverification/voucher_check');
+        if ($isEnabledVerification) {
+            $method = $quote->getCheckoutMethod(true);
+            if ($method == 'customer') {
+                $customerData = Mage::getModel('customer/customer')->load($quote->getCustomerId());
+                if(($customerData->getMobileNumber() == "") || ($customerData->getVerifiedDate()) == "") {
+                    $newCustomerDuration = (int) Mage::getStoreConfig('bilna/smsverification/duration');
+                    $interval  = abs((strtotime(date('Y-m-d H:i:s'))) - strtotime($customerData->getCreatedAt())) / 60;
+
+                    if ($interval > $newCustomerDuration) {
+                        Mage::throwException("Please Verify Your Mobile Number!");
+                    }
+                }
+            }
+        }
+    }
+
 }
