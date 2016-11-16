@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Bilna_Smsverification>
-            <version>1.0.3</version>
+            <version>1.0.4</version>
         </Bilna_Smsverification>
     </modules>
     <global>
@@ -20,6 +20,9 @@
                     <otpfailed>
                         <table>otp_failed</table>
                     </otpfailed>
+                    <smsdr>
+                        <table>sms_dr</table>
+                    </smsdr>
                 </entities>
             </smsverification_mysql4>
         </models>
