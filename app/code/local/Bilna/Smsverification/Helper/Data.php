@@ -41,9 +41,9 @@ class Bilna_Smsverification_Helper_Data extends Mage_Core_Helper_Abstract {
             Mage::log("Send SMS error: ".$err);
             Mage::throwException("Failed to Send SMS");
         }
-        $drData = simplexml_load_string($response);
-        $drId = str_replace("RECEIVED:","",$drData[0]);
-        return $drId;
+        $responseArray = simplexml_load_string($response);
+        $code = str_replace("RECEIVED:","",$responseArray[0]);
+        return $code;
     }
 
 }
