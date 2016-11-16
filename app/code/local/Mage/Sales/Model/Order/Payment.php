@@ -334,6 +334,10 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             if($methodInstance->getConfigData('title') != Mage::getStoreConfig('payment/cod/title')) {
                 $orderStatus = $methodInstance->getConfigData('order_status');
             }
+            $isEnabledVerification = Mage::getStoreConfig('bilna/smsverification/voucher_check');
+            if (!$isEnabledVerification) {
+                $orderStatus = $methodInstance->getConfigData('order_status');
+            }
 
 
             if (!$orderStatus) {
