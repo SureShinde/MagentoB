@@ -12,14 +12,14 @@ class Bilna_Smsverification_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
     public function sendSMS($msisdn,$body) {
-        $url = Mage::getStoreConfig('bilna/smsverification/url_api');
+        $urlAPI = Mage::getStoreConfig('bilna/smsverification/url_api');
         $accountID = Mage::getStoreConfig('bilna/smsverification/account_id');
         $subAccountID = Mage::getStoreConfig('bilna/smsverification/sub_account_id');
         $password = Mage::getStoreConfig('bilna/smsverification/password');
         $source = Mage::getStoreConfig('bilna/smsverification/source');
         $umID = Mage::getStoreConfig('bilna/smsverification/umid');
         $ScheduledDateTime="";
-        $url = $url."?AccountId=".$accountID."&SubAccountId=".$subAccountID."&Password=".$password."&Destination=".$msisdn."&Source=".$source."&Body=".urlencode($body)."&Encoding=ASCII&ScheduledDateTime=".$ScheduledDateTime."&UMID=".$umID;
+        $url = $urlAPI."?AccountId=".$accountID."&SubAccountId=".$subAccountID."&Password=".$password."&Destination=".$msisdn."&Source=".$source."&Body=".urlencode($body)."&Encoding=ASCII&ScheduledDateTime=".$ScheduledDateTime."&UMID=".$umID;
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -38,10 +38,12 @@ class Bilna_Smsverification_Helper_Data extends Mage_Core_Helper_Abstract {
         curl_close($curl);
 
         if ($err) {
-            throw Mage::throwException("Failed to Send SMS");
+            Mage::log("Send SMS error: ".json_encode($err));
+            Mage::throwException("Failed to Send SMS");
         }
-
-        return $response;
+        $drData = simplexml_load_string($response);
+        $drID = str_replace("RECEIVED:","",$drData[0]);
+        return $drID;
     }
 
 }

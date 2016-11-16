@@ -37,7 +37,7 @@ class Bilna_Cod_Helper_Data extends Mage_Core_Helper_Abstract {
         	$cartItems = $quote->getAllItems();
 
         foreach($cartItems as $item) {
-            
+
             // ignore the parent ( configurable or bundle ), we only check the simple
             if ($item->getProductType() == 'configurable' || $item->getProductType() == 'bundle')
                 continue;
@@ -75,7 +75,7 @@ class Bilna_Cod_Helper_Data extends Mage_Core_Helper_Abstract {
                 $parents[$parentItemId]['cod'][] = $isCod;
             }
         }
-        
+
         return $quoteData;
     }
 
@@ -103,6 +103,14 @@ class Bilna_Cod_Helper_Data extends Mage_Core_Helper_Abstract {
             return true;
         }
 
+        return false;
+    }
+
+    public function isCodOrder($order) {
+        $paymentMethod = $order->getPayment()->getMethodInstance()->getTitle();
+        if($paymentMethod == Mage::getStoreConfig('payment/cod/title')) {
+            return true;
+        }
         return false;
     }
 }

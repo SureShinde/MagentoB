@@ -20,15 +20,15 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
         }
 
         //otp valid retry limit check
-        $maxInvalidTime = Mage::getStoreConfig('bilna/smsverification/invalid_time_limit');
-        $maxInvalidCount = Mage::getStoreConfig('bilna/smsverification/max_invalid');
-        $OTPHistory = Mage::getModel('smsverification/otpfailed');
+        $maxInvalidTime = (int)Mage::getStoreConfig('bilna/smsverification/invalid_time_limit');
+        $maxInvalidCount = (int)Mage::getStoreConfig('bilna/smsverification/max_invalid');
+        if($maxInvalidCount > 0 ) {
+            $OTPHistory = Mage::getModel('smsverification/otpfailed');
 
-        $startDate = date('Y-m-d H:i:s',strtotime("-".$maxInvalidTime." minutes",strtotime(Mage::getModel('core/date')->date('Y-m-d H:i:s'))));
-        $failedData = $OTPHistory->getCollection()
-            ->addFieldToFilter('customer_id',array('equal' => $data['customer_id']))
-            ->addFieldToFilter('created_at',array('gteq' => $startDate));
-        if(((int)$maxInvalidTime > 0) && ((int)$maxInvalidCount > 0)) {
+            $startDate = date('Y-m-d H:i:s',strtotime("-".$maxInvalidTime." minutes",strtotime(Mage::getModel('core/date')->date('Y-m-d H:i:s'))));
+            $failedData = $OTPHistory->getCollection()
+                ->addFieldToFilter('customer_id',array('equal' => $data['customer_id']))
+                ->addFieldToFilter('created_at',array('gteq' => $startDate));
             if(count($failedData) >= $maxInvalidCount) {
                 $this->_critical('You Have reached max OTP Retry');
             }

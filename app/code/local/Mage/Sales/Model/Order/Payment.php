@@ -331,7 +331,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $orderIsNotified = $stateObject->getIsNotified();
         } else {
             //COD status still pending until valdate
-            if($methodInstance->getConfigData('title') != Mage::getStoreConfig('payment/cod/title')) {
+            $isCod = Mage::Helper('cod')->isCodOrder($order);
+            if(!$isCod) {
                 $orderStatus = $methodInstance->getConfigData('order_status');
             }
             $isEnabledVerification = Mage::getStoreConfig('bilna/smsverification/voucher_check');
