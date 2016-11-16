@@ -20,9 +20,9 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
         }
 
         //otp valid retry limit check
-        $maxInvalidTime = (int)Mage::getStoreConfig('bilna/smsverification/invalid_time_limit');
         $maxInvalidCount = (int)Mage::getStoreConfig('bilna/smsverification/max_invalid');
         if($maxInvalidCount > 0 ) {
+            $maxInvalidTime = (int)Mage::getStoreConfig('bilna/smsverification/invalid_time_limit');
             $OTPHistory = Mage::getModel('smsverification/otpfailed');
 
             $startDate = date('Y-m-d H:i:s',strtotime("-".$maxInvalidTime." minutes",strtotime(Mage::getModel('core/date')->date('Y-m-d H:i:s'))));
