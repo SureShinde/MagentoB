@@ -28,7 +28,7 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
         $failedData = $OTPHistory->getCollection()
             ->addFieldToFilter('customer_id',array('equal' => $data['customer_id']))
             ->addFieldToFilter('created_at',array('gteq' => $startDate));
-        if((trim($maxInvalidTime) != "") && (trim($maxInvalidCount) != "")) {
+        if(((int)$maxInvalidTime > 0) && ((int)$maxInvalidCount > 0)) {
             if(count($failedData) >= $maxInvalidCount) {
                 $this->_critical('You Have reached max OTP Retry');
             }
