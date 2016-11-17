@@ -15,9 +15,13 @@ class Bilna_Smsverification_Model_Observer extends Mage_Core_Block_Abstract
         $body = str_replace("[TRX]", $order->getIncrementId(), $body);
 
         $smsHelper = Mage::Helper('smsverification');
-        $msisdn = $smsHelper->validateMobileNumber($order->getShippingAddress()->getTelephone());
-        $code = $smsHelper->sendSMS($msisdn,$body);
-        $data = array('code' => $code, 'order_id' => $order->getId(), 'msisdn' => $msisdn);
-        Mage::getModel('smsverification/smsdr')->setData($data)->save();
+        try{
+            $msisdn = $smsHelper->validateMobileNumber($order->getShippingAddress()->getTelephone());
+            $code = $smsHelper->sendSMS($msisdn,$body);
+            $data = array('code' => $code, 'order_id' => $order->getId(), 'msisdn' => $msisdn);
+            Mage::getModel('smsverification/smsdr')->setData($data)->save();
+        } catch (Exception $e) {
+            Mage::log("Failed to send SMS for COD, Order Number: ".$order->getIncrementId().", Reason: ".$e,Zend_Log::ERR);
+        }
     }
 }
