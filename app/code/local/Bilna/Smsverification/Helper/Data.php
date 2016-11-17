@@ -46,7 +46,7 @@ class Bilna_Smsverification_Helper_Data extends Mage_Core_Helper_Abstract {
         return $code;
     }
 
-    public function isAbleApplyCoupon($quote) {
+    public function validateCouponUsage($quote) {
         $isEnabledVerification = Mage::getStoreConfig('bilna/smsverification/voucher_check');
         if ($isEnabledVerification) {
             $method = $quote->getCheckoutMethod(true);

@@ -108,11 +108,14 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             $quote->collectTotals();
 
             //Coupon Code re-check
-            try{
-                Mage::Helper('smsverification')->isAbleApplyCoupon($quote);
-            } catch (Exception $e) {
-                Mage::throwException("Please Verify Your Mobile Number!");
+            if ($quote->getCouponCode() != "") {
+                try{
+                    Mage::Helper('smsverification')->validateCouponUsage($quote);
+                } catch (Exception $e) {
+                    $this->_critical("Please Verify Your Mobile Number!");
+                }
             }
+
             $couponCode = $quote->getCouponCode();
             $checkoutHelper = Mage::helper('bilna_checkout');
             try {
