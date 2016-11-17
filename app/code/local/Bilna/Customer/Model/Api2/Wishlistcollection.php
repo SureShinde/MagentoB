@@ -27,31 +27,34 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
     {
         $wishlist = Mage::getModel('wishlist/wishlist');
 
-        $cover = Mage::helper('socialcommerce')->processCover($data);
-
         //if customer try to update wishlist collection based on collection id param
         if (isset($data['collection_id'])) {
             $wishlist->setWishlistId($data['collection_id']);
         }
-        //bug fix when user not update cover, but cover change to null cover
-        if(!empty($data['image_url'])) {
-            $wishlist->setCover($cover);
-        }
 
-        $wishlist->setCustomerId($customerId)
-            ->setName($wishlistName)
-            ->setVisibility($visibility)
-            ->setDesc($desc)
-            ->generateSharingCode()
-            //->setCloudCover($cover)
-            //->setCover($cover)
-            ->save();
+        if (isset($data['collection_id']) && $this->isOwner($customerId, $data['collection_id'])) {
+            $cover = Mage::helper('socialcommerce')->processCover($data);
 
-        $preset_image = $this->getRequest()->getPost('preset_image');
+            //bug fix when user not update cover, but cover change to null cover
+            if(!empty($data['image_url'])) {
+                $wishlist->setCover($cover);
+            }
 
-        if ($preset_image) {
-            $wishlist->setCover($preset_image);
-            $wishlist->save();
+            $wishlist->setCustomerId($customerId)
+                ->setName($wishlistName)
+                ->setVisibility($visibility)
+                ->setDesc($desc)
+                ->generateSharingCode()
+                //->setCloudCover($cover)
+                //->setCover($cover)
+                ->save();
+
+            $preset_image = $this->getRequest()->getPost('preset_image');
+
+            if ($preset_image) {
+                $wishlist->setCover($preset_image);
+                $wishlist->save();
+            }
         }
 
         return $wishlist;
@@ -287,6 +290,23 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
 
             return $result;
 
+        } catch (Exception $e) {
+            $this->_critical($e->getMessage());
+        }
+
+        return FALSE;
+    }
+
+    public function isOwner($customerId, $wlid) 
+    {
+        try {
+            $connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+            $select = $connection->select();
+            $select->from("wishlist", 'COUNT(*)');
+            $select->where("customer_id=?",$customerId);
+            $select->where("wishlist_id=?",$wlid);
+            $result = (int)$connection->fetchOne($select);
+            return $result == 0 ? FALSE : TRUE;
         } catch (Exception $e) {
             $this->_critical($e->getMessage());
         }
