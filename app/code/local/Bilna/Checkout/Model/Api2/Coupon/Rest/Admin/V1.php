@@ -66,7 +66,7 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
         $quote = $this->_getQuote($quoteId, $store);
         if($couponCode != '') {
             try{
-                Mage::Helper('smsverification')->isAbleApplyCoupon($quote);
+                Mage::Helper('smsverification')->validateCouponUsage($quote);
             } catch (Exception $e) {
                 Mage::throwException("Please Verify Your Mobile Number!");
             }
