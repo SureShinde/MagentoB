@@ -108,7 +108,8 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             $quote->collectTotals();
 
             //Coupon Code re-check
-            if ($quote->getCouponCode() != "") {
+            $couponCode = $quote->getCouponCode();
+            if ($couponCode != "") {
                 try{
                     Mage::Helper('smsverification')->validateCouponUsage($quote);
                 } catch (Exception $e) {
@@ -116,10 +117,9 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 }
             }
 
-            $couponCode = $quote->getCouponCode();
             $checkoutHelper = Mage::helper('bilna_checkout');
             try {
-                $checkoutHelper->checkActiveCoupon($quote->getCouponCode(), $quoteId);
+                $checkoutHelper->checkActiveCoupon($couponCode, $quoteId);
             } catch (Exception $e) {
                 $this->_critical('Kupon yang anda gunakan sudah pernah terpakai.');
             }
