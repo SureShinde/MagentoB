@@ -27,6 +27,7 @@ class SMSStatusCheck {
             if($stop > 0) break;
 
             $data = $this->getData($page);
+            if(count($data) < 1) break;
             foreach($data as $idx => $val) {
                 if($idx < 2) {
                     if($oldCode == $val['code']) {
@@ -41,8 +42,11 @@ class SMSStatusCheck {
                 $tagOpen = strpos($fileContent,'<Status>') + 8;
                 $tagClosed = strpos($fileContent,'</Status>');
                 $status = substr($fileContent,$tagOpen,($tagClosed-$tagOpen));
-                if((strtoupper($status) == "DELIVERED TO CARRIER") || (strtoupper($status) == "DELIVERED TO DEVICE")) {
-                    Mage::getModel('sales/order')->load($val['order_id'])->setStatus(Mage::getStoreConfig('payment/cod/order_status'),true)->save();
+                if($fileContent != "") {
+                    if((strtoupper($status) == "DELIVERED TO CARRIER") || (strtoupper($status) == "DELIVERED TO DEVICE")) {
+                        Mage::getModel('sales/order')->load($val['order_id'])->setStatus(Mage::getStoreConfig('payment/cod/order_status'),true)->save();
+                    }
+                    $this->smsDrModel->load($val['sms_id'])->delete();
                 }
             }
             $page++;
