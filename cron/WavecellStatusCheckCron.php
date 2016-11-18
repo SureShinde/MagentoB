@@ -1,0 +1,56 @@
+<?php
+require_once realpath(dirname(__FILE__)).'/../app/Mage.php';
+
+class SMSStatusCheck {
+    const LIMIT = 1;
+    private $smsDrModel;
+    public function __construct()
+    {
+        Mage::app();
+        $this->smsDrModel = Mage::getModel('smsverification/smsdr');
+    }
+
+    private function getData($page) {
+        $smsDrData = $this->smsDrModel->getCollection()->setCurPage($page)->setPageSize(self::LIMIT)->getData();
+        return $smsDrData;
+    }
+
+    public function execute() {
+        $urlApi = Mage::getStoreConfig('bilna/smsverification/sms_dlr');
+        $accountId = Mage::getStoreConfig('bilna/smsverification/account_id');
+        $subAccountId = Mage::getStoreConfig('bilna/smsverification/sub_account_id');
+        $password = Mage::getStoreConfig('bilna/smsverification/password');
+        $page = 1;
+        $oldCode = "";
+        $stop = 0;
+        while(true) {
+            if($stop > 0) break;
+
+            $data = $this->getData($page);
+            foreach($data as $idx => $val) {
+                if($idx < 2) {
+                    if($oldCode == $val['code']) {
+                        $stop = 1;
+                        break;
+                    }
+                    $oldCode = $val['code'];
+                }
+
+                $url = $urlApi."?AccountId=".$accountId."&SubAccountId=".$subAccountId."&Password=".$password."&UMID=".$val['code'];
+                $fileContent = file_get_contents($url);
+                $tagOpen = strpos($fileContent,'<Status>') + 8;
+                $tagClosed = strpos($fileContent,'</Status>');
+                $status = substr($fileContent,$tagOpen,($tagClosed-$tagOpen));
+                if((strtoupper($status) == "DELIVERED TO CARRIER") || (strtoupper($status) == "DELIVERED TO DEVICE")) {
+                    Mage::getModel('sales/order')->load($val['order_id'])->setStatus(Mage::getStoreConfig('payment/cod/order_status'),true)->save();
+                }
+            }
+            $page++;
+        }
+    }
+
+}
+
+$cronObj = new SMSStatusCheck();
+$cronObj->execute();
+?>
