@@ -10,8 +10,12 @@ class SMSStatusCheck {
         $this->smsDrModel = Mage::getModel('smsverification/smsdr');
     }
 
-    private function getData($page) {
-        $smsDrData = $this->smsDrModel->getCollection()->setCurPage($page)->setPageSize(self::LIMIT)->getData();
+    private function getData($id) {
+        try{
+            $smsDrData = $this->smsDrModel->getCollection()->addFieldToFilter('sms_id',array('gt' => $id))->getData();
+        } catch (Exception $e) {
+            var_dump($e);
+        }
         return $smsDrData;
     }
 
@@ -21,22 +25,15 @@ class SMSStatusCheck {
         $subAccountId = Mage::getStoreConfig('bilna/smsverification/sub_account_id');
         $password = Mage::getStoreConfig('bilna/smsverification/password');
         $page = 1;
-        $oldCode = "";
+        $id = 0;
         $stop = 0;
         while(true) {
             if($stop > 0) break;
 
-            $data = $this->getData($page);
+            $data = $this->getData($id);
             if(count($data) < 1) break;
             foreach($data as $idx => $val) {
-                if($idx < 2) {
-                    if($oldCode == $val['code']) {
-                        $stop = 1;
-                        break;
-                    }
-                    $oldCode = $val['code'];
-                }
-
+                $id = $val['sms_id'];
                 $url = $urlApi."?AccountId=".$accountId."&SubAccountId=".$subAccountId."&Password=".$password."&UMID=".$val['code'];
                 $fileContent = file_get_contents($url);
                 $tagOpen = strpos($fileContent,'<Status>') + 8;
