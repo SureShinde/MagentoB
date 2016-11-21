@@ -30,32 +30,34 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
         //if customer try to update wishlist collection based on collection id param
         if (isset($data['collection_id'])) {
             $wishlist->setWishlistId($data['collection_id']);
-        }
-
-        if (isset($data['collection_id']) && $this->isOwner($customerId, $data['collection_id'])) {
-            $cover = Mage::helper('socialcommerce')->processCover($data);
-
-            //bug fix when user not update cover, but cover change to null cover
-            if(!empty($data['image_url'])) {
-                $wishlist->setCover($cover);
-            }
-
-            $wishlist->setCustomerId($customerId)
-                ->setName($wishlistName)
-                ->setVisibility($visibility)
-                ->setDesc($desc)
-                ->generateSharingCode()
-                //->setCloudCover($cover)
-                //->setCover($cover)
-                ->save();
-
-            $preset_image = $this->getRequest()->getPost('preset_image');
-
-            if ($preset_image) {
-                $wishlist->setCover($preset_image);
-                $wishlist->save();
+            if (!$this->isOwner($customerId, $data['collection_id'])) {
+                return $wishlist;
             }
         }
+    
+        $cover = Mage::helper('socialcommerce')->processCover($data);
+
+        //bug fix when user not update cover, but cover change to null cover
+        if(!empty($data['image_url'])) {
+            $wishlist->setCover($cover);
+        }
+
+        $wishlist->setCustomerId($customerId)
+            ->setName($wishlistName)
+            ->setVisibility($visibility)
+            ->setDesc($desc)
+            ->generateSharingCode()
+            //->setCloudCover($cover)
+            //->setCover($cover)
+            ->save();
+
+        $preset_image = $this->getRequest()->getPost('preset_image');
+
+        if ($preset_image) {
+            $wishlist->setCover($preset_image);
+            $wishlist->save();
+        }
+    
 
         return $wishlist;
     }
