@@ -2,7 +2,7 @@
 require_once realpath(dirname(__FILE__)).'/../app/Mage.php';
 
 class SMSStatusCheck {
-    const LIMIT = 1;
+    const LIMIT = 2;
     private $smsDrModel;
     public function __construct()
     {
@@ -12,7 +12,9 @@ class SMSStatusCheck {
 
     private function getData($id) {
         try{
-            $smsDrData = $this->smsDrModel->getCollection()->addFieldToFilter('sms_id',array('gt' => $id))->getData();
+            $smsDrData = $this->smsDrModel->getCollection()->addFieldToFilter('sms_id',array('gt' => $id));
+            $smsDrData->setPageSize(SELF::LIMIT);
+            $smsDrData->getData();
         } catch (Exception $e) {
             var_dump($e);
         }
