@@ -181,7 +181,7 @@
                         </invalid_time_limit>
 
                         <sms_dlr translate="label">
-                            <label>SMS DLR API URL</label>
+                            <label>SMS Delivery API URL</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>17</sort_order>
                             <show_in_default>1</show_in_default>

@@ -2,8 +2,9 @@
 require_once realpath(dirname(__FILE__)).'/../app/Mage.php';
 
 class SMSStatusCheck {
-    const LIMIT = 2;
+    const LIMIT = 100;
     private $smsDrModel;
+
     public function __construct()
     {
         Mage::app();
@@ -13,12 +14,13 @@ class SMSStatusCheck {
     private function getData($id) {
         try{
             $smsDrData = $this->smsDrModel->getCollection()->addFieldToFilter('sms_id',array('gt' => $id));
-            $smsDrData->setPageSize(SELF::LIMIT);
+            $smsDrData->setPageSize(self::LIMIT);
             $smsDrData->getData();
+            return $smsDrData;
         } catch (Exception $e) {
-            var_dump($e);
+            Mage::log("Send SMS error: ".$e,Zend_Log::ERR);
+            return array();
         }
-        return $smsDrData;
     }
 
     public function execute() {
@@ -26,12 +28,9 @@ class SMSStatusCheck {
         $accountId = Mage::getStoreConfig('bilna/smsverification/account_id');
         $subAccountId = Mage::getStoreConfig('bilna/smsverification/sub_account_id');
         $password = Mage::getStoreConfig('bilna/smsverification/password');
-        $page = 1;
-        $id = 0;
-        $stop = 0;
-        while(true) {
-            if($stop > 0) break;
 
+        $id = 0;
+        while(true) {
             $data = $this->getData($id);
             if(count($data) < 1) break;
             foreach($data as $idx => $val) {
@@ -39,14 +38,13 @@ class SMSStatusCheck {
                 $url = $urlApi."?AccountId=".$accountId."&SubAccountId=".$subAccountId."&Password=".$password."&UMID=".$val['code'];
                 $fileContent = simplexml_load_string(file_get_contents($url));
                 $status = isset($fileContent->Status) ? $fileContent->Status : '';
-                if($fileContent != "") {
+                if($status != "") {
                     if((strtoupper($status) == "DELIVERED TO CARRIER") || (strtoupper($status) == "DELIVERED TO DEVICE")) {
                         Mage::getModel('sales/order')->load($val['order_id'])->setStatus(Mage::getStoreConfig('payment/cod/order_status'),true)->save();
                     }
                     $this->smsDrModel->load($val['sms_id'])->delete();
                 }
             }
-            $page++;
         }
     }
 
