@@ -367,6 +367,8 @@ class Mage_CatalogInventory_Model_Observer
                 }
             }
 
+            $thisBundleIsWholesale = false;
+
             foreach ($options as $option) {
                 $optionValue = $option->getValue();
                 /* @var $option Mage_Sales_Model_Quote_Item_Option */
@@ -402,6 +404,7 @@ class Mage_CatalogInventory_Model_Observer
                 );
 
                 $result = $stockItem->checkQuoteItemQty($optionQty, $qtyForCheck, $optionValue);
+                $thisBundleIsWholesale |= $stockItem->isWholesaleQty($optionQty);
 
                 if (!is_null($result->getItemIsQtyDecimal())) {
                     $option->setIsQtyDecimal($result->getItemIsQtyDecimal());
@@ -446,6 +449,13 @@ class Mage_CatalogInventory_Model_Observer
 
                 $stockItem->unsIsChildItem();
             }
+
+            $quoteItem->setIsWholesale(0);
+            if ($thisBundleIsWholesale) {
+                $quoteItem->setIsWholesale(1);
+                $quoteItem->getQuote()->setIsWholesale(1);
+            }
+
         } else {
             /* @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
             if (!$stockItem instanceof Mage_CatalogInventory_Model_Stock_Item) {
@@ -485,6 +495,12 @@ class Mage_CatalogInventory_Model_Observer
             }
 
             $result = $stockItem->checkQuoteItemQty($rowQty, $qtyForCheck, $qty);
+
+            $quoteItem->setIsWholesale(0);
+            if ($stockItem->isWholesaleQty($rowQty)) {
+                $quoteItem->setIsWholesale(1);
+                $quoteItem->getQuote()->setIsWholesale(1);
+            }
 
             if ($stockItem->hasIsChildItem()) {
                 $stockItem->unsIsChildItem();
@@ -546,7 +562,7 @@ class Mage_CatalogInventory_Model_Observer
 
     /**
      * Get product qty includes information from all quote items
-     * Need be used only in sungleton mode
+     * Need be used only in singleton mode
      *
      * @deprecated after 1.4.2.0-rc1
      * @param int $productId
@@ -695,6 +711,11 @@ class Mage_CatalogInventory_Model_Observer
             if (!$productId) {
                 continue;
             }
+
+            if ($item->getIsWholesale()) {
+                continue;
+            }
+
             $children = $item->getChildrenItems();
             if ($children) {
                 foreach ($children as $childItem) {

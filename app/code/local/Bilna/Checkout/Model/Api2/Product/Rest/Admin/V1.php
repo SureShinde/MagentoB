@@ -100,14 +100,6 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
 	    		throw Mage::throwException("Invalid Product Data");
 	    	}
 
-            $totalIsWholesaleItem = 0;
-            $totalCanceledWholesaleItem = 0;
-
-            if ($quote->getIsWholesale()) {
-                $quoteItemCollection = Mage::getModel('sales/quote_item')->getCollection()->addFieldToFilter('quote_id', $quoteId)->addFieldToFilter('is_wholesale', 1);
-                $totalIsWholesaleItem = count($quoteItemCollection->getData());
-            }
-
             foreach ($productsData as $productItem)
             {
                 $productByItem = $this->_getProduct($productItem['product_id'], $storeId, "id");
@@ -138,30 +130,16 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                     if ($quoteItem->getHasError()) {
                         throw Mage::throwException($quoteItem->getMessage());
                     }
-                    $stockItem = $productByItem->getStockItem();
-                    if ($stockItem->isWholesaleQty($productItem['qty'])) {
-                        $quoteItem->setIsWholesale(1);
-                    } else {
-                        if ($quoteItem->getIsWholesale())  {
-                            $quoteItem->setIsWholesale(0);
-                            $totalCanceledWholesaleItem++;
-                        }
-                    }
                 }
 
                 $quote->addItem($quoteItem);
                 $this->_validateCrossBorder($quote);
             }
 
-            if  ($totalIsWholesaleItem <= $totalCanceledWholesaleItem) {
-                $quote->setIsWholesale(0);
-            } else {
-                $quote->setIsWholesale(1);
-            }
-
             $quote->getShippingAddress()->setCollectShippingRates(true);
             $quote->getShippingAddress()->collectShippingRates();
             $quote->collectTotals(); // calls $address->collectTotals();
+            $quote->setIsWholesale(0); // reset is_wholesale flag to be processed by Mage_CatalogInventory_Model_Observer
             $quote->save();
 
 //            $productModel = Mage::getModel('catalog/product');
