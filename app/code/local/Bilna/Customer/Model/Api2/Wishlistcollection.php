@@ -27,12 +27,16 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
     {
         $wishlist = Mage::getModel('wishlist/wishlist');
 
-        $cover = Mage::helper('socialcommerce')->processCover($data);
-
         //if customer try to update wishlist collection based on collection id param
         if (isset($data['collection_id'])) {
             $wishlist->setWishlistId($data['collection_id']);
+            if (!$this->isOwner($customerId, $data['collection_id'])) {
+                return $wishlist;
+            }
         }
+    
+        $cover = Mage::helper('socialcommerce')->processCover($data);
+
         //bug fix when user not update cover, but cover change to null cover
         if(!empty($data['image_url'])) {
             $wishlist->setCover($cover);
@@ -53,6 +57,7 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
             $wishlist->setCover($preset_image);
             $wishlist->save();
         }
+    
 
         return $wishlist;
     }
@@ -279,14 +284,31 @@ class Bilna_Customer_Model_Api2_Wishlistcollection extends Bilna_Rest_Model_Api2
      * additional paramters:
      * ?product_id=62978
      */
-    public function deleteWishlistCollectionItem($wlid, $proid)
+    public function deleteWishlistCollectionItem($userid, $wlid, $proid)
     {
         try {
             $w = Mage::getSingleton('core/resource')->getConnection('core_write');
-            $result = $w->query('DELETE FROM wishlist_item WHERE wishlist_id ='.$wlid.' and product_id ='.$proid);
+            $result = $w->query('DELETE FROM wishlist_item WHERE product_id ='.$proid.' and wishlist_id IN (select wishlist_id from wishlist where customer_id='.$userid.' and wishlist_id='.$wlid.')');
 
             return $result;
 
+        } catch (Exception $e) {
+            $this->_critical($e->getMessage());
+        }
+
+        return FALSE;
+    }
+
+    public function isOwner($customerId, $wlid) 
+    {
+        try {
+            $connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+            $select = $connection->select();
+            $select->from("wishlist", 'COUNT(*)');
+            $select->where("customer_id=?",$customerId);
+            $select->where("wishlist_id=?",$wlid);
+            $result = (int)$connection->fetchOne($select);
+            return $result == 0 ? FALSE : TRUE;
         } catch (Exception $e) {
             $this->_critical($e->getMessage());
         }
