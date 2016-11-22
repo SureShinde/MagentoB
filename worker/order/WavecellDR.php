@@ -21,6 +21,7 @@ class Bilna_Worker_Order_WavecellDR extends Bilna_Worker_Order_Order {
                     if(($dataObj->timestamp + 300) >= strtotime("now")) {
                         break;
                     }
+                    sleep(1);
                 }
                 Mage::log("Wavecell Worker get Incoming que: ".json_encode($dataObj));
                 $code = $dataObj->code;
