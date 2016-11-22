@@ -37,10 +37,8 @@ class SMSStatusCheck {
             foreach($data as $idx => $val) {
                 $id = $val['sms_id'];
                 $url = $urlApi."?AccountId=".$accountId."&SubAccountId=".$subAccountId."&Password=".$password."&UMID=".$val['code'];
-                $fileContent = file_get_contents($url);
-                $tagOpen = strpos($fileContent,'<Status>') + 8;
-                $tagClosed = strpos($fileContent,'</Status>');
-                $status = substr($fileContent,$tagOpen,($tagClosed-$tagOpen));
+                $fileContent = simplexml_load_string(file_get_contents($url));
+                $status = isset($fileContent->Status) ? $fileContent->Status : '';
                 if($fileContent != "") {
                     if((strtoupper($status) == "DELIVERED TO CARRIER") || (strtoupper($status) == "DELIVERED TO DEVICE")) {
                         Mage::getModel('sales/order')->load($val['order_id'])->setStatus(Mage::getStoreConfig('payment/cod/order_status'),true)->save();
