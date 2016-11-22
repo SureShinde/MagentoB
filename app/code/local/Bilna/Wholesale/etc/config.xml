@@ -6,6 +6,11 @@
         </Bilna_Wholesale>
     </modules>
     <global>
+        <models>
+            <bilna_wholesale>
+                <class>Bilna_Wholesale_Model</class>
+            </bilna_wholesale>
+        </models>
         <events>
             <sales_order_item_cancel>
                 <observers>
