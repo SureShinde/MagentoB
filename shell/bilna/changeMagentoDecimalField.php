@@ -44,10 +44,12 @@ class changeDecimalField extends Mage_Shell_Abstract {
     $allField = $this->read->fetchAll($sql);
     $sql_alter = "";
     $table_name_before = "";
+    $countOfTable = 0;
     
     // if (count($allField) > 0) echo now() . " : first running\n";
     foreach ($allField as $key => $value) {
       if ($table_name_before != $value["TABLE_NAME"]) {
+        $countOfTable++;
         if ($sql_alter != "") $this->alterTable($sql_alter);
         $sql_alter = "ALTER TABLE " . $value["TABLE_NAME"] . " MODIFY " . $value["COLUMN_NAME"] . " ".$this->new_column_type;
       } else {
@@ -58,7 +60,7 @@ class changeDecimalField extends Mage_Shell_Abstract {
       $sql_alter .= ($value['COLUMN_COMMENT'] != "") ? " COMMENT '".$value['COLUMN_COMMENT']."'" : "";
       $table_name_before = $value["TABLE_NAME"];
     }
-    if (count($allField) == 1) $this->alterTable($sql_alter);
+    if ($countOfTable == 1) $this->alterTable($sql_alter);
   }
 
   function alterTable($sql_alter) {
