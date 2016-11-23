@@ -195,10 +195,8 @@ class RocketWeb_Netsuite_Model_Observer {
         $order = $observer->getEvent()->getOrder();
         $shippingMethod = $order->getShippingMethod();
 
-        if (Mage::Helper('cod')->isCodOrder($order)) {
-            if ($order->getStatus() != "processing_cod") {
-                return $this;
-            }
+        if ((Mage::Helper('cod')->isCodOrder($order)) && ($order->getStatus() != "processing_cod")) {
+            return $this;
         }
 
         $priority = 2;
