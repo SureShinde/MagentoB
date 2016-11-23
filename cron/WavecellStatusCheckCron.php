@@ -24,7 +24,6 @@ class SMSStatusCheck {
     }
 
     public function execute() {
-        $orderStatusCollection = Mage::getModel('sales/order_status')->getResourceCollection()->getData();
         $urlApi = Mage::getStoreConfig('bilna/smsverification/sms_dlr');
         $accountId = Mage::getStoreConfig('bilna/smsverification/account_id');
         $subAccountId = Mage::getStoreConfig('bilna/smsverification/sub_account_id');
