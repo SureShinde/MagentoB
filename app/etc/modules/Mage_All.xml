@@ -323,7 +323,7 @@
         </Mage_GoogleAnalytics>
         <Mage_CatalogInventory>
             <active>true</active>
-            <codePool>local</codePool>
+            <codePool>core</codePool>
             <depends>
                 <Mage_Catalog/>
             </depends>
