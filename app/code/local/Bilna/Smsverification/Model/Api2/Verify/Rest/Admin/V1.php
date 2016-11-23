@@ -54,7 +54,7 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
             }
 
             $otherCustomer = Mage::getModel('customer/customer')->getCollection()
-                            ->addAttributeToFilter('mobile_number',array('eq' => $data['msisdn']))
+                            ->addAttributeToFilter('mobile_number',array('eq' => $msisdn))
                             ->addAttributeToFilter('entity_id',array('neq' => $data['customer_id']))
                             ->getData();
             if(count($otherCustomer) > 0) {
@@ -65,7 +65,7 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
                 }
             }
 
-            $customer->setMobileNumber($data['msisdn']);
+            $customer->setMobileNumber($msisdn);
             $customer->setVerifiedDate(Mage::getModel('core/date')->date('Y-m-d H:i:s'));
             $customer->save();
 
