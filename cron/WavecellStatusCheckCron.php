@@ -24,6 +24,7 @@ class SMSStatusCheck {
     }
 
     public function execute() {
+        $orderStatusCollection = Mage::getModel('sales/order_status')->getResourceCollection()->getData();
         $urlApi = Mage::getStoreConfig('bilna/smsverification/sms_dlr');
         $accountId = Mage::getStoreConfig('bilna/smsverification/account_id');
         $subAccountId = Mage::getStoreConfig('bilna/smsverification/sub_account_id');
@@ -32,15 +33,29 @@ class SMSStatusCheck {
         $id = 0;
         while(true) {
             $data = $this->getData($id);
-            if(count($data) < 1) break;
+            if (count($data) < 1) break;
             foreach($data as $idx => $val) {
                 $id = $val['sms_id'];
                 $url = $urlApi."?AccountId=".$accountId."&SubAccountId=".$subAccountId."&Password=".$password."&UMID=".$val['code'];
                 $fileContent = simplexml_load_string(file_get_contents($url));
                 $status = isset($fileContent->Status) ? $fileContent->Status : '';
-                if($status != "") {
-                    if((strtoupper($status) == "DELIVERED TO CARRIER") || (strtoupper($status) == "DELIVERED TO DEVICE")) {
-                        Mage::getModel('sales/order')->load($val['order_id'])->setStatus(Mage::getStoreConfig('payment/cod/order_status'),true)->save();
+                if ($status != "") {
+                    $order = Mage::getModel('sales/order')->load($val['order_id']);
+                    if (Mage::Helper('cod')->isCodOrder($order)) {
+                        if ((strtoupper($status) == "DELIVERED TO CARRIER") || (strtoupper($status) == "DELIVERED TO DEVICE")) {
+                            $order->setStatus('processing_cod',true)->save();
+                            //insert into table message
+                            $priority = 2;
+                            $message = Mage::getModel('rocketweb_netsuite/queue_message');
+                            $paymentMethodCode = $order->getPayment()->getMethodInstance()->getCode();
+                            $msg = "\n".date('YmdHis')." increment id ".$order->getIncrementId(). " | entity_id ".$order->getId() ." | paymentMethodCode ".$paymentMethodCode;
+                            error_log($msg, 3, Mage::getBaseDir('var') . DS . 'log'.DS.'netsuite_order.log');
+                            $message->create(RocketWeb_Netsuite_Model_Queue_Message::ORDER_PLACE, $order->getId(), RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE);
+                            Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE)->send($message->pack(), $priority);
+                        }
+                        else {
+                            $order->setComment(strtoupper($status))->save();
+                        }
                     }
                     $this->smsDrModel->load($val['sms_id'])->delete();
                 }
