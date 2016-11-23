@@ -36,9 +36,11 @@ class SMSStatusCheck {
             foreach($data as $idx => $val) {
                 $id = $val['sms_id'];
                 $url = $urlApi."?AccountId=".$accountId."&SubAccountId=".$subAccountId."&Password=".$password."&UMID=".$val['code'];
-                $fileContent = simplexml_load_string(file_get_contents($url));
-                $status = isset($fileContent->Status) ? $fileContent->Status : '';
-                if ($status != "") {
+                $fileContent = file_get_contents($url);
+                if ($fileContent != "") {
+                    $statusOpen = strpos($fileContent,"<Status>")+8;
+                    $statusClosed = strpos($fileContent, "</Status>");
+                    $status = substr($fileContent,$statusOpen,$statusClosed-$statusOpen);
                     $order = Mage::getModel('sales/order')->load($val['order_id']);
                     if (Mage::Helper('cod')->isCodOrder($order)) {
                         if ((strtoupper($status) == "DELIVERED TO CARRIER") || (strtoupper($status) == "DELIVERED TO DEVICE")) {
@@ -53,7 +55,7 @@ class SMSStatusCheck {
                             Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE)->send($message->pack(), $priority);
                         }
                         else {
-                            $order->setComment(strtoupper($status))->save();
+                            $order->addStatusToHistory($order->getStatus(), "Validate status: ".$status, false)->save();
                         }
                     }
                     $this->smsDrModel->load($val['sms_id'])->delete();
