@@ -68,7 +68,7 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
             try{
                 Mage::Helper('smsverification')->validateCouponUsage($quote);
             } catch (Exception $e) {
-                Mage::throwException("Please Verify Your Mobile Number!");
+                Mage::throwException("Lakukan verifikasi nomor telepon untuk menggunakan voucher");
             }
         }
 
