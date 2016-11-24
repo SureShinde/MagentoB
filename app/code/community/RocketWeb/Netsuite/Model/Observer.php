@@ -195,7 +195,7 @@ class RocketWeb_Netsuite_Model_Observer {
         $order = $observer->getEvent()->getOrder();
         $shippingMethod = $order->getShippingMethod();
 
-        if ((Mage::Helper('cod')->isCodOrder($order)) && ($order->getStatus() != "processing_cod")) {
+        if ((Mage::Helper('cod')->isCodOrder($order)) && ($order->getStatus() != "processing_cod") && (Mage::Helper('smsverification')->isEnabledValidate())) {
             return $this;
         }
 
