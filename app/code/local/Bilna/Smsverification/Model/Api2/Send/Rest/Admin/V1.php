@@ -64,10 +64,11 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
         }
 
         $write = Mage::getSingleton("core/resource")->getConnection("core_write");
-        $query = "INSERT INTO otp_list SET msisdn=:msisdn,otp_code=:otp,created_at=NOW(),customer_id=:customer_id";
+        $query = "INSERT INTO otp_list SET msisdn=:msisdn,otp_code=:otp,created_at=:created_at,customer_id=:customer_id";
         $binds = array(
             'msisdn'    => $msisdn,//$data['msisdn'],
             'otp'   => $otp,
+            'created_at' => Mage::getModel('core/date')->date('Y-m-d H:i:s'),
             'customer_id' => $customerId
         );
         $OTPModel = $write->query($query, $binds);
