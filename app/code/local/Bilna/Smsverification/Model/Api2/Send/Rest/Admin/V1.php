@@ -16,20 +16,21 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
         $OTPModel = Mage::getModel('smsverification/otplist');
 
         $maxOTP = Mage::getStoreConfig('bilna/smsverification/max_otp');
-        $timeChecking = Mage::getStoreConfig('bilna/smsverification/time_limit');
-        $startFrom = date('Y-m-d H:i:s', mktime(date('H'),intval(date('i')) - $timeChecking,date('s'),date('m'),date('d'),date('Y')));
+        if ((int) $maxOTP > 0) {
+            $timeChecking = Mage::getStoreConfig('bilna/smsverification/time_limit');
+            $startFrom = date('Y-m-d H:i:s', mktime(date('H'),intval(date('i')) - $timeChecking,date('s'),date('m'),date('d'),date('Y')));
 
-        $OTPData = $OTPModel
-            ->getCollection()
-            ->setOrder('created_at','DESC')
-            ->addFilter('customer_id',array('equal' => $customerId))
-            ->addFilter('type',array('equal' => 0))
-            ->addFieldToFilter('created_at',array('gteq' => $startFrom));
+            $OTPData = $OTPModel
+                ->getCollection()
+                ->setOrder('created_at','DESC')
+                ->addFilter('customer_id',array('equal' => $customerId))
+                ->addFilter('type',array('equal' => 0))
+                ->addFieldToFilter('created_at',array('gteq' => $startFrom));
 
-        if($maxOTP <= count($OTPData)) {
-            $this->_critical("You have reach max OTP Request. Please Try Again later");
+            if($maxOTP <= count($OTPData)) {
+                $this->_critical("You have reach max OTP Request. Please Try Again later");
+            }
         }
-
 
         $minChangeMobileNumber = Mage::getStoreConfig('bilna/smsverification/mindays');
 
