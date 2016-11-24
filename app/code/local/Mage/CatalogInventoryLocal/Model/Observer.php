@@ -31,7 +31,7 @@
  * @package    Mage_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_CatalogInventory_Model_Observer
+class Mage_CatalogInventoryLocal_Model_Observer extends Mage_CatalogInventory_Model_Observer
 {
     /**
      * Product qty's checked

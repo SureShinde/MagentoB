@@ -70,7 +70,7 @@
  * @package     Mage_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
+class Mage_CatalogInventoryLocal_Model_Stock_Item extends Mage_CatalogInventory_Model_Stock_Item 
 {
     const XML_PATH_GLOBAL                = 'cataloginventory/options/';
     const XML_PATH_CAN_SUBTRACT          = 'cataloginventory/options/can_subtract';

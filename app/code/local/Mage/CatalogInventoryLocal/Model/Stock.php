@@ -36,7 +36,7 @@
  * @package     Mage_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
+class Mage_CatalogInventoryLocal_Model_Stock extends Mage_CatalogInventory_Model_Stock 
 {
     const BACKORDERS_NO             = 0;
     const BACKORDERS_YES_NONOTIFY   = 1;
