@@ -65,9 +65,8 @@ class Bilna_Smsverification_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
     public function isEnabledValidate() {
-        $isEnabledValidate = Mage::getStoreConfig('bilna/smsverification/voucher_check');
-        if($isEnabledValidate) return true;
-        return false;
+        $isEnabledValidate = Mage::getStoreConfig('bilna/smsverification/validate_cod');
+        return  $isEnabledValidate ? true : sfalse;
     }
 
 }
