@@ -280,15 +280,18 @@
                 <title>Customer Login</title>
                 <privileges>
                     <admin>
+                        <create>1</create>
                         <retrieve>1</retrieve>
                     </admin>
                     <customer>
+                        <create>1</create>
                         <retrieve>1</retrieve>
                     </customer>
                 </privileges>
-                <attributes translate="entity_id email group_id created_at updated_at is_active firstname lastname gender dob newsletter default_billing default_shipping username" module="Bilna_Customer">
+                <attributes translate="entity_id email password group_id created_at updated_at is_active firstname lastname gender dob newsletter default_billing default_shipping username" module="Bilna_Customer">
                     <entity_id>ID</entity_id>
                     <email>Email</email>
+                    <password>Password</password>
                     <group_id>Group ID</group_id>
                     <created_at>Created At</created_at>
                     <updated_at>Updated At</updated_at>
@@ -305,7 +308,7 @@
                 <routes>
                     <route_entity>
                         <route>/customer/login</route>
-                        <action_type>entity</action_type>
+                        <action_type>collection</action_type>
                     </route_entity>
                 </routes>
                 <versions>1</versions>

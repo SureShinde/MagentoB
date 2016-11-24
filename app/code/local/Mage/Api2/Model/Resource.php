@@ -200,16 +200,27 @@ abstract class Mage_Api2_Model_Resource
      */
     public function dispatch()
     {
-        $logArr = array (
+        $logData = [
             'request_uri' => $this->getRequest()->getRequestUri(),
             'params' => $this->getRequest()->getParams(),
             'body_params' => in_array($this->getOperation(), [self::OPERATION_CREATE, self::OPERATION_UPDATE]) ? $this->getRequest()->getBodyParams() : '',
             'action_type' => $this->getActionType(),
             'operation' => $this->getOperation(),
-        );
-        
-        Mage::log("REQUEST: " . json_encode($logArr), null, "magento_api.log");
-        
+        ];
+
+        // mask passwords before logging
+        foreach (['params', 'body_params'] as $logKey) {
+            if (!is_array($logData[$logKey])) continue;
+
+            foreach ($logData[$logKey] as $key => &$value) {
+                if (is_string($value) && stripos($key, 'password') !== false) {
+                    $value = '*****';
+                }
+            }
+        }
+
+        Mage::log("REQUEST: " . json_encode($logData), null, "magento_api.log");
+
         switch ($this->getActionType() . $this->getOperation()) {
             /* Create */
             case self::ACTION_TYPE_ENTITY . self::OPERATION_CREATE:
@@ -299,7 +310,7 @@ abstract class Mage_Api2_Model_Resource
                 $this->_critical(self::RESOURCE_METHOD_NOT_IMPLEMENTED);
                 break;
         }
-        
+
         Mage::log("RESPONSE: " . $this->getResponse()->getBody() . "\n", null, "magento_api.log");
     }
 
