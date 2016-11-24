@@ -81,10 +81,10 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
             return $data;
         } else {
             //Delete old otp failed data of customer and insert new otp failed data
-            $query = "DELETE FROM otp_failed WHERE customer_id=:customer_id AND created_at<:startDate; INSERT INTO otp_failed SET customer_id=:customer_id,otp_code=:otp,created_at=:created_at";
+            $query = "DELETE FROM otp_failed WHERE customer_id=:customer_id AND created_at<:start_date; INSERT INTO otp_failed SET customer_id=:customer_id,otp_code=:otp,created_at=:created_at";
             $binds = array(
                 'customer_id' => $customerId,
-                'startDate' => $startDate,
+                'start_date' => $startDate,
                 'otp'   => $data['otp_code'],
                 'created_at' => Mage::getModel('core/date')->date('Y-m-d H:i:s')
             );
