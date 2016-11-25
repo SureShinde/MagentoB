@@ -3,7 +3,8 @@ class Bilna_Smsverification_Model_Observer extends Mage_Core_Block_Abstract
 {
     public function sendSMS($observer) {
         $isEnabledVerification = Mage::getStoreConfig('bilna/smsverification/voucher_check');
-        if (!$isEnabledVerification) {
+        $isActiveModule = Mage::getStoreConfig('bilna/smsverification/verification_active');
+        if ((!$isEnabledVerification) || ($isActiveModule)) {
             return;
         }
         $order = $observer->getOrder();
