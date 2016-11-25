@@ -18,7 +18,7 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
         $maxOTP = Mage::getStoreConfig('bilna/smsverification/max_otp');
         if ((int) $maxOTP > 0) {
             $timeChecking = Mage::getStoreConfig('bilna/smsverification/time_limit');
-            $startFrom = date('Y-m-d H:i:s', mktime(date('H'),intval(date('i')) - $timeChecking,date('s'),date('m'),date('d'),date('Y')));
+            $startFrom = date('Y-m-d H:i:s', strtotime(Mage::getModel('core/date')->date('Y-m-d H:i:s')." -".$timeChecking." minutes"));
 
             $OTPData = $OTPModel
                 ->getCollection()
