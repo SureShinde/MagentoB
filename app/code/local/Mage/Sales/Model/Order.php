@@ -2204,7 +2204,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
 
     public function getIsWholesaleOrder()
     {
-        return $this->getIsWholesale() ? true : false;
+        return (bool)$this->getIsWholesale();
     }
 
     public function getFullTaxInfo()
