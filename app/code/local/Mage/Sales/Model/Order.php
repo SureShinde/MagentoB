@@ -2202,6 +2202,11 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         return !$this->getIsVirtual();
     }
 
+    public function getIsWholesaleOrder()
+    {
+        return $this->getIsWholesale() ? true : false;
+    }
+
     public function getFullTaxInfo()
     {
         $rates = Mage::getModel('tax/sales_order_tax')->getCollection()->loadByOrder($this)->toArray();
