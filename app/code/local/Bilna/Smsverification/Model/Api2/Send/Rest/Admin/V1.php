@@ -48,7 +48,7 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
         if(count($OTPData) > 0) {
             $OTPDetail = $OTPData->getFirstItem()->getData();
             $lastUsed = strtotime($OTPDetail['created_at']);
-            $current = strtotime(date('Y-m-d H:i:s'));
+            $current = strtotime(Mage::getModel('core/date')->date('Y-m-d H:i:s'));
             $timeDiff = ($current - $lastUsed) / (60*60*24);
             if($timeDiff < $minChangeMobileNumber) {
                 $this->_critical('This Number is already used before');
