@@ -97,6 +97,7 @@ class Bilna_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Bilna_Customer_Mo
             ->getParam('id'));
 
         $data = parent::_retrieve();
+        $data['is_confirmed'] = (int) ! (isset($data['confirmation']) && $data['confirmation']);
         $data['username'] = $this->_getUsername($this->getRequest()->getParam('id'));
 
         $lastLoginAt = $log->getLoginAt();
