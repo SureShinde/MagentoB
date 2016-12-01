@@ -32,6 +32,8 @@ $setup->addAttribute('catalog_product', 'on_sale_discount', array(
         'sort_order'                 => 112,
         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
         'group'                      => 'General',
+        'visible'       => 1,
+        'system'  => 1,
 ));
 $setup->addAttribute('catalog_product', 'on_sale_code', array(
         'type'                       => 'varchar',
@@ -41,6 +43,8 @@ $setup->addAttribute('catalog_product', 'on_sale_code', array(
         'sort_order'                 => 113,
         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
         'group'                      => 'General',
+        'visible'       => 1,
+        'system'  => 1,
 ));
 $setup->addAttribute('catalog_product', 'on_sale_from', array(
         'type'                       => 'datetime',
@@ -50,6 +54,8 @@ $setup->addAttribute('catalog_product', 'on_sale_from', array(
         'sort_order'                 => 114,
         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
         'group'                      => 'General',
+        'visible'       => 1,
+        'system'  => 1,
 ));
 $setup->addAttribute('catalog_product', 'on_sale_to', array(
         'type'                       => 'datetime',
@@ -59,6 +65,12 @@ $setup->addAttribute('catalog_product', 'on_sale_to', array(
         'sort_order'                 => 115,
         'global'                     => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
         'group'                      => 'General',
+        'visible'       => 1,
+        'system'  => 1,
 ));
+$installer->updateAttribute('catalog_product', 'on_sale_discount', 'used_in_product_listing', 1);
+$installer->updateAttribute('catalog_product', 'on_sale_code', 'used_in_product_listing', 1);
+$installer->updateAttribute('catalog_product', 'on_sale_from', 'used_in_product_listing', 1);
+$installer->updateAttribute('catalog_product', 'on_sale_to', 'used_in_product_listing', 1);
 
 $installer->endSetup();
