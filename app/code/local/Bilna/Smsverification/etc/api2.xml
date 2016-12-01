@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<config>
+    <api2>
+        <resources>
+            <sms_send translate="title" module="Bilna_Smsverification">
+                <group>customer</group>
+                <sort_order>115</sort_order>
+                <model>smsverification/api2_send</model>
+                <title>SMS Verification send SMS</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </admin>
+                    <customer>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </customer>
+                </privileges>
+                <attributes translate="msisdn customer_id" module="Bilna_Smsverification">
+                    <customer_id>Customer ID</customer_id>
+                    <msisdn>MSISDN</msisdn>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/verifysend</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </sms_send>
+            <otp_verify translate="title" module="Bilna_Smsverification">
+                <group>customer</group>
+                <sort_order>116</sort_order>
+                <model>smsverification/api2_verify</model>
+                <title>SMS Verification send SMS</title>
+                <privileges>
+                    <admin>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </admin>
+                    <customer>
+                        <create>1</create>
+                        <retrieve>1</retrieve>
+                    </customer>
+                </privileges>
+                <attributes translate="customer_id msisdn otp_code" module="Bilna_Smsverification">
+                    <customer_id>Customer ID</customer_id>
+                    <msisdn>MSISDN</msisdn>
+                    <otp_code>OTP Code</otp_code>
+                </attributes>
+                <routes>
+                    <route_collection>
+                        <route>/verifyotp</route>
+                        <action_type>collection</action_type>
+                    </route_collection>
+                </routes>
+                <versions>1</versions>
+            </otp_verify>
+        </resources>
+    </api2>
+</config>
