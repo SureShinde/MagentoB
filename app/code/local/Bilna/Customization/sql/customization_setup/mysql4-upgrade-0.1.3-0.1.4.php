@@ -25,7 +25,7 @@ $setup->removeAttribute('catalog_product', 'on_sale_code');
 $setup->removeAttribute('catalog_product', 'on_sale_from');
 $setup->removeAttribute('catalog_product', 'on_sale_to');
 $setup->addAttribute('catalog_product', 'on_sale_discount', array(
-        'type'                       => 'decimal',
+        'type'                       => 'varchar',
         'label'                      => 'On Sale Discount',
         'input'                      => 'text',
         'required'                   => false,
