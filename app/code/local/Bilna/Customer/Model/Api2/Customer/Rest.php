@@ -7,7 +7,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
     /**
      * Create customer
      *
-     * @param array $data            
+     * @param array $data
      * @return string
      */
     protected function _create(array $data)
@@ -18,39 +18,44 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         $validator = Mage::getResourceModel('api2/validator_eav', array(
             'resource' => $this
         ));
-        
+
         $extra["password_hash"] = $this->_getHelper('core')->getHash($data["password"], Mage_Admin_Model_User::HASH_SALT_LENGTH);
         if(isset($data["newsletter"]) && $data["newsletter"]==1) $extra["is_subscribed"] = true;
-        
+
         $username = $data['username'];
-        
         $data = $validator->filter($data);
         $data = array_merge($data, $extra);
         unset($extra);
-        
+
         if (! $validator->isValidData($data)) {
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
-        
+
+        try{
+            Mage::Helper('smsverification')->validateMobileNumber($data['mobile_number']);
+        } catch (Exception $e) {
+            $this->_critical($e->getMessage());
+        }
+
         /**
          * @var $customer Mage_Customer_Model_Customer
          */
         $customer = Mage::getModel('customer/customer');
         $customer->setData($data);
-        
+
         try {
             //process username from register form logan
             /* start : add username on register */
             if (!preg_match ('/^[a-zA-Z0-9_.-]+$/', $username)) {
                 $this->_critical('Username ' .$username . ' contains invalid character. Only letters (a-z), numbers (0-9), periods (.), dashs (-), and underscores (_) are allowed');
-            }    
-            
+            }
+
             $usernameAvailable = Mage::helper('socialcommerce')->checkUsernameAvailable($username);
             if (! $usernameAvailable) {
-                $this->_critical('Username ' .$username . ' already used by someone else. Please choose another username');  
+                $this->_critical('Username ' .$username . ' already used by someone else. Please choose another username');
             } else {
                 $customer->save();
                 $profile = Mage::getModel('socialcommerce/profile');
@@ -72,7 +77,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         } catch (Exception $e) {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
-        
+
         return $this->_getLocation($customer);
     }
 
@@ -89,7 +94,14 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
          */
         $customer = $this->_loadCustomerById($this->getRequest()
             ->getParam('id'));
-        return $customer->getData();
+        $customerData = $customer->getData();
+        $customerData['verified_status'] = 1;
+        $customerData['bypass_unverified_until'] = NULL;
+        if(trim($customerData['verified_date']) == "") {
+            $customerData['verified_status'] = 0;
+            $customerData['bypass_unverified_until'] = date('Y-m-d H:i:s',strtotime("+".Mage::getStoreConfig('bilna/smsverification/duration')." minutes",strtotime($customerData['created_at'])));
+        }
+        return $customerData;
     }
 
     /**
@@ -108,7 +120,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
     /**
      * Update customer
      *
-     * @param array $data            
+     * @param array $data
      * @throws Mage_Api2_Exception
      */
     protected function _update(array $data)
@@ -124,26 +136,37 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         $validator = Mage::getResourceModel('api2/validator_eav', array(
             'resource' => $this
         ));
-        
+
         if($data["password"]) $extra["password_hash"] = $this->_getHelper('core')->getHash($data["password"], Mage_Admin_Model_User::HASH_SALT_LENGTH);
+
+        try{
+            Mage::Helper('smsverification')->validateMobileNumber($data['mobile_number']);
+        } catch (Exception $e) {
+            $this->_critical($e->getMessage());
+        }
+
+        if(trim($customer->getData('verified_date')) != "") {
+            $data['mobile_number'] = $customer->getData('mobile_number'); //always set to current until verified when the current mobile_number is not empty
+        }
+
 
         $data = $validator->filter($data);
         if($extra){
             $data = array_merge($data, $extra);
             unset($extra);
         }
-        
+
         unset($data['website_id']); // website is not allowed to change
-        
+
         if (! $validator->isValidData($data, true)) {
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
-        
+
         $customer->addData($data);
-        
+
         try {
             $customer->save();
         } catch (Mage_Core_Exception $e) {
@@ -156,7 +179,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
     /**
      * Load customer by id
      *
-     * @param int $id            
+     * @param int $id
      * @throws Mage_Api2_Exception
      * @return Mage_Customer_Model_Customer
      */
@@ -172,9 +195,9 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
                     ->limit(1);
 
         $customer->addAttributeToSelect(array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)));
-        
+
         $this->_applyCollectionModifiers($customer);
-        
+
         return $customer->getFirstItem();
     }
 
@@ -191,7 +214,7 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         $collection = Mage::getResourceModel('customer/customer_collection');
         $collection ->getSelect()
                     ->joinLeft(array("a" => "newsletter_subscriber"), "e.entity_id = a.customer_id AND a.subscriber_status = 1", array("newsletter" => "subscriber_email"));
-        
+
         $collection->addAttributeToSelect(array_keys($this->getAvailableAttributes($this->getUserType(), Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ)));
 
         $this->_applyCollectionModifiers($collection);
@@ -213,11 +236,11 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         Mage::dispatchEvent('customer_register_success', array ('account_controller' => $this, 'customer' => $customer));
         $this->_customerSaveAfter($customer);
     }
-    
+
     protected function _successProcessRegistration(Mage_Customer_Model_Customer $customer) {
         $customer->sendNewAccountEmail();
     }
-    
+
     protected static $_customerNotSet = true;
     protected function _customerSaveAfter($customer) {
         if ($this->_isModuleDisabled($this->_getStore()->getStoreId())) {
@@ -248,22 +271,22 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
             $this->_findAffiliateForCustomer($customer);
         }
     }
-    
+
     protected function _isModuleDisabled($storeId) {
         if (!Mage::helper('points/config')->isPointsEnabled($storeId) || Mage::getStoreConfig('advanced/modules_disable_output/AW_Points', $storeId)) {
             return true;
         }
     }
-    
+
     protected function _findAffiliateForCustomer($customer) {
         return;
-    } 
-    
-    protected function _getUsername($customerId = null) 
+    }
+
+    protected function _getUsername($customerId = null)
     {
         $customer = $this->_loadCustomerById($customerId);
         $customerData = $customer->getData();
-        
+
         $username = null;
 
         if (!isset($customerData['entity_id'])) {
@@ -278,11 +301,11 @@ abstract class Bilna_Customer_Model_Api2_Customer_Rest extends Bilna_Customer_Mo
         } else {
             $username = $customerProfileData['username'];
         }
-        
+
         return $username;
     }
-    
-    public function createTemporaryProfile($customerId = null) 
+
+    public function createTemporaryProfile($customerId = null)
     {
 
         $customer = $this->_loadCustomerById($customerId);

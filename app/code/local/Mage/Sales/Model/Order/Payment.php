@@ -1048,10 +1048,10 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         }
 
        	$order->setState($state, $status, $message);
-		
+
 		// send email notification for new order
 		if ($paymentMethod == 'veritrans') {
-			$order->sendNewOrderEmail();	
+			$order->sendNewOrderEmail();
 		}
 
         return $this;

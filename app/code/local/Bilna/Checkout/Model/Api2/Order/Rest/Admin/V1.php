@@ -109,9 +109,17 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
 
             //Coupon Code re-check
             $couponCode = $quote->getCouponCode();
+            if ($couponCode != "") {
+                try{
+                    Mage::Helper('smsverification')->validateCouponUsage($quote);
+                } catch (Exception $e) {
+                    $this->_critical("Lakukan verifikasi nomor telepon untuk menggunakan voucher");
+                }
+            }
+
             $checkoutHelper = Mage::helper('bilna_checkout');
             try {
-                $checkoutHelper->checkActiveCoupon($quote->getCouponCode(), $quoteId);
+                $checkoutHelper->checkActiveCoupon($couponCode, $quoteId);
             } catch (Exception $e) {
                 $this->_critical('Kupon yang anda gunakan sudah pernah terpakai.');
             }
