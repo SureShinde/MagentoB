@@ -279,10 +279,9 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
             $hostName = Mage::getStoreConfig('bilna_queue/beanstalkd_settings/hostname');
             $pheanstalk = new Pheanstalk($hostName);
 
-            $timeout = $delayed ?
-                (int)Mage::getStoreConfig('payment/klikbca/requeue_confirmation_delay') :
-                0;
+            $timeout = $delayed ? (int)Mage::getStoreConfig('payment/klikbca/requeue_confirmation_delay') : 0;
             $pheanstalk->useTube('klikbca_confirmation')->put(json_encode($data), '', $timeout);
+            Mage::log('KlikBCA confirmation job inserted: ' . implode('|', $data));
         } catch (Exception $e) {
             Mage::logException($e);
         }
@@ -297,8 +296,9 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
             $job = $pheanstalk->watch('klikbca_confirmation')->ignore('default')->reserve(0);
             if (!$job) return null;
 
-            $data = json_decode($job->getData());
+            $data = json_decode($job->getData(), true);
             $pheanstalk->delete($job);
+            Mage::log('KlikBCA confirmation job deleted: ' . implode('|', $data));
             return $data;
         } catch (Exception $e) {
             Mage::logException($e);
