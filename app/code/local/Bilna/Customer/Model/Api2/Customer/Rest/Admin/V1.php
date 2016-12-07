@@ -4,7 +4,7 @@ class Bilna_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Bilna_Customer_Mo
     /**
      * Create customer
      *
-     * @param array $data            
+     * @param array $data
      * @return string
      */
     protected function _create(array $data) {
@@ -14,31 +14,31 @@ class Bilna_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Bilna_Customer_Mo
         $validator = Mage::getResourceModel('api2/validator_eav', ['resource' => $this]);
         $extra = [];
         $extra['password_hash'] = $this->_getHelper('core')->getHash($data['password'], Mage_Admin_Model_User::HASH_SALT_LENGTH);
-        
+
         if (isset ($data['newsletter']) && $data['newsletter'] == 1) {
             $extra['is_subscribed'] = true;
         }
-        
+
         $username = $data['username'];
         $data = $validator->filter($data);
         $data = array_merge($data, $extra);
         unset ($extra);
-        
+
         if (!$validator->isValidData($data)) {
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
-            
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
-        
+
         /**
          * @var $customer Mage_Customer_Model_Customer
          */
         $customer = Mage::getModel('customer/customer');
         $customer->setData($data);
-        
-        try { 
+
+        try {
             /**
              * process username from register form logan
              * start : add username on register
@@ -46,10 +46,10 @@ class Bilna_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Bilna_Customer_Mo
             if (!preg_match ('/^[a-zA-Z0-9_.-]+$/', $username)) {
                 $this->_error('Username ' . $username . ' contains invalid character. Only letters (a-z), numbers (0-9), periods (.), dashs (-), and underscores (_) are allowed', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
                 $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
-            }    
-            
+            }
+
             $usernameAvailable = Mage::helper('socialcommerce')->checkUsernameAvailable($username);
-            
+
             if (!$usernameAvailable) {
                 $this->_error('Username ' . $username . ' already used by someone else. Please choose another username', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
                 $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
@@ -66,7 +66,7 @@ class Bilna_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Bilna_Customer_Mo
                 $profile->setUsername($username);
                 $profile->save();
             }
-            
+
             $this->_dispatchRegisterSuccess($customer);
             $this->_successProcessRegistration($customer);
         }
@@ -76,7 +76,7 @@ class Bilna_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Bilna_Customer_Mo
         catch (Exception $e) {
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
-        
+
         return $this->_getLocation($customer);
     }
 
@@ -95,11 +95,11 @@ class Bilna_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Bilna_Customer_Mo
         $log = Mage::getModel('log/customer');
         $log->loadByCustomer($this->getRequest()
             ->getParam('id'));
-        
+
         $data = parent::_retrieve();
         $data['is_confirmed'] = (int) ! (isset($data['confirmation']) && $data['confirmation']);
         $data['username'] = $this->_getUsername($this->getRequest()->getParam('id'));
-        
+
         $lastLoginAt = $log->getLoginAt();
         if (null !== $lastLoginAt) {
             $data['last_logged_in'] = $lastLoginAt;
@@ -116,7 +116,7 @@ class Bilna_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Bilna_Customer_Mo
          * @var $customer Mage_Customer_Model_Customer
          */
         $customer = parent::_loadCustomerById($this->getRequest()->getParam('id'));
-        
+
         try {
             $customer->delete();
         } catch (Mage_Core_Exception $e) {
@@ -125,34 +125,34 @@ class Bilna_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Bilna_Customer_Mo
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
     }
-    
+
     protected function _retrieveCollection() {
         $result = $this->_getRetrieveCollection();
-        
+
         if (!$result) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
-        
+
         return $result;
     }
-    
+
     protected function _getRetrieveCollection() {
         $result = array ();
         $customerId = $this->getRequest()->getParam('id');
         $email = $this->getRequest()->getParam('email');
         $result = [];
         $newsletter = null;
-        
+
         try {
             if (!empty($customerId)) {
                 $customer = parent::_loadCustomerById($customerId);
                 $result = $customer;
-                $result['username'] = $this->_getUsername($customerId);            
+                $result['username'] = $this->_getUsername($customerId);
             } else {
-                $customer = Mage::getModel('customer/customer'); 
-                $customer->setWebsiteId(1); 
+                $customer = Mage::getModel('customer/customer');
+                $customer->setWebsiteId(1);
                 $customer->loadByEmail($email);
-                
+
                 $result['entity_id'] = $customer->getId();
                 $result['website_id'] = $customer->getWebsiteId();
                 $result['email'] = $customer->getEmail();
@@ -181,8 +181,8 @@ class Bilna_Customer_Model_Api2_Customer_Rest_Admin_V1 extends Bilna_Customer_Mo
             }
         } catch (Exception $ex) {
             $this->_critical($ex->getMessage());
-        }        
-        
+        }
+
         return $result;
     }
 }

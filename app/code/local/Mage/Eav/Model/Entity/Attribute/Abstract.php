@@ -628,6 +628,11 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     break;
                 }
                 $prop = $describe[$this->getAttributeCode()];
+
+                if ($this->getAttributeCode() === 'updated_at') {
+                    $prop['DEFAULT'] = 'TIMESTAMP_INIT_UPDATE';
+                }
+
                 $columns[$this->getAttributeCode()] = array(
                     'type'      => $prop['DATA_TYPE'] . ($prop['LENGTH'] ? "({$prop['LENGTH']})" : ""),
                     'unsigned'  => $prop['UNSIGNED'] ? true: false,
