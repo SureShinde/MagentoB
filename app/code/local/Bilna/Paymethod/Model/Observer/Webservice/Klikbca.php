@@ -141,7 +141,7 @@ class Bilna_Paymethod_Model_Observer_Webservice_Klikbca {
                         'adddata' => $additionalData
                     ];
                     Mage::helper('paymethod')->enqueueKlikbcaConfirmation($data);
-                    $this->createLog($transactionNo, 'confirmation', json_encode($data));
+                    $this->createLog($transactionNo, 'confirmation', implode('|', $data));
                 }
                 catch (Mage_Core_Exception $e) {
                     Mage::log($e->getMessage(), null, 'klikbca_error.log', true);

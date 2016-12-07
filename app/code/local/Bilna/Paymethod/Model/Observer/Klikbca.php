@@ -8,6 +8,10 @@
 class Bilna_Paymethod_Model_Observer_Klikbca {
     protected $_code = 'klikbca';
     protected $_lockFile = 'klikbca_confirm_process';
+    protected $_baseLogPath = '';
+    protected $_confirmLogPath = '';
+    protected $_successLogPath = '';
+    protected $_logPath = '';
     protected $_typeTransaction = 'transaction';
 
     public function testing() {
@@ -17,81 +21,114 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
 
     public function confirmationProcess() {
         $this->checkLockProcess();
+        $this->setPath();
 
-        $confirmUsername = Mage::getStoreConfig('payment/klikbca/confirm_username');
-        $confirmPassword = Mage::getStoreConfig('payment/klikbca/confirm_password');
-        $confirmUrl = Mage::getStoreConfig('payment/klikbca/confirm_url');
+        // drain queue
         $paymethodHelper = Mage::helper('paymethod');
-
-        // process queue
         while ($job = $paymethodHelper->dequeueKlikbcaConfirmation()) {
-            $this->orderProcess($job, $confirmUsername, $confirmPassword, $confirmUrl);
+            // no-op
+        }
+
+        // read directory
+        if ($handle = opendir($this->_logPath)) {
+            while (false !== ($orderFile = readdir($handle))) {
+                if ($orderFile != "." && $orderFile != "..") {
+                    $this->orderProcess($orderFile);
+                }
+            }
+
+            closedir($handle);
         }
 
         $this->removeLockProcess();
     }
 
-    private function orderProcess($job, $confirmUsername, $confirmPassword, $confirmUrl)
-    {
-        $klikbcaUserId = $job['userid'];
-        $transactionNo = $job['transno'];
+    private function orderProcess($orderFile) {
+        $filename = $this->_logPath . $orderFile;
+        $orderDetail = file($filename, FILE_IGNORE_NEW_LINES);
 
-        // prepare data
-        $data = $job;
-        $data['cru'] = $confirmUsername;
-        $data['crp'] = $confirmPassword;
-        $data['rettype'] = 'xml';
+        if ($orderDetail !== false) {
+            $orderDetailArr = explode('|', $orderDetail[0]);
+            $crUrl = Mage::getStoreConfig('payment/klikbca/confirm_url');
+            $crUsername = Mage::getStoreConfig('payment/klikbca/confirm_username');
+            $crPassword = Mage::getStoreConfig('payment/klikbca/confirm_password');
+            $klikbcaUserId = $orderDetailArr[0];
+            $transactionNo = $orderDetailArr[1];
+            $transactionDate = $orderDetailArr[2];
+            $transactionAmount = $orderDetailArr[3];
+            $type = $orderDetailArr[4];
+            $additionalData = $orderDetailArr[5];
+            $logDate = $orderDetailArr[6];
+            $rettype = 'xml';
 
-        $contentLog = sprintf("%s | request_bilna: %s", $klikbcaUserId, json_encode($data));
-        $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);
-
-        $response = Mage::helper('paymethod/klikbca')->postRequest($confirmUrl, $data);
-        $contentLog = sprintf("%s | response_bilna: %s", $klikbcaUserId, json_encode($response));
-        $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);
-
-        // convert xml into object
-        $responseObj = simplexml_load_string($response);
-        $order = Mage::getModel('sales/order')->loadByIncrementId($transactionNo);
-
-        if ($responseObj->status == '00') {
-            /**
-             * status pembayaran sukses
-             * update order status menjadi "Processing", dan create lock file berdasarkan TransactionNo
-             */
-            $updateOrderStatus = true;
-            $updateOrderStatus = $this->_updateOrderStatus($order, 'processing');
-
-            if ($updateOrderStatus) {
-                $contentLog = sprintf("%s | order_status: %s -> processing", $klikbcaUserId, $transactionNo);
-                $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);
-            }
-        } else if ($responseObj->status == '01') {
-            /**
-             * status pembayaran gagal, customer dapat membayar kembali
-             * update order status menjadi "Pending" dan kirim email notifikasi ke customer
-             */
-            $this->_updateOrderStatus($order, 'pending');
-            $order->addStatusHistoryComment('Konfirmasi SprintAsia: ' . $responseObj->reason);
-            $templateId = Mage::getStoreConfig('payment/klikbca/template_id_pending');
-            $emailVars = array (
-                'email_to' => $order->getCustomerEmail(),
-                'name_to' => $order->getCustomerName(),
-                'transaction_no' => $transactionNo
+            $crData = array (
+                'cru' => $crUsername,
+                'crp' => $crPassword,
+                'userid' => $klikbcaUserId,
+                'transno' => $transactionNo,
+                'transdate' => $transactionDate,
+                'amount' => $transactionAmount,
+                'type' => $type,
+                'adddata' => $additionalData,
+                'rettype' => $rettype
             );
 
-            Mage::helper('paymethod/klikbca')->_sendEmail($templateId, $emailVars);
-
-            $contentLog = sprintf("%s | order_status: %s -> pending", $klikbcaUserId, $transactionNo);
+            $contentLog = sprintf("%s | request_bilna: %s", $klikbcaUserId, json_encode($crData));
             $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);
-        } else {
+
+            $response = Mage::helper('paymethod/klikbca')->postRequest($crUrl, $crData);
+            $contentLog = sprintf("%s | response_bilna: %s", $klikbcaUserId, json_encode($response));
+            $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);
+
             /**
-             * kesalahan pada Username/Password
-             * invalid credential. akan diproses pada cron berikutnya
-             * add comment and requeue job
+             * ubah response xml menjadi object
              */
-            $order->addStatusHistoryComment('Konfirmasi SprintAsia: ' . $responseObj->reason);
-            $order->save();
-            Mage::helper('paymethod')->enqueueKlikbcaConfirmation($job, true);
+            $responseObj = simplexml_load_string($response);
+            $order = Mage::getModel('sales/order')->loadByIncrementId($transactionNo);
+
+            if ($responseObj->status == '00') {
+                /**
+                 * status pembayaran sukses
+                 * update order status menjadi "Processing", dan create lock file berdasarkan TransactionNo
+                 */
+                $updateOrderStatus = true;
+                $updateOrderStatus = $this->_updateOrderStatus($order, 'processing');
+
+                if ($updateOrderStatus) {
+                    $contentLog = sprintf("%s | order_status: %s -> processing", $klikbcaUserId, $transactionNo);
+                    $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);
+                    $this->moveFile($filename, $transactionNo, 'success');
+                }
+            }
+            else if ($responseObj->status == '01') {
+                /**
+                 * status pembayaran gagal, customer dapat membayar kembali
+                 * update order status menjadi "Pending" dan kirim email notifikasi ke customer
+                 */
+                $this->_updateOrderStatus($order, 'pending');
+                $order->addStatusHistoryComment('Konfirmasi SprintAsia: ' . $responseObj->reason);
+                $templateId = Mage::getStoreConfig('payment/klikbca/template_id_pending');
+                $emailVars = array (
+                    'email_to' => $order->getCustomerEmail(),
+                    'name_to' => $order->getCustomerName(),
+                    'transaction_no' => $transactionNo
+                );
+
+                Mage::helper('paymethod/klikbca')->_sendEmail($templateId, $emailVars);
+
+                $contentLog = sprintf("%s | order_status: %s -> pending", $klikbcaUserId, $transactionNo);
+                $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);
+                $this->moveFile($filename, $transactionNo, 'failed');
+            }
+            else {
+                /**
+                 * kesalahan pada Username/Password
+                 * invalid credential. akan diproses pada cron berikutnya
+                 * add comment
+                 */
+                $order->addStatusHistoryComment('Konfirmasi SprintAsia: ' . $responseObj->reason);
+                $order->save();
+            }
         }
     }
 
@@ -123,6 +160,13 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
 
             return true;
         }
+    }
+
+    protected function setPath() {
+        $this->_baseLogPath = sprintf("%s/%s", Mage::getBaseDir(), Mage::getStoreConfig('bilna_module/paymethod/log_path'));
+        $this->_confirmLogPath = Mage::getStoreConfig('payment/klikbca/confirm_log_path');
+        $this->_successLogPath = Mage::getStoreConfig('payment/klikbca/success_log_path');
+        $this->_logPath = $this->_baseLogPath . $this->_confirmLogPath;
     }
 
     protected function checkLockProcess() {
@@ -166,5 +210,9 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
         $filename = sprintf("%s_%s.%s", $this->_code, $logFile, $tdate);
 
         return Mage::helper('paymethod')->writeLogFile($this->_code, $type, $filename, $content);
+    }
+
+    protected function moveFile($oldFilename, $newFilename, $type) {
+        return Mage::helper('paymethod')->moveFile($oldFilename, $newFilename, $this->_code, $type);
     }
 }
