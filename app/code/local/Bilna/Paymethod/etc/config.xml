@@ -286,6 +286,7 @@
                 <title>KlikBCA</title>
                 <allowspecific>0</allowspecific>
                 <group>offline</group>
+                <requeue_confirmation_delay>600</requeue_confirmation_delay>
             </klikbca>
 
             <klikpay>

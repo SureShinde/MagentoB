@@ -20,17 +20,18 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
 
         $confirmUsername = Mage::getStoreConfig('payment/klikbca/confirm_username');
         $confirmPassword = Mage::getStoreConfig('payment/klikbca/confirm_password');
+        $confirmUrl = Mage::getStoreConfig('payment/klikbca/confirm_url');
         $paymethodHelper = Mage::helper('paymethod');
 
         // process queue
         while ($job = $paymethodHelper->dequeueKlikbcaConfirmation()) {
-            $this->orderProcess($job, $confirmUsername, $confirmPassword);
+            $this->orderProcess($job, $confirmUsername, $confirmPassword, $confirmUrl);
         }
 
         $this->removeLockProcess();
     }
 
-    private function orderProcess($job, $confirmUsername, $confirmPassword)
+    private function orderProcess($job, $confirmUsername, $confirmPassword, $confirmUrl)
     {
         $klikbcaUserId = $job['userid'];
         $transactionNo = $job['transno'];
@@ -44,7 +45,6 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
         $contentLog = sprintf("%s | request_bilna: %s", $klikbcaUserId, json_encode($data));
         $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);
 
-        $confirmUrl = Mage::getStoreConfig('payment/klikbca/confirm_url');
         $response = Mage::helper('paymethod/klikbca')->postRequest($confirmUrl, $data);
         $contentLog = sprintf("%s | response_bilna: %s", $klikbcaUserId, json_encode($response));
         $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);

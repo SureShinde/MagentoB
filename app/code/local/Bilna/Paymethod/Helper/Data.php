@@ -279,7 +279,9 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
             $hostName = Mage::getStoreConfig('bilna_queue/beanstalkd_settings/hostname');
             $pheanstalk = new Pheanstalk($hostName);
 
-            $timeout = $delayed ? 600 : 0;
+            $timeout = $delayed ?
+                (int)Mage::getStoreConfig('payment/klikbca/requeue_confirmation_delay') :
+                0;
             $pheanstalk->useTube('klikbca_confirmation')->put(json_encode($data), '', $timeout);
         } catch (Exception $e) {
             Mage::logException($e);
