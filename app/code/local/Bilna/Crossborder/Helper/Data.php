@@ -267,7 +267,7 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
             }
         }
 
-        return array('success' => $success, 'messages' => $messages);
+        return array('success' => $success, 'messages' => isset($messages)? $messages : $message);
     }
 
     /**
