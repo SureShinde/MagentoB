@@ -153,6 +153,8 @@ class Bilna_Checkout_Model_Api2_Point extends Bilna_Checkout_Model_Api2_Resource
 
         try {
             $money = Mage::getModel('points/rate')->loadByDirection(AW_Points_Model_Rate::CURRENCY_TO_POINTS);
+
+            if($money->getMoney() == 0) return 0;
             $newAmount = (int) ((int)($points / $money->getMoney()) * $money->getPoints());
         } catch (Exception $ex) {
             $this->_critical($ex->getMessage());
