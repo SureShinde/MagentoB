@@ -173,8 +173,8 @@ class Moxy_SocialCommerce_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $customerAvatar = null;
 
-        if (!isset($_FILES['avatar']) || !isset($_FILES['avatar']['tmp_name'])) { 
-            throw new Exception("Avatar doesn't found");
+        if (!isset($_FILES['avatar']['tmp_name'])) { 
+            throw new Exception("Avatar is not found");
         }
 
         if ($upFileTmpName = $_FILES['avatar']['tmp_name']) {
