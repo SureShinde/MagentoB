@@ -176,8 +176,7 @@ class RocketWeb_Netsuite_Model_Process {
                             $update_lastmodified_entity = false;
                             break;
                         }
-
-                        if ( !is_array($records) && !$records instanceof Traversable) break;
+                        
                         foreach($records as $record)
                         {
                             if ($importableEntityModel->isMagentoImportable($record['internalid']) && !$importableEntityModel->isAlreadyImported($record['internalid'], $record['lastmodifieddate'])) {
@@ -186,7 +185,7 @@ class RocketWeb_Netsuite_Model_Process {
                                 if (!$importableEntityModel->isQueued($message)) {
                                     $queue = Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE);
 
-                                    if(!isset($queue) || !isset($queue->getAdapter())) break;
+                                    if (!isset($queue) || !isset($queue->getAdapter())) break;
                                     $queue->send($message->pack(), Mage::helper('rocketweb_netsuite')->getRecordPriority($path));                                   
                                 }
                             }
