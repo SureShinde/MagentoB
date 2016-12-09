@@ -104,7 +104,7 @@ class Mage_Api2_Model_Acl_Filter
     public function collectionOut($items)
     {
         foreach ($items as &$data) {
-            $data = is_array($data) ? $this->out($data) : array();            
+            $data = $this->out($data);
         }
         return $items;
     }
