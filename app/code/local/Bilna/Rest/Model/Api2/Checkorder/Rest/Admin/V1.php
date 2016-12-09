@@ -41,9 +41,13 @@ class Bilna_Rest_Model_Api2_Checkorder_Rest_Admin_V1 extends Bilna_Rest_Model_Ap
 
         $orderData = $order->getData();
         $orderId = $order->getId();
+
+        if (!$order->getPayment()) {
+            $this->_critical('Invalid order payment');
+        }
         $payment = $order->getPayment()->getMethodInstance()->getTitle();
 
-        $items     = $this->_getItems(array($orderId));
+        $items = $this->_getItems(array($orderId));
 
         if ($orderData['customer_email'] != $email) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
@@ -57,7 +61,7 @@ class Bilna_Rest_Model_Api2_Checkorder_Rest_Admin_V1 extends Bilna_Rest_Model_Ap
             if ($order->getSubtotal()) {
                 $orderData['subtotal'] = $order->getSubtotal();
             }
-            if($order->getShippingAmount()) {
+            if ($order->getShippingAmount()) {
                 $orderData['shipping_amount'] = $order->getShippingAmount();
             }
             if ($order->getWrappinggiftevent()) {
@@ -66,7 +70,7 @@ class Bilna_Rest_Model_Api2_Checkorder_Rest_Admin_V1 extends Bilna_Rest_Model_Ap
             if ($order->getDiscountAmount() && $order->getDiscountAmount() > 0) {
                 $orderData['discount_amount'] = $order->getDiscountAmount();
             }
-            if($order->getMoneyForPoints()) {
+            if ($order->getMoneyForPoints()) {
                 $orderData['money_for_points'] = $order->getMoneyForPoints();
             }
 
