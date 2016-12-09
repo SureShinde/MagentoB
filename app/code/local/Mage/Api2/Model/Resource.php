@@ -265,12 +265,6 @@ abstract class Mage_Api2_Model_Resource
             case self::ACTION_TYPE_COLLECTION . self::OPERATION_RETRIEVE:
                 $this->_errorIfMethodNotExist('_retrieveCollection');
                 $retrievedData = $this->_retrieveCollection();
-                
-                foreach ($retrievedData as &$data) {
-                    if (!is_array($data)) {
-                        $data = array($data);
-                    }          
-                }
                 $filteredData  = $this->getFilter()->collectionOut($retrievedData);
                 $this->_render($filteredData);
                 break;
