@@ -185,7 +185,7 @@ class RocketWeb_Netsuite_Model_Process {
                                 if (!$importableEntityModel->isQueued($message)) {
                                     $queue = Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE);
 
-                                    if (!isset($queue) || !isset($queue->getAdapter())) break;
+                                    if (!isset($queue) || !isset($queue->getAdapter())) continue;
                                     $queue->send($message->pack(), Mage::helper('rocketweb_netsuite')->getRecordPriority($path));                                   
                                 }
                             }
