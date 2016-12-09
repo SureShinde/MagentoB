@@ -177,13 +177,17 @@ class RocketWeb_Netsuite_Model_Process {
                             break;
                         }
 
+                        if ( !is_array($records) && !$records instanceof Traversable) break;
                         foreach($records as $record)
                         {
                             if ($importableEntityModel->isMagentoImportable($record['internalid']) && !$importableEntityModel->isAlreadyImported($record['internalid'], $record['lastmodifieddate'])) {
                                 $message = Mage::getModel('rocketweb_netsuite/queue_message');
                                 $message = $message->create($importableEntityModel->getMessageType(), $record['internalid'], RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE, $record);
                                 if (!$importableEntityModel->isQueued($message)) {
-                                    Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE)->send($message->pack(), Mage::helper('rocketweb_netsuite')->getRecordPriority($path));
+                                    $queue = Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE);
+
+                                    if(!isset($queue) || !isset($queue->getAdapter())) break;
+                                    $queue->send($message->pack(), Mage::helper('rocketweb_netsuite')->getRecordPriority($path));                                   
                                 }
                             }
                         }
