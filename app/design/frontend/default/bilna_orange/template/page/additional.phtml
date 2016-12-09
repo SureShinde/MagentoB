@@ -138,9 +138,9 @@ $customer = Mage::getSingleton('customer/session')->getCustomer();
 $profile = Mage::getModel('socialcommerce/profile')->load($customer->getId(), 'customer_id');
 $categories = Mage::getModel('socialcommerce/collectioncategory')->getCollection();
 $images = Mage::getModel('socialcommerce/collectioncover')->getCollection()->setCurPage(1)->setPageSize(12);
+$isEditor = false;
 $isLoggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
 if ($isLoggedIn) {
-    $isEditor = false;
     $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
     $customerGroup = Mage::getModel('customer/group')->load($customerGroupId);
 
@@ -315,7 +315,7 @@ if ($isLoggedIn) {
             </div>
         </div>
 
-        <?php if (isLoggedIn) : ?>
+        <?php if ($isLoggedIn) : ?>
             <form class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12 add-dashed" action="<?php echo $this->getUrl('social/settings/additemtocollection'); ?>" method="post" enctype="multipart/form-data" onsubmit="return preventDouble(this)" style="min-height:280px;">
 
                 <?php
@@ -495,7 +495,7 @@ if ($isLoggedIn) {
     <div class="in-block cg-col-lg-7 cg-col-md-7 cg-col-sm-12 cg-col-xs-12 login-collection">
         <p style="color: #545454;">Please login to add this item to your collection. <br>
             <a
-                <?php if (!isLoggedIn): ?>
+                <?php if (!$isLoggedIn): ?>
                     href="<?php echo Mage::getUrl('customer/account/login'); ?>"
                     onclick="hideAddToCollectionDialog();return false;" class="btn-pink-prime in-block"
                 <?php endif; ?>>
