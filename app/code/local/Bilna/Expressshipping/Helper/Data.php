@@ -71,10 +71,6 @@ class Bilna_Expressshipping_Helper_Data extends Mage_Core_Helper_Abstract {
 
     public function updateParentQuoteExpressShipping($quoteData)
     {
-        if (!isset($quoteData['quote_items'])) {            
-            return $quoteData;
-        }
-
         $parents = array();
 
         for ($i = (count($quoteData['quote_items']) - 1) ; $i >= 0 ; $i--)
