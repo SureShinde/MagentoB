@@ -176,7 +176,7 @@ class RocketWeb_Netsuite_Model_Process {
                             $update_lastmodified_entity = false;
                             break;
                         }
-                        
+
                         foreach($records as $record)
                         {
                             if ($importableEntityModel->isMagentoImportable($record['internalid']) && !$importableEntityModel->isAlreadyImported($record['internalid'], $record['lastmodifieddate'])) {
