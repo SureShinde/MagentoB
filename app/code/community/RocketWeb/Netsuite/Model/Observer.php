@@ -192,17 +192,24 @@ class RocketWeb_Netsuite_Model_Observer {
             return $this;
         }
 
+        $expressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled');
+
         $order = $observer->getEvent()->getOrder();
         $shippingMethod = $order->getShippingMethod();
-        //$priority = 2;
-        $priority = 0; // change back to 2 later
+
+        if ($expressShippingEnabled == '1') {
+            if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
+                $priority = 0;
+            else
+                $priority = 1;
+        }
+        else {
+            $priority = 0;
+        }
 
         if ((Mage::Helper('cod')->isCodOrder($order)) && ($order->getStatus() != "processing_cod") && (Mage::Helper('smsverification')->isEnabledValidate())) {
             return $this;
         }
-
-        if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
-            $priority = 0;
 
         if ($this->checkQueueOrderPlace($order, $observer)) {
             $message = Mage::getModel('rocketweb_netsuite/queue_message');
@@ -252,12 +259,22 @@ class RocketWeb_Netsuite_Model_Observer {
             return $this;
         }
 
+        $expressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled');
+
         $invoice = $observer->getEvent()->getInvoice();
 
         $order = $invoice->getOrder();
         $shippingMethod = $order->getShippingMethod();
-        //$priority = 3;
-        $priority = 1; // change back to 3 later
+
+        if ($expressShippingEnabled == '1') {
+            if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
+                $priority = 0;
+            else
+                $priority = 1;
+        }
+        else {
+            $priority = 0;
+        }
 
         if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
             $priority = 1;
