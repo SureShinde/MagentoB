@@ -194,17 +194,12 @@ class RocketWeb_Netsuite_Model_Observer {
 
         $order = $observer->getEvent()->getOrder();
         $shippingMethod = $order->getShippingMethod();
-<<<<<<< HEAD
         //$priority = 2;
-        $priority = 0;
-=======
+        $priority = 0; // change back to 2 later
 
         if ((Mage::Helper('cod')->isCodOrder($order)) && ($order->getStatus() != "processing_cod") && (Mage::Helper('smsverification')->isEnabledValidate())) {
             return $this;
         }
-
-        $priority = 2;
->>>>>>> 89f2032ac15e39216cdfb1534dce354bd7166c51
 
         if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
             $priority = 0;
@@ -262,7 +257,7 @@ class RocketWeb_Netsuite_Model_Observer {
         $order = $invoice->getOrder();
         $shippingMethod = $order->getShippingMethod();
         //$priority = 3;
-        $priority = 1;
+        $priority = 1; // change back to 3 later
 
         if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
             $priority = 1;
