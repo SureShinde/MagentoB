@@ -194,7 +194,8 @@ class RocketWeb_Netsuite_Model_Observer {
 		
         $order = $observer->getEvent()->getOrder();
         $shippingMethod = $order->getShippingMethod();
-        $priority = 2;
+        //$priority = 2;
+        $priority = 0;
 
         if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
             $priority = 0;
@@ -251,7 +252,8 @@ class RocketWeb_Netsuite_Model_Observer {
 
         $order = $invoice->getOrder();
         $shippingMethod = $order->getShippingMethod();
-        $priority = 3;
+        //$priority = 3;
+        $priority = 1;
 
         if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
             $priority = 1;
