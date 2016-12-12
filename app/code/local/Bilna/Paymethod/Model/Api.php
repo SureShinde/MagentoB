@@ -52,15 +52,12 @@ class Bilna_Paymethod_Model_Api {
         $transactionData['credit_card']['bank'] = $acquiredBank;
         $transactionData['credit_card']['bins'] = $this->getBins($order);
 
-        $installmentProcess = $this->getInstallmentProcess($bankConfig);
-
-        if ($installmentProcess != 'manual') {
+        if ($allowInstallment = $this->getAllowInstallment($bankConfig)) {
             $items = $order->getAllItems();
-            $installmentId = $this->getInstallment($items);
-            //$this->logProgress('installmentTerm: ' . $installmentId);
+            $installmentTenor = $this->getInstallment($items);
 
-            if ($installmentId) {
-                $transactionData['credit_card']['installment_term'] = $installmentId;
+            if ($installmentTenor) {
+                $transactionData['credit_card']['installment_term'] = $installmentTenor;
             }
         }
 
@@ -356,16 +353,22 @@ class Bilna_Paymethod_Model_Api {
         return array ($result);
     }
     
+    public function getAllowInstallment($bankConfig) {
+        return $bankConfig['allow_installment'];
+    }
+
     public function getInstallmentProcess($bankConfig) {
         return $bankConfig['installment_process'];
     }
     
     public function getInstallment($items) {
         foreach ($items as $itemId => $item) {
-            $installmentType = $item->getInstallmentType();
+            if ($item->getInstallment()) {
+                $installmentType = $item->getInstallmentType();
 
-            if ($installmentType > 1) {
-                return $installmentType;
+                if ($installmentType > 1) {
+                    return $installmentType;
+                }
             }
         }
 

@@ -2,7 +2,7 @@
 class RocketWeb_Netsuitecustom_Helper_Data extends Mage_Core_Helper_Abstract {
     public function getCustomRecord($recordTypeId,$recordId) {
         static $_customRecordListCache = array();
-        if(!isset($_customRecordListCache[$recordTypeId])) {
+        if (!isset($_customRecordListCache[$recordTypeId][$recordId])) {
             
             $netsuiteService = Mage::helper('rocketweb_netsuite')->getNetsuiteService();
 
@@ -44,6 +44,11 @@ class RocketWeb_Netsuitecustom_Helper_Data extends Mage_Core_Helper_Abstract {
                 throw new Exception((string) print_r($response->searchResult->status->statusDetail));
             }
         }
+
+        if (!isset($_customRecordListCache[$recordTypeId][$recordId])) {
+            throw new Exception("Record not found!");
+        }
+
         return $_customRecordListCache[$recordTypeId][$recordId];
     }
 }

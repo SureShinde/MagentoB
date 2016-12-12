@@ -25,6 +25,7 @@ class Bilna_Checkout_Model_Api2_Shipping_Rest_Admin_V1 extends Bilna_Checkout_Mo
     	$quote = $this->_getQuote($quoteId, $storeId);
 
     	$quoteShippingAddress = $quote->getShippingAddress();
+        $quoteIsWholesale = $quote->getIsWholesale();
         if (is_null($quoteShippingAddress->getId())) {
             throw Mage::throwException('Shipping Address is not set');
         }
@@ -36,14 +37,19 @@ class Bilna_Checkout_Model_Api2_Shipping_Rest_Admin_V1 extends Bilna_Checkout_Mo
             /* get reference to helper Bilna Express Shipping */
             $expressshippingHelper = Mage::helper('bilna_expressshipping');
 
-            /* get from config whether express shipping is enabled or disabled */
-            $expressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled');
-
             /* get reference to helper Bilna COD */
-            /*
             $codHelper = Mage::helper('cod');
-            $codEnabled = $codHelper->isCodEnabled();
-            */
+
+
+            $expressShippingEnabled = false;
+            $codEnabled = false;
+
+            if (!$quoteIsWholesale) {
+                /* get from config whether express shipping is enabled or disabled */
+                $expressShippingEnabled = Mage::getStoreConfig('bilna_expressshipping/status/enabled');
+
+                $codEnabled = $codHelper->isCodEnabled();
+            }
 
             $ratesResult = array();
             foreach ($groupedRates as $carrierCode => $rates ) {
@@ -72,14 +78,12 @@ $carrierName = $carrierCode;
                     }
 
                     /* check for COD shipping */
-                    /*
                     if ( strpos(strtolower($rate->getMethodTitle()), 'bayar di tempat') !== false )
                     {
                         // if not eligible to show COD method, skip the remaining process
-                        if (!$codHelper->showCodMethod('', $quote))
+                        if (!$codHelper->showCodMethod('', $quote) || !$codEnabled)
                             continue;
                     }
-                    */
 
                     $rateItem['carrierName'] = $rate->getMethodTitle();
                     $rateItem['carrierPrice'] = $rate->getPrice();

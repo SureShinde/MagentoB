@@ -64,6 +64,13 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
     protected function _applyCoupon($quoteId, $couponCode, $store = null)
     {
         $quote = $this->_getQuote($quoteId, $store);
+        if($couponCode != '') {
+            try{
+                Mage::Helper('smsverification')->validateCouponUsage($quote);
+            } catch (Exception $e) {
+                Mage::throwException("Lakukan verifikasi nomor telepon untuk menggunakan voucher");
+            }
+        }
 
         if (!$quote->getItemsCount()) {
             throw Mage::throwException('Quote is Empty');
@@ -98,7 +105,7 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
         $quote = $this->__getCollection($quoteId);
 
         $quoteDataRaw = $quote->getData();
-        
+
         if(empty($quoteDataRaw)){
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
@@ -113,7 +120,7 @@ class Bilna_Checkout_Model_Api2_Coupon_Rest_Admin_V1 extends Bilna_Checkout_Mode
         if ($items) {
             $quoteData['quote_items'] = $items[$quoteData['entity_id']];
         }
-        
+
         return $quoteData;
     }
 }

@@ -42,5 +42,10 @@
                 </connection>
             </bilna_checkout_read>
         </resources>
+        <helpers>
+            <bilna_checkout>
+                <class>Bilna_Checkout_Helper</class>
+            </bilna_checkout>
+        </helpers>
     </global>
 </config>

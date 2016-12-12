@@ -67,6 +67,9 @@ class Bilna_Customer_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_C
                 
                 if ($wishlist) {
                     $data = $wishlist;
+                    if ($wishlist->getData()['visibility'] == 0 && $wishlist->getData()['customer_id'] != $customerId) {
+                        $data = [];
+                    }
                 }
             } catch (Exception $e) {
                 $this->_critical($e->getMessage());
@@ -140,11 +143,11 @@ class Bilna_Customer_Model_Api2_Wishlistcollection_Rest_Admin_V1 extends Bilna_C
                 $productId = $this->getRequest()->getParam('product_id');
                 
                 if ($username != '' && $productId != '' && $collectionId != '') {
-                    $this->deleteWishlistCollectionItem($collectionId, $productId);
+                    $this->deleteWishlistCollectionItem($customerId, $collectionId, $productId);
                     return TRUE;
                 }
                 $wishlist = Mage::getModel('wishlist/wishlist')->load($collectionId);
-                if ($wishlist) {
+                if ($wishlist && $wishlist->getData()['customer_id'] == $customerId) {
                     $wishlist->delete();
                 }
             } catch (Mage_Core_Exception $e) {

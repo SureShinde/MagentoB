@@ -173,6 +173,10 @@ class Moxy_SocialCommerce_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $customerAvatar = null;
 
+        if (!isset($_FILES['avatar']['tmp_name'])) { 
+            throw new Exception("Avatar is not found");
+        }
+
         if ($upFileTmpName = $_FILES['avatar']['tmp_name']) {
 
             $image_name = substr(str_shuffle(md5(time())),0,5).'.jpg';
@@ -426,5 +430,30 @@ class Moxy_SocialCommerce_Helper_Data extends Mage_Core_Helper_Abstract
         ->setPageSize(4);
 
         return $wishlistCollection->getData();
+    }
+
+    public function seoUrl($string)
+    {
+        //Lower case everything
+        $string = strtolower($string);
+        /**
+         * Make alphanumeric (removes all other characters)
+         * Clean up multiple dashes or whitespaces
+         * Convert whitespaces and underscore to dash
+         */
+        $patterns = array(
+            '/[^a-z0-9_\s-]/',
+            '/[\s-]+/',
+            '/[\s_]/'
+        );
+
+        $replace = array(
+            '',
+            ' ',
+            '-'
+        );
+
+        $string = preg_replace($patterns, $replace, $string);
+        return $string;
     }
 }

@@ -15,6 +15,7 @@ class Bilna_Checkout_Model_Api2_Product_Delete_Rest_Admin_V1 extends Bilna_Check
             $quote = $this->_getQuote($quoteId);
             
             if ($quote->removeItem($itemId)) {
+                $quote->setIsWholesale(0); // reset is_wholesale flag before run Mage_CatalogInventory_Model_Observer
                 $quote->save();
                 
                 return $this->_getLocation($quote);

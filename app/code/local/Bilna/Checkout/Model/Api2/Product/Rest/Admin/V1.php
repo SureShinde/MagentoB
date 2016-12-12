@@ -9,13 +9,85 @@
  */
 class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Model_Api2_Product_Rest
 {
-	/**
+    /**
      * Add new product/catalog for shopping cart
      *
      * @param array $data
      * @return int
      */
-    protected function _create(array $data)
+    protected function _create(array $data) {
+    	$quoteId = $data['entity_id'];
+        $storeId = isset ($data['store_id']) ? $data['store_id'] : 1;
+        $productsData = array ($data['products']);
+
+        if (empty ($productsData)) {
+            $this->_critical('Invalid Product Data');
+        }
+
+    	try {
+            $errors = [];
+            $quote = $this->_getQuote($quoteId, $storeId);
+
+            foreach ($productsData as $productItem) {
+                $productByItem = $this->_getProduct($productItem['product_id'], $storeId, 'id');
+
+                if (
+                    isset($productItem['product_type']) &&
+                    $productItem['product_type'] == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE
+                ) {
+                    $productChildDisabled = false;
+
+                    if ($productItem['product_child_id']) {
+                        $productConfigChild = $this->_getProduct($productItem['product_child_id']);
+
+                        if ($productConfigChild->getStatus() == Mage_Catalog_Model_Product_Status::STATUS_DISABLED) {
+                            $productChildDisabled = true;
+                        }
+                    }
+                    else {
+                        $productChildDisabled = true;
+                    }
+
+                    if ($productChildDisabled) {
+                        Mage::throwException('This product is currently not available');
+                    }
+                }
+
+                if ($productByItem->getStatus() != Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
+                    Mage::throwException('This product is currently not available');
+                }
+
+                $productQty = isset($productItem['qty']) ? $productItem['qty'] : 1;
+                $productRequest = $this->_getProductRequest($productItem);
+                $this->_validateAddToCartCrossBorder($quote, $productByItem, $productQty);
+                $result = $quote->addProduct($productByItem, $productRequest);
+
+                if (is_string($result)) {
+                    Mage::throwException($result);
+                }
+            }
+
+            $quote->getShippingAddress()->setCollectShippingRates(true);
+            $quote->getShippingAddress()->collectShippingRates();
+            $quote->getShippingAddress()->setShippingMethod(false);
+            $quote->collectTotals()->save();
+
+            return $this->_getLocation($quote);
+        }
+        catch (Mage_Core_Exception $e) {
+            $errMsg = str_replace(Mage::helper('cataloginventory')->__('Product will be available in 1-2 weeks.'), '', $e->getMessage());
+            $this->_error($errMsg, Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
+            $this->_critical(self::RESOURCE_INTERNAL_ERROR);
+        }
+    }
+
+    /**
+     * Update cart
+     *
+     * @param array $data
+     * @throws Mage_Api2_Exception
+     */
+    protected function _update(array $data)
     {
     	$quoteId = $data['entity_id'];
     	$storeId = isset($data['store_id']) ? $data['store_id'] : 1;
@@ -26,89 +98,6 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
     	try {
 	    	$quote = $this->_getQuote($quoteId, $storeId);
 
-            if(empty($productsData))
-            {
-                Mage::throwException("Invalid Product Data");
-            }
-
-            $errors = array();
-            foreach ($productsData as $productItem)
-            {
-                $productByItem = $this->_getProduct($productItem['product_id'], $storeId, "id");
-
-                $productRequest = $this->_getProductRequest($productItem);
-                try {
-                    $result = $quote->addProduct($productByItem, $productRequest);
-                    if (is_string($result)) {
-                        Mage::throwException($result);
-                    }
-                    $this->_validateCrossBorder($quote);
-                } catch (Mage_Core_Exception $e) {
-                    $errors[] = $e->getMessage();
-                }
-            }
-
-            if (!empty($errors)){
-                Mage::throwException(implode(PHP_EOL, $errors));
-            }
-            $quote->getShippingAddress()->setCollectShippingRates(true);
-            $quote->getShippingAddress()->collectShippingRates();
-            $quote->collectTotals()->save();
-
-            /*$productModel = Mage::getModel('catalog/product');
-            $product = $productModel->load($productId);*/
-
-
-//	    	$product = $this->_getProduct($productId, $storeId, "id");
-
-	    	/*$productRequest = $this->_getProductRequest(array(
-	    		'product_id' => $productId,
-	    		'qty'		 => $qty
-	    	));
-
-	    	$result = $quote->addProduct($productByItem, $productRequest);*/
-
-//            $quoteItem = Mage::getModel('sales/quote_item')->setProduct($product);
-//            $quoteItem->setStoreId($storeId);
-//            $quoteItem->setQuote($quote);
-//            $quoteItem->setQty($qty);
-
-            /*if (is_string($result)) {
-                throw Mage::throwException($result);
-            }*/
-
-//            $quote->addItem($quoteItem);
-//            $quote->getShippingAddress()->setCollectShippingRates(true);
-//            $quote->getShippingAddress()->collectShippingRates();
-//            $quote->collectTotals(); // calls $address->collectTotals();
-//            $quote->save();            
-
-            //$quote->collectTotals()->save();
-
-	    } catch (Mage_Core_Exception $e) {
-            $this->_error($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
-        }
-
-        return $this->_getLocation($quote);
-    }
-
-    /**
-     * Update cart
-     *
-     * @param array $data
-     * @throws Mage_Api2_Exception
-     */
-    protected function _update(array $data)
-    {       
-    	$quoteId = $data['entity_id'];
-    	$storeId = isset($data['store_id']) ? $data['store_id'] : 1;
-    	/*$productId = $data['product_id'];
-    	$qty = isset($data['qty']) ? $data['qty'] : 1;*/
-        $productsData = array($data['products']);
-    	
-    	try {
-	    	$quote = $this->_getQuote($quoteId, $storeId);
-	        
 	    	if(empty($productsData))
 	    	{
 	    		throw Mage::throwException("Invalid Product Data");
@@ -122,16 +111,16 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                 $quoteItem = $this->_getQuoteItemByProduct($quote, $productByItem,
                     $this->_getProductRequest($productItem)
                 );
-                
+
                 //Mage::log(json_encode($quoteItem->getData()), null, 'mylog.log');
-                //bug fix if quote item id is free product, will return call to undefined getId, 
+                //bug fix if quote item id is free product, will return call to undefined getId,
                 //since it was not an object. because the product is free, and will return null object.
                 if(is_object($quoteItem)) {
                     $quoteItemId = $quoteItem->getId();
                 } else {
                     $quoteItemId = array();
                 }
-                
+
                 //if (!$quoteItem->getId()) {
                 if (empty($quoteItemId)) {
                     return false;
@@ -141,6 +130,9 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
 
                 if ($productItem['qty'] > 0 && !empty($quoteItemId)) {
                     $quoteItem->setQty($productItem['qty']);
+                    if ($quoteItem->getHasError()) {
+                        throw Mage::throwException($quoteItem->getMessage());
+                    }
                 }
 
                 $quote->addItem($quoteItem);
@@ -150,6 +142,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
             $quote->getShippingAddress()->setCollectShippingRates(true);
             $quote->getShippingAddress()->collectShippingRates();
             $quote->collectTotals(); // calls $address->collectTotals();
+            $quote->setIsWholesale(0); // reset is_wholesale flag to be processed by Mage_CatalogInventory_Model_Observer
             $quote->save();
 
 //            $productModel = Mage::getModel('catalog/product');
@@ -176,7 +169,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
         //     $quote->getShippingAddress()->setCollectShippingRates(true);
         //     $quote->getShippingAddress()->collectShippingRates();
         //     $quote->collectTotals(); // calls $address->collectTotals();
-        //     $quote->save(); 
+        //     $quote->save();
 
 
 	    } catch (Mage_Core_Exception $e) {
@@ -198,7 +191,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
         $quote = $this->__getCollection($quoteId);
 
         $quoteDataRaw = $quote->getData();
-        
+
         if(empty($quoteDataRaw)){
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
@@ -213,7 +206,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
         if ($items) {
             $quoteData['quote_items'] = $items[$quoteData['entity_id']];
         }
-        
+
         return $quoteData;
     }
 }

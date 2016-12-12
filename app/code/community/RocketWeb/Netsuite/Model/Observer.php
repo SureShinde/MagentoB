@@ -21,24 +21,24 @@ class RocketWeb_Netsuite_Model_Observer {
      * @return $this
      */
     public function queueCustomerForNetsuite($observer) {
-		
+
 		if(!Mage::helper('rocketweb_netsuite')->isEnabled()) {
 			return $this;
 		}
 
 		$customer = $observer->getEvent()->getCustomer();
-		
+
 		//prevent executing more than once per event. A customer with 2 addresses that is saved in the admin will trigger the customer_save_after event 3 times
 		if(Mage::registry('netsuite_customer_save_'.$customer->getId())) {
 			return $this;
 		}
-		
+
 		Mage::register('netsuite_customer_save_'.$customer->getId(),true);
-		
+
 		$message = Mage::getModel('rocketweb_netsuite/queue_message');
 		$message->create(RocketWeb_Netsuite_Model_Queue_Message::CUSTOMER_SAVE,$customer->getId(),RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE);
 		Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE)->send($message->pack());
-		
+
 		return $this;
 	}
 
@@ -51,20 +51,20 @@ class RocketWeb_Netsuite_Model_Observer {
 		if(!Mage::helper('rocketweb_netsuite')->isEnabled()) {
 			return $this;
 		}
-		
+
 		$customer = $observer->getEvent()->getCustomerAddress()->getCustomer();
-		
+
 		//prevent executing more than once per event. A customer with 2 addresses that is saved in the admin will tigger the customer_save_after event 3 times
 		if(Mage::registry('netsuite_customer_save_'.$customer->getId())) {
 			return $this;
 		}
-		
+
 		Mage::register('netsuite_customer_save_'.$customer->getId(),true);
-		
+
 		$message = Mage::getModel('rocketweb_netsuite/queue_message');
 		$message->create(RocketWeb_Netsuite_Model_Queue_Message::CUSTOMER_SAVE,$customer->getId(),RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE);
 		Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE)->send($message->pack());
-		
+
 		return $this;
 	}
 
@@ -75,28 +75,28 @@ class RocketWeb_Netsuite_Model_Observer {
     public function cleanApiLog($observer) {
 
 		$cleanTime = $observer->getEvent()->getLog()->getLogCleanTime();
-		
+
 		$timeLimit = date('Y-m-d H:i:s',(int)Mage::getModel('core/date')->gmtTimestamp() - $cleanTime);
 		$writeAdapter   = Mage::getSingleton('core/resource')->getConnection('core_write');
-		
+
 		while (true) {
 			$select = $writeAdapter->select()->from(array('log_table' => Mage::getSingleton('core/resource')->getTableName('netsuite_api_log')),
 													array('id' => 'log_table.id')
 												)
 												->where('log_table.call_date < ?', $timeLimit)
 												->limit(100);
-			
-			$ids = $writeAdapter->fetchCol($select);	
+
+			$ids = $writeAdapter->fetchCol($select);
 			if (!$ids) {
 				break;
 			}
 			$condition = array('id IN (?)' => $ids);
-			
+
 			$writeAdapter->delete(Mage::getSingleton('core/resource')->getTableName('netsuite_api_log'), $condition);
 		}
-		
+
 		return $this;
-		
+
 	}
 
     /**
@@ -109,11 +109,11 @@ class RocketWeb_Netsuite_Model_Observer {
 			return $this;
 		}
 		$customer = $observer->getEvent()->getCustomer();
-		
+
 		$message = Mage::getModel('rocketweb_netsuite/queue_message');
 		$message->create(RocketWeb_Netsuite_Model_Queue_Message::CUSTOMER_DELETE,$customer->getId(),RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE);
 		Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE)->send($message->pack());
-		
+
 		return $this;
 	}
 
@@ -137,12 +137,12 @@ class RocketWeb_Netsuite_Model_Observer {
 		if(!Mage::helper('rocketweb_netsuite')->isEnabled()) {
 			return $this;
 		}
-		
+
 		$devEmail = Mage::getStoreConfig('rocketweb_netsuite/developer/email');
 		if(!$devEmail) {
 			return $this;
 		}
-		
+
 		$exportThreshold = (int)Mage::getStoreConfig('rocketweb_netsuite/developer/export_queue_threshold');
 		if($exportThreshold) {
 			$exportQueueSize = Mage::getModel('rocketweb_netsuite/queue_message')->getCollection()->addFieldToFilter('queue_id',Mage::helper('rocketweb_netsuite/queue')->getQueueId(RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE))->getSize();
@@ -158,7 +158,7 @@ class RocketWeb_Netsuite_Model_Observer {
 				$mail->send();
 			}
 		}
-		
+
 		$importThreshold = (int)Mage::getStoreConfig('rocketweb_netsuite/developer/import_queue_threshold');
 		if($importThreshold) {
 			$importQueueSize = Mage::getModel('rocketweb_netsuite/queue_message')->getCollection()->addFieldToFilter('queue_id',Mage::helper('rocketweb_netsuite/queue')->getQueueId(RocketWeb_Netsuite_Helper_Queue::NETSUITE_IMPORT_QUEUE))->getSize();
@@ -174,7 +174,7 @@ class RocketWeb_Netsuite_Model_Observer {
 				$mail->send();
 			}
 		}
-		
+
 		return $this;
 	}
 
@@ -187,48 +187,57 @@ class RocketWeb_Netsuite_Model_Observer {
         if (!Mage::helper('rocketweb_netsuite')->isEnabled()) {
             return $this;
         }
-        
+
         if (!Mage::helper('rocketweb_netsuite/permissions')->isFeatureEnabled(RocketWeb_Netsuite_Helper_Permissions::SEND_ORDERS)) {
             return $this;
         }
-		
+
         $order = $observer->getEvent()->getOrder();
         $shippingMethod = $order->getShippingMethod();
+<<<<<<< HEAD
         //$priority = 2;
         $priority = 0;
+=======
+
+        if ((Mage::Helper('cod')->isCodOrder($order)) && ($order->getStatus() != "processing_cod") && (Mage::Helper('smsverification')->isEnabledValidate())) {
+            return $this;
+        }
+
+        $priority = 2;
+>>>>>>> 89f2032ac15e39216cdfb1534dce354bd7166c51
 
         if ( (strpos(strtolower($shippingMethod), 'express') !== false) || (strpos(strtolower($shippingMethod), 'ekspres') !== false) )
             $priority = 0;
-        
+
         if ($this->checkQueueOrderPlace($order, $observer)) {
             $message = Mage::getModel('rocketweb_netsuite/queue_message');
             /*adding logging for tracking fake order*/
-            $paymentMethodCode = $order->getPayment()->getMethodInstance()->getCode();            
+            $paymentMethodCode = $order->getPayment()->getMethodInstance()->getCode();
             $msg = "\n".date('YmdHis')." increment id ".$order->getIncrementId(). " | entity_id ".$order->getId() ." | paymentMethodCode ".$paymentMethodCode;
             error_log($msg, 3, Mage::getBaseDir('var') . DS . 'log'.DS.'netsuite_order.log');
             /*end adding logger for fake order*/
             $message->create(RocketWeb_Netsuite_Model_Queue_Message::ORDER_PLACE, $order->getId(), RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE);
             Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE)->send($message->pack(), $priority);
         }
-        
+
         return $this;
     }
-    
+
     protected function checkQueueOrderPlace($order, $observer) {
         $paymentMethodCode = $order->getPayment()->getMethodInstance()->getCode();
         $paymentMethodCheck = explode(',', Mage::getStoreConfig('rocketweb_netsuite/exports/order_payment_check'));
-        
+
         if (in_array($paymentMethodCode, $paymentMethodCheck)) {
             $orderStatusAllow = explode(',', Mage::getStoreConfig('rocketweb_netsuite/exports/order_status_allow'));
             $orderStatus = $order->getStatus();
-            
+
             if (in_array($orderStatus, $orderStatusAllow)) {
                 return true;
             }
-            
+
             return false;
         }
-        
+
         return true;
     }
 
@@ -277,16 +286,16 @@ class RocketWeb_Netsuite_Model_Observer {
 		if(!Mage::helper('rocketweb_netsuite')->isEnabled()) {
 			return $this;
 		}
-		
+
 		$product = $observer->getEvent()->getProduct();
-		
+
 		$message = Mage::getModel('rocketweb_netsuite/queue_message');
 		$message->create(RocketWeb_Netsuite_Model_Queue_Message::PRODUCT_SAVE,$product->getId(),RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE);
 		Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE)->send($message->pack());
-		
+
 		return $this;
 	}
-        
+
     /**
      * @param type $observer
      * @return \RocketWeb_Netsuite_Model_Observer
@@ -295,31 +304,31 @@ class RocketWeb_Netsuite_Model_Observer {
         if (!Mage::helper('rocketweb_netsuite')->isEnabled()) {
             return $this;
         }
-        
+
         $product = $observer->getEvent()->getProduct();
         $productId = $product->getId();
-        
+
         // original value
         $origCost = $product->getOrigData('cost');
         $origExpectedCost = $product->getOrigData('expected_cost');
         $origEventCost = $product->getOrigData('event_cost');
         $origEventStartDate = date('Y-m-d', strtotime($product->getOrigData('event_start_date')));
         $origEventEndDate = date('Y-m-d', strtotime($product->getOrigData('event_end_date')));
-        
+
         // new value
         $newCost = $product->getData('cost');
         $newExpectedCost = $product->getData('expected_cost');
         $newEventCost = $product->getData('event_cost');
         $newEventStartDate = date('Y-m-d', strtotime($product->getData('event_start_date')));
         $newEventEndDate = date('Y-m-d', strtotime($product->getData('event_end_date')));
-        
+
         if (($origCost == $newCost) && ($origExpectedCost == $newExpectedCost) && ($origEventCost == $newEventCost) && ($origEventStartDate == $newEventStartDate) && ($origEventEndDate == $newEventEndDate)) {
             return $this;
         }
         else {
             $model = Mage::getModel('rocketweb_netsuite/productcost');
             $productCost = $model->getCollection()->addFieldToFilter('product_id', $productId)->addFieldToSelect('id')->addFieldToSelect('product_id')->getFirstItem();
-            
+
             // if productId exist, just update row
             if ($productCost->getProductId()) {
                 $id = $productCost->getId();
@@ -331,7 +340,7 @@ class RocketWeb_Netsuite_Model_Observer {
                     'event_end_date' => $newEventEndDate
                 );
                 $update = $model->load($id)->addData($dataArr);
-                
+
                 if (!$update->setId($id)->save()) {
                     Mage::log("update queueProductSaveCostNetsuite #" . $product->getId() . " : failed, " . $e->getMessage(), null, "netsuite_product_cost.log");
                 }
@@ -353,7 +362,7 @@ class RocketWeb_Netsuite_Model_Observer {
                 }
             }
         }
-                
+
         return $this;
     }
 

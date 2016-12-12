@@ -44,6 +44,10 @@ class Mage_Sales_Model_Api2_Order_Rest_Admin_V1 extends Mage_Sales_Model_Api2_Or
             $orderData['order_comments'] = $comments[$orderId];
         }
         
+        if ($orderShipment = $this->_getOrderShipment($order)) {
+            $orderData['shipment_info'] = $orderShipment;
+        }
+        
         if ($orderData) {
             $orderData['status_label'] = $order->getStatusLabel();
             $orderData['payment_title'] = $this->_getPaymentTitle($order);
