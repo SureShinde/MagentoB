@@ -279,6 +279,15 @@
                 <group>offline</group>
             </transferbni>
 
+            <transferbri>
+                <active>1</active>
+                <model>paymethod/method_transferbri</model>
+                <order_status>pending</order_status>
+                <title>Bank Transfer Payment BRI</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </transferbri>
+
             <klikbca>
                 <active>1</active>
                 <model>paymethod/method_klikbca</model>
