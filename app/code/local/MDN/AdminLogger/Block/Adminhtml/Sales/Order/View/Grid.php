@@ -24,11 +24,10 @@ class MDN_AdminLogger_Block_Adminhtml_Sales_Order_View_Grid extends Mage_Adminht
      * @return unknown
      */
     protected function _prepareCollection() {
-
         $collection = Mage::getModel('AdminLogger/Log')
                 ->getCollection()
                 ->addFieldToFilter('al_object_id', array('eq' => $this->getRequest()->getParam('order_id')))
-                ->addFieldToFilter('al_object_type', array('like' => '%sales/order%'));
+                ->addFieldToFilter('al_object_type', array('eq' => 'sales/order'));
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -71,13 +70,13 @@ class MDN_AdminLogger_Block_Adminhtml_Sales_Order_View_Grid extends Mage_Adminht
 
     /**
      *
-     * @return type 
+     * @return type
      */
     public function getGridParentHtml() {
         $templateName = Mage::getDesign()->getTemplateFilename($this->_parentTemplate, array('_relative' => true));
         return $this->fetchView($templateName);
     }
-    
+
     public function getGridUrl() {
         return $this->getUrl('AdminLogger/Admin/SalesAjaxGrid', array('_current' => true));
     }

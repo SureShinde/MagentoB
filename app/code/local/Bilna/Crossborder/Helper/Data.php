@@ -171,11 +171,10 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
     public function validateQuote($quote)
     {
         $success = true;
-        $message = '';
+        $messages = array();
 
         if ($this->isCrossBorderEnabled()) {
             $invalidCount = 0;
-            $messages = array();
             $crossBorderConfig = $this->getConfiguration();
             $maxWeightAllowed = $crossBorderConfig['max_weight_allowed'];
             $maxSubtotalAllowed = $crossBorderConfig['max_subtotal_allowed'];
@@ -228,12 +227,11 @@ class Bilna_Crossborder_Helper_Data extends Mage_Core_Helper_Abstract {
     public function validateAddToQuote($quote, $product, $qty = 1)
     {
         $success = true;
-        $message = '';
+        $messages = array();
 
         if ($product->getData('cross_border') == 1) {
             if ($this->isCrossBorderEnabled()) {
-                $invalidCount = 0;
-                $messages = array();
+                $invalidCount = 0;                
                 $crossBorderConfig = $this->getConfiguration();
                 $maxWeightAllowed = $crossBorderConfig['max_weight_allowed'];
                 $maxSubtotalAllowed = $crossBorderConfig['max_subtotal_allowed'];

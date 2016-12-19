@@ -137,7 +137,8 @@ class Bilna_Checkout_Model_Api2_Resource extends Mage_Api2_Model_Resource
      */
     protected function _getItems(array $orderIds) {
         $items = array ();
-
+        $options = array ();
+        
         if ($this->_isSubCallAllowed('quote_item')) {
             /** @var $itemsFilter Mage_Api2_Model_Acl_Filter */
             $itemsFilter = $this->_getSubModel('quote_item', array ())->getFilter();
