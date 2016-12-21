@@ -10,7 +10,7 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
         $customerId = $data['customer_id'];
         $customer = Mage::getModel('customer/customer')->load($customerId);
         if(!$customer->getId()) {
-            $this->_critical("Customer Does Not Exists");
+            $this->_critical("Customer tidak terdaftar");
         }
 
         $OTPModel = Mage::getModel('smsverification/otplist');
@@ -28,7 +28,7 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
                 ->addFieldToFilter('created_at',array('gteq' => $startFrom));
 
             if($maxOTP <= count($OTPData)) {
-                $this->_critical("You have reach max OTP Request. Please Try Again later");
+                $this->_critical("Pengiriman kode OTP telah melebihi kuota yang diijinkan. Coba kembali dalam beberapa saat");
             }
         }
 
@@ -51,7 +51,7 @@ class Bilna_Smsverification_Model_Api2_Send_Rest_Admin_V1 extends Bilna_Smsverif
             $current = strtotime(Mage::getModel('core/date')->date('Y-m-d H:i:s'));
             $timeDiff = ($current - $lastUsed) / (60*60*24);
             if($timeDiff < $minChangeMobileNumber) {
-                $this->_critical('This Number is already used before');
+                $this->_critical('Nomor Handphone sudah terdaftar. Satu nomor handphone hanya berlaku untuk satu akun');
             }
         }
 

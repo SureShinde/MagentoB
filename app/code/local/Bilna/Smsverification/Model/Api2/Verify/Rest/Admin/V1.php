@@ -16,7 +16,7 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
         $customerId = $data['customer_id'];
         $customer = Mage::getModel('customer/customer')->load($customerId);
         if(!$customer->getId()) {
-            $this->_critical("Customer Does Not Exists");
+            $this->_critical("Customer tidak terdaftar");
         }
 
         //otp valid retry limit check
@@ -30,7 +30,7 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
                 ->addFieldToFilter('customer_id',array('equal' => $data['customer_id']))
                 ->addFieldToFilter('created_at',array('gteq' => $startDate));
             if(count($failedData) >= $maxInvalidCount) {
-                $this->_critical('You Have reached max OTP Retry');
+                $this->_critical('Anda telah memasukkan kode OTP yang salah berulang kali. Coba kembali dalam beberapa saat');
             }
         }
 
@@ -51,7 +51,7 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
             if ((int) $timeOut > 0) {
                 if (($currentTime - $createdAt) > ($timeOut * 60)) {
                     $OTPData->getFirstItem()->delete();
-                    $this->_critical('Expired OTP Code');
+                    $this->_critical('Kode OTP Kadaluarsa. Silakan minta kode OTP baru');
                 }
             }
             $otherCustomer = Mage::getModel('customer/customer')->getCollection()
@@ -89,7 +89,7 @@ class Bilna_Smsverification_Model_Api2_Verify_Rest_Admin_V1 extends Bilna_Smsver
                 'created_at' => Mage::getModel('core/date')->date('Y-m-d H:i:s')
             );
             $write->query($query, $binds);
-            $this->_critical('Invalid OTP Code');
+            $this->_critical('Kode OTP Salah. Silakan coba kembali');
         }
 
     }
