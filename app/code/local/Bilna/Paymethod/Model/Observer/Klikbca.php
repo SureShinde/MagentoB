@@ -10,11 +10,6 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
     protected $_lockFile = 'klikbca_confirm_process';
     protected $_typeTransaction = 'transaction';
 
-    public function testing() {
-        echo json_encode($_POST);
-        exit;
-    }
-
     public function confirmationProcess() {
         $this->checkLockProcess();
 
@@ -29,29 +24,28 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
             "sfop.method = '{$this->_code}' AND sfop.parent_id = main_table.entity_id",
             ['klikbca_user_id']
         );
-
         foreach ($orderCollection as $order) {
-            $crData = [
-                'cru' => $crUsername,
-                'crp' => $crPassword,
-                'userid' => $order->getKlikbcaUserId(),
-                'transno' => $order->getIncrementId(),
-                'transdate' => date('m/d/Y H:i:s', strtotime($order->getCreatedAt())),
-                'amount' => 'IDR' . number_format((int)$order->getGrandTotal(), 2, null, ''),
-                'type' => 'N',
-                'adddata' => '',
-                'rettype' => 'xml'
-            ];
-            $this->orderProcess($crUrl, $crData);
+            $this->orderProcess($order, $crUrl, $crUsername, $crPassword);
         }
 
         $this->removeLockProcess();
     }
 
-    private function orderProcess($crUrl, $crData)
+    private function orderProcess($order, $crUrl, $crUsername, $crPassword)
     {
-        $klikbcaUserId = $crData['userid'];
-        $transactionNo = $crData['transno'];
+        $klikbcaUserId = $order->getKlikbcaUserId();
+        $transactionNo = $order->getIncrementId();
+        $crData = [
+            'cru' => $crUsername,
+            'crp' => $crPassword,
+            'userid' => $klikbcaUserId,
+            'transno' => $transactionNo,
+            'transdate' => date('m/d/Y H:i:s', strtotime($order->getCreatedAt())),
+            'amount' => 'IDR' . number_format((int)$order->getGrandTotal(), 2, null, ''),
+            'type' => 'N',
+            'adddata' => '',
+            'rettype' => 'xml'
+        ];
 
         $contentLog = sprintf("%s | request_bilna: %s", $klikbcaUserId, json_encode($crData));
         $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);
@@ -64,15 +58,12 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
          * ubah response xml menjadi object
          */
         $responseObj = simplexml_load_string($response);
-        $order = Mage::getModel('sales/order')->loadByIncrementId($transactionNo);
-
         if ($responseObj->status == '00') {
             /**
              * status pembayaran sukses
              * update order status menjadi "Processing", dan create lock file berdasarkan TransactionNo
              */
             $updateOrderStatus = $this->_updateOrderStatus($order, 'processing');
-
             if ($updateOrderStatus) {
                 $contentLog = sprintf("%s | order_status: %s -> processing", $klikbcaUserId, $transactionNo);
                 $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);
@@ -85,13 +76,13 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
              */
             $this->_updateOrderStatus($order, 'pending');
             $order->addStatusHistoryComment('Konfirmasi SprintAsia: ' . $responseObj->reason);
+
             $templateId = Mage::getStoreConfig('payment/klikbca/template_id_pending');
             $emailVars = array (
                 'email_to' => $order->getCustomerEmail(),
                 'name_to' => $order->getCustomerName(),
                 'transaction_no' => $transactionNo
             );
-
             Mage::helper('paymethod/klikbca')->_sendEmail($templateId, $emailVars);
 
             $contentLog = sprintf("%s | order_status: %s -> pending", $klikbcaUserId, $transactionNo);
