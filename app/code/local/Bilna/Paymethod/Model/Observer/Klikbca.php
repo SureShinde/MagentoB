@@ -13,23 +13,19 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
     protected $_successLogPath = '';
     protected $_logPath = '';
     protected $_typeTransaction = 'transaction';
-
+    
     public function testing() {
         echo json_encode($_POST);
         exit;
     }
-
+    
     public function confirmationProcess() {
         $this->checkLockProcess();
         $this->setPath();
-
-        // drain queue
-        $paymethodHelper = Mage::helper('paymethod');
-        while ($job = $paymethodHelper->dequeueKlikbcaConfirmation()) {
-            // no-op
-        }
-
-        // read directory
+        
+        /**
+         * read directory
+         */
         if ($handle = opendir($this->_logPath)) {
             while (false !== ($orderFile = readdir($handle))) {
                 if ($orderFile != "." && $orderFile != "..") {
@@ -39,14 +35,14 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
 
             closedir($handle);
         }
-
+        
         $this->removeLockProcess();
     }
-
+    
     private function orderProcess($orderFile) {
         $filename = $this->_logPath . $orderFile;
         $orderDetail = file($filename, FILE_IGNORE_NEW_LINES);
-
+        
         if ($orderDetail !== false) {
             $orderDetailArr = explode('|', $orderDetail[0]);
             $crUrl = Mage::getStoreConfig('payment/klikbca/confirm_url');
@@ -60,7 +56,7 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
             $additionalData = $orderDetailArr[5];
             $logDate = $orderDetailArr[6];
             $rettype = 'xml';
-
+            
             $crData = array (
                 'cru' => $crUsername,
                 'crp' => $crPassword,
@@ -72,20 +68,20 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
                 'adddata' => $additionalData,
                 'rettype' => $rettype
             );
-
+            
             $contentLog = sprintf("%s | request_bilna: %s", $klikbcaUserId, json_encode($crData));
             $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);
-
+            
             $response = Mage::helper('paymethod/klikbca')->postRequest($crUrl, $crData);
             $contentLog = sprintf("%s | response_bilna: %s", $klikbcaUserId, json_encode($response));
             $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);
-
+            
             /**
              * ubah response xml menjadi object
              */
             $responseObj = simplexml_load_string($response);
             $order = Mage::getModel('sales/order')->loadByIncrementId($transactionNo);
-
+            
             if ($responseObj->status == '00') {
                 /**
                  * status pembayaran sukses
@@ -93,7 +89,7 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
                  */
                 $updateOrderStatus = true;
                 $updateOrderStatus = $this->_updateOrderStatus($order, 'processing');
-
+                
                 if ($updateOrderStatus) {
                     $contentLog = sprintf("%s | order_status: %s -> processing", $klikbcaUserId, $transactionNo);
                     $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);
@@ -115,7 +111,7 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
                 );
 
                 Mage::helper('paymethod/klikbca')->_sendEmail($templateId, $emailVars);
-
+                
                 $contentLog = sprintf("%s | order_status: %s -> pending", $klikbcaUserId, $transactionNo);
                 $this->writeLog($this->_typeTransaction, 'confirmation', $contentLog);
                 $this->moveFile($filename, $transactionNo, 'failed');
@@ -131,7 +127,7 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
             }
         }
     }
-
+    
     private function _updateOrderStatus($order, $orderStatus = 'processing') {
         if ($orderStatus == 'processing') {
             if ($order->canInvoice()) {
@@ -144,7 +140,7 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
                     $transactionSave = Mage::getModel('core/resource_transaction')
                         ->addObject($invoice)
                         ->addObject($invoice->getOrder());
-                    $transactionSave->save();
+                    $transactionSave->save();                            
                     $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, Mage::getStoreConfig('payment/klikbca/order_processing_comment'), true)->save();
                     $invoice->sendEmail(true, '');
 
@@ -157,7 +153,7 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
         else {
             // order status diset menjadi Pending dan kirim email notifikasi ke customer
             $order->setState(Mage_Sales_Model_Order::STATE_NEW, 'pending', Mage::getStoreConfig('payment/klikbca/order_pending_comment'), true)->save();
-
+            
             return true;
         }
     }
@@ -168,7 +164,7 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
         $this->_successLogPath = Mage::getStoreConfig('payment/klikbca/success_log_path');
         $this->_logPath = $this->_baseLogPath . $this->_confirmLogPath;
     }
-
+    
     protected function checkLockProcess() {
         /**
          * check lock file process
@@ -192,7 +188,7 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
             }
         }
     }
-
+    
     protected function removeLockProcess() {
         if (Mage::helper('paymethod')->removeLockFile($this->_code, $this->_lockFile)) {
             return true;
@@ -208,10 +204,10 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
     protected function writeLog($type, $logFile, $content) {
         $tdate = date('Ymd', Mage::getModel('core/date')->timestamp(time()));
         $filename = sprintf("%s_%s.%s", $this->_code, $logFile, $tdate);
-
+        
         return Mage::helper('paymethod')->writeLogFile($this->_code, $type, $filename, $content);
     }
-
+    
     protected function moveFile($oldFilename, $newFilename, $type) {
         return Mage::helper('paymethod')->moveFile($oldFilename, $newFilename, $this->_code, $type);
     }
