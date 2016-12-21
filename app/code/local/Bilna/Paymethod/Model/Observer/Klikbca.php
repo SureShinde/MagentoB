@@ -8,10 +8,15 @@
 class Bilna_Paymethod_Model_Observer_Klikbca {
     protected $_code = 'klikbca';
     protected $_lockFile = 'klikbca_confirm_process';
+    protected $_baseLogPath = '';
+    protected $_confirmLogPath = '';
+    protected $_successLogPath = '';
+    protected $_logPath = '';
     protected $_typeTransaction = 'transaction';
 
     public function confirmationProcess() {
         $this->checkLockProcess();
+        $this->setPath();
 
         $crUrl = Mage::getStoreConfig('payment/klikbca/confirm_url');
         $crUsername = Mage::getStoreConfig('payment/klikbca/confirm_username');
@@ -35,6 +40,7 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
     {
         $klikbcaUserId = $order->getKlikbcaUserId();
         $transactionNo = $order->getIncrementId();
+        $filename = $this->_logPath . $transactionNo . '.log';
         $crData = [
             'cru' => $crUsername,
             'crp' => $crPassword,
@@ -127,6 +133,13 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
 
             return true;
         }
+    }
+
+    protected function setPath() {
+        $this->_baseLogPath = sprintf("%s/%s", Mage::getBaseDir(), Mage::getStoreConfig('bilna_module/paymethod/log_path'));
+        $this->_confirmLogPath = Mage::getStoreConfig('payment/klikbca/confirm_log_path');
+        $this->_successLogPath = Mage::getStoreConfig('payment/klikbca/success_log_path');
+        $this->_logPath = $this->_baseLogPath . $this->_confirmLogPath;
     }
 
     protected function checkLockProcess() {
