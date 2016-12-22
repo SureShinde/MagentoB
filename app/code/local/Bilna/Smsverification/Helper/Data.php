@@ -4,7 +4,7 @@ class Bilna_Smsverification_Helper_Data extends Mage_Core_Helper_Abstract {
         if(trim($mobileNumber) != ""){
             $mobileNumber = str_replace(array("+","-",".","(",")"," "), "", $mobileNumber);
             if (!preg_match ('/^[0-9]{'.Mage::getStoreConfig('bilna/smsverification/min_msisdn').','.Mage::getStoreConfig('bilna/smsverification/max_msisdn').'}$/', $mobileNumber)) {
-                throw Mage::throwException("Invalid Mobile Number");
+                throw Mage::throwException("Nomor handphone yang dimasukkan tidak valid");
             }
         }
         $mobileNumber = substr($mobileNumber,0,1) == "0" ? "62".substr($mobileNumber,1) : $mobileNumber;
@@ -39,7 +39,7 @@ class Bilna_Smsverification_Helper_Data extends Mage_Core_Helper_Abstract {
 
         if ($err) {
             Mage::log("Send SMS error: ".$err,Zend_Log::ERR);
-            Mage::throwException("Failed to Send SMS");
+            Mage::throwException("SMS gagal dikirimkan karena kendala teknis. Hubungi CS Orami untuk bantuan");
         }
         $responseArray = simplexml_load_string($response);
         $code = str_replace("RECEIVED:","",$responseArray[0]);
@@ -58,7 +58,7 @@ class Bilna_Smsverification_Helper_Data extends Mage_Core_Helper_Abstract {
                     $interval  = abs((strtotime(date('Y-m-d H:i:s'))) - strtotime($customerData->getCreatedAt())) / 60;
 
                     if ($interval > $newCustomerDuration) {
-                        Mage::throwException("Please Verify Your Mobile Number!");
+                        Mage::throwException("Lakukan verifikasi nomor handphone sebelum melanjutkan");
                     }
                 }
             }
