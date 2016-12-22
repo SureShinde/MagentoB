@@ -9,11 +9,13 @@ class RocketWeb_Netsuitecustom_Model_Observer {
         foreach($inventoryItem->customFieldList->customField as $customField) {
             if($customField->internalId == 'custitem_attributeset') {
                 $attributeSetName = Mage::helper('rocketweb_netsuitecustom')->getCustomRecord($customField->value->typeId,$customField->value->internalId);
-                $attributeSetId = $this->getAttributeSetId($attributeSetName);
-                if(is_null($attributeSetId)) {
-                    $attributeSetId = $this->createAttributeSet($attributeSetName);
+                if ($attributeSetName) {
+                    $attributeSetId = $this->getAttributeSetId($attributeSetName);
+                    if (is_null($attributeSetId)) {
+                        $attributeSetId = $this->createAttributeSet($attributeSetName);
+                    }
+                    $magentoProduct->setAttributeSetId($attributeSetId);
                 }
-                $magentoProduct->setAttributeSetId($attributeSetId);
             }
         }
     }
@@ -53,13 +55,16 @@ class RocketWeb_Netsuitecustom_Model_Observer {
         foreach($inventoryItem->customFieldList->customField as $customField) {
             if($customField->internalId == 'custitem_brand') {
                 $brandName = Mage::helper('rocketweb_netsuitecustom')->getCustomRecord($customField->value->typeId,$customField->value->internalId);
-                $brandId = $this->attributeValueExists('brand',$brandName);
-                if($brandId) {
-                    $magentoProduct->setBrand($brandId);
-                }
-                else {
-                    $brandId = $this->addAttributeValue('brand',$brandName);
-                    $magentoProduct->setBrand($brandId);
+
+                if ($brandName) {
+                    $brandId = $this->attributeValueExists('brand',$brandName);
+                    if($brandId) {
+                        $magentoProduct->setBrand($brandId);
+                    }
+                    else {
+                        $brandId = $this->addAttributeValue('brand',$brandName);
+                        $magentoProduct->setBrand($brandId);
+                    }
                 }
             }
         }
