@@ -1,13 +1,15 @@
 <?php
 class Bilna_Smsverification_Helper_Data extends Mage_Core_Helper_Abstract {
     public function validateMobileNumber($mobileNumber) {
-        if(trim($mobileNumber) != ""){
-            $mobileNumber = str_replace(array("+","-",".","(",")"," "), "", $mobileNumber);
+        if (trim($mobileNumber) != "") {
+            $mobileNumber = preg_replace('/[^\d]/g', '', $mobileNumber); // remove non-digits
+            $mobileNumber = preg_replace('/^(62|0)/', '', $mobileNumber); // remove preceding 62 or 0
+            $mobileNumber = '62' . $mobileNumber; // add 62
+
             if (!preg_match ('/^[0-9]{'.Mage::getStoreConfig('bilna/smsverification/min_msisdn').','.Mage::getStoreConfig('bilna/smsverification/max_msisdn').'}$/', $mobileNumber)) {
                 throw Mage::throwException("Nomor handphone yang dimasukkan tidak valid");
             }
         }
-        $mobileNumber = substr($mobileNumber,0,1) == "0" ? "62".substr($mobileNumber,1) : $mobileNumber;
         return $mobileNumber;
     }
 
