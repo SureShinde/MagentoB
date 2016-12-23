@@ -2,7 +2,7 @@
 class Bilna_Smsverification_Helper_Data extends Mage_Core_Helper_Abstract {
     public function validateMobileNumber($mobileNumber) {
         if (trim($mobileNumber) != "") {
-            $mobileNumber = preg_replace('/[^\d]/g', '', $mobileNumber); // remove non-digits
+            $mobileNumber = preg_replace('/[^\d]/', '', $mobileNumber); // remove non-digits
             $mobileNumber = preg_replace('/^(62|0)/', '', $mobileNumber); // remove preceding 62 or 0
             $mobileNumber = '62' . $mobileNumber; // add 62
 
