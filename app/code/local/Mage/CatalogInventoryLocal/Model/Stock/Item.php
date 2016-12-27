@@ -70,7 +70,7 @@
  * @package     Mage_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_CatalogInventoryLocal_Model_Stock_Item extends Mage_CatalogInventory_Model_Stock_Item 
+class Mage_CatalogInventoryLocal_Model_Stock_Item extends Mage_CatalogInventory_Model_Stock_Item
 {
     const XML_PATH_GLOBAL                = 'cataloginventory/options/';
     const XML_PATH_CAN_SUBTRACT          = 'cataloginventory/options/can_subtract';
@@ -263,7 +263,7 @@ class Mage_CatalogInventoryLocal_Model_Stock_Item extends Mage_CatalogInventory_
             $this->setOrigData();
         }
 
-        $this->setProduct($product);
+        $this->setProduct($product)->setUpdatedAt(gmdate('Y-m-d  H:i:s'));
         $product->setStockItem($this);
 
         $product->setIsInStock($this->getIsInStock());
