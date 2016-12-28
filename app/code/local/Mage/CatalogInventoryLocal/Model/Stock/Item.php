@@ -263,7 +263,7 @@ class Mage_CatalogInventoryLocal_Model_Stock_Item extends Mage_CatalogInventory_
             $this->setOrigData();
         }
 
-        $this->setProduct($product)->setUpdatedAt(gmdate('Y-m-d  H:i:s'));
+        $this->setProduct($product)->setUpdatedAt(gmdate('Y-m-d H:i:s'));
         $product->setStockItem($this);
 
         $product->setIsInStock($this->getIsInStock());
