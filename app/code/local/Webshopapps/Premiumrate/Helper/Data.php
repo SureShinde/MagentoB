@@ -29,22 +29,22 @@
 
 class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
 {
-	
-	
+
+
 	public function processZipcode($readAdaptor, $customerPostcode,&$twoPhaseFiltering,
 		&$zipString, &$shortMatchPostcode, &$longMatchPostcode ) {
-			
+
         $debug = Mage::helper('wsalogger')->isDebug('Webshopapps_Premiumrate');
 		//$zipRangeSet = Mage::getStoreConfig("carriers/premiumrate/zip_range"); //TODO sort out for backward compatability
 		//$ukFiltering = Mage::getStoreConfig("carriers/premiumrate/uk_postcode"); //TODO sort out for backward compatability
-        $postcodeFilter = Mage::getStoreConfig("carriers/premiumrate/postcode_filter");       
-        Mage::helper('wsalogger/log')->postDebug('premiumrate','Postcode Filter',$postcodeFilter,$debug);	
-        
+        $postcodeFilter = Mage::getStoreConfig("carriers/premiumrate/postcode_filter");
+        Mage::helper('wsalogger/log')->postDebug('premiumrate','Postcode Filter',$postcodeFilter,$debug);
+
 		$customerPostcode = trim($customerPostcode);
 		$twoPhaseFiltering = false;
-		if ($postcodeFilter == 'numeric' && is_numeric($customerPostcode)) {			
+		if ($postcodeFilter == 'numeric' && is_numeric($customerPostcode)) {
 			$zipString = ' AND '.$customerPostcode.' BETWEEN dest_zip AND dest_zip_to )';
-			
+
 		} else if ($postcodeFilter == 'uk' && strlen($customerPostcode)>4) {
 			$twoPhaseFiltering = true;
 			$longPostcode=substr_replace($customerPostcode,"",-3);
@@ -61,7 +61,7 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
 				$shortMatchPostcode = preg_replace('/\d/','', $longMatchPostcode);
 				$shortMatchPostcode = $readAdaptor->quoteInto(" AND STRCMP(LOWER(dest_zip),LOWER(?)) = 0)", $shortMatchPostcode);
 			}
-		} else if ($postcodeFilter == 'canada') { 
+		} else if ($postcodeFilter == 'canada') {
 			// first search complete postcode
 			// then search exact match on first 3 chars
 			// then search range
@@ -76,7 +76,7 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
 				$longMatchPostcode = $customerPostcode;
 				$twoPhaseFiltering = true;
 			}
-		} else if ($postcodeFilter == 'can_numeric') { 
+		} else if ($postcodeFilter == 'can_numeric') {
 			if (is_numeric($customerPostcode)){
 				$zipString = ' AND '.$customerPostcode.' BETWEEN dest_zip AND dest_zip_to )';
 			} else {
@@ -94,19 +94,19 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
 					$longMatchPostcode = $customerPostcode;
 					$twoPhaseFiltering = true;
 				}
-			} 
+			}
 		} else {
 			 $zipString = $readAdaptor->quoteInto(" AND ? LIKE dest_zip )", $customerPostcode);
 		}
-		
+
 		if ($debug) {
-        	Mage::helper('wsalogger/log')->postDebug('premiumrate','Postcode Range Search String',$zipString);	
+        	Mage::helper('wsalogger/log')->postDebug('premiumrate','Postcode Range Search String',$zipString);
         	if ($twoPhaseFiltering) {
         		Mage::helper('wsalogger/log')->postDebug('premiumrate','Postcode 2 Phase Search String','short match:'.$shortMatchPostcode.
-        			', long match:'.$longMatchPostcode);	
+        			', long match:'.$longMatchPostcode);
         	}
     	}
-				
+
 	}
 
 	public function checkImportedItemsAvailability($request)
@@ -117,30 +117,34 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
 
 		$total_volweight = 0;
 		$configurableQty = 0;
+        $configurablePrice = 0;
 
 		$all_items = $request->getAllItems();
 
-		foreach($all_items as $item) 
+		foreach($all_items as $item)
 		{
 			$product = Mage::getModel('catalog/product')->load( $item->getProductId() );
 			$currentQty = $item->getQty();
+            $currentPrice = $item->getPrice();
 
-			if ($item->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) 
+			if ($item->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE)
 			{
 				$configurableQty = $currentQty;
+                $configurablePrice = $currentPrice;
 				continue;
-			} 
-			elseif ($configurableQty > 0) 
+			}
+			elseif ($configurableQty > 0)
 			{
 				$currentQty = $configurableQty;
+                $currentPrice = $configurablePrice;
 				$configurableQty = 0;
 			}
 
 			$parentQty = 1;
 
-			if ($item->getParentItem()!=null) 
+			if ($item->getParentItem()!=null)
 			{
-				if ($item->getParentItem()->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) 
+				if ($item->getParentItem()->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE)
 				{
 					$parentQty = $item->getParentItem()->getQty();
 				}
@@ -163,10 +167,10 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
             		$status['local_items']['volweight'] = 0;
             	}
 
-            	$status['local_items']['qty'] += $item->getQty();
-        		$status['local_items']['weight'] += ( $item->getQty() * $item->getWeight() );
-        		$status['local_items']['price'] += ( $item->getQty() * $item->getPrice() );
-        		$status['local_items']['volweight'] += ( $product->getVolumeWeight() * $item->getQty() );
+            	$status['local_items']['qty'] += $currentQty;
+        		$status['local_items']['weight'] += ( $currentQty * $item->getWeight() );
+        		$status['local_items']['price'] += ( $currentQty * $currentPrice );
+        		$status['local_items']['volweight'] += ( $product->getVolumeWeight() * $currentQty );
             }
             else
             {
@@ -182,14 +186,14 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
             		$status['import_items']['volweight'] = 0;
             	}
 
-            	$status['import_items']['qty'] += $item->getQty();
-        		$status['import_items']['weight']+= ( $item->getQty() * $item->getWeight() );
-        		$status['import_items']['price'] += ( $item->getQty() * $item->getPrice() );
-        		$status['import_items']['volweight'] += ( $product->getVolumeWeight() * $item->getQty() );
+            	$status['import_items']['qty'] += $currentQty;
+        		$status['import_items']['weight']+= ( $currentQty * $item->getWeight() );
+        		$status['import_items']['price'] += ( $currentQty * $currentPrice );
+        		$status['import_items']['volweight'] += ( $product->getVolumeWeight() * $currentQty );
             }
 
 			$product=Mage::getModel('catalog/product')->load( $item->getProductId() );
-			
+
 		}
 
         if ($contain_local == 1 && $contain_import == 1)
@@ -205,5 +209,5 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
 
         return $status;
 	}
-	
+
 }
