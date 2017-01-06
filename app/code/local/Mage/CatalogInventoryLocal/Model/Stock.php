@@ -36,7 +36,7 @@
  * @package     Mage_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_CatalogInventoryLocal_Model_Stock extends Mage_CatalogInventory_Model_Stock 
+class Mage_CatalogInventoryLocal_Model_Stock extends Mage_CatalogInventory_Model_Stock
 {
     const BACKORDERS_NO             = 0;
     const BACKORDERS_YES_NONOTIFY   = 1;
@@ -143,7 +143,7 @@ class Mage_CatalogInventoryLocal_Model_Stock extends Mage_CatalogInventory_Model
                 $this->_getResource()->commit();
                 Mage::throwException(Mage::helper('cataloginventory')->__('Not all products are available in the requested quantity'));
             }
-            $item->subtractQty($qtys[$item->getProductId()]);
+            $item->subtractQty($qtys[$item->getProductId()])->setUpdatedAt(gmdate('Y-m-d H:i:s'));
             if (!$item->verifyStock() || $item->verifyNotification()) {
                 $fullSaveItems[] = clone $item;
             }
