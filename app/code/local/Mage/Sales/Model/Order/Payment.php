@@ -333,7 +333,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             // for cod, we want to set the initial order status to order default status
             $isEnabledVerification = Mage::Helper('smsverification')->isEnabledValidate();
             $isCod = Mage::Helper('cod')->isCodOrder($order);
-            if (!$isEnabledVerification or !$isCod) {
+            if (!$isEnabledVerification || !$isCod) {
                 $orderStatus = $methodInstance->getConfigData('order_status');
             }
 
