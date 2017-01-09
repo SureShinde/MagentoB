@@ -330,16 +330,13 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $orderStatus     = $stateObject->getStatus();
             $orderIsNotified = $stateObject->getIsNotified();
         } else {
-            //COD status still pending until valdate
+            // for cod, we want to set the initial order status to order default status
             $isEnabledVerification = Mage::Helper('smsverification')->isEnabledValidate();
-            if (!$isEnabledVerification) {
+            $isCod = Mage::Helper('cod')->isCodOrder($order);
+            if (!$isEnabledVerification or !$isCod) {
                 $orderStatus = $methodInstance->getConfigData('order_status');
-            } else {
-                $isCod = Mage::Helper('cod')->isCodOrder($order);
-                if(!$isCod) {
-                    $orderStatus = $methodInstance->getConfigData('order_status');
-                }
             }
+
             if (!$orderStatus) {
                 $orderStatus = $order->getConfig()->getStateDefaultStatus($orderState);
             }
