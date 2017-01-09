@@ -36,11 +36,11 @@
         <events>
             <sales_order_place_after>
                 <observers>
-                    <send_sms>
+                    <sendcodsms>
                         <type>singleton</type>
                         <class>smsverification/observer</class>
                         <method>sendSMS</method>
-                    </send_sms>
+                    </sendcodsms>
                 </observers>
             </sales_order_place_after>
         </events>
