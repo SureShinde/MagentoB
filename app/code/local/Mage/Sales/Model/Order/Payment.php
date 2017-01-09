@@ -330,7 +330,16 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $orderStatus     = $stateObject->getStatus();
             $orderIsNotified = $stateObject->getIsNotified();
         } else {
-            $orderStatus = $methodInstance->getConfigData('order_status');
+            //COD status still pending until valdate
+            $isEnabledVerification = Mage::Helper('smsverification')->isEnabledValidate();
+            if (!$isEnabledVerification) {
+                $orderStatus = $methodInstance->getConfigData('order_status');
+            } else {
+                $isCod = Mage::Helper('cod')->isCodOrder($order);
+                if(!$isCod) {
+                    $orderStatus = $methodInstance->getConfigData('order_status');
+                }
+            }
             if (!$orderStatus) {
                 $orderStatus = $order->getConfig()->getStateDefaultStatus($orderState);
             }
