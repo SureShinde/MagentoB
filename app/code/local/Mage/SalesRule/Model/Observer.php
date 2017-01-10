@@ -77,8 +77,9 @@ class Mage_SalesRule_Model_Observer
     public function sales_order_afterPlace($observer)
     {
         $order = $observer->getEvent()->getOrder();
+        $updateOrder = $observer->getUpdateOrder();
 
-        if (!$order) {
+        if (!$order || ($updateOrder === 1) {
             return $this;
         }
 
@@ -101,7 +102,7 @@ class Mage_SalesRule_Model_Observer
                     if(!$order->getCouponCode()){
                         $ruleResource = Mage::getResourceModel('salesrule/rule');
                         $ruleResource->updateRuleTimesUsed($rule->getId());
-                        
+
                     }
                     if ($customerId) {
                         $ruleCustomer = Mage::getModel('salesrule/rule_customer');
@@ -131,7 +132,7 @@ class Mage_SalesRule_Model_Observer
                     $couponUsage->updateCustomerCouponTimesUsed($customerId, $coupon->getId());
                 }
             }
-            
+
         }
     }
 
