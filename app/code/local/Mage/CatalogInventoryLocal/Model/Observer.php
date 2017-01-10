@@ -202,7 +202,7 @@ class Mage_CatalogInventoryLocal_Model_Observer extends Mage_CatalogInventory_Mo
             ->setProduct($product)
             ->setProductId($product->getId())
             ->setStockId($item->getStockId())
-            ->setUpdatedAt(gmdate('Y-m-d H:i:s'));
+            ->setUpdatedAt(null);
         if (!is_null($product->getData('stock_data/min_qty'))
             && is_null($product->getData('stock_data/use_config_min_qty'))) {
             $item->setData('use_config_min_qty', false);
