@@ -79,7 +79,7 @@ class Mage_SalesRule_Model_Observer
         $order = $observer->getEvent()->getOrder();
         $updateOrder = $observer->getUpdateOrder();
 
-        if (!$order || ($updateOrder === 1) {
+        if (!$order || ($updateOrder === 1)) {
             return $this;
         }
 
