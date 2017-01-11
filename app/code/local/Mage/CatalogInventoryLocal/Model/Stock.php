@@ -143,7 +143,7 @@ class Mage_CatalogInventoryLocal_Model_Stock extends Mage_CatalogInventory_Model
                 $this->_getResource()->commit();
                 Mage::throwException(Mage::helper('cataloginventory')->__('Not all products are available in the requested quantity'));
             }
-            $item->subtractQty($qtys[$item->getProductId()])->setUpdatedAt(null);
+            $item->subtractQty($qtys[$item->getProductId()]);
             if (!$item->verifyStock() || $item->verifyNotification()) {
                 $fullSaveItems[] = clone $item;
             }
