@@ -98,4 +98,11 @@
             </resources>
         </acl>
     </adminhtml>
+    <default>
+        <bilna>
+            <smsverification>
+                <canceled_cod>1</canceled_cod>
+            </smsverification>
+        </bilna>
+    </default>
 </config>
