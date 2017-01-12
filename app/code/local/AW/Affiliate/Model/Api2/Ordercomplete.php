@@ -23,7 +23,7 @@ class AW_Affiliate_Model_Api2_Ordercomplete extends Mage_Api2_Model_Resource
         $messages = array();
         $data = array();
         $status = 'success';
-        if (!is_null($client)) {
+        if (!is_null($client) && !is_null($order)) {
             $clientModel = Mage::getModel('awaffiliate/client')->load($client);
             $orderModel = Mage::getModel('sales/order')->load($order); //order id = entity if from sales_flat_order table
             $affiliateModel = Mage::getModel('awaffiliate/affiliate')->load($clientModel->getAffiliateId());
@@ -48,6 +48,10 @@ class AW_Affiliate_Model_Api2_Ordercomplete extends Mage_Api2_Model_Resource
 
             try {
                 $historyModel->save();
+                $this->createTransaction(array(
+                    'client_id' => $client,
+                    'order_id' => $order
+                ));
                 $status = 'success';
                 $messages[] = Mage::helper('awaffiliate')->__('Affiliate client history saved successfully');
 
@@ -70,9 +74,10 @@ class AW_Affiliate_Model_Api2_Ordercomplete extends Mage_Api2_Model_Resource
         if (is_null($clientModel->getId())) {
             return FALSE;
         }
+        $getInvoice = FALSE;
         $historyCollection = Mage::getModel('awaffiliate/client_history')->load($clientModel->getId());
         $client = $historyCollection->getClient();
-
+        $orderModel = Mage::getModel('sales/order')->load($params['order_id']);
         $campaign = $client->getCampaign();
         $conditionsModel = $campaign->getConditionsModel();
 
@@ -83,20 +88,22 @@ class AW_Affiliate_Model_Api2_Ordercomplete extends Mage_Api2_Model_Resource
         }
         if ($conditionsModel->getActions()->validate($orderModel)) {
             /** @var $trx AW_Affiliate_Model_Transaction_Profit */
-            $params = array(
+            $dataToSet = array(
                 'campaign_id' => $clientModel->getCampaignId(),
                 'affiliate_id' => $clientModel->getAffiliateId(),
                 'traffic_id' => NULL,
-                'client_id' => $client->getId(),
+                'store_id' => self::DEFAULT_STORE_ID,
+                'client_id' => $clientModel->getId(),
                 'linked_entity_type' => AW_Affiliate_Model_Source_Transaction_Profit_Linked::INVOICE_ITEM,
-                'linked_entity_id' => $order->getIncrementId(),
+                'linked_entity_id' => $orderModel->getIncrementId(),
                 'linked_entity_invoice' => $getInvoice,
                 'linked_entity_order' => $orderModel,
                 'created_at' => Mage::getModel('core/date')->gmtDate(),
                 'type' => AW_Affiliate_Model_Source_Transaction_Profit_Type::CUSTOMER_PURCHASE
             );
-            $trx = Mage::getModel('awaffiliate/transaction_profit', $params);
-            $trx->setData($params);
+
+            $trx = Mage::getModel('awaffiliate/transaction_profit', $dataToSet);
+            $trx->setData($dataToSet);
             $trx->createTransaction();
         }
     }
@@ -105,7 +112,7 @@ class AW_Affiliate_Model_Api2_Ordercomplete extends Mage_Api2_Model_Resource
     {
         $orderModel = Mage::getModel('sales/order')->load($orderId);
         if ($orderModel->getId()) {
-            $clientModel = Mage::getModel('awaffiliate/client_history')->loadByLinkedItemId($orderId);
+            $clientModel = Mage::getModel('awaffiliate/client_history')->load($orderId, 'linked_item_id');
             
             return $clientModel->getClientId();
         }

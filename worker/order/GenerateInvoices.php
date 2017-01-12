@@ -36,25 +36,6 @@ class Bilna_Worker_Order_GenerateInvoices extends Bilna_Worker_Order_Order {
                 else {
                     if ($status === true) {
                         Mage::dispatchEvent('sales_order_place_after', array ('order' => $order));
-
-                        /**
-                         * affiliate for processing invoice
-                         * since affiliate observer failed to create transaction (caused by order status still in pending payment),
-                         * for cc paymethod, transaction will create here
-                         *
-                         */
-                        $orderCompleteModel = Mage::getModel('awaffiliate/api2_ordercomplete');
-                        $orderId = $order->getId();
-                        $clientId = $orderCompleteModel->findAffiliateClientId($orderId);
-                        if ($clientId) {
-                            $orderCompleteModel->createTransaction(array(
-                                'client_id' => $clientId,
-                                'order_id' => $orderId
-                            ));
-                        }
-                        /**
-                         * end of affiliate process
-                         */
                         $this->_logProgress("#{$incrementId} Process Invoice => success");
                     }
                     else {
