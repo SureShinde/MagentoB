@@ -46,14 +46,14 @@ class AW_Affiliate_Model_Transaction_Profit extends Mage_Core_Model_Abstract
 
     protected function _initTransaction($params = array())
     {
-        $this->affiliateId = isset($params['affiliate_id']) && !empty($params['affiliate_id']) ? $params['affiliate_id'] : $this->getData('affiliate_id');
-        $this->campaignId = isset($params['campaign_id']) && !empty($params['campaign_id']) ? $params['campaign_id'] : $this->getData('campaign_id');
-        $this->linkedEntityType = isset($params['linked_entity_type']) && !empty($params['linked_entity_type']) ? $params['linked_entity_type'] : $this->getData('linked_entity_type');
-        $this->linkedEntityId = isset($params['linked_entity_id']) && !empty($params['linked_entity_id']) ? $params['linked_entity_id'] : $this->getData('linked_entity_id');
-        $this->storeId = isset($params['store_id']) && !empty($params['store_id']) ? $params['store_id'] : NULL;
+        $this->affiliateId = !empty($params['affiliate_id']) ? $params['affiliate_id'] : $this->getData('affiliate_id');
+        $this->campaignId = !empty($params['campaign_id']) ? $params['campaign_id'] : $this->getData('campaign_id');
+        $this->linkedEntityType = !empty($params['linked_entity_type']) ? $params['linked_entity_type'] : $this->getData('linked_entity_type');
+        $this->linkedEntityId = !empty($params['linked_entity_id']) ? $params['linked_entity_id'] : $this->getData('linked_entity_id');
+        $this->storeId = !empty($params['store_id']) ? $params['store_id'] : NULL;
         $this->linkedEntityOrder = isset($params['linked_entity_order']) && !is_scalar($params['linked_entity_order']) ? $params['linked_entity_order'] : $this->getData('linked_entity_order');
         $this->linkedEntityInvoice = isset($params['linked_entity_invoice']) && !is_scalar($params['linked_entity_invoice']) ? $params['linked_entity_invoice'] : $this->getData('linked_entity_invoice');
-        $this->type = isset($params['type']) && !empty($params['type']) ? $params['type'] : $this->getData('type');
+        $this->type = !empty($params['type']) ? $params['type'] : $this->getData('type');
     }
 
     public function createTransaction()
