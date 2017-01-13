@@ -227,7 +227,8 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
                     WHERE sfoi.updated_at BETWEEN (NOW() - INTERVAL 30 DAY) AND NOW()
                     GROUP BY sfoi.product_id
                 ) AS gsfoi
-                ON cpf.entity_id = gsfoi.product_id"
+                ON cpf.entity_id = gsfoi.product_id
+            ORDER BY cpf.type_id, cpf.entity_id"
         );
     }
 
@@ -236,6 +237,8 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         $configBundleProducts = array_filter($batch, function ($product) {
             return $product['type_id'] === $this->typeConfig || $product['type_id'] === $this->typeBundle;
         });
+        if (empty($configBundleProducts)) return [];
+
         $productIds = array_column($configBundleProducts, 'entity_id');
         $collection = Mage::getModel('catalog/product')
             ->getCollection()
