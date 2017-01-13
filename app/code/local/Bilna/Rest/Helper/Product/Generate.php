@@ -9,49 +9,58 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
 {
     const BATCH_SIZE = 100;
 
-    private $targetTable = 'api_product_flat_2';
+    private $targetTable = 'api_product_flat_1';
+    private $typeConfig = 'configurable';
+    private $typeBundle = 'bundle';
+    private $logFilename = 'generate_product_solr.log';
 
     private $dbRead;
     private $dbWrite;
-    private $productApi;
+    private $productModel;
+    private $dateModel;
 
     public function process()
     {
-        $this->initialize();
+        try {
+            $this->initialize();
 
-        // get product count
-        $productCount = $this->getProductCount();
-        $this->log("Found: {$productCount}.");
+            // get product count
+            $productCount = $this->getProductCount();
+            $this->log("Found: {$productCount}.");
 
-        // get base data
-        $baseQuery = $this->getBaseQuery();
+            // get base data
+            $baseQuery = $this->getBaseQuery();
 
-        // process in batches
-        $finished = 0;
-        $batch = [];
-        while ($data = $baseQuery->fetch()) {
-            $batch[] = $data;
-            if (count($batch) < self::BATCH_SIZE) continue;
-
-            // batch is full
-            $this->processBatch($batch);
-            $finished += self::BATCH_SIZE;
+            // process in batches
+            $finished = 0;
             $batch = [];
-            $this->log("Progress: $finished/$productCount.");
-        }
+            while ($data = $baseQuery->fetch()) {
+                $batch[] = $data;
+                if (count($batch) < self::BATCH_SIZE) continue;
 
-        // last batch
-        $this->processBatch($batch);
-        $finished += count($batch);
-        $batch = [];
-        $this->log("Finished: $finished.");
+                // batch is full
+                $this->processBatch($batch);
+                $finished += self::BATCH_SIZE;
+                $batch = [];
+                $this->log("Progress: $finished/$productCount.");
+            }
+
+            // last batch
+            $this->processBatch($batch);
+            $finished += count($batch);
+            $batch = [];
+            $this->log("Finished: $finished.");
+        } catch (Exception $e) {
+            $this->log("Error: {$e->getMessage()}");
+        }
     }
 
     private function initialize()
     {
         $this->dbRead = Mage::getSingleton('core/resource')->getConnection('core_read');
         $this->dbWrite = Mage::getSingleton('core/resource')->getConnection('core_write');
-        $this->productApi = Mage::getModel('bilna_rest/api2_product_rest_admin_v1');
+        $this->productModel = Mage::getModel('bilna_rest/api2_product_rest_admin_v1');
+        $this->dateModel = Mage::getModel('core/date');
     }
 
     private function processBatch($batch)
@@ -74,9 +83,8 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
                 "in_stock_$c" => $product['in_stock']
             ];
 
-            $keys = array_keys($data);
-            $keysWithColon = array_map(function ($k) { return ":$k"; }, $keys);
-            $query[] = '(' . implode(', ', $keysWithColon) . ', NOW())';
+            $keysWithColon = array_map(function ($k) { return ":$k"; }, array_keys($data));
+            $query[] = '(' . implode(', ', $keysWithColon) . ', NOW())'; // NOW() as updated_at
             $bind = array_merge($bind, $data);
 
             $c++;
@@ -116,23 +124,23 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
 
     private function buildAttributeConfig($product, $productData)
     {
-        if ($product['type_id'] !== 'configurable') return NULL;
+        if ($product['type_id'] !== $this->typeConfig) return NULL;
 
         $productId = $product['entity_id'];
         if (empty($productData[$productId])) return NULL;
 
-        $result = $this->productApi->workerGetProductConfig($productData[$productId]);
+        $result = $this->productModel->workerGetProductConfig($productData[$productId]);
         return $result ? json_encode($result) : NULL;
     }
 
     private function buildAttributeBundle($product, $productData)
     {
-        if ($product['type_id'] !== 'bundle') return NULL;
+        if ($product['type_id'] !== $this->typeBundle) return NULL;
 
         $productId = $product['entity_id'];
         if (empty($productData[$productId])) return NULL;
 
-        $result = $this->productApi->workerGetProductBundle($productData[$productId]);
+        $result = $this->productModel->workerGetProductBundle($productData[$productId]);
         return $result ? json_encode($result) : NULL;
     }
 
@@ -156,14 +164,14 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
                 $types[] = 'thumbnail';
             }
 
-            $result[] = array (
+            $result[] = [
                 'id' => $image['id'],
                 'label' => $image['label'],
                 'position' => $image['position'],
                 'exclude' => $image['exclude'],
                 'url' => $image['url'],
-                'types' => $types,
-            );
+                'types' => $types
+            ];
         }
 
         return json_encode($result);
@@ -226,7 +234,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
     private function getProductData($batch)
     {
         $configBundleProducts = array_filter($batch, function ($product) {
-            return $product['type_id'] === 'configurable' || $product['type_id'] === 'bundle';
+            return $product['type_id'] === $this->typeConfig || $product['type_id'] === $this->typeBundle;
         });
         $productIds = array_column($configBundleProducts, 'entity_id');
         $collection = Mage::getModel('catalog/product')
@@ -270,8 +278,6 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         $result = [];
         while ($image = $query->fetch()) {
             $productId = $image['entity_id'];
-            unset($image['entity_id']);
-
             if (!isset($result[$productId])) {
                 $result[$productId] = [$image];
             } else {
@@ -284,7 +290,8 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
 
     private function log($message)
     {
-        $message = date('Y-m-d H:i:s - ') . $message;
+        $message = $this->dateModel->date('Y-m-d H:i:s - ') . $message;
+        Mage::log($message, null, $this->logFilename);
         echo $message . "\n";
     }
 }
