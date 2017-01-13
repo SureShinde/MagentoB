@@ -11,7 +11,7 @@ class AW_Affiliate_Model_Api2_Ordercomplete_Rest_Admin_V1 extends AW_Affiliate_M
 {   
     protected function _retrieve()
     {
-    	return Mage::getModel('awaffiliate/api2_ordercomplete')->saveClientHistory(array(
+    	return $this->saveClientHistory(array(
             'client_id' => $this->getRequest()->getParam('client_id'),
             'order_id' => $this->getRequest()->getParam('order_id')
         ));
