@@ -163,22 +163,19 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         $result = [];
         foreach ($imageData[$productId] as $image) {
             $url = $image['url'];
-            $urlBase = $this->imageUrl . $url;
+            $resize = [
+                'base' => $this->imageUrl . $url
+            ];
 
-            // generate thumbnail
-            $this->imageHelper->init($url);
-            $this->imageHelper->resize($this->imageSizes['thumbnail']);
-            $urlThumbnail = $this->imageHelper->__toString();
+            // generate images
+            foreach ($this->imageSizes as $key => $size) {
+                if ($key === 'vertical') continue;
 
-            // generate horizontal
-            $this->imageHelper->init($url);
-            $this->imageHelper->resize($this->imageSizes['horizontal']);
-            $urlHorizontal = $this->imageHelper->__toString();
-
-            // generate detail
-            $this->imageHelper->init($url);
-            $this->imageHelper->resize($this->imageSizes['detail']);
-            $urlDetail = $this->imageHelper->__toString();
+                $this->imageHelper->init($url);
+                $this->imageHelper->resize($size);
+                $resize[$key] = $this->imageHelper->__toString();
+            }
+            $resize['vertical'] = $resize['horizontal'];
 
             // get default images
             $types = [];
@@ -197,15 +194,9 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
                 'label' => $image['label'],
                 'position' => $image['position'],
                 'exclude' => $image['exclude'],
-                'url' => $urlBase,
+                'url' => $resize['base'],
                 'types' => $types,
-                'resize' => [
-                    'base' => $urlBase,
-                    'thumbnail' => $urlThumbnail,
-                    'horizontal' => $urlHorizontal,
-                    'vertical' => $urlHorizontal,
-                    'detail' => $urlDetail,
-                ],
+                'resize' => $resize
             ];
         }
 
