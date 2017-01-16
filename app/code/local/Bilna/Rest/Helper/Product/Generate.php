@@ -254,7 +254,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
                     GROUP BY sfoi.product_id
                 ) AS gsfoi
                 ON cpf.entity_id = gsfoi.product_id
-            ORDER BY cpf.type_id, cpf.entity_id"
+            ORDER BY cpf.type_id DESC, cpf.entity_id"
         );
     }
 
