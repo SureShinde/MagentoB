@@ -167,10 +167,13 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
                     $status['local_items']['volweight'] = 0;
                 }
 
-                $status['local_items']['qty'] += $currentQty;
-                $status['local_items']['weight'] += ( $currentQty * $item->getWeight() );
-                $status['local_items']['price'] += ( $currentQty * $currentPrice );
-                $status['local_items']['volweight'] += ( $product->getVolumeWeight() * $currentQty );
+                if (!($item->getParentItem() && $item->getParentItem()->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE))
+                {
+                    $status['local_items']['qty'] += $currentQty;
+                    $status['local_items']['weight'] += ( $currentQty * $item->getWeight() );
+                    $status['local_items']['price'] += ( $currentQty * $currentPrice );
+                    $status['local_items']['volweight'] += ( $product->getVolumeWeight() * $currentQty );
+                }
             }
             else
             {
@@ -186,10 +189,13 @@ class Webshopapps_Premiumrate_Helper_Data extends Mage_Core_Helper_Abstract
                     $status['import_items']['volweight'] = 0;
                 }
 
-                $status['import_items']['qty'] += $currentQty;
-                $status['import_items']['weight']+= ( $currentQty * $item->getWeight() );
-                $status['import_items']['price'] += ( $currentQty * $currentPrice );
-                $status['import_items']['volweight'] += ( $product->getVolumeWeight() * $currentQty );
+                if (!($item->getParentItem() && $item->getParentItem()->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE))
+                {
+                    $status['import_items']['qty'] += $currentQty;
+                    $status['import_items']['weight']+= ( $currentQty * $item->getWeight() );
+                    $status['import_items']['price'] += ( $currentQty * $currentPrice );
+                    $status['import_items']['volweight'] += ( $product->getVolumeWeight() * $currentQty );
+                }
             }
 
             $product=Mage::getModel('catalog/product')->load( $item->getProductId() );
