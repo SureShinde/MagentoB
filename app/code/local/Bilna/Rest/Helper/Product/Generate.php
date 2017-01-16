@@ -18,6 +18,9 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
     private $dbWrite;
     private $productModel;
     private $dateModel;
+    private $imageHelper;
+    private $imageUrl;
+    private $imageSizes;
 
     public function process()
     {
@@ -61,6 +64,14 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         $this->dbWrite = Mage::getSingleton('core/resource')->getConnection('core_write');
         $this->productModel = Mage::getModel('bilna_rest/api2_product_rest_admin_v1');
         $this->dateModel = Mage::getModel('core/date');
+        $this->imageHelper = Mage::helper('bilna_rest/product_image');
+        $this->imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product';
+        $this->imageSizes = Mage::getStoreConfig('generate/images') ?: [
+            'thumbnail' => 75,
+            'horizontal' => 150,
+            'vertical' => 150,
+            'detail' => 265
+        ];
     }
 
     private function processBatch($batch)
@@ -151,16 +162,33 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
 
         $result = [];
         foreach ($imageData[$productId] as $image) {
-            $types = [];
+            $url = $image['url'];
+            $urlBase = $this->imageUrl . $url;
 
-            //- get default images
-            if ($product['image'] == $image['url']) {
+            // generate thumbnail
+            $this->imageHelper->init($url);
+            $this->imageHelper->resize($this->imageSizes['thumbnail']);
+            $urlThumbnail = $this->imageHelper->__toString();
+
+            // generate horizontal
+            $this->imageHelper->init($url);
+            $this->imageHelper->resize($this->imageSizes['horizontal']);
+            $urlHorizontal = $this->imageHelper->__toString();
+
+            // generate detail
+            $this->imageHelper->init($url);
+            $this->imageHelper->resize($this->imageSizes['detail']);
+            $urlDetail = $this->imageHelper->__toString();
+
+            // get default images
+            $types = [];
+            if ($product['image'] == $url) {
                 $types[] = 'image';
             }
-            if ($product['small_image'] == $image['url']) {
+            if ($product['small_image'] == $url) {
                 $types[] = 'small_image';
             }
-            if ($product['thumbnail'] == $image['url']) {
+            if ($product['thumbnail'] == $url) {
                 $types[] = 'thumbnail';
             }
 
@@ -169,8 +197,15 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
                 'label' => $image['label'],
                 'position' => $image['position'],
                 'exclude' => $image['exclude'],
-                'url' => $image['url'],
-                'types' => $types
+                'url' => $urlBase,
+                'types' => $types,
+                'resize' => [
+                    'base' => $urlBase,
+                    'thumbnail' => $urlThumbnail,
+                    'horizontal' => $urlHorizontal,
+                    'vertical' => $urlHorizontal,
+                    'detail' => $urlDetail,
+                ],
             ];
         }
 
