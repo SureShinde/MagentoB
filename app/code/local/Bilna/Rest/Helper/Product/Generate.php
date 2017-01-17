@@ -320,8 +320,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
 
     private function log($message)
     {
-        $message = $this->dateModel->date('Y-m-d H:i:s - ') . $message;
         Mage::log($message, null, $this->logFilename);
-        echo $message . "\n";
+        echo $this->dateModel->date('Y-m-d H:i:s - ') . $message . "\n";
     }
 }
