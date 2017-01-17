@@ -100,9 +100,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
             $bind = array_merge($bind, $data);
 
             $c++;
-            echo '|';
         }
-        echo "\n";
 
         // build the full query then execute
         $query = implode(', ', $query);
