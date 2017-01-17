@@ -251,7 +251,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
                         sfoi.product_id,
                         SUM(sfoi.row_total) AS total
                     FROM sales_flat_order_item AS sfoi
-                    WHERE sfoi.updated_at BETWEEN (NOW() - INTERVAL 30 DAY) AND NOW()
+                    WHERE sfoi.created_at BETWEEN (NOW() - INTERVAL 30 DAY) AND NOW()
                     GROUP BY sfoi.product_id
                 ) AS gsfoi
                 ON cpf.entity_id = gsfoi.product_id
