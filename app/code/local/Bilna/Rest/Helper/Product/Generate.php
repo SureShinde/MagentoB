@@ -277,6 +277,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         $collection = Mage::getModel('catalog/product')
             ->setStoreId(self::STORE_ID)
             ->getCollection()
+            ->addAttributeToSelect('*')
             ->addAttributeToFilter('entity_id', array('in' => $productIds));
 
         // build ID-to-product map
