@@ -7,12 +7,13 @@
 
 class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
 {
-    const BATCH_SIZE = 100;
+    const STORE_ID = 1;
+    const TYPE_CONFIG = 'configurable';
+    const TYPE_BUNDLE = 'bundle';
 
-    private $targetTable = 'api_product_flat_1';
-    private $typeConfig = 'configurable';
-    private $typeBundle = 'bundle';
-    private $logFilename = 'generate_product_solr.log';
+    const BATCH_SIZE = 100;
+    const TARGET_TABLE = 'api_product_flat_1';
+    const LOG_FILENAME = 'generate_product_solr.log';
 
     private $dbRead;
     private $dbWrite;
@@ -22,17 +23,17 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
     private $imageUrl;
     private $imageSizes;
 
-    public function process()
+    public function process(array $productIds)
     {
         try {
             $this->initialize();
 
             // get product count
-            $productCount = $this->getProductCount();
+            $productCount = $this->getProductCount($productIds);
             $this->log("Found: {$productCount}.");
 
             // get base data
-            $baseQuery = $this->getBaseQuery();
+            $baseQuery = $this->getBaseQuery($productIds);
 
             // process in batches
             $finished = 0;
@@ -103,8 +104,9 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         }
 
         // build the full query then execute
+        $targetTable = self::TARGET_TABLE;
         $query = implode(', ', $query);
-        $query = "INSERT INTO {$this->targetTable}
+        $query = "INSERT INTO $targetTable
             (entity_id, detailed_info, attribute_config, attribute_bundle, images, sales_price, in_stock, updated_at)
             VALUES $query
             ON DUPLICATE KEY UPDATE
@@ -136,7 +138,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
 
     private function buildAttributeConfig($product, $productData)
     {
-        if ($product['type_id'] !== $this->typeConfig) return NULL;
+        if ($product['type_id'] !== self::TYPE_CONFIG) return NULL;
 
         $productId = $product['entity_id'];
         if (empty($productData[$productId])) return NULL;
@@ -147,7 +149,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
 
     private function buildAttributeBundle($product, $productData)
     {
-        if ($product['type_id'] !== $this->typeBundle) return NULL;
+        if ($product['type_id'] !== self::TYPE_BUNDLE) return NULL;
 
         $productId = $product['entity_id'];
         if (empty($productData[$productId])) return NULL;
@@ -204,15 +206,19 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         return json_encode($result);
     }
 
-    private function getProductCount()
+    private function getProductCount(array $productIds)
     {
-        $query = $this->dbRead->query('SELECT COUNT(1) AS count FROM catalog_product_flat_1');
+        $where = $productIds ? "WHERE entity_id in ('" . implode("', '", $productIds) . "')" : '';
+
+        $query = $this->dbRead->query("SELECT COUNT(1) AS count FROM catalog_product_flat_1 $where");
         $result = $query->fetch();
         return isset($result['count']) ? $result['count'] : 0;
     }
 
-    private function getBaseQuery()
+    private function getBaseQuery(array $productIds)
     {
+        $where = $productIds ? "WHERE cpf.entity_id in ('" . implode("', '", $productIds) . "')" : '';
+
         return $this->dbRead->query(
             "SELECT
                 cpf.entity_id,
@@ -255,6 +261,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
                     GROUP BY sfoi.product_id
                 ) AS gsfoi
                 ON cpf.entity_id = gsfoi.product_id
+            $where
             ORDER BY cpf.type_id DESC, cpf.entity_id"
         );
     }
@@ -262,12 +269,13 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
     private function getProductData($batch)
     {
         $configBundleProducts = array_filter($batch, function ($product) {
-            return $product['type_id'] === $this->typeConfig || $product['type_id'] === $this->typeBundle;
+            return $product['type_id'] === self::TYPE_CONFIG || $product['type_id'] === self::TYPE_BUNDLE;
         });
         if (empty($configBundleProducts)) return [];
 
         $productIds = array_column($configBundleProducts, 'entity_id');
         $collection = Mage::getModel('catalog/product')
+            ->setStoreId(self::STORE_ID)
             ->getCollection()
             ->addAttributeToFilter('entity_id', array('in' => $productIds));
 
@@ -320,7 +328,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
 
     private function log($message)
     {
-        Mage::log($message, null, $this->logFilename);
+        Mage::log($message, null, self::LOG_FILENAME);
         echo $this->dateModel->date('Y-m-d H:i:s - ') . $message . "\n";
     }
 }
