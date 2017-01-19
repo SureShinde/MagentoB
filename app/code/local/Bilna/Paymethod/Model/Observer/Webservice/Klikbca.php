@@ -143,7 +143,7 @@ class Bilna_Paymethod_Model_Observer_Webservice_Klikbca {
         else {
             $reason = $this->_reasonTrxFailed;
         }
-        
+
         header('Content-type: text/xml; charset=utf-8');
         $xml  = '<?xml version="1.0" encoding="utf-8"?><OutputPaymentPGW>';
         $xml .= "<userID>" . $klikbcaUserId . "</userID>";
