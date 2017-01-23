@@ -24,6 +24,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
     private $imageSizes;
 
     private $searchAttributes;
+    private $searchAttributesFilter;
 
     public function process(array $productIds)
     {
@@ -79,6 +80,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         ];
 
         $this->searchAttributes = $this->getSearchAttributes();
+        $this->searchAttributesFilter = "('" . implode("', '", array_keys($this->searchAttributes)) . "')";
     }
 
     private function processBatch($batch)
@@ -95,6 +97,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
             $data = [
                 "entity_id_$c" => $product['entity_id'],
                 "detailed_info_$c" => $this->buildDetailedInfo($product),
+                "attributes_$c" => $this->buildAttributes($product, $attributesData),
                 "attribute_config_$c" => $this->buildAttributeConfig($product, $productData),
                 "attribute_bundle_$c" => $this->buildAttributeBundle($product, $productData),
                 "images_$c" => $this->buildImages($product, $imageData),
@@ -113,11 +116,12 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         $targetTable = self::TARGET_TABLE;
         $query = implode(', ', $query);
         $query = "INSERT INTO $targetTable
-            (entity_id, detailed_info, attribute_config, attribute_bundle, images, sales_price, in_stock, updated_at)
+            (entity_id, detailed_info, attributes, attribute_config, attribute_bundle, images, sales_price, in_stock, updated_at)
             VALUES $query
             ON DUPLICATE KEY UPDATE
                 entity_id = VALUES(entity_id),
                 detailed_info = VALUES(detailed_info),
+                attributes = VALUES(attributes),
                 attribute_config = VALUES(attribute_config),
                 attribute_bundle = VALUES(attribute_bundle),
                 images = VALUES(images),
@@ -140,6 +144,20 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
             'additional_info' => NULL // always null
         ];
         return json_encode($info);
+    }
+
+    private function buildAttributes($product, $attributesData)
+    {
+        $productId = $product['entity_id'];
+        if (empty($attributesData[$productId])) return NULL;
+
+        $result = [];
+        foreach ($attributesData[$productId] as $key => $value) {
+            $code = $this->searchAttributes[$key]['code'];
+            $label = $this->searchAttributes[$key]['label'];
+            $result[$code] = ['label' => $label, 'value' => $value];
+        }
+        return json_encode($result);
     }
 
     private function buildAttributeConfig($product, $productData)
@@ -332,6 +350,35 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
     {
         $productIds = array_column($batch, 'entity_id');
         $productSqlFilter = "('" . implode("', '", $productIds) . "')";
+
+        // fetch single-valued attributes
+        $query = $this->dbRead->query(
+            "SELECT
+                cpei.entity_id,
+                cpei.attribute_id,
+                eaov.value_id,
+                eaov.value
+            FROM catalog_product_entity_int cpei
+            JOIN eav_attribute_option_value eaov
+                ON eaov.option_id = cpei.value
+            WHERE
+                cpei.entity_id IN $productSqlFilter AND
+                cpei.attribute_id IN {$this->searchAttributesFilter}"
+        );
+
+        // group attributes by product ID
+        $result = [];
+        while ($attribute = $query->fetch()) {
+            $productId = $attribute['entity_id'];
+            if (!isset($result[$productId])) {
+                $result[$productId] = [];
+            }
+            $result[$productId][$attribute['attribute_id']] = [
+                $attribute['value_id'] => $attribute['value']
+            ];
+        }
+
+        return $result;
     }
 
     private function getImageData($batch)
@@ -363,10 +410,9 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         while ($image = $query->fetch()) {
             $productId = $image['entity_id'];
             if (!isset($result[$productId])) {
-                $result[$productId] = [$image];
-            } else {
-                $result[$productId][] = $image;
+                $result[$productId] = [];
             }
+            $result[$productId][] = $image;
         }
         return $result;
     }
