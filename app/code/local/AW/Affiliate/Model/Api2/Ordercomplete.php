@@ -91,7 +91,7 @@ class AW_Affiliate_Model_Api2_Ordercomplete extends Mage_Api2_Model_Resource
             $dataToSet = array(
                 'campaign_id' => $clientModel->getCampaignId(),
                 'affiliate_id' => $clientModel->getAffiliateId(),
-                'traffic_id' => NULL,
+                'traffic_id' => $clientModel->getTrafficId(),
                 'store_id' => self::DEFAULT_STORE_ID,
                 'client_id' => $clientModel->getId(),
                 'linked_entity_type' => AW_Affiliate_Model_Source_Transaction_Profit_Linked::INVOICE_ITEM,
