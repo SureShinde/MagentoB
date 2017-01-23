@@ -23,6 +23,8 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
     private $imageUrl;
     private $imageSizes;
 
+    private $searchAttributes;
+
     public function process(array $productIds)
     {
         try {
@@ -75,11 +77,14 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
             'vertical' => 150,
             'detail' => 265
         ];
+
+        $this->searchAttributes = $this->getSearchAttributes();
     }
 
     private function processBatch($batch)
     {
         $productData = $this->getProductData($batch);
+        $attributesData = $this->getAttributesData($batch);
         $imageData = $this->getImageData($batch);
 
         // collect query components and data binder
@@ -87,7 +92,6 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         $query = [];
         $bind = [];
         foreach ($batch as $product) {
-
             $data = [
                 "entity_id_$c" => $product['entity_id'],
                 "detailed_info_$c" => $this->buildDetailedInfo($product),
@@ -215,6 +219,30 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         }));
     }
 
+    private function getSearchAttributes()
+    {
+        $query = $this->dbRead->query(
+            "SELECT
+                ea.attribute_id,
+                ea.attribute_code,
+                ea.frontend_label
+            FROM eav_attribute ea
+            JOIN catalog_eav_attribute cea ON ea.attribute_id = cea.attribute_id
+            WHERE cea.is_filterable_in_search = '1'
+            ORDER BY ea.attribute_id"
+        );
+
+        // build ID-to-attribute map
+        $result = [];
+        while ($data = $query->fetch()) {
+            $result[$data['attribute_id']] = [
+                'code' => $data['attribute_code'],
+                'label' => $data['frontend_label']
+            ];
+        }
+        return $result;
+    }
+
     private function getProductCount(array $productIds)
     {
         if (empty($productIds)) return 0;
@@ -295,8 +323,13 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         foreach ($collection as $product) {
             $result[$product->getId()] = $product;
         }
-
         return $result;
+    }
+
+    private function getAttributesData($batch)
+    {
+        $productIds = array_column($batch, 'entity_id');
+        $productSqlFilter = "('" . implode("', '", $productIds) . "')";
     }
 
     private function getImageData($batch)
@@ -333,7 +366,6 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
                 $result[$productId][] = $image;
             }
         }
-
         return $result;
     }
 
