@@ -210,15 +210,17 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
 
     private function cleanProductIds(array $productIds)
     {
-        return array_keys(array_filter($productIds, function ($productId) {
+        $result = array_values(array_filter($productIds, function ($productId) {
             return is_numeric($productId);
         }));
+        if (count($result) !== count($productIds)) {
+            throw new Exception('Some IDs are invalid.');
+        }
+        return $result;
     }
 
     private function getProductCount(array $productIds)
     {
-        if (empty($productIds)) return 0;
-
         $where = $productIds ? "WHERE entity_id in ('" . implode("', '", $productIds) . "')" : '';
         $query = $this->dbRead->query("SELECT COUNT(1) AS count FROM catalog_product_flat_1 $where");
         $result = $query->fetch();
