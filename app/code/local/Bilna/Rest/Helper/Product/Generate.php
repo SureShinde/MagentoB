@@ -29,8 +29,10 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
             $this->initialize();
 
             // get product count
+            $productIds = $this->cleanProductIds($productIds);
             $productCount = $this->getProductCount($productIds);
             $this->log("Found: {$productCount}.");
+            if ($productCount === 0) return;
 
             // get base data
             $baseQuery = $this->getBaseQuery($productIds);
@@ -206,13 +208,21 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         return json_encode($result);
     }
 
+    private function cleanProductIds(array $productIds)
+    {
+        return array_keys(array_filter($productIds, function ($productId) {
+            return is_numeric($productId);
+        }));
+    }
+
     private function getProductCount(array $productIds)
     {
-        $where = $productIds ? "WHERE entity_id in ('" . implode("', '", $productIds) . "')" : '';
+        if (empty($productIds)) return 0;
 
+        $where = $productIds ? "WHERE entity_id in ('" . implode("', '", $productIds) . "')" : '';
         $query = $this->dbRead->query("SELECT COUNT(1) AS count FROM catalog_product_flat_1 $where");
         $result = $query->fetch();
-        return isset($result['count']) ? $result['count'] : 0;
+        return isset($result['count']) ? (int)$result['count'] : 0;
     }
 
     private function getBaseQuery(array $productIds)
