@@ -351,7 +351,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         $productIds = array_column($batch, 'entity_id');
         $productSqlFilter = "('" . implode("', '", $productIds) . "')";
 
-        // fetch single-valued attributes
+        // fetch attributes
         $query = $this->dbRead->query(
             "SELECT
                 cpei.entity_id,
@@ -363,19 +363,38 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
                 ON eaov.option_id = cpei.value
             WHERE
                 cpei.entity_id IN $productSqlFilter AND
-                cpei.attribute_id IN {$this->searchAttributesFilter}"
+                cpei.attribute_id IN {$this->searchAttributesFilter}
+
+            /* single-valued */ UNION /* multi-valued */
+
+            SELECT
+                cpev.entity_id,
+                cpev.attribute_id,
+                eaov.option_id,
+                eaov.value
+            FROM catalog_product_entity_varchar cpev
+            JOIN eav_attribute_option_value eaov
+                ON FIND_IN_SET(eaov.option_id, cpev.value) > 0
+            WHERE
+                cpev.entity_id IN $productSqlFilter AND
+                cpev.attribute_id IN {$this->searchAttributesFilter}"
         );
 
         // group attributes by product ID
         $result = [];
         while ($attribute = $query->fetch()) {
             $productId = $attribute['entity_id'];
+            $attributeId = $attribute['attribute_id'];
+
+            // initialize
             if (!isset($result[$productId])) {
                 $result[$productId] = [];
             }
-            $result[$productId][$attribute['attribute_id']] = [
-                $attribute['option_id'] => $attribute['value']
-            ];
+            if (!isset($result[$productId][$attributeId])) {
+                $result[$productId][$attributeId] = [];
+            }
+
+            $result[$productId][$attributeId][$attribute['option_id']] = $attribute['value'];
         }
 
         return $result;
