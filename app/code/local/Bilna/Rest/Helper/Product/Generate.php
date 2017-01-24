@@ -356,7 +356,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
             "SELECT
                 cpei.entity_id,
                 cpei.attribute_id,
-                eaov.value_id,
+                eaov.option_id,
                 eaov.value
             FROM catalog_product_entity_int cpei
             JOIN eav_attribute_option_value eaov
@@ -374,7 +374,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
                 $result[$productId] = [];
             }
             $result[$productId][$attribute['attribute_id']] = [
-                $attribute['value_id'] => $attribute['value']
+                $attribute['option_id'] => $attribute['value']
             ];
         }
 
