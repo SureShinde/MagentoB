@@ -153,9 +153,9 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
 
         $result = [];
         foreach ($attributesData[$productId] as $key => $value) {
-            $code = $this->searchAttributes[$key]['code'];
-            $label = $this->searchAttributes[$key]['label'];
-            $result[$code] = ['label' => $label, 'value' => $value];
+            $code = $this->searchAttributes[$key];
+            $result[$code] = implode(',', array_keys($value));
+            $result[$code . '_value'] = implode(',', array_values($value));
         }
         return json_encode($result);
     }
@@ -257,10 +257,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         // build ID-to-attribute map
         $result = [];
         while ($data = $query->fetch()) {
-            $result[$data['attribute_id']] = [
-                'code' => $data['attribute_code'],
-                'label' => $data['frontend_label']
-            ];
+            $result[$data['attribute_id']] = $data['attribute_code'];
         }
         return $result;
     }
