@@ -299,6 +299,22 @@ class Mage_Adminhtml_Sales_Order_InvoiceController extends Mage_Adminhtml_Contro
                     }
                 }
                 Mage::getSingleton('adminhtml/session')->getCommentText(true);
+
+                /**
+                * affiliate for processing invoice
+                */
+                $orderCompleteModel = Mage::getModel('awaffiliate/api2_ordercomplete');
+                $clientId = $orderCompleteModel->findAffiliateClientId($orderId);
+                if ($clientId) {
+                    $orderCompleteModel->createTransaction(array(
+                        'client_id' => $clientId,
+                        'order_id' => $orderId
+                    ));
+                }
+                /**
+                 * end of affiliate process
+                 */
+                
                 $this->_redirect('*/sales_order/view', array('order_id' => $orderId));
             } else {
                 $this->_redirect('*/*/new', array('order_id' => $orderId));

@@ -119,6 +119,23 @@ class Bilna_Paymethod_Model_Observer_Klikbca {
                         ->addObject($invoice->getOrder());
                     $transactionSave->save();
                     $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, Mage::getStoreConfig('payment/klikbca/order_processing_comment'), true)->save();
+
+                    /**
+                    * affiliate for processing invoice
+                    */
+                    $orderId = $order->getId();
+                    $orderCompleteModel = Mage::getModel('awaffiliate/api2_ordercomplete');
+                    $clientId = $orderCompleteModel->findAffiliateClientId($orderId);
+                    if ($clientId) {
+                        $orderCompleteModel->createTransaction(array(
+                            'client_id' => $clientId,
+                            'order_id' => $orderId
+                        ));
+                    }
+                    /**
+                     * end of affiliate process
+                     */
+                                
                     $invoice->sendEmail(true, '');
 
                     return true;

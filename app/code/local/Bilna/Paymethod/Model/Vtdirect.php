@@ -134,7 +134,24 @@ class Bilna_Paymethod_Model_Vtdirect extends Mage_Core_Model_Abstract {
 
         $transaction = Mage::getModel('core/resource_transaction')->addObject($invoice)->addObject($order);
         $transaction->save();
-
+        /**
+        * affiliate for processing invoice
+        * since affiliate observer failed to create transaction (caused by order status still in pending payment),
+        * for cc paymethod, transaction will create here
+        *
+        */
+        $orderCompleteModel = Mage::getModel('awaffiliate/api2_ordercomplete');
+        $orderId = $order->getId();
+        $clientId = $orderCompleteModel->findAffiliateClientId($orderId);
+        if ($clientId) {
+            $orderCompleteModel->createTransaction(array(
+                'client_id' => $clientId,
+                'order_id' => $orderId
+            ));
+        }
+        /**
+         * end of affiliate process
+         */
         $invoice->sendEmail(true, '');
         return true;
     }
