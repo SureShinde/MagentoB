@@ -161,8 +161,11 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         $result = [];
         foreach ($attributesData[$productId] as $key => $value) {
             $code = $this->searchAttributes[$key];
-            $result[$code] = implode('|', array_keys($value));
-            $result[$code . '_value'] = implode('|', array_values($value));
+            $options = [];
+            foreach ($value as $optionKey => $optionValue) {
+                $options[] = $optionKey . ':' . $optionValue;
+            }
+            $result[$code] = implode('|', $options);
         }
         return json_encode($result);
     }
