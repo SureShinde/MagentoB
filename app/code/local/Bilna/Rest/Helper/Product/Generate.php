@@ -23,6 +23,8 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
     private $imageUrl;
     private $imageSizes;
 
+    private $lastState;
+
     public function process(array $productIds)
     {
         try {
@@ -57,7 +59,9 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
             $batch = [];
             $this->log("Finished: $finished.");
         } catch (Exception $e) {
-            $this->log("Error: {$e->getMessage()}");
+            $message = $this->lastState ? "[$this->lastState] " : '';
+            $message .= $e->getMessage();
+            $this->log("Error: $message");
         }
     }
 
@@ -79,6 +83,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
 
     private function processBatch($batch)
     {
+        $this->lastState = 'Fetching data';
         $productData = $this->getProductData($batch);
         $imageData = $this->getImageData($batch);
 
@@ -87,7 +92,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
         $query = [];
         $bind = [];
         foreach ($batch as $product) {
-
+            $this->lastState = "Processing {$product['entity_id']}";
             $data = [
                 "entity_id_$c" => $product['entity_id'],
                 "detailed_info_$c" => $this->buildDetailedInfo($product),
@@ -101,11 +106,11 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
             $keysWithColon = array_map(function ($k) { return ":$k"; }, array_keys($data));
             $query[] = '(' . implode(', ', $keysWithColon) . ', NOW())'; // NOW() as updated_at
             $bind = array_merge($bind, $data);
-
             $c++;
         }
 
         // build the full query then execute
+        $this->lastState = 'Inserting batch';
         $targetTable = self::TARGET_TABLE;
         $query = implode(', ', $query);
         $query = "INSERT INTO $targetTable
@@ -122,6 +127,8 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
                 updated_at = VALUES(updated_at)";
         $this->dbWrite->query($query, $bind);
 
+        // clear state
+        $this->lastState = null;
     }
 
     private function buildDetailedInfo($product)
