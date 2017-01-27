@@ -29,10 +29,31 @@
 
 class AW_Affiliate_Model_Transaction_Profit extends Mage_Core_Model_Abstract
 {
+    private $affiliateId = NULL;
+    private $campaignId = NULL;
+    private $linkedEntityType = NULL;
+    private $linkedEntityId = NULL;
+    private $storeId = NULL;
+    private $linkedEntityOrder = NULL;
+    private $linkedEntityInvoice = NULL;
+    private $type = NULL;
 
-    public function _construct()
+    public function _construct($params = array())
     {
         $this->_init('awaffiliate/transaction_profit');
+        $this->_initTransaction($params);
+    }
+
+    protected function _initTransaction($params = array())
+    {
+        $this->affiliateId = !empty($params['affiliate_id']) ? $params['affiliate_id'] : $this->getData('affiliate_id');
+        $this->campaignId = !empty($params['campaign_id']) ? $params['campaign_id'] : $this->getData('campaign_id');
+        $this->linkedEntityType = !empty($params['linked_entity_type']) ? $params['linked_entity_type'] : $this->getData('linked_entity_type');
+        $this->linkedEntityId = !empty($params['linked_entity_id']) ? $params['linked_entity_id'] : $this->getData('linked_entity_id');
+        $this->storeId = !empty($params['store_id']) ? $params['store_id'] : NULL;
+        $this->linkedEntityOrder = isset($params['linked_entity_order']) && !is_scalar($params['linked_entity_order']) ? $params['linked_entity_order'] : $this->getData('linked_entity_order');
+        $this->linkedEntityInvoice = isset($params['linked_entity_invoice']) && !is_scalar($params['linked_entity_invoice']) ? $params['linked_entity_invoice'] : $this->getData('linked_entity_invoice');
+        $this->type = !empty($params['type']) ? $params['type'] : $this->getData('type');
     }
 
     public function createTransaction()
@@ -67,7 +88,7 @@ class AW_Affiliate_Model_Transaction_Profit extends Mage_Core_Model_Abstract
             $this->setData('currency_code', $currencyCode);
             $this->save();
         } else {
-            Mage::throwException($this->__('Not valid for create transaction'));
+            //Mage::throwException($this->__('Not valid for create transaction'));
         }
         return $this;
     }
@@ -78,7 +99,7 @@ class AW_Affiliate_Model_Transaction_Profit extends Mage_Core_Model_Abstract
             case AW_Affiliate_Model_Source_Profit_Type::TIER_CUR:
             case AW_Affiliate_Model_Source_Profit_Type::FIXED_CUR:
                 /** @var $order Mage_Sales_Model_Order */
-                if ($order = $this->getData('linked_entity_order')) {
+                if ($order = $this->linkedEntityOrder) {
                     return $order->getInvoiceCollection()->getSize() == 0;
                 } else {
                     return false;
@@ -90,8 +111,8 @@ class AW_Affiliate_Model_Transaction_Profit extends Mage_Core_Model_Abstract
 
     public function getAffiliate()
     {
-        if (!is_null($this->getData('affiliate_id')) && intval($this->getData('affiliate_id')) > 0) {
-            $_affiliate = Mage::getModel('awaffiliate/affiliate')->load($this->getData('affiliate_id'));
+        if (!is_null($this->affiliateId) && intval($this->affiliateId) > 0) {
+            $_affiliate = Mage::getModel('awaffiliate/affiliate')->load($this->affiliateId);
             if (!is_null($_affiliate->getId())) {
                 return $_affiliate;
             }
@@ -101,8 +122,8 @@ class AW_Affiliate_Model_Transaction_Profit extends Mage_Core_Model_Abstract
 
     public function getCampaign()
     {
-        if (!is_null($this->getData('campaign_id')) && intval($this->getData('campaign_id')) > 0) {
-            $_campaign = Mage::getModel('awaffiliate/campaign')->load($this->getData('campaign_id'));
+        if (!is_null($this->campaignId) && intval($this->campaignId) > 0) {
+            $_campaign = Mage::getModel('awaffiliate/campaign')->load($this->campaignId);
             if (!is_null($_campaign->getId())) {
                 return $_campaign;
             }
@@ -112,12 +133,12 @@ class AW_Affiliate_Model_Transaction_Profit extends Mage_Core_Model_Abstract
 
     public function getLinkedEntity()
     {
-        switch ($this->getData('linked_entity_type')) {
+        switch ($this->linkedEntityType) {
             case AW_Affiliate_Model_Source_Transaction_Profit_Linked::INVOICE_ITEM:
-                $entityObject = $this->getData('linked_entity_invoice');
+                $entityObject = $this->linkedEntityInvoice;
                 break;
             case AW_Affiliate_Model_Source_Transaction_Profit_Linked::ORDER_ITEM :
-                $entityObject = Mage::getModel('sales/order_item')->load($this->getData('linked_entity_id'));
+                $entityObject = Mage::getModel('sales/order_item')->load($this->linkedEntityId);
                 break;
             default:
                 return null;
@@ -136,7 +157,7 @@ class AW_Affiliate_Model_Transaction_Profit extends Mage_Core_Model_Abstract
         if (is_null($this->getLinkedEntity())) {
             return false;
         }
-        $type = Mage::getModel('awaffiliate/source_transaction_profit_type')->getOption($this->getData('type'));
+        $type = Mage::getModel('awaffiliate/source_transaction_profit_type')->getOption($this->type);
         if ($type === FALSE) {
             return false;
         }
@@ -149,23 +170,30 @@ class AW_Affiliate_Model_Transaction_Profit extends Mage_Core_Model_Abstract
         if (!$linkedEntity) {
             return null;
         }
+        $storeId = is_null($this->storeId) ? $linkedEntity->getData('store_id') : $this->storeId;
+        $subtotalInclTax = !empty($linkedEntity->getData('subtotal_incl_tax')) ? $linkedEntity->getData('subtotal_incl_tax') : $linkedEntity->getSubtotalIncTax();
+        $subtotal = !empty($linkedEntity->getData('subtotal')) ? $linkedEntity->getData('subtotal') : $linkedEntity->getSubtotal();
+        $discountAmount = !empty($linkedEntity->getData('discount_amount')) ? $linkedEntity->getData('discount_amount') : $linkedEntity->getDiscountAmount();
+        $rowTotalInclTax = !empty($linkedEntity->getData('row_total_incl_tax')) ? $linkedEntity->getData('row_total_incl_tax') : $linkedEntity->getRowTotalInclTax();
+        $rowTotal = !empty($linkedEntity->getData('row_total')) ? $linkedEntity->getData('row_total') : $linkedEntity->getRowTotal();
+
         $amount = null;
-        switch ($this->getData('linked_entity_type')) {
+        switch ($this->linkedEntityType) {
             case AW_Affiliate_Model_Source_Transaction_Profit_Linked::INVOICE_ITEM:
-                if (Mage::helper('awaffiliate/config')->isConsiderTax($linkedEntity->getData('store_id'))) {
-                    $amount = $linkedEntity->getData('subtotal_incl_tax');
+                if (Mage::helper('awaffiliate/config')->isConsiderTax($storeId)) {
+                    $amount = $subtotalInclTax;
                 } else {
-                    $amount = $linkedEntity->getData('subtotal');
+                    $amount = $subtotal;
                 }
-                if ($_discountAmount = $linkedEntity->getData('discount_amount')) {
-                    $amount = max(0, $amount - abs($_discountAmount));
+                if ($discountAmount) {
+                    $amount = max(0, $amount - abs($discountAmount));
                 }
                 break;
             case AW_Affiliate_Model_Source_Transaction_Profit_Linked::ORDER_ITEM :
-                if (Mage::helper('awaffiliate/config')->isConsiderTax($linkedEntity->getData('store_id'))) {
-                    $amount = $linkedEntity->getData('row_total_incl_tax');
+                if (Mage::helper('awaffiliate/config')->isConsiderTax($storeId)) {
+                    $amount = $rowTotalInclTax;
                 } else {
-                    $amount = $linkedEntity->getData('row_total');
+                    $amount = $rowTotal;
                 }
                 break;
             default:
@@ -181,7 +209,7 @@ class AW_Affiliate_Model_Transaction_Profit extends Mage_Core_Model_Abstract
             return null;
         }
         $code = null;
-        switch ($this->getData('linked_entity_type')) {
+        switch ($this->linkedEntityType) {
             case AW_Affiliate_Model_Source_Transaction_Profit_Linked::INVOICE_ITEM:
             case AW_Affiliate_Model_Source_Transaction_Profit_Linked::ORDER_ITEM:
                 $code = $linkedEntity->getOrder()->getData('base_currency_code');
