@@ -32,36 +32,36 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
             $lastQuoteId = $session->getLastQuoteId();
             $lastOrderId = $session->getLastOrderId();
             $lastRecurringProfiles = $session->getLastRecurringProfileIds();
-            
+
             if (!$lastQuoteId || (!$lastOrderId && empty ($lastRecurringProfiles))) {
                 $this->_redirect('checkout/cart');
                 return;
             }
-        
+
             $this->_initLayoutMessages('checkout/session');
             Mage::dispatchEvent('checkout_onepage_controller_success_action', array ('order_ids' => array ($lastOrderId)));
         }
-        
+
         $this->getLayout()->getBlock('head')->setTitle($this->__('Redirect Page'));
         $this->renderLayout();
     }
-    
+
     public function inquiryAction() {
         $this->writeLog($this->_typeTransaction, 'inquiry', 'request_method: ' . $this->getRequestMethod());
-        
+
         $klikpayUserId = $this->getRequestData('klikPayCode');
         $additionalData = $this->getRequestData('additionalData');
         $transactionNo = $this->getRequestData('transactionNo');
         $signature = $this->getRequestData('signature');
-        
+
         $contentLog = sprintf("%s | request_klikpay: %s", $transactionNo, json_encode($this->getRequestData()));
         $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
-        
+
         $orderCollection = Mage::getModel('sales/order')->getCollection();
         $orderCollection->addFieldToFilter('status', 'pending');
         $orderCollection->addFieldToFilter('increment_id', array ('eq' => $transactionNo));
         $orderCollection->getSelect()->join(array ('SFOP' => 'sales_flat_order_payment'), 'SFOP.method = "klikpay" AND main_table.entity_id = SFOP.parent_id', array ('method'), null, 'left');
-        
+
         $order = $orderCollection->getFirstItem();
         $validationHours = Mage::getStoreConfig('payment/klikpay/order_validation');
         $validationOption = Mage::getStoreConfig('payment/klikpay/order_validation_option');
@@ -72,14 +72,14 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
                 $orderCreatedDate = $order->getCreatedAt();
                 $orderCreatedDate = date('Y-m-d H:i:s', strtotime($orderCreatedDate . ' +' . $validationHours . ' ' . $validationOption));
                 $now = now();
-                
+
                 if (strtotime($now) > strtotime($orderCreatedDate)) {
                     $contentLog = sprintf("%s | order is not valid.", $transactionNo);
                     $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
                     die ('order is not valid.');
                 }
             }
-            
+
             //checking signature
             if ($signature != $order->getKlikpaySignature()) {
                 $contentLog = sprintf("%s | signature is not valid.", $transactionNo);
@@ -88,16 +88,16 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
             }
 
             $items = $order->getAllItems();
-            
+
             if (count($items) > 0) {
-                header('Content-type: text/xml; charset=utf-8');    
-                
+                header('Content-type: text/xml; charset=utf-8');
+
                 $xml  = '<?xml version="1.0" encoding="utf-8"?>';
                 $xml .= '<OutputListTransactionIPAY>';
                 $xml .= "<klikPayCode>" . $klikpayUserId . "</klikPayCode>";
                 $xml .= "<transactionNo>" . $transactionNo . "</transactionNo>";
                 $xml .= "<currency>IDR</currency>";
-                
+
                 foreach ($items as $itemId => $item) {
                     $_installmentTypeValue = Mage::helper('paymethod/klikpay')->getInstallmentOption($item->getInstallmentType(), 'value');
                     $_tenor = Mage::helper('paymethod/klikpay')->getInstallmentOption($item->getInstallmentType(), 'tenor');
@@ -121,23 +121,23 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
                     $xml .= "<merchantId>" . $_merchantId . "</merchantId>";
                     $xml .= "</installmentTransaction>";
                 }
-                
+
                 $xml .= "<miscFee></miscFee>";
                 $xml .= "<additionalData>" . $additionalData . "</additionalData>";
                 $xml .= "</OutputListTransactionIPAY>";
-                
+
                 $contentLog = sprintf("%s | response_klikpay: %s", $transactionNo, $xml);
                 $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
                 die ($xml);
             }
         }
-        
+
         die();
     }
-    
+
     public function paymentAction() {
         $this->writeLog($this->_typeTransaction, 'payment', 'request_method: ' . $this->getRequestMethod());
-        
+
         $klikpayUserId = $this->getRequestData('klikPayCode');
         $transactionDate = $this->getRequestData('transactionDate');
         $transactionNo = $this->getRequestData('transactionNo');
@@ -150,21 +150,21 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
         $authKey = $this->getRequestData('authKey');
         $additionalData = $this->getRequestData('additionalData');
         $status = '01';
-        
+
         $contentLog = sprintf("%s | request_klikpay: %s", $transactionNo, json_encode($this->getRequestData()));
         $this->writeLog($this->_typeTransaction, 'payment', $contentLog);
-        
+
         $idReason = '';
         $enReason = '';
         $idReasonTrxSuccess = 'Sukses.';
         $enReasonTrxSuccess = 'Success.';
-        $idReasonTrxFailed = 'Transaksi anda tidak dapat diproses.';
+        $idReasonTrxFailed = 'Transaksi Anda tidak dapat diproses.';
         $enReasonTrxFailed = 'Your transaction cannot be processed.';
-        $idReasonTrxPaid = 'Transaksi anda telah dibayar.';
+        $idReasonTrxPaid = 'Transaksi Anda telah dibayar.';
         $enReasonTrxPaid = 'Your transaction has been paid.';
-        $idReasonTrxExpired = 'Transaksi anda telah kedaluwarsa.';
+        $idReasonTrxExpired = 'Transaksi Anda telah kedaluwarsa.';
         $enReasonTrxExpired = 'Your transaction has expired.';
-        
+
         if ($currencyCheck === true) {
             $orderCollection = Mage::getModel('sales/order')->getCollection();
             $orderCollection->addFieldToFilter('increment_id', array ('eq' => $transactionNo));
@@ -212,7 +212,7 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
                 else {
                     $transactionAmount = number_format((int) $transactionAmount, 2, null, '');
                     $status = '00';
-                    
+
                     $idReason = $idReasonTrxSuccess;
                     $enReason = $enReasonTrxSuccess;
 
@@ -266,8 +266,8 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
             $enReason = $enReasonTrxFailed;
             $this->writeLog($this->_typeTransaction, 'payment', sprintf("%s | %s", $transactionNo, 'Currency is not IDR.'));
         }
-        
-        header('Content-type: text/xml; charset=utf-8');   
+
+        header('Content-type: text/xml; charset=utf-8');
         $xml  ='<?xml version="1.0" encoding="utf-8"?>';
         $xml .= "<OutputPaymentIPAY>";
         $xml .= "<klikPayCode>" . $klikpayUserId . "</klikPayCode>";
@@ -285,14 +285,14 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
         $xml .= "<indonesian>" . $idReason . "</indonesian>";
         $xml .= "<english>" . $enReason . "</english>";
         $xml .= "</reason>";
-        $xml .= "<additionalData>" . $additionalData . "</additionalData>";            
-        $xml .= "</OutputPaymentIPAY>";                 
+        $xml .= "<additionalData>" . $additionalData . "</additionalData>";
+        $xml .= "</OutputPaymentIPAY>";
 
         $contentLog = sprintf("%s | response_klikpay: %s", $transactionNo, $xml);
         $this->writeLog($this->_typeTransaction, 'payment', $contentLog);
         die($xml);
     }
-    
+
     public function thankyouAction() {
         // parameter id tidak ada
         if (!$this->getRequest()->getParam('id')) {
@@ -303,20 +303,20 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
         $this->getLayout()->getBlock('head')->setTitle($this->__('Thank you Page'));
         $this->renderLayout();
     }
-    
+
     public function payAction() {
         $this->loadLayout();
         $this->renderLayout();
     }
-    
+
     protected function getRequestMethod() {
         return Mage::getStoreConfig('payment/' . $this->_code . '/request_method');
     }
-    
+
     protected function getRequestData($key = '') {
         $method = $this->getRequestMethod();
         $result = '';
-        
+
         if ($method == 'POST') {
             if ($key == '') {
                 $result = $this->getRequest()->getPost();
@@ -337,14 +337,14 @@ class Bilna_Paymethod_KlikpayController extends Mage_Core_Controller_Front_Actio
                 }
             }
         }
-        
+
         return $result;
     }
 
     protected function writeLog($type, $logFile, $content) {
         $tdate = date('Ymd', Mage::getModel('core/date')->timestamp(time()));
         $filename = sprintf("%s_%s.%s", $this->_code, $logFile, $tdate);
-        
+
         return Mage::helper('paymethod')->writeLogFile($this->_code, $type, $filename, $content);
     }
 }
