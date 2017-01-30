@@ -147,11 +147,11 @@ class Bilna_Paymethod_Model_Observer_Webservice_Klikpay
         $enReason = '';
         $idReasonTrxSuccess = 'Sukses.';
         $enReasonTrxSuccess = 'Success.';
-        $idReasonTrxFailed = 'Transaksi anda tidak dapat diproses.';
+        $idReasonTrxFailed = 'Transaksi Anda tidak dapat diproses.';
         $enReasonTrxFailed = 'Your transaction cannot be processed.';
-        $idReasonTrxPaid = 'Transaksi anda telah dibayar.';
+        $idReasonTrxPaid = 'Transaksi Anda telah dibayar.';
         $enReasonTrxPaid = 'Your transaction has been paid.';
-        $idReasonTrxExpired = 'Transaksi anda telah kedaluwarsa.';
+        $idReasonTrxExpired = 'Transaksi Anda telah kedaluwarsa.';
         $enReasonTrxExpired = 'Your transaction has expired.';
 
         if ($currencyCheck === true) {
