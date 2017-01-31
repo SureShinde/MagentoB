@@ -61,7 +61,7 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                 $productRequest = $this->_getProductRequest($productItem);
                 $this->_validateAddToCartCrossBorder($quote, $productByItem, $productQty);
                 $result = $quote->addProduct($productByItem, $productRequest);
-                if(isset($data['products']['custom_price']) && !empty($data['products']['custom_price'])){
+                if(!empty($data['products']['custom_price'])){
                     $result->setCustomPrice($data['products']['custom_price']);
                     $result->setOriginalCustomPrice($data['products']['custom_price']);
                 }
