@@ -30,7 +30,7 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
 
         try {
             //$quote = $this->_getQuote($quoteId, $storeId);
-            
+
             $_methods = $this->_getMethods();
             $_methodsAllow = $this->getPaymentMethodsByShippingMethodUpdated();
             $_result = array ();
@@ -60,14 +60,23 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
                 }
 
                 $_label = 'instructions';
+                $skip = 0;
                 switch($_code)
                 {
                     case 'klikbca':
                     case 'klikpay':
                         $_label = 'message';
                         break;
+                    case 'postpay':
+                        $cart = Mage::getModel('sales/quote')->load($quoteId);
+                        $customer = Mage::getModel('customer/customer')->load($cart->getCustomerId());
+                        $allowGroup = Mage::getStoreConfig('payment/postpay/allowgroup');
+                        if(!in_array($customer->getGroupId(),explode(",",$allowGroup))) {
+                            $skip = 1;
+                        }
+                        break;
                 }
-
+                if($skip) continue;
                 $_result[] = array (
                     'code' => $_code,
                     'title' => $_title,
@@ -113,12 +122,12 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
         $method->setInfoInstance($this->getQuote()->getPayment());
         return $this;
     }
-    
+
     protected function _validateCOD($selectedShippingMethod = null)
     {
         $validateArray = [
-            'Free Shipping', 
-            'Bayar di Tempat', 
+            'Free Shipping',
+            'Bayar di Tempat',
             'Standard Shipping',
             'Express Shipping',
             'Economy Shipping',
@@ -127,7 +136,7 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
         if(in_array($selectedShippingMethod, $validateArray)) {
             return TRUE;
         }
-        
+
         return FALSE;
     }
 
@@ -178,7 +187,7 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
 
         $shipData = array (
             'shipping_text' => $shippingAddress->getShippingDescription(),
-            'shipping_type' => $shippingType 
+            'shipping_type' => $shippingType
         );
 
         $paymentMethodsArr = Mage::getModel('cod/paymentMethod')->getSupportPaymentMethodsByShippingMethod($shipData);
@@ -229,11 +238,11 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
                         $result[] = $value;
                     }
                 }
-                
+
                 if(!empty($result)) {
                     $newResult = [];
-                    
-                    foreach($result as $key => $item) { 
+
+                    foreach($result as $key => $item) {
                         if(substr_count($shipData['shipping_text'], 'Free Shipping') || substr_count($shipData['shipping_text'], 'Standard Shipping')) {
                             $newResult = $this->_removeKey('cod', $result);
                             break;
@@ -242,13 +251,13 @@ class Bilna_Checkout_Model_Api2_Payment_Rest_Admin_V1 extends Bilna_Checkout_Mod
                             break;
                         }
                     }
-                }                
+                }
             }
         }
 
         return (empty($newResult) ? $result : $newResult);
     }
-    
+
     protected function _removeKey($removedKey, $array = array())
     {
         $indexRemoved = array_search($removedKey, $array);
