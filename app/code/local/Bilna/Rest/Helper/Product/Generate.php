@@ -260,7 +260,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
                 ea.frontend_label
             FROM eav_attribute ea
             JOIN catalog_eav_attribute cea ON ea.attribute_id = cea.attribute_id
-            WHERE cea.is_filterable_in_search = '1'
+            WHERE cea.is_filterable > 0
             ORDER BY ea.attribute_id"
         );
 
