@@ -44,6 +44,23 @@ class Bilna_Worker_Order_GenerateInvoices extends Bilna_Worker_Order_Order {
                     $transaction = Mage::getModel('core/resource_transaction')->addObject($invoice)->addObject($order);
                     $transaction->save();
                     $invoice->sendEmail(true, '');
+
+                    /**
+                    * affiliate for processing invoice
+                    */
+                    $orderId = $order->getId();
+                    $orderCompleteModel = Mage::getModel('awaffiliate/api2_ordercomplete');
+                    $clientId = $orderCompleteModel->findAffiliateClientId($orderId);
+                    if ($clientId) {
+                        $orderCompleteModel->createTransaction(array(
+                            'client_id' => $clientId,
+                            'order_id' => $orderId
+                        ));
+                    }
+                    /**
+                     * end of affiliate process
+                     */
+                    
                     Mage::log("Postpay create invoice for order ".$incrementId);
                     $this->_logProgress("#{$incrementId} Process Invoice => success");
                     $this->_queueSvc->delete($job);
