@@ -25,8 +25,10 @@ class Bilna_Worker_Order_GenerateInvoices extends Bilna_Worker_Order_Order {
                     $this->_logProgress("#{$incrementId} Process Invoice => failed, Order not found.");
                     continue;
                 }
+
+                $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
                 
-                if (isset($dataObj->payment_type) && ($dataObj->payment_type == "postpay")) {
+                if ($paymentCode == "postpay") {
                     if (!$order->canInvoice()) {
                         Mage::log("Postpay cannot create invoice for order ".$incrementId);
                         Mage::throwException(Mage::helper('core')->__('Cannot create an invoice for order '.$incrementId));
@@ -48,7 +50,7 @@ class Bilna_Worker_Order_GenerateInvoices extends Bilna_Worker_Order_Order {
                     continue;
                 }
 
-                $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
+                
                 $status = Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $dataObj);
                 
                 if ($status === false) {
