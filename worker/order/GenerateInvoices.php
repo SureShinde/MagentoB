@@ -43,8 +43,7 @@ class Bilna_Worker_Order_GenerateInvoices extends Bilna_Worker_Order_Order {
                     $invoice->register();
                     $transaction = Mage::getModel('core/resource_transaction')->addObject($invoice)->addObject($order);
                     $transaction->save();
-                    $invoice->sendEmail(true, '');
-
+                    
                     /**
                     * affiliate for processing invoice
                     */
