@@ -220,7 +220,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                         $hostname = Mage::getStoreConfig('bilna_queue/beanstalkd_settings/hostname');
                         $pheanstalk = new Pheanstalk($hostname);
                         if ($invoice) {
-                            $pheanstalk->useTube('invoice')->put(json_encode((object)array('order_id' => $order->getIncrementId(), 'payment_method' => 'postpay')), '', 60); 
+                            $pheanstalk->useTube('invoice')->put(json_encode((object)array('order_id' => $order->getIncrementId())), '', 60); 
                         }
                     }
                     catch (Exception $e) {
