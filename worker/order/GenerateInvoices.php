@@ -26,6 +26,28 @@ class Bilna_Worker_Order_GenerateInvoices extends Bilna_Worker_Order_Order {
                     continue;
                 }
                 
+                if (isset($dataObj->payment_type) && ($dataObj->payment_type == "postpay")) {
+                    if (!$order->canInvoice()) {
+                        Mage::log("Postpay cannot create invoice for order ".$incrementId);
+                        Mage::throwException(Mage::helper('core')->__('Cannot create an invoice for order '.$incrementId));
+                        continue;
+                    }
+
+                    $invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
+                    if (!$invoice->getTotalQty()) {
+                        Mage::throwException(Mage::helper('core')->__('Cannot create an invoice without products.'));
+                    }
+                    $invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_ONLINE);
+                    $invoice->register();
+                    $transaction = Mage::getModel('core/resource_transaction')->addObject($invoice)->addObject($order);
+                    $transaction->save();
+                    $invoice->sendEmail(true, '');
+                    Mage::log("Postpay create invoice for order ".$incrementId);
+                    $this->_logProgress("#{$incrementId} Process Invoice => success");
+                    $this->_queueSvc->delete($job);
+                    continue;
+                }
+
                 $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
                 $status = Mage::getModel('paymethod/vtdirect')->updateOrder($order, $paymentCode, $dataObj);
                 

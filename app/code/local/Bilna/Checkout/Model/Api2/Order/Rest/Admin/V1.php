@@ -213,6 +213,20 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 if ($order->getCanSendNewEmailFlag()) {
                     $order->sendNewOrderEmail();
                 }
+
+                $paymentCode = $quote->getPayment()->getMethodInstance()->getCode();
+                if ($paymentCode == 'postpay') {
+                    try {
+                        $hostname = Mage::getStoreConfig('bilna_queue/beanstalkd_settings/hostname');
+                        $pheanstalk = new Pheanstalk($hostname);
+                        if ($invoice) {
+                            $pheanstalk->useTube('invoice')->put(json_encode((object)array('order_id' => $order->getIncrementId(), 'payment_method' => 'postpay')), '', 60); 
+                        }
+                    }
+                    catch (Exception $e) {
+                        Mage::logException($e);
+                    }
+                }
             }
 
             return $this->_getLocation($order);
