@@ -30,7 +30,6 @@ class Bilna_Worker_Order_GenerateInvoices extends Bilna_Worker_Order_Order {
                 
                 if ($paymentCode == "postpay") {
                     if (!$order->canInvoice()) {
-                        Mage::log("Postpay cannot create invoice for order ".$incrementId);
                         Mage::throwException(Mage::helper('core')->__('Cannot create an invoice for order '.$incrementId));
                         continue;
                     }
