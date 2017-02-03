@@ -167,7 +167,7 @@ class Bilna_Rest_Helper_Product_Generate extends Mage_Core_Helper_Abstract
             }
             $result[$code] = implode('|', $options);
         }
-        return json_encode($result);
+        return json_encode($result, JSON_UNESCAPED_UNICODE);
     }
 
     private function buildAttributeConfig($product, $productData)
