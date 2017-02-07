@@ -755,6 +755,8 @@ class Mage_CatalogInventoryLocal_Model_Stock_Item extends Mage_CatalogInventory_
             $this->setQty(0);
         }
 
+        $this->setUpdatedAt(null);
+
         return $this;
     }
 
