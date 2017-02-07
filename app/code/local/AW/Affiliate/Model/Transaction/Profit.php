@@ -171,11 +171,11 @@ class AW_Affiliate_Model_Transaction_Profit extends Mage_Core_Model_Abstract
             return null;
         }
         $storeId = is_null($this->storeId) ? $linkedEntity->getData('store_id') : $this->storeId;
-        $subtotalInclTax = !empty($linkedEntity->getData('subtotal_incl_tax')) ? $linkedEntity->getData('subtotal_incl_tax') : $linkedEntity->getSubtotalIncTax();
-        $subtotal = !empty($linkedEntity->getData('subtotal')) ? $linkedEntity->getData('subtotal') : $linkedEntity->getSubtotal();
-        $discountAmount = !empty($linkedEntity->getData('discount_amount')) ? $linkedEntity->getData('discount_amount') : $linkedEntity->getDiscountAmount();
-        $rowTotalInclTax = !empty($linkedEntity->getData('row_total_incl_tax')) ? $linkedEntity->getData('row_total_incl_tax') : $linkedEntity->getRowTotalInclTax();
-        $rowTotal = !empty($linkedEntity->getData('row_total')) ? $linkedEntity->getData('row_total') : $linkedEntity->getRowTotal();
+        $subtotalInclTax = $linkedEntity->getData('subtotal_incl_tax') ?: $linkedEntity->getSubtotalIncTax();
+        $subtotal = $linkedEntity->getData('subtotal') ?: $linkedEntity->getSubtotal();
+        $discountAmount = $linkedEntity->getData('discount_amount') ?: $linkedEntity->getDiscountAmount();
+        $rowTotalInclTax = $linkedEntity->getData('row_total_incl_tax') ?: $linkedEntity->getRowTotalInclTax();
+        $rowTotal = $linkedEntity->getData('row_total') ?: $linkedEntity->getRowTotal();
 
         $amount = null;
         switch ($this->linkedEntityType) {
