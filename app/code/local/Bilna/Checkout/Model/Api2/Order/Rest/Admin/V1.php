@@ -60,10 +60,10 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 if(!$quote->getCustomerId()) {
                     $this->_critical("Invalid Payment Method");
                 }
-                $customer = Mage::getModel('customer/customer')->load($quote->getCustomerId());
-                $allowGroup = Mage::getStoreConfig('payment/postpay/allowgroup');
-                if(!in_array($customer->getGroupId(),explode(",",$allowGroup))) {
-                    $this->_critical("Invalid Payment Method");
+                try{
+                    Mage::Helper('paymethod')->checkAllowedPostPay($quote->getCustomerId());
+                } catch (Exception $e) {
+                    $this->_critical($e->getMessage());
                 }
             }
 

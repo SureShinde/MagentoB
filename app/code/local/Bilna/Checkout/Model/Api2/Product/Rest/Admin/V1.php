@@ -65,9 +65,9 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                     if(!$quote->getCustomerId()) {
                         Mage::throwException("Custom Price is not allowed");
                     }
-                    $customer = Mage::getModel('customer/customer')->load($quote->getCustomerId());
-                    $allowGroup = Mage::getStoreConfig('payment/postpay/allowgroup');
-                    if(!in_array($customer->getGroupId(),explode(",",$allowGroup))) {
+                    try{
+                        Mage::Helper('paymethod')->checkAllowedPostPay($quote->getCustomerId());
+                    } catch (Exception $e) {
                         Mage::throwException("Custom Price is not allowed");
                     }
                     $result->setCustomPrice($data['products']['custom_price']);
