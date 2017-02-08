@@ -187,6 +187,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             Mage::helper('bilna_fraud')->checkFraud($order);
 
             $orderId = $order->getId();
+            $paymentCode = $order->getPayment()->getMethodInstance()->getCode();
             $orderIncrementId = $order->getIncrementId();
             $orderGrandTotal = $order->getGrandTotal();
             $orderCanceled = $this->_getOrderCanceled($order);
@@ -213,6 +214,7 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                     $order->sendNewOrderEmail();
                 }
 
+                $paymentCode = $quote->getPayment()->getMethodInstance()->getCode();
                 if ($paymentCode == 'postpay') {
                     try {
                         $hostname = Mage::getStoreConfig('bilna_queue/beanstalkd_settings/hostname');
