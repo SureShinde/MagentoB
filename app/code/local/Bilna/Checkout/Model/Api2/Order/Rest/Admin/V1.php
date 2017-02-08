@@ -57,11 +57,8 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
 
             $paymentCode = $quote->getPayment()->getMethodInstance()->getCode();
             if ($paymentCode == 'postpay') {
-                if(!$quote->getCustomerId()) {
-                    $this->_critical("Invalid Payment Method");
-                }
                 try{
-                    Mage::Helper('paymethod')->checkAllowedPostPay($quote->getCustomerId());
+                    Mage::Helper('paymethod')->checkAllowedPostPay($quote);
                 } catch (Exception $e) {
                     $this->_critical($e->getMessage());
                 }

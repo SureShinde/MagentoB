@@ -273,8 +273,11 @@ class Bilna_Paymethod_Helper_Data extends Mage_Core_Helper_Abstract {
         return Mage::getStoreConfig('payment/vtdirect/client_key');
     }
 
-    public function checkAllowedPostPay($customerId) {
-        $customer = Mage::getModel('customer/customer')->load($customerId);
+    public function checkAllowedPostPay($quote) {
+        if(!$quote->getCustomerId()) {
+            throw Mage::throwException("Custom Price is not allowed");
+        }
+        $customer = Mage::getModel('customer/customer')->load($quote->getCustomerId());
         $allowGroup = Mage::getStoreConfig('payment/postpay/allowgroup');
         if(!in_array($customer->getGroupId(),explode(",",$allowGroup))) {
             throw Mage::throwException("Invalid Payment Method");
