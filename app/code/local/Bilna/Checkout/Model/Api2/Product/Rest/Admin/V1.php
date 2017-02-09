@@ -61,7 +61,15 @@ class Bilna_Checkout_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Checkout_Mod
                 $productRequest = $this->_getProductRequest($productItem);
                 $this->_validateAddToCartCrossBorder($quote, $productByItem, $productQty);
                 $result = $quote->addProduct($productByItem, $productRequest);
-
+                if(!empty($data['products']['custom_price'])){
+                    try{
+                        Mage::Helper('paymethod')->checkAllowedPostPay($quote);
+                    } catch (Exception $e) {
+                        Mage::throwException("Custom Price is not allowed");
+                    }
+                    $result->setCustomPrice($data['products']['custom_price']);
+                    $result->setOriginalCustomPrice($data['products']['custom_price']);
+                }
                 if (is_string($result)) {
                     Mage::throwException($result);
                 }

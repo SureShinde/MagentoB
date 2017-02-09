@@ -45,7 +45,6 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             if ($quote->getCheckoutMethod() == Mage_Checkout_Model_Api_Resource_Customer::MODE_GUEST && !Mage::helper('checkout')->isAllowedGuestCheckout($quote, $quote->getStoreId())) {
                 throw Mage::throwException('Guest Checkout is not Enable');
             }
-
             $this->_validateCrossBorder($quote);
 
              /** @var $customerResource Mage_Checkout_Model_Api_Resource_Customer */
@@ -57,6 +56,13 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
             }
 
             $paymentCode = $quote->getPayment()->getMethodInstance()->getCode();
+            if ($paymentCode == 'postpay') {
+                try{
+                    Mage::Helper('paymethod')->checkAllowedPostPay($quote);
+                } catch (Exception $e) {
+                    $this->_critical($e->getMessage());
+                }
+            }
 
             if ($installmentTenor) {
                 $quoteItems = $quote->getAllItems();
@@ -206,6 +212,17 @@ class Bilna_Checkout_Model_Api2_Order_Rest_Admin_V1 extends Bilna_Checkout_Model
                 //- send new order email
                 if ($order->getCanSendNewEmailFlag()) {
                     $order->sendNewOrderEmail();
+                }
+
+                if ($paymentCode == 'postpay') {
+                    try {
+                        $hostname = Mage::getStoreConfig('bilna_queue/beanstalkd_settings/hostname');
+                        $pheanstalk = new Pheanstalk($hostname);
+                        $pheanstalk->useTube('invoice')->put(json_encode(array('order_id' => $order->getIncrementId())), '', 60); 
+                    }
+                    catch (Exception $e) {
+                        Mage::logException($e);
+                    }
                 }
             }
 
