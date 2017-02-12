@@ -1,0 +1,33 @@
+<config>
+    <api2>
+        <resource_groups>
+            <Bilna_ProductAttributes translate="title" module="Bilna_ProductAttributes">
+                <title>Product Attributes</title>
+                <sort_order>10</sort_order>
+            </Bilna_ProductAttributes>
+        </resource_groups>
+        <resources>
+            <Attribute translate="title" module="Bilna_ProductAttributes">
+                <group>Bilna_ProductAttributes</group>
+                <model>ProductAttributes/api2_attribute</model>
+                <title>Product Attributes</title>
+                <sort_order>10</sort_order>
+                <privileges>
+                    <admin>
+                        <retrieve>1</retrieve>
+                    </admin>
+                </privileges>
+                <attributes module="Bilna_ProductAttributes">
+                    <attribute>Attribute</attribute>
+                </attributes>
+                <routes>
+                    <route_entity>
+                        <route>/productattributes/attribute</route>
+                        <action_type>entity</action_type>
+                    </route_entity>
+                </routes>
+                <versions>1</versions>
+            </Attribute>
+        </resources>
+    </api2>
+</config>
