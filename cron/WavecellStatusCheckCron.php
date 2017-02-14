@@ -28,6 +28,8 @@ class SMSStatusCheck {
         $accountId = Mage::getStoreConfig('bilna/smsverification/account_id');
         $subAccountId = Mage::getStoreConfig('bilna/smsverification/sub_account_id');
         $password = Mage::getStoreConfig('bilna/smsverification/password');
+        $setCancelled = (Mage::getStoreConfig('bilna/smsverification/canceled_cod') != '') ? Mage::getStoreConfig('bilna/smsverification/canceled_cod') : 1;
+
 
         $id = 0;
         while(true) {
@@ -55,7 +57,11 @@ class SMSStatusCheck {
                             Mage::helper('rocketweb_netsuite/queue')->getQueue(RocketWeb_Netsuite_Helper_Queue::NETSUITE_EXPORT_QUEUE)->send($message->pack(), $priority);
                         }
                         else {
-                            $order->addStatusToHistory($order->getStatus(), "Validate status: ".$status, false)->save();
+                            $order->addStatusToHistory($order->getStatus(), "Validate status: ".$status, false);
+                            if($setCancelled) {
+                                $order->cancel();
+                            }
+                            $order->save();
                         }
                     }
                     $this->smsDrModel->load($val['sms_id'])->delete();
