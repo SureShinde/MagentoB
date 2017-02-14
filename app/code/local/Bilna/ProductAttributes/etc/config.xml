@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bilna_ProductAttributes>
+            <version>0.1.0</version>
+        </Bilna_ProductAttributes>
+    </modules>
+    <global>
+        <models>
+            <ProductAttributes>
+                <class>Bilna_ProductAttributes_Model</class>
+            </ProductAttributes>
+        </models>
+    </global>
+</config>
