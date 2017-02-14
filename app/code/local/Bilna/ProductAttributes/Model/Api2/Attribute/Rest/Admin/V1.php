@@ -21,7 +21,8 @@ class Bilna_ProductAttributes_Model_Api2_Attribute_Rest_Admin_V1 extends Bilna_P
                 ea.frontend_label
             FROM eav_attribute ea
             JOIN catalog_eav_attribute cea ON ea.attribute_id = cea.attribute_id
-            WHERE cea.is_filterable > 0
+            WHERE cea.is_filterable = 1
+            AND ea.entity_type_id = 4
             ORDER BY ea.attribute_id"
         );
 
@@ -29,7 +30,6 @@ class Bilna_ProductAttributes_Model_Api2_Attribute_Rest_Admin_V1 extends Bilna_P
         while ($data = $query->fetch()) {
             $result[$data['attribute_code']] = $data['frontend_label'];
         }
-
         return ['attribute' => $result];
     }
 }
