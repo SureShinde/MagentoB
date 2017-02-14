@@ -322,7 +322,15 @@ class AW_Affiliate_Adminhtml_AffiliateController extends Mage_Adminhtml_Controll
         }
 
         if ($response->getError() === 0) {
-            $profit = Mage::getModel('awaffiliate/transaction_profit');
+            $dataToSet = array(
+                $this->getRequest()->getPost(),
+                'affiliate_id' => $affiliateId,
+                'type' => AW_Affiliate_Model_Source_Transaction_Profit_Type::ADMIN,
+                'rate' => 1,
+                'currency_code' => Mage::helper('awaffiliate')->getDefaultCurrencyCode(),
+                'created_at' => Mage::getModel('core/date')->gmtDate()
+            );
+            $profit = Mage::getModel('awaffiliate/transaction_profit', $dataToSet);
             $profit->setData($this->getRequest()->getPost());
             $profit->setData('affiliate_id', $affiliateId);
             $profit->setData('type', AW_Affiliate_Model_Source_Transaction_Profit_Type::ADMIN);

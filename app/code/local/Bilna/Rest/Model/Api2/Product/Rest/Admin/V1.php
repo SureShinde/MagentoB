@@ -8,7 +8,7 @@
 class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_Product_Rest {
     public function __construct() {
         parent::__construct();
-        
+
         $this->_initCache();
         $this->_cacheKey = $this->_getCacheKey();
     }
@@ -17,10 +17,10 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
      * The greatest decimal value which could be stored. Corresponds to DECIMAL (12,4) SQL type
      */
     const MAX_DECIMAL_VALUE = 99999999.9999;
-    
+
     //- configurable product
     protected $_resPrices = array ();
-    
+
     //- product collection
     protected $_attributeProductCollection = array ('entity_id', 'type_id', 'sku', 'name', 'url_key', 'url_path', 'special_price', 'status', 'visibility', 'price_type', 'price', 'price_view', 'special_from_date', 'special_to_date', 'news_from_date', 'news_to_date', 'group_price', 'tier_price', 'is_in_stock', 'is_salable', 'stock_data', 'attribute_set_id', 'short_description');
 
@@ -44,7 +44,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         );
         $product->setData('stock_data', $this->_filterOutArrayKeys($stockData, $stockDataFilterKeys));
         $product->setData('product_type_name', $product->getTypeId());
-        
+
         if ($return) {
             return $product;
         }
@@ -58,25 +58,25 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
     protected function _retrieve() {
         $product = $this->_getProduct();
         $this->_prepareProductForResponse($product);
-        
+
         return $this->_retrieveResponse();
     }
-    
+
     protected function _retrieveResponse() {
         if (!$this->_product) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
-        
+
         $attributeTextArr = array ('brand', 'brands', 'ship_by', 'sold_by');
         $attributeDetailedInfoArr = array ('description', 'additional', 'how_to_use', 'nutrition_fact', 'size_chart', 'more_detail', 'additional_info');
         $result = array ();
-        
+
         foreach ($this->_product->getData() as $k => $v) {
             if ($this->_getStockDataOnly()) {
                 if ($k == 'stock_data') {
                     $result[$k] = $this->_getStockDataConfig($v);
                 }
-                
+
                 continue;
             }
 
@@ -98,7 +98,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 $result[$k] = $v;
             }
         }
-        
+
         if ($result) {
             if (!$this->_getStockDataOnly()) {
                 $result['attribute_config'] = $this->_getAttributeConfig();
@@ -110,48 +110,48 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 );
             }
         }
-        
+
         return $result;
     }
-    
+
     protected function _getBrandsUrl($brandsId) {
         if (is_null($brandsId) || empty ($brandsId)) {
             return null;
         }
-        
+
         $brands = Mage::getModel('brands/brands')->load($brandsId);
         $route = Mage::getStoreConfig('brands/settings/route', $this->_getStore()->getId());
-        
+
         return array (
             'label' => $brands->getData('title'),
             'url' => sprintf("%s/%s", $route, $brands->getData('url_key'))
         );
     }
-    
+
     protected function _getStockDataConfig($stockData) {
         $result = array ();
         $configKey = 'use_config';
         $configRemoveKey = 'use_';
-        
+
         foreach ($stockData as $key => $value) {
             $result[$key] = $value;
-            
+
             if ($this->_isStockDataConfig($configKey, $key)) {
                 $result[$this->_getConfigStockDataKey($configRemoveKey, $key)] = $this->_getConfigStockDataValue($configKey, $key);
             }
         }
-        
+
         return $result;
     }
-    
+
     protected function _isStockDataConfig($configKey, $key) {
         if (substr($key, 0, strlen($configKey)) == $configKey) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     protected function _getConfigStockDataKey($configRemoveKey, $key) {
         return substr($key, strlen($configRemoveKey), (strlen($key) - strlen($configRemoveKey)));
     }
@@ -163,7 +163,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         else {
             $path = substr($key, (strlen($configKey) + 1), (strlen($key) - strlen($configKey)));
         }
-                
+
         return Mage::getStoreConfig('cataloginventory/item_options/' . $path, $this->_getStore());
     }
 
@@ -171,28 +171,30 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         if (is_null($currentProduct)) {
             $currentProduct = $this->_getProduct();
         }
-        
+
         if ($currentProduct->getData('type_id') != 'configurable') {
             return null;
         }
-        
+
         $attributes = array ();
         $options = array ();
         $store = $this->_getStore();
         $taxHelper = Mage::helper('tax');
         $preconfiguredFlag = $currentProduct->hasPreconfiguredValues();
-        
+
         if ($preconfiguredFlag) {
             $preconfiguredValues = $currentProduct->getPreconfiguredValues();
             $defaultValues = array ();
         }
-        
-        foreach ($this->_getAllowProducts($currentProduct) as $product) {
+
+        $allowedProducts = $this->_getAllowProducts($currentProduct);
+        $allowedAttributes = $this->_getAllowAttributes($currentProduct);
+
+        foreach ($allowedProducts as $product) {
             $productId  = $product->getId();
-            
-            foreach ($this->_getAllowAttributes($currentProduct) as $attribute) {
+
+            foreach ($allowedAttributes as $attribute) {
                 $productAttribute = $attribute->getProductAttribute();
-                
                 if (method_exists($productAttribute, 'getId')) {
                     $productAttributeId = $productAttribute->getId();
                     $attributeValue = $product->getData($productAttribute->getAttributeCode());
@@ -209,10 +211,10 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 }
             }
         }
-        
+
         $this->_resPrices = array ($this->_preparePrice($currentProduct->getFinalPrice()));
-        
-        foreach ($this->_getAllowAttributes($currentProduct) as $attribute) {
+
+        foreach ($allowedAttributes as $attribute) {
             $productAttribute = $attribute->getProductAttribute();
             if (!method_exists($productAttribute, 'getId')) {
                 $today = date('d-M-Y H:i:s');
@@ -221,7 +223,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 Mage::log($message, null, $logPath);
                 continue;
             }
-            
+
             $attributeId = $productAttribute->getId();
             $info = array (
                'id' => $productAttribute->getId(),
@@ -229,16 +231,16 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                'label' => $attribute->getLabel(),
                'options' => array (),
             );
-            
+
             $optionPrices = array ();
             $prices = $attribute->getPrices();
-            
+
             if (is_array($prices)) {
                 foreach ($prices as $value) {
                     if (!$this->_validateAttributeValue($attributeId, $value, $options)) {
                         continue;
                     }
-                    
+
                     $currentProduct->setConfigurablePrice($this->_preparePrice($value['pricing_value'], $value['is_percent']));
                     $currentProduct->setParentId(true);
                     Mage::dispatchEvent('catalog_product_type_configurable_price', array ('product' => $currentProduct));
@@ -261,7 +263,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                     $optionPrices[] = $configurablePrice;
                 }
             }
-            
+
             /**
              * Prepare formated values for options choose
              */
@@ -270,7 +272,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                     $this->_preparePrice(abs($additional - $optionPrice));
                 }
             }
-            
+
             if ($this->_validateAttributeInfo($info)) {
                 $attributes[$attributeId] = $info;
             }
@@ -278,13 +280,13 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             // Add attribute default value (if set)
             if ($preconfiguredFlag) {
                 $configValue = $preconfiguredValues->getData('super_attribute/' . $attributeId);
-                
+
                 if ($configValue) {
                     $defaultValues[$attributeId] = $configValue;
                 }
             }
         }
-        
+
         $config = array (
             'attributes' => $attributes,
             //'template' => str_replace('%s', '#{$price}', $store->getCurrentCurrency()->getOutputFormat()),
@@ -294,7 +296,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             'chooseText' => Mage::helper('catalog')->__('Choose an Option...'),
             //'taxConfig' => $taxConfig
         );
-        
+
         return $config;
     }
 
@@ -305,18 +307,18 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
      */
     protected function _getAllowProducts($_currentProduct) {
         $products = array ();
-        $skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck();
+        //$skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck();
         $allProducts = $_currentProduct->getTypeInstance(true)->getUsedProducts(null, $_currentProduct);
-        
+
         foreach ($allProducts as $product) {
             //if ($product->isSaleable() || $skipSaleableCheck) {
                 $products[] = $product;
             //}
         }
-            
+
         return $products;
     }
-    
+
     /**
      * Get allowed attributes
      *
@@ -325,7 +327,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
     protected function _getAllowAttributes($_currentProduct) {
         return $_currentProduct->getTypeInstance(true)->getConfigurableAttributes($_currentProduct);
     }
-    
+
     /**
      * Validating of super product option value
      *
@@ -341,7 +343,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
 
         return false;
     }
-    
+
     /**
      * Validation of super product option
      *
@@ -352,10 +354,10 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         if (count($info['options']) > 0) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * Calculation real price
      *
@@ -370,7 +372,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
 
         return $this->_registerJsPrice($this->_convertPrice($price, true));
     }
-    
+
     /**
      * Calculation price before special price
      *
@@ -385,7 +387,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
 
         return $this->_registerJsPrice($this->_convertPrice($price, true));
     }
-    
+
     /**
      * Replace ',' on '.' for js
      *
@@ -395,7 +397,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
     protected function _registerJsPrice($price) {
         return str_replace(',', '.', $price);
     }
-    
+
     /**
      * Convert price from default currency to current currency
      *
@@ -409,7 +411,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         }
 
         $price = $this->_getStore()->convertPrice($price);
-        
+
         if ($round) {
             $price = $this->_getStore()->roundPrice($price);
         }
@@ -427,18 +429,18 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
      */
     protected function _filterOutArrayKeys(array $array, array $keys, $dropOrigKeys = false) {
         $isIndexedArray = is_array(reset($array));
-        
+
         if ($isIndexedArray) {
             foreach ($array as &$value) {
                 if (is_array($value)) {
                     $value = array_diff_key($value, array_flip($keys));
                 }
             }
-            
+
             if ($dropOrigKeys) {
                 $array = array_values($array);
             }
-            
+
             unset ($value);
         }
         else {
@@ -468,37 +470,37 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $this->_applyCollectionModifiers($collection);
         $this->_applyCollectionProductStatus($collection);
         $this->_applyCollectionProductVisibility($collection);
-        
+
         return $this->_retrieveCollectionResponse($collection->load(), $collection->getSize());
     }
-    
+
     protected function _retrieveCollectionResponse($products, $totalRecord) {
         if (!$products) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
-        
+
         $result = array ();
         $result[0] = array ('total_record' => $products->getSize());
-        
+
         foreach ($products as $key => $row) {
             $product = $this->_prepareProductForResponse($this->_getProduct($row->getId()), true);
-            
+
             foreach ($product->getData() as $k => $v) {
                 if (!in_array($k, $this->_attributeProductCollection)) {
                     continue;
                 }
-                
+
                 if ($this->_getStockDataOnly()) {
                     if ($k == 'stock_data') {
                         $result[$key][$k] = $this->_getStockDataConfig($v);
                     }
-                    
+
                     continue;
                 }
-                
+
                 $data[$key] = $key;
                 $attributeTextArr = array ('brand', 'ship_by', 'sold_by');
-                
+
                 if (in_array($k, $attributeTextArr)) {
                     $result[$key][$k] = $row->getAttributeText($k);
                 }
@@ -509,7 +511,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                     $result[$key][$k] = $v;
                 }
             }
-            
+
             if (!$this->_getStockDataOnly()) {
                 $result[$key]['attribute_config'] = $this->_getAttributeConfig($product);
                 $result[$key]['attribute_bundle'] = $this->_getAttributeBundle($product);
@@ -522,7 +524,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 );
             }
         }
-        
+
         return $result;
     }
 
@@ -533,7 +535,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
      */
     protected function _delete() {
         $product = $this->_getProduct();
-        
+
         try {
             $product->delete();
         }
@@ -561,16 +563,16 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
-            
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
 
         $type = $data['type_id'];
-        
+
         if ($type !== 'simple') {
             $this->_critical("Creation of products with type '$type' is not implemented", Mage_Api2_Model_Server::HTTP_METHOD_NOT_ALLOWED);
         }
-        
+
         $set = $data['attribute_set_id'];
         $sku = $data['sku'];
 
@@ -587,7 +589,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         }
 
         $this->_prepareDataForSave($product, $data);
-        
+
         try {
             $product->validate();
             $product->save();
@@ -625,19 +627,19 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
-            
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
-        
+
         if (isset ($data['sku'])) {
             $product->setSku($data['sku']);
         }
-        
+
         // attribute set and product type cannot be updated
         unset ($data['attribute_set_id']);
         unset ($data['type_id']);
         $this->_prepareDataForSave($product, $data);
-        
+
         try {
             $product->validate();
             $product->save();
@@ -667,7 +669,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         else {
             $manageStock = Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_ITEM . 'manage_stock');
         }
-        
+
         return (bool) $manageStock;
     }
 
@@ -693,7 +695,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             if (!$product->isObjectNew() && !isset ($productData['stock_data']['manage_stock'])) {
                 $productData['stock_data']['manage_stock'] = $product->getStockItem()->getManageStock();
             }
-            
+
             $this->_filterStockData($productData['stock_data']);
         }
         else {
@@ -703,22 +705,22 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 'use_config_max_sale_qty' => 1,
             );
         }
-        
+
         $product->setStockData($productData['stock_data']);
         // save gift options
         $this->_filterConfigValueUsed($productData, array('gift_message_available', 'gift_wrapping_available'));
-        
+
         if (isset ($productData['use_config_gift_message_available'])) {
             $product->setData('use_config_gift_message_available', $productData['use_config_gift_message_available']);
-            
+
             if (!$productData['use_config_gift_message_available'] && ($product->getData('gift_message_available') === null)) {
                 $product->setData('gift_message_available', (int) Mage::getStoreConfig(Mage_GiftMessage_Helper_Message::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $product->getStoreId()));
             }
         }
-        
+
         if (isset ($productData['use_config_gift_wrapping_available'])) {
             $product->setData('use_config_gift_wrapping_available', $productData['use_config_gift_wrapping_available']);
-            
+
             if (!$productData['use_config_gift_wrapping_available'] && ($product->getData('gift_wrapping_available') === null)) {
                 $xmlPathGiftWrappingAvailable = 'sales/gift_options/wrapping_allow_items';
                 $product->setData('gift_wrapping_available', (int)Mage::getStoreConfig($xmlPathGiftWrappingAvailable, $product->getStoreId()));
@@ -728,12 +730,12 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         if (isset ($productData['website_ids']) && is_array($productData['website_ids'])) {
             $product->setWebsiteIds($productData['website_ids']);
         }
-        
+
         // Create Permanent Redirect for old URL key
         if (!$product->isObjectNew() && isset ($productData['url_key']) && isset ($productData['url_key_create_redirect'])) {
             $product->setData('save_rewrites_history', (bool) $productData['url_key_create_redirect']);
         }
-        
+
         /** @var $attribute Mage_Catalog_Model_Resource_Eav_Attribute */
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             //Unset data if object attribute has no value in current store
@@ -762,18 +764,18 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             if (isset ($stockData['qty']) && (float)$stockData['qty'] > self::MAX_DECIMAL_VALUE) {
                 $stockData['qty'] = self::MAX_DECIMAL_VALUE;
             }
-            
+
             if (isset ($stockData['min_qty']) && (int)$stockData['min_qty'] < 0) {
                 $stockData['min_qty'] = 0;
             }
-            
+
             if (!isset ($stockData['is_decimal_divided']) || $stockData['is_qty_decimal'] == 0) {
                 $stockData['is_decimal_divided'] = 0;
             }
         }
         else {
             $nonManageStockFields = array ('manage_stock', 'use_config_manage_stock', 'min_sale_qty', 'use_config_min_sale_qty', 'max_sale_qty', 'use_config_max_sale_qty');
-            
+
             foreach ($stockData as $field => $value) {
                 if (!in_array($field, $nonManageStockFields)) {
                     unset ($stockData[$field]);
@@ -805,24 +807,24 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
      */
     protected function _isAllowedAttribute($attribute, $attributes = null) {
         $isAllowed = true;
-        
+
         if (is_array($attributes) && !(in_array($attribute->getAttributeCode(), $attributes) || in_array($attribute->getAttributeId(), $attributes))) {
             $isAllowed = false;
         }
-        
+
         return $isAllowed;
     }
-    
+
     protected function _getProductReview($productId) {
         $review = Mage::getModel('review/review_summary')->setStoreId($this->_getStore()->getId())->load($productId);
         $result = array (
             'reviews_count' => $review->getData('reviews_count'),
             'rating_summary' => $review->getData('rating_summary'),
         );
-        
+
         return $result;
     }
-    
+
     protected function _getImageResize($product, $imageFile) {
         return array (
             'base' => $this->_getMediaConfig()->getMediaUrl($imageFile), //- 1400x1400
@@ -832,7 +834,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             'detail' => $this->_resizeImage($product, $imageFile, $this->_imgDetail),
         );
     }
-    
+
     /**
      * Product Bundle
      * return array
@@ -841,22 +843,22 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         if (is_null($product)) {
             $product = $this->_getProduct();
         }
-        
+
         if ($product->getData('type_id') != 'bundle' || !$product->isSaleable()) {
             return null;
         }
-        
+
         $bundle = array ();
         $bundle['price'] = $this->_getBundlePrice($product);
         $bundle['price_view'] = $this->_getBundlePriceView($product);
         $options = Mage::helper('core')->decorateArray($this->_getBundleOptions($product));
-        
+
         if ($options) {
             $x = 1;
             foreach ($options as $option) {
                 $showSingle = $this->_showSingle($option);
                 $selections = $option->getSelections();
-                       
+
                 $bundle['options'][] = array (
                     'id' => $option->getId(),
                     'title' => $option->getTitle(),
@@ -868,16 +870,16 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 );
             }
         }
-        
+
         return $bundle;
     }
-    
+
     protected function _getSelectionCanChangeQty($product, $_option) {
         $_default = $_option->getDefaultSelection();
         $_selections = $_option->getSelections();
         $selectedOptions = $this->_getSelectedOptions($product, $_option);
         $inPreConfigured = $product->hasPreconfiguredValues() && $product->getPreconfiguredValues()->getData('bundle_option_qty/' . $_option->getId());
-        
+
         if (empty ($selectedOptions) && $_default) {
             $_defaultQty = $_default->getSelectionQty() * 1;
             $_canChangeQty = $_default->getSelectionCanChangeQty();
@@ -898,13 +900,13 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
 
         return array ($_defaultQty, $_canChangeQty);
     }
-    
+
     protected function _getSelectedOptions($product, $option) {
         $result = array ();
 
         if ($product->hasPreconfiguredValues()) {
             $configValue = $product->getPreconfiguredValues()->getData('bundle_option/' . $option->getId());
-            
+
             if ($configValue) {
                 $result = $configValue;
             }
@@ -915,11 +917,11 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
 
         return $result;
     }
-    
+
     protected function _getSelectedQty($product, $option) {
         if ($product->hasPreconfiguredValues()) {
             $selectedQty = (float) $product->getPreconfiguredValues()->getData('bundle_option_qty/' . $option->getId());
-            
+
             if ($selectedQty < 0) {
                 $selectedQty = 0;
             }
@@ -938,24 +940,24 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         $priceModel = $product->getPriceModel();
         $weeeTaxAmount = 0;
         $_result = array ();
-        
+
         list ($minimalPriceTax, $maximalPriceTax) = $priceModel->getTotalPrices($product, null, null, false);
         list ($minimalPriceInclTax, $maximalPriceInclTax) = $priceModel->getTotalPrices($product, null, true, false);
-        
+
         if ($product->getPriceType() == 1) {
             $weeeTaxAmount = $weeeHelper->getAmount($product);
             $weeeTaxAmountInclTaxes = $weeeTaxAmount;
-            
+
             if ($weeeHelper->isTaxable()) {
                 $attributes = $weeeHelper->getProductWeeeAttributesForRenderer($product, null, null, null, true);
                 $weeeTaxAmountInclTaxes = $weeeHelper->getAmountInclTaxes($attributes);
             }
-            
+
             if ($weeeTaxAmount && $weeeHelper->typeOfDisplay($product, array (0, 1, 4))) {
                 $minimalPriceTax += $weeeTaxAmount;
                 $minimalPriceInclTax += $weeeTaxAmountInclTaxes;
             }
-            
+
             if ($weeeTaxAmount && $weeeHelper->typeOfDisplay($product, 2)) {
                 $minimalPriceInclTax += $weeeTaxAmountInclTaxes;
             }
@@ -964,18 +966,18 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 $weeeTaxAttributes = $weeeHelper->getProductWeeeAttributesForDisplay($product);
             }
         }
-        
+
         if ($product->getPriceView()) {
             $priceExcludingTax = 0;
             $weee = array ();
             $priceIncludingTax = 0;
-            
+
             if ($this->_displayBothPrices($product)) {
                 $priceExcludingTax = array (
                     'label' => 'Excl. Tax',
                     'value' => $minimalPriceTax,
                 );
-                
+
                 if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
                     foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
                         if ($weeeHelper->typeOfDisplay($product, array (2, 4))) {
@@ -984,14 +986,14 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                         else {
                             $amount = $weeeTaxAttribute->getAmount();
                         }
-                        
+
                         $weee[] = array (
                             'name' => $weeeTaxAttribute->getName(),
                             'amount' => $amount,
                         );
                     }
                 }
-                
+
                 $priceIncludingTax = array (
                     'label' => 'Incl. Tax',
                     'value' => $minimalPriceInclTax,
@@ -1000,7 +1002,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             else {
                 $minimalPrice['display_both_prices'] = false;
                 $priceExcludingTax = $taxHelper->displayPriceIncludingTax() ? $minimalPriceInclTax : $minimalPriceTax;
-                
+
                 if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
                     foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
                         if ($weeeHelper->typeOfDisplay($product, array (2, 4))) {
@@ -1009,19 +1011,19 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                         else {
                             $amount = $weeeTaxAttribute->getAmount();
                         }
-                        
+
                         $weee[] = array (
                             'name' => $weeeTaxAttribute->getName(),
                             'amount' => $amount,
                         );
                     }
                 }
-                
+
                 if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
                     $priceIncludingTax = $minimalPriceInclTax;
                 }
             }
-            
+
             $_result['minimal_price']['label'] = 'As low as';
             $_result['minimal_price']['price_excluding_tax'] = $priceExcludingTax;
             $_result['minimal_price']['weee'] = $weee;
@@ -1032,13 +1034,13 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 $priceExcludingTax = 0;
                 $weee = array ();
                 $priceIncludingTax = 0;
-                
+
                 if ($this->_displayBothPrices($product)) {
                     $priceExcludingTax = array (
                         'label' => 'Excl. Tax',
                         'value' => $minimalPriceTax,
                     );
-                    
+
                     if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
                         foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
                             if ($weeeHelper->typeOfDisplay($product, array (2, 4))) {
@@ -1047,14 +1049,14 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                             else {
                                 $amount = $weeeTaxAttribute->getAmount();
                             }
-                            
+
                             $weee[] = array (
                                 'name' => $weeeTaxAttribute->getName(),
                                 'amount' => $amount, true, true,
                             );
                         }
                     }
-                    
+
                     $priceIncludingTax = array (
                         'label' => 'Incl. Tax',
                         'value' => $minimalPriceInclTax,
@@ -1062,7 +1064,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 }
                 else {
                     $priceExcludingTax = $taxHelper->displayPriceIncludingTax() ? $minimalPriceInclTax : $minimalPriceTax;
-                    
+
                     if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
                         foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
                             if ($_weeeHelper->typeOfDisplay($_product, array(2, 4))) {
@@ -1071,23 +1073,23 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                             else {
                                 $amount = $weeeTaxAttribute->getAmount();
                             }
-                            
+
                             $weee[] = array (
                                 'name' => $weeeTaxAttribute->getName(),
                                 'amount' => $amount,
                             );
                         }
                     }
-                    
+
                     if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
                         $priceIncludingTax = $minimalPriceInclTax;
                     }
                 }
-                
+
                 $_result['price_range']['price_from']['price_excluding_tax'] = $priceExcludingTax;
                 $_result['price_range']['price_from']['weee'] = $weee;
                 $_result['price_range']['price_from']['price_including_tax'] = $priceIncludingTax;
-                
+
                 if ($product->getPriceType() == 1) {
                     if ($weeeTaxAmount && $weeeHelper->typeOfDisplay($product, array (0, 1, 4))) {
                         $maximalPriceTax += $weeeTaxAmount;
@@ -1098,17 +1100,17 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                         $maximalPriceInclTax += $weeeTaxAmountInclTaxes;
                     }
                 }
-                
+
                 $priceExcludingTax = 0;
                 $weee = array ();
                 $priceIncludingTax = 0;
-                
+
                 if ($this->_displayBothPrices($product)) {
                     $priceExcludingTax = array (
                         'label' => 'Excl. Tax',
                         'value' => $maximalPriceTax,
                     );
-                    
+
                     if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
                         foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
                             if ($weeeHelper->typeOfDisplay($product, array (2, 4))) {
@@ -1117,14 +1119,14 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                             else {
                                 $amount = $weeeTaxAttribute->getAmount();
                             }
-                            
+
                             $weee[] = array (
                                 'name' => $weeeTaxAttribute->getName(),
                                 'amount' => $amount,
                             );
                         }
                     }
-                    
+
                     $priceIncludingTax = array (
                         'label' => 'Incl. Tax',
                         'value' => $maximalPriceInclTax,
@@ -1132,7 +1134,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 }
                 else {
                     $priceExcludingTax = $taxHelper->displayPriceIncludingTax() ? $maximalPriceInclTax : $maximalPriceTax;
-                    
+
                     if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
                         foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
                             if ($weeeHelper->typeOfDisplay($product, array (2, 4))) {
@@ -1141,19 +1143,19 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                             else {
                                 $amount = $weeeTaxAttribute->getAmount();
                             }
-                            
+
                             $weee[] = array (
                                 'name' => $weeeTaxAttribute->getName(),
                                 'amount' => $amount,
                             );
                         }
                     }
-                    
+
                     if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
                         $priceIncludingTax = $maximalPriceInclTax;
                     }
                 }
-                
+
                 $_result['price_range']['price_to']['price_excluding_tax'] = $priceExcludingTax;
                 $_result['price_range']['price_to']['weee'] = $weee;
                 $_result['price_range']['price_to']['price_including_tax'] = $priceIncludingTax;
@@ -1162,13 +1164,13 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 $priceExcludingTax = 0;
                 $weee = array ();
                 $priceIncludingTax = 0;
-                
+
                 if ($this->_displayBothPrices($product)) {
                     $priceExcludingTax = array (
                         'label' => 'Excl. Tax',
                         'value' => $minimalPriceTax,
                     );
-                    
+
                     if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
                         foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
                             if ($weeeHelper->typeOfDisplay($product, array (2, 4))) {
@@ -1177,14 +1179,14 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                             else {
                                 $amount = $weeeTaxAttribute->getAmount();
                             }
-                            
+
                             $weee[] = array (
                                 'name' => $weeeTaxAttribute->getName(),
                                 'amount' => $amount,
                             );
                         }
                     }
-                    
+
                     $priceIncludingTax = array (
                         'label' => 'Incl. Tax',
                         'value' => $minimalPriceInclTax,
@@ -1192,7 +1194,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 }
                 else {
                     $priceExcludingTax = $minimalPriceTax;
-                    
+
                     if ($weeeTaxAmount && $product->getPriceType() == 1 && $weeeHelper->typeOfDisplay($product, array (2, 1, 4))) {
                         foreach ($weeeTaxAttributes as $weeeTaxAttribute) {
                             if ($weeeHelper->typeOfDisplay($product, array (2, 4))) {
@@ -1201,61 +1203,61 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                             else {
                                 $amount = $weeeTaxAttribute->getAmount();
                             }
-                            
+
                             $weee[] = array (
                                 'name' => $weeeTaxAttribute->getName(),
                                 'amount' => $amount,
                             );
                         }
                     }
-                    
+
                     if ($weeeHelper->typeOfDisplay($product, 2) && $weeeTaxAmount) {
                         $priceIncludingTax = $minimalPriceInclTax;
                     }
                 }
-                
+
                 $_result['single_price']['price_excluding_tax'] = $priceExcludingTax;
                 $_result['single_price']['weee'] = $weee;
                 $_result['single_price']['price_including_tax'] = $priceIncludingTax;
             }
         }
-        
+
         return $_result;
     }
-    
+
     protected function _getBundlePriceView($_product) {
         $_finalPrice = $_product->getFinalPrice();
         $_finalPriceInclTax = $_product->getFinalPrice();
         $_weeeTaxAmount = 0;
-        
+
         if ($_product->getPriceType() == 1) {
             $_weeeTaxAmount = Mage::helper('weee')->getAmount($_product);
-            
+
             if (Mage::helper('weee')->typeOfDisplay($_product, array (1, 2, 4))) {
                 $_weeeTaxAttributes = Mage::helper('weee')->getProductWeeeAttributesForDisplay($_product);
             }
         }
-        
+
         $isMAPTypeOnGesture = Mage::helper('catalog')->isShowPriceOnGesture($_product);
         $canApplyMAP = Mage::helper('catalog')->canApplyMsrp($_product);
-        
+
         $_result = array ();
         $_result['can_show_price'] = $_product->getCanShowPrice();
-        
+
         if ($_product->getCanShowPrice() !== false) {
             $_result['price_label'] = 'Price as configured';
-            
+
             if (!$this->_getWithoutPrice()) {
                 if (!$isMAPTypeOnGesture && $canApplyMAP) {
                     $_result['price_hide'] = true;
                 }
-                
+
                 if (Mage::helper('tax')->displayBothPrices()) {
                     $_result['price_excluding_tax'] = array (
                         'label' => 'Excl. Tax',
                         'value' => (!$canApplyMAP) ? $_finalPrice : 0,
                     );
-                    
+
                     if ($_weeeTaxAmount && $_product->getPriceType() == 1 && Mage::helper('weee')->typeOfDisplay($_product, array (2, 1, 4))) {
                         foreach ($_weeeTaxAttributes as $_weeeTaxAttribute) {
                             if (Mage::helper('weee')->typeOfDisplay($_product, array (2, 4))) {
@@ -1264,14 +1266,14 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                             else {
                                 $amount = $_weeeTaxAttribute->getAmount();
                             }
-                            
+
                             $_result['price_wee'][] = array (
                                 'label' => $_weeeTaxAttribute->getName(),
                                 'value' => $amount,
                             );
                         }
                     }
-                    
+
                     $_result['price_including_tax'] = array (
                         'label' => 'Incl. Tax',
                         'value' => (!$canApplyMAP) ? $_finalPriceInclTax : 0,
@@ -1279,7 +1281,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 }
                 else {
                     $_result['price_excluding_tax'] = (!$canApplyMAP) ? $_finalPrice : 0;
-                    
+
                     if ($_weeeTaxAmount && $_product->getPriceType() == 1 && Mage::helper('weee')->typeOfDisplay($_product, array (2, 1, 4))) {
                         foreach ($_weeeTaxAttributes as $_weeeTaxAttribute) {
                             if (Mage::helper('weee')->typeOfDisplay($_product, array (2, 4))) {
@@ -1288,22 +1290,22 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                             else {
                                 $amount = $_weeeTaxAttribute->getAmount();
                             }
-                            
+
                             $_result['price_wee'][] = array (
                                 'label' => $_weeeTaxAttribute->getName(),
                                 'value' => $amount,
                             );
                         }
                     }
-                    
+
                     $_result['price_including_tax'] = 0;
                 }
             }
         }
-        
+
         return $_result;
     }
-    
+
     protected function _getWithoutPrice() {
         return false;
     }
@@ -1312,7 +1314,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
         if ($product->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC && $product->getPriceModel()->getIsPricesCalculatedByIndex() !== false) {
             return false;
         }
-        
+
         return Mage::getSingleton('tax/config')->getPriceDisplayType($this->_getStore()) == Mage_Tax_Model_Config::DISPLAY_TYPE_BOTH;
     }
 
@@ -1325,37 +1327,37 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
 
         return $options;
     }
-    
+
     protected function _showSingle($option) {
         $selections = $option->getSelections();
         $showSingle = (count($selections) == 1 && $option->getRequired());
-        
+
         return $showSingle;
     }
-    
+
     protected function _getSelectionGroupPrice($_selection) {
         return $_selection->getPriceModel()->getGroupPrice($_selection);
     }
-    
+
     protected function _formatPriceString($currentProduct, $formatProduct, $price) {
         $taxHelper = Mage::helper('tax');
         $coreHelper = Mage::helper('core');
-        
+
         if ($currentProduct->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC && $formatProduct) {
             $product = $formatProduct;
         }
         else {
             $product = $currentProduct;
         }
-        
+
         $_result = array ();
 
         $priceTax = $taxHelper->getPrice($product, $price);
         $priceIncTax = $taxHelper->getPrice($product, $price, true);
-        
+
         $_result = array ();
         $_result['price_tax'] = $priceTax;
-        
+
         if ($taxHelper->displayBothPrices() && $priceTax != $priceIncTax) {
             $_result['price_include_tax'] = array (
                 'title' => 'Incl. Tax',
@@ -1365,11 +1367,11 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
 
         return $_result;
     }
-    
+
     protected function _getBundleSelectionData($showSingle, $product, $option, $selections) {
         $result = array ();
         $isPriceFixed = ($product->getData('price_type') == 1) ? true : false; //- 0 => dynamic, 1 => fixed
-        
+
         if ($showSingle) {
             $result = array (
                 'product_id' => $selections[0]->getData('entity_id'),
@@ -1398,10 +1400,10 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 );
             }
         }
-        
+
         return $result;
     }
-    
+
     protected function _getBundleSelectionPriceType($isPriceFixed, $selection) {
         return $isPriceFixed ? $selection->getData('selection_price_type') : null;
     }
@@ -1417,18 +1419,18 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             'to_date' => $selection->getData('special_to_date'),
         );
     }
-    
+
     protected function _getBundleSelectionGroupPrice($isPriceFixed, $selection) {
         if ($isPriceFixed) {
             return null;
         }
-        
+
         return $selection->getData('group_price');
     }
 
     protected function _getBundleDefaultValues($product, $option, $selection) {
         $optionType = $option->getType();
-        
+
 //        if (in_array($optionType, array ('select', 'checkbox'))) {
 //            $default = $option->getDefaultSelection();
 //            $selections = $option->getSelections();
@@ -1469,13 +1471,13 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             'can_change_qty' => $canChangeQty,
         );
     }
-    
+
     protected function _getBundleSelectedOptions($product, $option) {
         $selectedOptions = array ();
 
         if ($product->hasPreconfiguredValues()) {
             $configValue = $product->getPreconfiguredValues()->getData('bundle_option/' . $option->getId());
-            
+
             if ($configValue) {
                 $selectedOptions = $configValue;
             }
@@ -1483,14 +1485,14 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 $selectedOptions = 'None';
             }
         }
-        
+
         return $selectedOptions;
     }
-    
+
     protected function _getBundleSelectedQty($product, $option) {
         if ($product->hasPreconfiguredValues()) {
             $selectedQty = (float) $product->getPreconfiguredValues()->getData('bundle_option_qty/' . $option->getId());
-            
+
             if ($selectedQty < 0) {
                 $selectedQty = 0;
             }
@@ -1501,10 +1503,10 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
 
         return $selectedQty;
     }
-    
+
     protected function _isSelected($product, $option, $selection) {
         $selectedOptions = $this->_getSelectedOptions($product, $option);
-        
+
         if (is_numeric($selectedOptions)) {
             return ($selection->getSelectionId() == $this->_getSelectedOptions());
         }
@@ -1518,29 +1520,29 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
             return ($selection->getIsDefault() && $selection->isSaleable());
         }
     }
-    
+
     public function retrieve($productId, $storeId) {
         $product = Mage::helper('catalog/product')->getProduct($productId, $storeId);
         $product = $this->_prepareProductForResponse($product, true);
-        
+
         if (!$product->getId()) {
             return false;
         }
-        
+
         return $this->retrieveResponse($product);
     }
-    
+
     protected function retrieveResponse($product) {
         $attributeAllowArr = array ('entity_id', 'group_price', 'tier_price');
         $attributeTextArr = array ('brand', 'brands', 'ship_by', 'sold_by');
         $attributeDetailedInfoArr = array ('description', 'additional', 'how_to_use', 'nutrition_fact', 'size_chart', 'more_detail', 'additional_info');
         $result = array ();
-        
+
         foreach ($product->getData() as $k => $v) {
             if (!in_array($k, array_merge($attributeAllowArr, $attributeDetailedInfoArr))) {
                 continue;
             }
-            
+
             if (in_array($k, $attributeTextArr)) {
                 if ($k == 'brands') {
                     $result[$k] = $this->_getBrandsUrl($v);
@@ -1559,7 +1561,7 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 $result[$k] = $v;
             }
         }
-        
+
         if ($result) {
             $result['attribute_config'] = $this->_getAttributeConfig($product);
             $result['attribute_bundle'] = $this->_getAttributeBundle($product);
@@ -1569,10 +1571,10 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
                 'data' => $this->_getImage($product),
             );
         }
-        
+
         return $result;
     }
-    
+
     public function workerGetProductImages($product) {
         return array (
             'default' => $this->_getImageResize($product, $product->getImage()),
@@ -1583,19 +1585,19 @@ class Bilna_Rest_Model_Api2_Product_Rest_Admin_V1 extends Bilna_Rest_Model_Api2_
     public function workerGetProductConfig($product) {
         return $this->_getAttributeConfig($product);
     }
-    
+
     public function workerGetProductBundle($product) {
         return $this->_getAttributeBundle($product);
     }
-    
+
     public function workerGetProductDetail($product) {
         $attributeDetailedInfoArr = array ('description', 'additional', 'how_to_use', 'nutrition_fact', 'size_chart', 'more_detail', 'additional_info');
         $result = array ();
-        
+
         foreach ($attributeDetailedInfoArr as $attr) {
             $result[$attr] = $product->getData($attr);
         }
-        
+
         return $result;
     }
 }

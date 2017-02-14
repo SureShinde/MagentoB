@@ -31,10 +31,23 @@ class Bilna_Paymethod_Model_Observer_Webservice_Klikpay
         $validationHours = Mage::getStoreConfig('payment/klikpay/order_validation');
         $validationOption = Mage::getStoreConfig('payment/klikpay/order_validation_option');
 
+        header('Content-type: text/xml; charset=utf-8');
+        $invalidXml = '<?xml version="1.0" encoding="utf-8"?>';
+        $invalidXml .= '<OutputListTransactionIPAY>';
+        $invalidXml .= '<klikPayCode>' . $klikpayUserId . '</klikPayCode>';
+        $invalidXml .= '<transactionNo></transactionNo>';
+        $invalidXml .= '<currency></currency>';
+        $invalidXml .= '<fullTransaction>';
+        $invalidXml .= '<amount></amount>';
+        $invalidXml .= '<description></description>';
+        $invalidXml .= '</fullTransaction>';
+        $invalidXml .= '<miscFee></miscFee>';
+        $invalidXml .= '</OutputListTransactionIPAY>';
+
         if (!$order || !$order->getId()) {
             $contentLog = sprintf("%s | order not found.", $transactionNo);
             $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
-            die('Order not found.');
+            die($invalidXml);
         }
 
         // validate order
@@ -46,7 +59,7 @@ class Bilna_Paymethod_Model_Observer_Webservice_Klikpay
             if (strtotime($now) > strtotime($orderCreatedDate)) {
                 $contentLog = sprintf("%s | order is not valid.", $transactionNo);
                 $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
-                die('Order is not valid.');
+                die($invalidXml);
             }
         }
 
@@ -54,10 +67,9 @@ class Bilna_Paymethod_Model_Observer_Webservice_Klikpay
         if ($signature != $order->getKlikpaySignature()) {
             $contentLog = sprintf("%s | signature is not valid.", $transactionNo);
             $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
-            die('Signature is not valid.');
+            die($invalidXml);
         }
 
-        header('Content-type: text/xml; charset=utf-8');
         $xml = '<?xml version="1.0" encoding="utf-8"?>';
         $xml .= '<OutputListTransactionIPAY>';
         $xml .= "<klikPayCode>" . $klikpayUserId . "</klikPayCode>";
@@ -81,7 +93,7 @@ class Bilna_Paymethod_Model_Observer_Webservice_Klikpay
                 if (!$firstItem) {
                     $contentLog = sprintf("%s | order is empty.", $transactionNo);
                     $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
-                    die('Order is empty.');
+                    die($invalidXml);
                 }
 
                 $installmentType = $firstItem->getInstallmentType();
@@ -100,7 +112,7 @@ class Bilna_Paymethod_Model_Observer_Webservice_Klikpay
             default:
                 $contentLog = sprintf("%s | pay type is not valid.", $transactionNo);
                 $this->writeLog($this->_typeTransaction, 'inquiry', $contentLog);
-                die('Pay type is not valid.');
+                die($invalidXml);
         }
 
         $xml .= "<miscFee>0.00</miscFee>";
@@ -135,11 +147,11 @@ class Bilna_Paymethod_Model_Observer_Webservice_Klikpay
         $enReason = '';
         $idReasonTrxSuccess = 'Sukses.';
         $enReasonTrxSuccess = 'Success.';
-        $idReasonTrxFailed = 'Transaksi anda tidak dapat diproses.';
+        $idReasonTrxFailed = 'Transaksi Anda tidak dapat diproses.';
         $enReasonTrxFailed = 'Your transaction cannot be processed.';
-        $idReasonTrxPaid = 'Transaksi anda telah dibayar.';
+        $idReasonTrxPaid = 'Transaksi Anda telah dibayar.';
         $enReasonTrxPaid = 'Your transaction has been paid.';
-        $idReasonTrxExpired = 'Transaksi anda telah kedaluwarsa.';
+        $idReasonTrxExpired = 'Transaksi Anda telah kedaluwarsa.';
         $enReasonTrxExpired = 'Your transaction has expired.';
 
         if ($currencyCheck === true) {
@@ -210,6 +222,23 @@ class Bilna_Paymethod_Model_Observer_Webservice_Klikpay
                                     ->addObject($invoice->getOrder());
                                 $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true)->save();
                                 $transactionSave->save();
+
+                                /**
+                                * affiliate for processing invoice
+                                */
+                                $orderId = $order->getId();
+                                $orderCompleteModel = Mage::getModel('awaffiliate/api2_ordercomplete');
+                                $clientId = $orderCompleteModel->findAffiliateClientId($orderId);
+                                if ($clientId) {
+                                    $orderCompleteModel->createTransaction(array(
+                                        'client_id' => $clientId,
+                                        'order_id' => $orderId
+                                    ));
+                                }
+                                /**
+                                 * end of affiliate process
+                                 */
+
                                 $invoice->sendEmail(true, '');
 
                                 //create invoice log for debug

@@ -288,6 +288,15 @@
                 <group>offline</group>
             </transferbri>
 
+            <postpay>
+                <active>1</active>
+                <model>paymethod/method_postpay</model>
+                <order_status>pending</order_status>
+                <title>Post Pay</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </postpay>
+
             <klikbca>
                 <active>1</active>
                 <model>paymethod/method_klikbca</model>
